@@ -6,7 +6,7 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <properties>
-        <motech.version>0.18</motech.version>
+        <motech.version>0.20-SNAPSHOT</motech.version>
     </properties>
     <dependencies>
         <!-- to configure your module properties -->
@@ -19,24 +19,6 @@
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-event</artifactId>
-            <version>${motech.version}</version>
-        </dependency>
-        <!-- to access motech's couchdb datastore -->
-        <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-platform-commons-couchdb</artifactId>
-            <version>${motech.version}</version>
-        </dependency>
-        <!-- to schedule jobs on motech -->
-        <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-scheduler-bundle</artifactId>
-            <version>${motech.version}</version>
-        </dependency>
-        <!-- to build your ui on motech's server console -->
-        <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-platform-osgi-web-util</artifactId>
             <version>${motech.version}</version>
         </dependency>
 
@@ -79,7 +61,6 @@
                             org.motechproject.server.config.service;version=${motech.version},
                             org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
-                            org.motechproject.commons.couchdb.service;version=${motech.version},
                             *
                         </Import-Package>
                     </instructions>
