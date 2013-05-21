@@ -1,28 +1,24 @@
-package org.motechproject.listener;
+package org.motechproject.care.listener;
 
+import org.motechproject.commcare.events.constants.EventSubjects;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.event.listener.annotations.MotechListener;
-import org.motechproject.scheduler.MotechSchedulerService;
-import org.motechproject.scheduler.domain.RepeatingSchedulableJob;
 import org.motechproject.server.config.SettingsFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class AnEventListener {
+public class CommcareFormListener {
 
     @Autowired
     private SettingsFacade settings;
 
-    @Autowired
-    private MotechSchedulerService schedulerService;
+    @MotechListener(subjects = EventSubjects.FORMS_EVENT)
+    public void handleFormEvent(MotechEvent event) {
 
-    @MotechListener(subjects = "some_event")
-    public void handle(MotechEvent event) {
 
         // read event payload
         Map<String, Object> eventParams = event.getParameters();
@@ -38,11 +34,5 @@ public class AnEventListener {
         jobPayload.put("message", message);
         jobPayload.put("number", phoneNumber);
 
-        schedulerService.scheduleRepeatingJob(new RepeatingSchedulableJob()
-            .setStartTime(new Date())
-            .setRepeatIntervalInMilliSeconds(repeatInterval)
-            .setRepeatCount(retries)
-            .setMotechEvent(new MotechEvent("sendSMS", jobPayload))
-        );
     }
 }
