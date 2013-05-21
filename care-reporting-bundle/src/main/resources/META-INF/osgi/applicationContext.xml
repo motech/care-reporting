@@ -11,7 +11,7 @@
        ">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.motechproject.listener"/>
+    <context:component-scan base-package="org.motechproject.care.reporting.listener"/>
     <context:component-scan base-package="org.motechproject.web"/>
 
     <osgi:reference id="couchDbManager" interface="org.motechproject.commons.couchdb.service.CouchDbManager" />

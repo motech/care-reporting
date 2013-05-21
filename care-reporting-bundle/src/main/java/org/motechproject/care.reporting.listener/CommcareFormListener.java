@@ -1,4 +1,4 @@
-package org.motechproject.care.listener;
+package org.motechproject.care.reporting.listener;
 
 import org.motechproject.commcare.events.constants.EventSubjects;
 import org.motechproject.event.MotechEvent;

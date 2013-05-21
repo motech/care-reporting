@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>care-reporting</artifactId>
+        <groupId>org.motechproject</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>care-reporting-bundle</artifactId>
+
+    <packaging>bundle</packaging>
+
+    <properties>
+        <motech.version>0.20-SNAPSHOT</motech.version>
+    </properties>
+
+    <dependencies>
+        <!-- to configure your module properties -->
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-platform-server-config</artifactId>
+            <version>${motech.version}</version>
+        </dependency>
+        <!-- to send/receive motech events -->
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-platform-event</artifactId>
+            <version>${motech.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-commcare-api</artifactId>
+            <version>${motech.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>org.motechproject.org.junit</artifactId>
+            <version>4.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>org.hibernate.ejb-library</artifactId>
+            <type>libd</type>
+            <version>3.4.0.GA-A</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>3.1.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>com.springsource.javax.persistence</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>care-reporting-migration</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <plugins>
+            <!-- build a OSGI bundle  -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.4</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Context-Path>care-reporting-bundle</Context-Path>
+                        <Bundle-Activator>
+                            org.motechproject.osgi.web.WebUIBundleActivator
+                        </Bundle-Activator>
+                        <Import-Package>
+                            org.motechproject.server.config;version=${motech.version},
+                            org.motechproject.server.config.service;version=${motech.version},
+                            org.motechproject.event.listener.annotations;version=${motech.version},
+                            org.motechproject.osgi.web;version=${motech.version},
+                            org.motechproject.commons.couchdb.service;version=${motech.version},
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <!-- copy your bundle to ~/.motech/bundles from where the server can access it -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy-bundles</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${user.home}/.motech/bundles</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>target</directory>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-osgi-dependencies</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <outputDirectory>
+                                ${user.home}/.motech/bundles
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.googlecode.flyway</groupId>
+                        <artifactId>flyway-ant</artifactId>
+                        <version>1.6.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>Clean databases</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target>
+                                <property name="runtime-classpath" refid="maven.test.classpath"/>
+                                <echo message="Cleaning existing Database : START"/>
+                                <ant antfile="${project.basedir}/../care-reporting-migration/build/build.xml"
+                                     target="clean.existing.database"/>
+                                <ant antfile="${project.basedir}/../care-reporting-migration/build/build.xml"
+                                     target="migrate.db"/>
+                                <echo message="Cleaning existing Database : STOP"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
