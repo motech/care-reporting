@@ -15,7 +15,7 @@ public class ObjectUtils {
 
     static {
         DateTimeConverter dtConverter = new DateConverter();
-        dtConverter.setPattern("MM/dd/yyyy");
+        dtConverter.setPatterns(new String[]{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX","MM/dd/yyyy"});
         ConvertUtils.register(dtConverter, Date.class);
     }
 

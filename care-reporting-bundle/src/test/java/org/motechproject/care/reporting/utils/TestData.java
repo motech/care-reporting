@@ -3,6 +3,12 @@ package org.motechproject.care.reporting.utils;
 import java.util.Date;
 
 public class TestData {
+    int anInt;
+    String aString;
+    boolean aBoolean;
+    Date aDate;
+    Date aDateTime;
+
 
     public boolean isaBoolean() {
         return aBoolean;
@@ -28,9 +34,13 @@ public class TestData {
         this.anInt = anInt;
     }
 
-    int anInt;
-    String aString;
-    boolean aBoolean;
+    public Date getaDateTime() {
+        return aDateTime;
+    }
+
+    public void setaDateTime(Date aDateTime) {
+        this.aDateTime = aDateTime;
+    }
 
     public Date getaDate() {
         return aDate;
@@ -39,6 +49,4 @@ public class TestData {
     public void setaDate(Date aDate) {
         this.aDate = aDate;
     }
-
-    Date aDate;
 }
