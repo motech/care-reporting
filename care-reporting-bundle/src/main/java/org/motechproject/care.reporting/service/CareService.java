@@ -16,6 +16,12 @@ public class CareService implements Service {
     }
 
     @Override
+    public <T> Integer save(T instance) {
+        return dbRepository.save(instance);
+    }
+
+
+    @Override
     public MotherCase getMotherCase(String caseId){
         return get("caseId", caseId, MotherCase.class);
     }

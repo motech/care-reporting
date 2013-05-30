@@ -5,9 +5,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.Repository;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -71,5 +73,16 @@ public class CareServiceTest {
         Flw actualFlw = service.getFlw("1");
 
         assertReflectionEquals(expectedFlw, actualFlw);
+    }
+
+    @Test
+    public void shouldSaveInstance(){
+        NewForm newForm = new NewForm();
+        newForm.setFullName("fullName");
+
+        service.save(newForm);
+
+        verify(dbRepository).save(newForm);
+
     }
 }

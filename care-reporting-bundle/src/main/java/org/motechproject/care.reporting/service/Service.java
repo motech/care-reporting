@@ -7,4 +7,6 @@ public interface Service {
     MotherCase getMotherCase(String caseId);
 
     Flw getFlw(String flwId);
+
+    <T> Integer save(T instance);
 }
