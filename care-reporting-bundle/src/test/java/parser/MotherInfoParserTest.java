@@ -2,6 +2,8 @@ package parser;
 
 import com.google.common.collect.HashMultimap;
 import org.junit.Test;
+import org.motechproject.care.reporting.builder.CommcareFormBuilder;
+import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.unitils.reflectionassert.ReflectionAssert;
@@ -15,23 +17,18 @@ public class MotherInfoParserTest {
 
     @Test
     public void testConvertsToCamelCaseAndPopulatesTheMapWithCaseInformation() throws Exception {
-        CommcareForm commcareForm = new CommcareForm();
-        FormValueElement form = new FormValueElement();
-        HashMultimap<String, FormValueElement> subElements = new HashMultimap<>();
-        FormValueElement motherCase = new FormValueElement();
-        motherCase.setAttributes(new HashMap<String, String>() {{
-            put("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
-            put("date_modified", "2012-07-21T12:02:59.923+05:30");
-            put("user_id", "89fda0284e008d2e0c980fb13fa0e5bb");
-        }});
 
-        subElements.put("case", motherCase);
-        subElements.put("hh_number", formWithSingleValue("165"));
-        subElements.put("family_number", formWithSingleValue("5"));
+        FormValueElement motherCase = new FormValueElementBuilder()
+                                            .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                                            .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                                            .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                                            .build();
 
-        form.setSubElements(subElements);
-
-        commcareForm.setForm(form);
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                                            .addSubElement("hh_number", "165")
+                                            .addSubElement("family_number", "5")
+                                            .addSubElement("case", motherCase)
+                                            .build();
 
         Map<String,String> motherInfo = new MotherInfoParser().parse(commcareForm);
 
@@ -46,12 +43,6 @@ public class MotherInfoParserTest {
         }};
 
         ReflectionAssert.assertReflectionEquals(expected, motherInfo);
-    }
-
-    private FormValueElement formWithSingleValue(final String value) {
-        return new FormValueElement() {{
-            setValue(value);
-        }};
     }
 }
 
