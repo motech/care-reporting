@@ -1,7 +1,6 @@
 
 package parser;
 
-import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.CommcareForm;
 
 import java.util.HashMap;
@@ -12,18 +11,11 @@ public class MetaInfoParser {
         put("instanceID", "formId");
     }};
 
+    private final InfoParser infoParser = new InfoParser();
+
     public Map<String, String> parse(CommcareForm commcareForm) {
-        HashMap<String, String> metaData = new HashMap<>();
 
-        for (Map.Entry<String, String> pair : commcareForm.getMetadata().entrySet()) {
-            String keyValue = StringUtils.toCamelCase(pair.getKey());
-            keyValue = applyConversionMap(keyValue);
-            metaData.put(keyValue, pair.getValue());
-        }
-        return metaData;
-    }
-
-    private String applyConversionMap(String keyValue) {
-        return keyConversionMap.containsKey(keyValue) ? keyConversionMap.get(keyValue) : keyValue;
+        infoParser.setKeyConversionMap(keyConversionMap);
+        return infoParser.parse(commcareForm.getMetadata());
     }
 }

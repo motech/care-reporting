@@ -1,25 +1,20 @@
 package parser;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MotherInfoParser {
 
+    private final InfoParser infoParser = new InfoParser();
+
     public Map<String, String> parse(CommcareForm commcareForm) {
-        Map<String, String> motherInfo = new HashMap<>();
-        Map<String, Collection<FormValueElement>> subElementsMap = commcareForm.getForm().getSubElements().asMap();
-        for (Map.Entry<String, Collection<FormValueElement>> subElement : subElementsMap.entrySet()) {
-            String key = StringUtils.toCamelCase(subElement.getKey());
-            Collection<FormValueElement> subElementValue = subElement.getValue();
-            FormValueElement fieldValue = (FormValueElement) CollectionUtils.get(subElementValue, 0);
-            motherInfo.put(key, fieldValue.getValue());
-        }
+        FormValueElement form = commcareForm.getForm();
+
+        Map<String, String> motherInfo = infoParser.parse(form);
 
         motherInfo.putAll(parseCaseInfo(commcareForm));
         return motherInfo;
