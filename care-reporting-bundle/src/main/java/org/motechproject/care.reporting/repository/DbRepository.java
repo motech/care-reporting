@@ -9,19 +9,22 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DbRepository {
+public class DbRepository implements org.motechproject.care.reporting.repository.Repository{
 
     @Autowired
     private DataAccessTemplate template;
 
+    @Override
     public <T> Integer save(T instance) {
         return (Integer) template.save(instance);
     }
 
+    @Override
     public <T> T get(int id, Class<T> entityClass) {
         return template.get(entityClass, id);
     }
 
+    @Override
     public <T> T get(String fieldName, Object value, Class<T> entityClass) {
         DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
         criteria.add(Restrictions.eq(fieldName, value));

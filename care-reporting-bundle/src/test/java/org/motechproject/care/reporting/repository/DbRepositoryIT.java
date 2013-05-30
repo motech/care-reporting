@@ -10,7 +10,7 @@ import static junit.framework.Assert.*;
 public class DbRepositoryIT extends SpringIntegrationTest {
 
     @Autowired
-    private DbRepository repository;
+    private Repository repository;
 
     @Test
     @Ignore
