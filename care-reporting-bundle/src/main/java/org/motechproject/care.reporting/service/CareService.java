@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.service;
 
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.Repository;
@@ -24,6 +25,11 @@ public class CareService implements Service {
     @Override
     public MotherCase getMotherCase(String caseId){
         return get("caseId", caseId, MotherCase.class);
+    }
+
+    @Override
+    public ChildCase getChildCase(String caseId){
+        return get("caseId", caseId, ChildCase.class);
     }
 
     @Override
