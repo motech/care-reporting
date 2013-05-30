@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.Repository;
 
@@ -48,4 +49,27 @@ public class CareServiceTest {
         assertReflectionEquals(expectedMotherCase, actualMotherCase);
     }
 
+    @Test
+    public void shouldReturnFlwIfExistsInRepository(){
+        Flw expectedFlw = new Flw();
+        expectedFlw.setName("1");
+
+        when(dbRepository.get("name", "1", Flw.class)).thenReturn(expectedFlw);
+
+        Flw actualFlw = service.getFlw("1");
+
+        assertEquals(expectedFlw, actualFlw);
+    }
+
+    @Test
+    public void shouldReturnNewFlwIfNotExistsInRepository(){
+        Flw expectedFlw = new Flw();
+        expectedFlw.setName("1");
+
+        when(dbRepository.get("name", "1", Flw.class)).thenReturn(null);
+
+        Flw actualFlw = service.getFlw("1");
+
+        assertReflectionEquals(expectedFlw, actualFlw);
+    }
 }
