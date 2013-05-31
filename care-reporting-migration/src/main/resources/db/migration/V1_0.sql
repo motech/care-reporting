@@ -306,7 +306,6 @@ CREATE TABLE report.registration_mother_form (
 	,condoms	BOOLEAN
 	,continue_preg	BOOLEAN
 	,delivery_nature	VARCHAR(255)
-	,display_name	VARCHAR(10)
 	,dob_est	VARCHAR(255)
 	,edd_calc	DATE
 	,edd_known	BOOLEAN
@@ -735,6 +734,13 @@ CREATE TABLE report.ebf_mother_form(
 	,where_replace	BOOLEAN
 	,why_no_ppffp	VARCHAR(255)
 	,within_42	BOOLEAN
+	,date_tl_adopted DATE
+	,abdominal_pain BOOLEAN
+    ,pain_urination BOOLEAN
+    ,ppiud_bleeding BOOLEAN
+    ,ppiud_discharge BOOLEAN
+    ,ppiud_fever BOOLEAN
+
 );
 
 CREATE TABLE report.ebf_child_form(
@@ -780,7 +786,6 @@ CREATE TABLE report.ebf_child_form(
 	,index	INTEGER
 	,more_feeding_less_six	BOOLEAN
 	,name_update	BOOLEAN
-	,new_name	VARCHAR(255)
 	,not_breasfeeding	VARCHAR(255)
 	,on_demand	BOOLEAN
 	,opv_0_date	DATE
@@ -814,6 +819,8 @@ CREATE TABLE report.cf_mother_form(
 	,children	INTEGER
 	,num_children	SMALLINT
 	,play_comp_feeding_vid	BOOLEAN
+	,lastvisit BOOLEAN
+    ,date_cf_7 DATE
 );
 
 CREATE TABLE report.cf_child_form(
@@ -870,6 +877,18 @@ CREATE TABLE report.cf_child_form(
 	,oil_ghee	BOOLEAN
 	,recent_fever	BOOLEAN
 	,treated_less_six	BOOLEAN
+    ,baby_dpt_booster BOOLEAN
+    ,baby_je BOOLEAN
+    ,baby_measles_booster BOOLEAN
+    ,baby_opv_booster BOOLEAN
+    ,baby_vita2 BOOLEAN
+    ,baby_vita3 BOOLEAN
+    ,date_je DATE
+    ,date_measles_booster DATE
+    ,dpt_booster_date DATE
+    ,opv_booster_date DATE
+    ,vit_a_3_date DATE
+    ,vit_a_2_date DATE
 );
 
 
@@ -929,6 +948,15 @@ CREATE TABLE report.close_mother_form(
 	,dupe_reg	BOOLEAN
 	,finished_continuum	BOOLEAN
 	,num_children	SMALLINT
+	,mother_alive VARCHAR(20)
+    ,moved BOOLEAN
+    ,migrated BOOLEAN
+    ,date_learned DATE
+    ,date_left DATE
+    ,migration_note BOOLEAN
+    ,died BOOLEAN
+    ,date_death DATE
+    ,site_death VARCHAR(255)
 );
 
 CREATE TABLE report.close_child_form(
@@ -951,6 +979,7 @@ CREATE TABLE report.close_child_form(
 	,finished_continuum	BOOLEAN
 	,index	INTEGER
 	,site_death	VARCHAR(255)
+	,place_death VARCHAR(255)
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -997,6 +1026,7 @@ CREATE TABLE report.ui_mother_form(
 	,up_to_date	VARCHAR(15)
 	,num_children	SMALLINT
 	,update_mother	BOOLEAN
+	,tt_booster DATE
 );
 
 CREATE TABLE report.ui_child_form(
@@ -1040,6 +1070,16 @@ CREATE TABLE report.ui_child_form(
 	,opv_3_date	DATE
 	,opv_booster_date	DATE
 	,vit_a_1_date	DATE
+	,baby_dpt_booster BOOLEAN
+    ,baby_je BOOLEAN
+    ,baby_measles_booster BOOLEAN
+    ,baby_opv_booster BOOLEAN
+    ,baby_vita2 BOOLEAN
+    ,baby_vita3 BOOLEAN
+    ,date_je DATE
+    ,date_measles_booster DATE
+    ,vit_a_2_date DATE
+    ,vit_a_3_date DATE
 );
 
 CREATE TABLE report.abort_form(
@@ -1087,4 +1127,7 @@ CREATE TABLE report.mi_form(
 	,name	VARCHAR(255)
 	,preg_status	VARCHAR(255)
 	,referral_info	VARCHAR(255)
+	,abortion_type VARCHAR(255)
+    ,date_aborted DATE
+    ,migrated_status VARCHAR(255)
 );
