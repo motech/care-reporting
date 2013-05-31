@@ -6,8 +6,10 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class CareService implements Service {
+@Service
+public class CareService implements org.motechproject.care.reporting.service.Service {
 
     private Repository dbRepository;
 
@@ -53,5 +55,4 @@ public class CareService implements Service {
 
         return newInstance;
     }
-
 }
