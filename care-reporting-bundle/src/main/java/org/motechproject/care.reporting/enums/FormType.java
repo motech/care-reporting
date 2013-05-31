@@ -7,6 +7,7 @@ public enum FormType {
     Bp,
     Cf,
     Close,
+    Delivery,
     Death,
     Ebf,
     Mi,

@@ -9,8 +9,21 @@ import java.util.Map;
 public class NamespaceMapper {
 
     static Map<String, FormType> formMapper = new HashMap<String, FormType>() {{
-        put("http://bihar.commcarehq.org/pregnancy/new", FormType.New);
-        put("http://bihar.commcarehq.org/pregnancy/registration", FormType.Registration);
+        String prefix = "http://bihar.commcarehq.org/pregnancy/";
+        put(prefix + "new", FormType.New);
+        put(prefix + "registration", FormType.Registration);
+        put(prefix + "bp", FormType.Bp);
+        put(prefix + "ebf", FormType.Ebf);
+        put(prefix + "cf", FormType.Cf);
+        put(prefix + "pnc", FormType.Pnc);
+        put(prefix + "refer", FormType.Refer);
+        put(prefix + "death", FormType.Death);
+        put(prefix + "del", FormType.Delivery);
+        put(prefix + "close", FormType.Close);
+        put(prefix + "migrate_out", FormType.Mo);
+        put(prefix + "migrate_in", FormType.Mi);
+        put(prefix + "mtp_abort", FormType.Abort);
+        put(prefix + "update_vaccinations", FormType.Ui);
     }};
 
     public static FormType getFormType(String namespace){
