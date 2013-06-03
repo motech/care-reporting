@@ -79,9 +79,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnFlwIfExistsInRepository(){
         Flw expectedFlw = new Flw();
-        expectedFlw.setName("1");
+        expectedFlw.setFlwId("1");
 
-        when(dbRepository.get("name", "1", Flw.class)).thenReturn(expectedFlw);
+        when(dbRepository.get("flwId", "1", Flw.class)).thenReturn(expectedFlw);
 
         Flw actualFlw = service.getFlw("1");
 
@@ -91,9 +91,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnNewFlwIfNotExistsInRepository(){
         Flw expectedFlw = new Flw();
-        expectedFlw.setName("1");
+        expectedFlw.setFlwId("1");
 
-        when(dbRepository.get("name", "1", Flw.class)).thenReturn(null);
+        when(dbRepository.get("flwId", "1", Flw.class)).thenReturn(null);
 
         Flw actualFlw = service.getFlw("1");
 

@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.motechproject.care.reporting.enums.CaseType;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertSame;
 
 public class PairTest {
 

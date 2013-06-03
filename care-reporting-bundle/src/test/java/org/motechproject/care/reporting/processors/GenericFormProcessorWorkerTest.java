@@ -50,11 +50,11 @@ public class GenericFormProcessorWorkerTest {
                 .build();
 
         CommcareForm newForm = new CommcareFormBuilder().addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
-                                .addMetadata("timeStart", "2012-07-21T11:59:31.076+05:30")
-                                .addMetadata("timeEnd", "2012-07-21T12:02:59.923+05:30")
+                                .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
+                                .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
                                 .addMetadata("username", "username")
                                 .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
-                                .addMetadata("instanceID", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+                                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
                                 
                                 .addAttribute("uiVersion", "1")
                                 .addAttribute("version", "1")
@@ -78,7 +78,7 @@ public class GenericFormProcessorWorkerTest {
         }};
 
         Flw expectedFlw = new Flw() {{
-            setName("89fda0284e008d2e0c980fb13fa0e5bb");
+            setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
         }};
 
         NewForm expectedForm = new NewForm();
@@ -90,10 +90,11 @@ public class GenericFormProcessorWorkerTest {
         expectedForm.setDobKnown(false);
         expectedForm.setCaste("other");
         expectedForm.setAgeCalc((short) 0);
-        expectedForm.setFormId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        expectedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
         expectedForm.setMotherCase(expectedMotherCase);
         expectedForm.setFlw(expectedFlw);
-
+        expectedForm.setTimeStart(new DateTime(2012, 7, 21, 11, 59, 31, 76, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
+        expectedForm.setTimeEnd(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
 
         when(service.getMotherCase("94d5374f-290e-409f-bc57-86c2e4bcc43f")).thenReturn(expectedMotherCase);
         when(service.getFlw("89fda0284e008d2e0c980fb13fa0e5bb")).thenReturn(expectedFlw);
@@ -102,7 +103,6 @@ public class GenericFormProcessorWorkerTest {
         NewForm motherForm = (NewForm) processor.parseMotherForm();
 
         assertReflectionEquals(expectedForm, motherForm);
-
     }
 
     @Test
@@ -167,11 +167,11 @@ public class GenericFormProcessorWorkerTest {
                 .build();
 
         CommcareForm ebfForm = new CommcareFormBuilder().addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
-                .addMetadata("timeStart", "2013-03-03T10:31:51.045+05:30")
-                .addMetadata("timeEnd", "2013-03-03T10:38:52.804+05:30")
+                .addMetadata("time_start", "2013-03-03T10:31:51.045+05:30")
+                .addMetadata("time_end", "2013-03-03T10:38:52.804+05:30")
                 .addMetadata("username", "username")
                 .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
-                .addMetadata("instanceID", "ff2eb090-03a9-4f23-afed-cf6012784c55")
+                .addMetadata("instance_id", "ff2eb090-03a9-4f23-afed-cf6012784c55")
 
                 .addAttribute("uiVersion", "1")
                 .addAttribute("version", "1")
@@ -194,7 +194,7 @@ public class GenericFormProcessorWorkerTest {
         expectedMotherCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
 
         Flw expectedFlw = new Flw();
-        expectedFlw.setName("89fda0284e008d2e0c980fb13fa0e5bb");
+        expectedFlw.setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
 
         ChildCase expectedChildCase1 = new ChildCase();
         expectedChildCase1.setCaseId("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
@@ -224,7 +224,7 @@ public class GenericFormProcessorWorkerTest {
         expectedChildCase.setCaseId(caseId);
 
         Flw expectedFlw = new Flw();
-        expectedFlw.setName("89fda0284e008d2e0c980fb13fa0e5bb");
+        expectedFlw.setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
 
         int index = caseId.equals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61") ? 1 : 0;
 
@@ -242,7 +242,9 @@ public class GenericFormProcessorWorkerTest {
         expectedChildForm.setEating(true);
         expectedChildForm.setEmptying(true);
         expectedChildForm.setCid(caseId);
-        expectedChildForm.setFormId("ff2eb090-03a9-4f23-afed-cf6012784c55");
+        expectedChildForm.setInstanceId("ff2eb090-03a9-4f23-afed-cf6012784c55");
+        expectedChildForm.setTimeStart(new DateTime(2013, 3, 3, 10, 31, 51, 45, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
+        expectedChildForm.setTimeEnd(new DateTime(2013, 3, 3, 10, 38, 52, 804, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
 
         return expectedChildForm;
     }

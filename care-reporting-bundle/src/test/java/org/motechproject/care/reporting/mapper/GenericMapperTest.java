@@ -15,14 +15,14 @@ public class GenericMapperTest {
     public void testMapsFromKeyValueToFormObject() throws Exception {
 
         HashMap<String, String> newFormValues = new HashMap<String, String>() {{
-            put("formId", "1234");
+            put("instanceId", "1234");
             put("ageCalc", "1");
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
         }};
 
         NewForm newForm = new GenericMapper().map(newFormValues, NewForm.class);
 
-        assertEquals("1234", newForm.getFormId());
+        assertEquals("1234", newForm.getInstanceId());
         assertEquals((short) 1, (short) newForm.getAgeCalc());
         assertEquals(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate(), newForm.getDateModified());
     }

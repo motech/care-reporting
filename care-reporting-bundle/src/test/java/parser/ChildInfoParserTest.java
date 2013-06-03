@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
 public class ChildInfoParserTest {

@@ -36,7 +36,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public Flw getFlw(String flwId) {
-        return get("name", flwId, Flw.class);
+        return get("flwId", flwId, Flw.class);
     }
 
     private <T> T get(String fieldName, String value, Class<T> type){

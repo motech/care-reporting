@@ -1,16 +1,37 @@
 CREATE TABLE report.flw (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(255)
+	id SERIAL PRIMARY KEY
+	,flw_id VARCHAR(36) UNIQUE
+	,default_phone_number VARCHAR(20)
+	,email VARCHAR(255)
+	,first_name VARCHAR(255)
+	,last_name VARCHAR(255)
+	,phone_numbers VARCHAR(20) ARRAY
+	,resource_uri VARCHAR(255)
+	,asset_id VARCHAR(255)
+	,awc_code VARCHAR(255)
+	,imei_no VARCHAR(255)
+	,role VARCHAR(255)
+	,subcentre VARCHAR(255)
+	,user_type VARCHAR(255)
+	,username VARCHAR(255)
 );
 
 CREATE TABLE report.flw_group (
-   id SERIAL PRIMARY KEY,
-   name VARCHAR(255)
+   id SERIAL PRIMARY KEY
+   ,group_id VARCHAR(36) UNIQUE
+   ,case_sharing BOOLEAN
+   ,group_domain VARCHAR(255)
+   ,awc_code VARCHAR(255)
+   ,group_name VARCHAR(255)
+   ,path VARCHAR(255) ARRAY
+   ,reporting BOOLEAN
+   ,resource_uri VARCHAR(255)
 );
 
 CREATE TABLE report.flw_group_map (
-   flw_id INTEGER REFERENCES report.flw(id),
-   group_id INTEGER REFERENCES report.flw_group(id)
+   id SERIAL PRIMARY KEY
+   ,flw_id INTEGER REFERENCES report.flw(id)
+   ,group_id INTEGER REFERENCES report.flw_group(id)
 );
 
 CREATE TABLE report.mother_case (
@@ -234,10 +255,10 @@ CREATE TABLE report.child_case (
 
 CREATE TABLE report.new_form (
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,age_calc	SMALLINT
@@ -262,10 +283,10 @@ CREATE TABLE report.new_form (
 
 CREATE TABLE report.registration_mother_form (
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,ppiud	BOOLEAN
@@ -354,10 +375,10 @@ CREATE TABLE report.registration_mother_form (
 
 CREATE TABLE report.registration_child_form (
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,mother_id	INTEGER REFERENCES report.mother_case(id)
@@ -405,10 +426,10 @@ CREATE TABLE report.registration_child_form (
 
 CREATE TABLE report.bp_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,anc_latest_date	DATE
@@ -519,10 +540,10 @@ CREATE TABLE report.bp_form(
 
 CREATE TABLE report.pnc_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,abdominal_pain	BOOLEAN
@@ -607,10 +628,10 @@ CREATE TABLE report.pnc_mother_form(
 
 CREATE TABLE report.pnc_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,abdominal_pain	BOOLEAN
@@ -651,10 +672,10 @@ CREATE TABLE report.pnc_child_form(
 
 CREATE TABLE report.ebf_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,addval	DATE
@@ -745,10 +766,10 @@ CREATE TABLE report.ebf_mother_form(
 
 CREATE TABLE report.ebf_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,add_vaccinations	BOOLEAN
@@ -800,10 +821,10 @@ CREATE TABLE report.ebf_child_form(
 
 CREATE TABLE report.cf_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,date_cf_1	DATE
@@ -825,10 +846,10 @@ CREATE TABLE report.cf_mother_form(
 
 CREATE TABLE report.cf_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,add_vaccinations	BOOLEAN
@@ -894,10 +915,10 @@ CREATE TABLE report.cf_child_form(
 
 CREATE TABLE report.death_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	 VARCHAR(20)
@@ -914,10 +935,10 @@ CREATE TABLE report.death_mother_form(
 
 CREATE TABLE report.death_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	VARCHAR(20)
@@ -932,10 +953,10 @@ CREATE TABLE report.death_child_form(
 
 CREATE TABLE report.close_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	 VARCHAR(20)
@@ -961,10 +982,10 @@ CREATE TABLE report.close_mother_form(
 
 CREATE TABLE report.close_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	VARCHAR(20)
@@ -984,10 +1005,10 @@ CREATE TABLE report.close_child_form(
 
 CREATE TABLE report.refer_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,cast_num_children	SMALLINT
@@ -998,10 +1019,10 @@ CREATE TABLE report.refer_mother_form(
 
 CREATE TABLE report.refer_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,refer_child	BOOLEAN
@@ -1010,10 +1031,10 @@ CREATE TABLE report.refer_child_form(
 
 CREATE TABLE report.ui_mother_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,children	INTEGER
@@ -1031,10 +1052,10 @@ CREATE TABLE report.ui_mother_form(
 
 CREATE TABLE report.ui_child_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,add_vaccinations	BOOLEAN
@@ -1084,10 +1105,10 @@ CREATE TABLE report.ui_child_form(
 
 CREATE TABLE report.abort_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,abortion_type	VARCHAR(255)
@@ -1098,10 +1119,10 @@ CREATE TABLE report.abort_form(
 
 CREATE TABLE report.mo_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,migrate_out_date	DATE
@@ -1115,10 +1136,10 @@ CREATE TABLE report.mo_form(
 
 CREATE TABLE report.mi_form(
 	id SERIAL PRIMARY KEY
-	,form_id VARCHAR(36) UNIQUE
-	,timeend	TIMESTAMP WITH TIME ZONE
-	,timestart	TIMESTAMP WITH TIME ZONE
-	,userid	INTEGER REFERENCES report.flw(id)
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,date_arrived	DATE

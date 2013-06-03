@@ -1,13 +1,9 @@
 package org.motechproject.care.reporting.utils;
 
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
-
-import java.sql.Date;
-import java.util.Calendar;
 
 import static junit.framework.Assert.assertEquals;
 

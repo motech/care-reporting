@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -17,13 +18,13 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     public void shouldSaveNewForm() {
         NewForm form = new NewForm();
         form.setCaseName("mother");
-        form.setFormId("abcd");
+        form.setInstanceId("abcd");
 
         int savedFormId = repository.save(form);
 
         NewForm otherForm = new NewForm();
         otherForm.setCaseName("other mother");
-        otherForm.setFormId("abcd");
+        otherForm.setInstanceId("abcd");
         Integer otherFormId = repository.save(otherForm);
 
         System.out.println(savedFormId);
@@ -31,7 +32,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
         NewForm savedForm = repository.get(savedFormId, NewForm.class);
         assertEquals("mother", savedForm.getCaseName());
-        assertEquals("abcd", savedForm.getFormId());
+        assertEquals("abcd", savedForm.getInstanceId());
         assertEquals(savedFormId, savedForm.getId());
     }
 
@@ -40,13 +41,13 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
         NewForm form = new NewForm();
         form.setCaseName("mother");
-        form.setFormId("abcd");
+        form.setInstanceId("abcd");
 
         repository.save(form);
 
         NewForm newForm = repository.get("caseName", "mother", NewForm.class);
 
-        assertEquals("abcd", newForm.getFormId());
+        assertEquals("abcd", newForm.getInstanceId());
         assertEquals("mother", newForm.getCaseName());
     }
 

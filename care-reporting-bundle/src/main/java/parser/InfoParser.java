@@ -37,7 +37,6 @@ public class InfoParser {
             String key = applyKeyConversionMap(pair.getKey());
             key = applyCamelConversion(key);
 
-
             mapper.put(key, pair.getValue());
         }
         return mapper;

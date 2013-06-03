@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.builder;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import org.motechproject.commcare.domain.FormValueElement;
 
 import java.util.HashMap;
