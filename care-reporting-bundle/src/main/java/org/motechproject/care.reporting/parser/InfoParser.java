@@ -1,4 +1,4 @@
-package parser;
+package org.motechproject.care.reporting.parser;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.motechproject.care.reporting.utils.StringUtils;

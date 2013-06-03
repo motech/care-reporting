@@ -1,5 +1,5 @@
 
-package parser;
+package org.motechproject.care.reporting.parser;
 
 import org.motechproject.commcare.domain.CommcareForm;
 

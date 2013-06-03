@@ -1,4 +1,4 @@
-package parser;
+package org.motechproject.care.reporting.parser;
 
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;

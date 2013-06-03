@@ -7,15 +7,12 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
-import org.motechproject.care.reporting.repository.DbRepository;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.motechproject.commcare.domain.CommcareForm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import parser.ChildInfoParser;
-import parser.MetaInfoParser;
-import parser.MotherInfoParser;
+import org.motechproject.care.reporting.parser.ChildInfoParser;
+import org.motechproject.care.reporting.parser.MetaInfoParser;
+import org.motechproject.care.reporting.parser.MotherInfoParser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
