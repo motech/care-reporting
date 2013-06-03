@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.processors;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
@@ -27,18 +26,18 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class GenericFormProcessorTest {
+public class GenericFormProcessorWorkerTest {
 
     @Mock
     Service service;
 
-    private GenericFormProcessor processor;
+    private GenericFormProcessorWorker processor;
 
 
     @Before
     public void setUp(){
         initMocks(this);
-        processor = new GenericFormProcessor(service);
+        processor = new GenericFormProcessorWorker(service);
     }
 
     @Test
@@ -252,7 +251,7 @@ public class GenericFormProcessorTest {
     @Test
     public void shouldSaveForm(){
         Serializable newFormObject = new NewForm();
-        GenericFormProcessor processor = new GenericFormProcessor(service);
+        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service);
 
         processor.saveForm(newFormObject, NewForm.class);
 
@@ -266,7 +265,7 @@ public class GenericFormProcessorTest {
         serializables.add(new EbfChildForm());
         serializables.add(new EbfChildForm());
 
-        GenericFormProcessor processor = new GenericFormProcessor(service);
+        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service);
 
         processor.saveForm(serializables, EbfChildForm.class);
 
