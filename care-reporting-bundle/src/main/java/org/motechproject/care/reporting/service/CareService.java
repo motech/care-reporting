@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CareService implements org.motechproject.care.reporting.service.Service {
-
+    @Autowired
     private Repository dbRepository;
 
-    @Autowired
+    public CareService() {
+    }
+
     public CareService(Repository dbRepository){
         this.dbRepository = dbRepository;
     }
