@@ -59,9 +59,9 @@
             <version>3.1.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
+            <version>1.2.2.osgi</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -113,6 +113,8 @@
                             org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
                             org.motechproject.commons.couchdb.service;version=${motech.version},
+                            org.springframework.orm.hibernate3.annotation,
+                            org.apache.commons.dbcp,
                             *
                         </Import-Package>
                     </instructions>
