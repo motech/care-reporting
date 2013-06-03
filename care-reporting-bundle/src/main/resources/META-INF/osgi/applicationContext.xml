@@ -11,20 +11,10 @@
        ">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.motechproject.care.reporting.listener"/>
-    <context:component-scan base-package="org.motechproject.web"/>
+    <context:component-scan base-package="org.motechproject.care.reporting"/>
 
-    <osgi:reference id="couchDbManager" interface="org.motechproject.commons.couchdb.service.CouchDbManager" />
-
-    <bean id="dbConnector" factory-bean="couchDbManager" factory-method="getConnector">
-        <constructor-arg value="care-reporting"/>
-    </bean>
     <!-- get a settings instance to store your module's properties -->
     <bean id="settings" class="org.motechproject.server.config.SettingsFacade" autowire="byType">
         <property name="moduleName" value="care-reporting"/>
     </bean>
-
-
-    <osgi:reference id="schedulerServiceOsgi" interface="org.motechproject.scheduler.MotechSchedulerService" cardinality="0..1" />
-
 </beans>
