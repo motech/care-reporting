@@ -69,6 +69,11 @@
             <version>1.99.0</version>
         </dependency>
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>com.springsource.org.postgresql.jdbc4</artifactId>
+            <version>8.3.604</version>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>care-reporting-migration</artifactId>
             <version>${project.version}</version>
@@ -76,8 +81,9 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <artifactId>org.springframework.test</artifactId>
             <version>3.1.0.RELEASE</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.unitils</groupId>
@@ -103,18 +109,25 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <Blueprint-Enabled>true</Blueprint-Enabled>
                         <Context-Path>care-reporting-bundle</Context-Path>
-                        <Bundle-Activator>
-                            org.motechproject.osgi.web.WebUIBundleActivator
-                        </Bundle-Activator>
+                        <Resource-Path>care-reporting-bundle/resources</Resource-Path>
                         <Import-Package>
                             org.motechproject.server.config;version=${motech.version},
                             org.motechproject.server.config.service;version=${motech.version},
+                            org.motechproject.event.listener;version=${motech.version},
                             org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
-                            org.motechproject.commons.couchdb.service;version=${motech.version},
                             org.springframework.orm.hibernate3.annotation,
+                            org.springframework.aop,
+                            org.springframework.aop.framework,
+                            org.aopalliance.aop,
+                            org.hibernate,
+                            org.hibernate.jdbc,
+                            org.hibernate.proxy,
+                            javassist.util.proxy,
                             org.apache.commons.dbcp,
+                            org.postgresql,
                             *
                         </Import-Package>
                     </instructions>

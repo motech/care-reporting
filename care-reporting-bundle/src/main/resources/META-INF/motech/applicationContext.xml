@@ -9,6 +9,8 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
             http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd
        ">
+    <context:property-placeholder location="classpath*:care_report.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath*:postgres.properties" ignore-unresolvable="true"/>
 
     <context:annotation-config/>
     <context:component-scan base-package="org.motechproject.care.reporting"/>
@@ -17,4 +19,6 @@
     <bean id="settings" class="org.motechproject.server.config.SettingsFacade" autowire="byType">
         <property name="moduleName" value="care-reporting"/>
     </bean>
+
+    <import resource="classpath:META-INF/motech/applicationHibernateContext.xml"/>
 </beans>
