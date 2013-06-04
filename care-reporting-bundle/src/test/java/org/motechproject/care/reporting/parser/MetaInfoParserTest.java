@@ -31,7 +31,7 @@ public class MetaInfoParserTest {
                 .addMetadata("instanceID", "e34707f8-80c8-4198-bf99-c11c90ba5c98").build();
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
-            put("formId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
         }};
 
         Map<String,String> actualMetadata = new MetaInfoParser().parse(commcareForm);

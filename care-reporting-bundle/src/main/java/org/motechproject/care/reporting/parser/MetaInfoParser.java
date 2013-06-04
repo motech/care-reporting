@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class MetaInfoParser {
     public static final HashMap<String, String> keyConversionMap = new HashMap<String, String>() {{
-        put("instanceID", "formId");
+        put("instanceID", "instanceId");
     }};
 
     private final InfoParser infoParser = new InfoParser();
