@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
@@ -23,7 +23,6 @@ public class CloseMotherForm implements java.io.Serializable {
 	private Date timeStart;
 	private Date dateModified;
 	private String close;
-	private Integer update;
 	private Integer children;
 	private Boolean closeMother;
 	private Boolean confirmClose;
@@ -51,13 +50,12 @@ public class CloseMotherForm implements java.io.Serializable {
 
 	public CloseMotherForm(int id, Flw flw, MotherCase motherCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Integer update, Integer children,
-			Boolean closeMother, Boolean confirmClose, Boolean deathVillage,
-			String diedVillage, Boolean dupeReg, Boolean finishedContinuum,
-			Short numChildren, String motherAlive, Boolean moved,
-			Boolean migrated, Date dateLearned, Date dateLeft,
-			Boolean migrationNote, Boolean died, Date dateDeath,
-			String siteDeath) {
+			String close, Integer children, Boolean closeMother,
+			Boolean confirmClose, Boolean deathVillage, String diedVillage,
+			Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
+			String motherAlive, Boolean moved, Boolean migrated,
+			Date dateLearned, Date dateLeft, Boolean migrationNote,
+			Boolean died, Date dateDeath, String siteDeath) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -66,7 +64,6 @@ public class CloseMotherForm implements java.io.Serializable {
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
 		this.close = close;
-		this.update = update;
 		this.children = children;
 		this.closeMother = closeMother;
 		this.confirmClose = confirmClose;
@@ -162,15 +159,6 @@ public class CloseMotherForm implements java.io.Serializable {
 
 	public void setClose(String close) {
 		this.close = close;
-	}
-
-	@Column(name = "update")
-	public Integer getUpdate() {
-		return this.update;
-	}
-
-	public void setUpdate(Integer update) {
-		this.update = update;
 	}
 
 	@Column(name = "children")

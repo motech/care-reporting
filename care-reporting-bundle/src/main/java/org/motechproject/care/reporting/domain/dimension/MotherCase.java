@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.measure.*;
 
@@ -17,12 +17,14 @@ import java.util.Set;
 public class MotherCase implements java.io.Serializable {
 
 	private int id;
+	private Flw flw;
 	private FlwGroup flwGroup;
 	private String caseId;
 	private String caseName;
 	private String caseType;
 	private Date dateModified;
-	private Date dateNextReg;
+	private Date serverDateModified;
+	private Date serverDateOpened;
 	private Integer familyNumber;
 	private Integer hhNumber;
 	private String husbandName;
@@ -30,9 +32,6 @@ public class MotherCase implements java.io.Serializable {
 	private Boolean motherAlive;
 	private Date motherDob;
 	private String motherName;
-	private Date dob;
-	private String fullName;
-	private Short ageEst;
 	private Boolean close;
 	private Boolean caseClosed;
 	private Date closedOn;
@@ -54,37 +53,27 @@ public class MotherCase implements java.io.Serializable {
 	private Date lmp;
 	private String mobileNumber;
 	private Short numBoys;
-	private Integer children;
-	private String nextvisittype;
-	private Short numChildren;
 	private Date dateCf1;
 	private Date dateCf2;
 	private Date dateCf3;
 	private Date dateCf4;
 	private Date dateCf5;
 	private Date dateCf6;
-	private Short cfVisitNum;
 	private Date dateEb1;
 	private Date dateEb2;
 	private Date dateEb3;
 	private Date dateEb4;
 	private Date dateEb5;
 	private Date dateEb6;
-	private Integer ebVisitNum;
 	private Boolean allPncOnTime;
 	private Date datePnc1;
 	private Date datePnc2;
 	private Date datePnc3;
 	private String firstPncTime;
-	private Short pnc1DaysLate;
-	private Short pnc2DaysLate;
-	private Short pnc3DaysLate;
-	private Date dateDeath;
-	private Short pncVisitNum;
-	private Date tt1Date;
-	private Date tt2Date;
+	private Integer pnc1DaysLate;
+	private Integer pnc2DaysLate;
+	private Integer pnc3DaysLate;
 	private Date ttBoosterDate;
-	private Short bpVisitNum;
 	private Boolean sba;
 	private Boolean sbaPhone;
 	private Boolean accompany;
@@ -106,19 +95,21 @@ public class MotherCase implements java.io.Serializable {
 	private Boolean maternalEmergencyNumber;
 	private Boolean phoneVehicle;
 	private Boolean savingMoney;
-	private Date tt1Date_1;
-	private Date tt2Date_1;
+	private Date tt1Date;
+	private Date tt2Date;
 	private Boolean vehicle;
-	private Boolean update;
-	private String pregStatus;
 	private String birthStatus;
 	private Date migrateOutDate;
 	private String migratedStatus;
 	private String status;
-	private Short castNumChildren;
-	private Boolean receivedTt1;
-	private Boolean receivedTt2;
-	private String upToDate;
+	private String term;
+	private Date dateCf7;
+	private Date dateDelFu;
+	private Date dateNextReg;
+	private Boolean institutional;
+	private Date dob;
+	private Boolean closed;
+	private Date dateClosed;
 	private Set<MiForm> miForms = new HashSet<MiForm>(0);
 	private Set<BpForm> bpForms = new HashSet<BpForm>(0);
 	private Set<PncMotherForm> pncMotherForms = new HashSet<PncMotherForm>(0);
@@ -128,13 +119,15 @@ public class MotherCase implements java.io.Serializable {
 	private Set<UiMotherForm> uiMotherForms = new HashSet<UiMotherForm>(0);
 	private Set<ReferMotherForm> referMotherForms = new HashSet<ReferMotherForm>(
 			0);
-	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
 			0);
+	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<CloseMotherForm> closeMotherForms = new HashSet<CloseMotherForm>(
 			0);
 	private Set<MoForm> moForms = new HashSet<MoForm>(0);
 	private Set<AbortForm> abortForms = new HashSet<AbortForm>(0);
+	private Set<DeliveryMotherForm> deliveryMotherForms = new HashSet<DeliveryMotherForm>(
+			0);
 	private Set<DeathMotherForm> deathMotherForms = new HashSet<DeathMotherForm>(
 			0);
 	private Set<EbfMotherForm> ebfMotherForms = new HashSet<EbfMotherForm>(0);
@@ -147,54 +140,54 @@ public class MotherCase implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public MotherCase(int id, FlwGroup flwGroup, String caseId,
+	public MotherCase(int id, Flw flw, FlwGroup flwGroup, String caseId,
 			String caseName, String caseType, Date dateModified,
-			Date dateNextReg, Integer familyNumber, Integer hhNumber,
-			String husbandName, Integer lastVisitType, Boolean motherAlive,
-			Date motherDob, String motherName, Date dob, String fullName,
-			Short ageEst, Boolean close, Boolean caseClosed, Date closedOn,
-			Date add, Short age, String birthPlace, Boolean complications,
-			Date dateNextBp, Date dateNextCf, Date dateNextEb,
-			Date dateNextPnc, Boolean eatsMeat, Date edd,
+			Date serverDateModified, Date serverDateOpened,
+			Integer familyNumber, Integer hhNumber, String husbandName,
+			Integer lastVisitType, Boolean motherAlive, Date motherDob,
+			String motherName, Boolean close, Boolean caseClosed,
+			Date closedOn, Date add, Short age, String birthPlace,
+			Boolean complications, Date dateNextBp, Date dateNextCf,
+			Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
 			Boolean enrolledInKilkari, String familyPlanningType,
 			Short howManyChildren, Boolean interestInKilkari,
 			Boolean lastPregTt, Date lmp, String mobileNumber, Short numBoys,
-			Integer children, String nextvisittype, Short numChildren,
 			Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
-			Date dateCf5, Date dateCf6, Short cfVisitNum, Date dateEb1,
-			Date dateEb2, Date dateEb3, Date dateEb4, Date dateEb5,
-			Date dateEb6, Integer ebVisitNum, Boolean allPncOnTime,
-			Date datePnc1, Date datePnc2, Date datePnc3, String firstPncTime,
-			Short pnc1DaysLate, Short pnc2DaysLate, Short pnc3DaysLate,
-			Date dateDeath, Short pncVisitNum, Date tt1Date, Date tt2Date,
-			Date ttBoosterDate, Short bpVisitNum, Boolean sba,
+			Date dateCf5, Date dateCf6, Date dateEb1, Date dateEb2,
+			Date dateEb3, Date dateEb4, Date dateEb5, Date dateEb6,
+			Boolean allPncOnTime, Date datePnc1, Date datePnc2, Date datePnc3,
+			String firstPncTime, Integer pnc1DaysLate, Integer pnc2DaysLate,
+			Integer pnc3DaysLate, Date ttBoosterDate, Boolean sba,
 			Boolean sbaPhone, Boolean accompany, Date anc1Date, Date anc2Date,
 			Date anc3Date, Date anc4Date, Boolean cleanCloth,
 			String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
 			Date dateLastVisit, String deliveryType, Short ifaTablets,
 			Date ifaTablets100, Boolean materials, Boolean maternalEmergency,
 			Boolean maternalEmergencyNumber, Boolean phoneVehicle,
-			Boolean savingMoney, Date tt1Date_1, Date tt2Date_1,
-			Boolean vehicle, Boolean update, String pregStatus,
+			Boolean savingMoney, Date tt1Date, Date tt2Date, Boolean vehicle,
 			String birthStatus, Date migrateOutDate, String migratedStatus,
-			String status, Short castNumChildren, Boolean receivedTt1,
-			Boolean receivedTt2, String upToDate, Set<MiForm> miForms,
-			Set<BpForm> bpForms, Set<PncMotherForm> pncMotherForms,
-			Set<CfMotherForm> cfMotherForms,
+			String status, String term, Date dateCf7, Date dateDelFu,
+			Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
+			Date dateClosed, Set<MiForm> miForms, Set<BpForm> bpForms,
+			Set<PncMotherForm> pncMotherForms, Set<CfMotherForm> cfMotherForms,
 			Set<RegistrationMotherForm> registrationMotherForms,
 			Set<UiMotherForm> uiMotherForms,
-			Set<ReferMotherForm> referMotherForms, Set<ChildCase> childCases,
+			Set<ReferMotherForm> referMotherForms,
 			Set<RegistrationChildForm> registrationChildForms,
-			Set<CloseMotherForm> closeMotherForms, Set<MoForm> moForms,
-			Set<AbortForm> abortForms, Set<DeathMotherForm> deathMotherForms,
+			Set<ChildCase> childCases, Set<CloseMotherForm> closeMotherForms,
+			Set<MoForm> moForms, Set<AbortForm> abortForms,
+			Set<DeliveryMotherForm> deliveryMotherForms,
+			Set<DeathMotherForm> deathMotherForms,
 			Set<EbfMotherForm> ebfMotherForms, Set<NewForm> newForms) {
 		this.id = id;
+		this.flw = flw;
 		this.flwGroup = flwGroup;
 		this.caseId = caseId;
 		this.caseName = caseName;
 		this.caseType = caseType;
 		this.dateModified = dateModified;
-		this.dateNextReg = dateNextReg;
+		this.serverDateModified = serverDateModified;
+		this.serverDateOpened = serverDateOpened;
 		this.familyNumber = familyNumber;
 		this.hhNumber = hhNumber;
 		this.husbandName = husbandName;
@@ -202,9 +195,6 @@ public class MotherCase implements java.io.Serializable {
 		this.motherAlive = motherAlive;
 		this.motherDob = motherDob;
 		this.motherName = motherName;
-		this.dob = dob;
-		this.fullName = fullName;
-		this.ageEst = ageEst;
 		this.close = close;
 		this.caseClosed = caseClosed;
 		this.closedOn = closedOn;
@@ -226,23 +216,18 @@ public class MotherCase implements java.io.Serializable {
 		this.lmp = lmp;
 		this.mobileNumber = mobileNumber;
 		this.numBoys = numBoys;
-		this.children = children;
-		this.nextvisittype = nextvisittype;
-		this.numChildren = numChildren;
 		this.dateCf1 = dateCf1;
 		this.dateCf2 = dateCf2;
 		this.dateCf3 = dateCf3;
 		this.dateCf4 = dateCf4;
 		this.dateCf5 = dateCf5;
 		this.dateCf6 = dateCf6;
-		this.cfVisitNum = cfVisitNum;
 		this.dateEb1 = dateEb1;
 		this.dateEb2 = dateEb2;
 		this.dateEb3 = dateEb3;
 		this.dateEb4 = dateEb4;
 		this.dateEb5 = dateEb5;
 		this.dateEb6 = dateEb6;
-		this.ebVisitNum = ebVisitNum;
 		this.allPncOnTime = allPncOnTime;
 		this.datePnc1 = datePnc1;
 		this.datePnc2 = datePnc2;
@@ -251,12 +236,7 @@ public class MotherCase implements java.io.Serializable {
 		this.pnc1DaysLate = pnc1DaysLate;
 		this.pnc2DaysLate = pnc2DaysLate;
 		this.pnc3DaysLate = pnc3DaysLate;
-		this.dateDeath = dateDeath;
-		this.pncVisitNum = pncVisitNum;
-		this.tt1Date = tt1Date;
-		this.tt2Date = tt2Date;
 		this.ttBoosterDate = ttBoosterDate;
-		this.bpVisitNum = bpVisitNum;
 		this.sba = sba;
 		this.sbaPhone = sbaPhone;
 		this.accompany = accompany;
@@ -278,19 +258,21 @@ public class MotherCase implements java.io.Serializable {
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
 		this.phoneVehicle = phoneVehicle;
 		this.savingMoney = savingMoney;
-		this.tt1Date_1 = tt1Date_1;
-		this.tt2Date_1 = tt2Date_1;
+		this.tt1Date = tt1Date;
+		this.tt2Date = tt2Date;
 		this.vehicle = vehicle;
-		this.update = update;
-		this.pregStatus = pregStatus;
 		this.birthStatus = birthStatus;
 		this.migrateOutDate = migrateOutDate;
 		this.migratedStatus = migratedStatus;
 		this.status = status;
-		this.castNumChildren = castNumChildren;
-		this.receivedTt1 = receivedTt1;
-		this.receivedTt2 = receivedTt2;
-		this.upToDate = upToDate;
+		this.term = term;
+		this.dateCf7 = dateCf7;
+		this.dateDelFu = dateDelFu;
+		this.dateNextReg = dateNextReg;
+		this.institutional = institutional;
+		this.dob = dob;
+		this.closed = closed;
+		this.dateClosed = dateClosed;
 		this.miForms = miForms;
 		this.bpForms = bpForms;
 		this.pncMotherForms = pncMotherForms;
@@ -298,11 +280,12 @@ public class MotherCase implements java.io.Serializable {
 		this.registrationMotherForms = registrationMotherForms;
 		this.uiMotherForms = uiMotherForms;
 		this.referMotherForms = referMotherForms;
-		this.childCases = childCases;
 		this.registrationChildForms = registrationChildForms;
+		this.childCases = childCases;
 		this.closeMotherForms = closeMotherForms;
 		this.moForms = moForms;
 		this.abortForms = abortForms;
+		this.deliveryMotherForms = deliveryMotherForms;
 		this.deathMotherForms = deathMotherForms;
 		this.ebfMotherForms = ebfMotherForms;
 		this.newForms = newForms;
@@ -316,6 +299,16 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public Flw getFlw() {
+		return this.flw;
+	}
+
+	public void setFlw(Flw flw) {
+		this.flw = flw;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -365,14 +358,24 @@ public class MotherCase implements java.io.Serializable {
 		this.dateModified = dateModified;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_reg", length = 13)
-	public Date getDateNextReg() {
-		return this.dateNextReg;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "server_date_modified", length = 35)
+	public Date getServerDateModified() {
+		return this.serverDateModified;
 	}
 
-	public void setDateNextReg(Date dateNextReg) {
-		this.dateNextReg = dateNextReg;
+	public void setServerDateModified(Date serverDateModified) {
+		this.serverDateModified = serverDateModified;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "server_date_opened", length = 35)
+	public Date getServerDateOpened() {
+		return this.serverDateOpened;
+	}
+
+	public void setServerDateOpened(Date serverDateOpened) {
+		this.serverDateOpened = serverDateOpened;
 	}
 
 	@Column(name = "family_number")
@@ -437,34 +440,6 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setMotherName(String motherName) {
 		this.motherName = motherName;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dob", length = 13)
-	public Date getDob() {
-		return this.dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-	@Column(name = "full_name")
-	public String getFullName() {
-		return this.fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	@Column(name = "age_est")
-	public Short getAgeEst() {
-		return this.ageEst;
-	}
-
-	public void setAgeEst(Short ageEst) {
-		this.ageEst = ageEst;
 	}
 
 	@Column(name = "close")
@@ -664,33 +639,6 @@ public class MotherCase implements java.io.Serializable {
 		this.numBoys = numBoys;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "nextvisittype", length = 20)
-	public String getNextvisittype() {
-		return this.nextvisittype;
-	}
-
-	public void setNextvisittype(String nextvisittype) {
-		this.nextvisittype = nextvisittype;
-	}
-
-	@Column(name = "num_children")
-	public Short getNumChildren() {
-		return this.numChildren;
-	}
-
-	public void setNumChildren(Short numChildren) {
-		this.numChildren = numChildren;
-	}
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_cf_1", length = 13)
 	public Date getDateCf1() {
@@ -749,15 +697,6 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setDateCf6(Date dateCf6) {
 		this.dateCf6 = dateCf6;
-	}
-
-	@Column(name = "cf_visit_num")
-	public Short getCfVisitNum() {
-		return this.cfVisitNum;
-	}
-
-	public void setCfVisitNum(Short cfVisitNum) {
-		this.cfVisitNum = cfVisitNum;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -820,15 +759,6 @@ public class MotherCase implements java.io.Serializable {
 		this.dateEb6 = dateEb6;
 	}
 
-	@Column(name = "eb_visit_num")
-	public Integer getEbVisitNum() {
-		return this.ebVisitNum;
-	}
-
-	public void setEbVisitNum(Integer ebVisitNum) {
-		this.ebVisitNum = ebVisitNum;
-	}
-
 	@Column(name = "all_pnc_on_time")
 	public Boolean getAllPncOnTime() {
 		return this.allPncOnTime;
@@ -878,69 +808,30 @@ public class MotherCase implements java.io.Serializable {
 	}
 
 	@Column(name = "pnc_1_days_late")
-	public Short getPnc1DaysLate() {
+	public Integer getPnc1DaysLate() {
 		return this.pnc1DaysLate;
 	}
 
-	public void setPnc1DaysLate(Short pnc1DaysLate) {
+	public void setPnc1DaysLate(Integer pnc1DaysLate) {
 		this.pnc1DaysLate = pnc1DaysLate;
 	}
 
 	@Column(name = "pnc_2_days_late")
-	public Short getPnc2DaysLate() {
+	public Integer getPnc2DaysLate() {
 		return this.pnc2DaysLate;
 	}
 
-	public void setPnc2DaysLate(Short pnc2DaysLate) {
+	public void setPnc2DaysLate(Integer pnc2DaysLate) {
 		this.pnc2DaysLate = pnc2DaysLate;
 	}
 
 	@Column(name = "pnc_3_days_late")
-	public Short getPnc3DaysLate() {
+	public Integer getPnc3DaysLate() {
 		return this.pnc3DaysLate;
 	}
 
-	public void setPnc3DaysLate(Short pnc3DaysLate) {
+	public void setPnc3DaysLate(Integer pnc3DaysLate) {
 		this.pnc3DaysLate = pnc3DaysLate;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_death", length = 13)
-	public Date getDateDeath() {
-		return this.dateDeath;
-	}
-
-	public void setDateDeath(Date dateDeath) {
-		this.dateDeath = dateDeath;
-	}
-
-	@Column(name = "pnc_visit_num")
-	public Short getPncVisitNum() {
-		return this.pncVisitNum;
-	}
-
-	public void setPncVisitNum(Short pncVisitNum) {
-		this.pncVisitNum = pncVisitNum;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tt1_date", length = 13)
-	public Date getTt1Date() {
-		return this.tt1Date;
-	}
-
-	public void setTt1Date(Date tt1Date) {
-		this.tt1Date = tt1Date;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tt2_date", length = 13)
-	public Date getTt2Date() {
-		return this.tt2Date;
-	}
-
-	public void setTt2Date(Date tt2Date) {
-		this.tt2Date = tt2Date;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -951,15 +842,6 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setTtBoosterDate(Date ttBoosterDate) {
 		this.ttBoosterDate = ttBoosterDate;
-	}
-
-	@Column(name = "bp_visit_num")
-	public Short getBpVisitNum() {
-		return this.bpVisitNum;
-	}
-
-	public void setBpVisitNum(Short bpVisitNum) {
-		this.bpVisitNum = bpVisitNum;
 	}
 
 	@Column(name = "sba")
@@ -1162,22 +1044,22 @@ public class MotherCase implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_1_date", length = 13)
-	public Date getTt1Date_1() {
-		return this.tt1Date_1;
+	public Date getTt1Date() {
+		return this.tt1Date;
 	}
 
-	public void setTt1Date_1(Date tt1Date_1) {
-		this.tt1Date_1 = tt1Date_1;
+	public void setTt1Date(Date tt1Date) {
+		this.tt1Date = tt1Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_2_date", length = 13)
-	public Date getTt2Date_1() {
-		return this.tt2Date_1;
+	public Date getTt2Date() {
+		return this.tt2Date;
 	}
 
-	public void setTt2Date_1(Date tt2Date_1) {
-		this.tt2Date_1 = tt2Date_1;
+	public void setTt2Date(Date tt2Date) {
+		this.tt2Date = tt2Date;
 	}
 
 	@Column(name = "vehicle")
@@ -1187,24 +1069,6 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setVehicle(Boolean vehicle) {
 		this.vehicle = vehicle;
-	}
-
-	@Column(name = "update")
-	public Boolean getUpdate() {
-		return this.update;
-	}
-
-	public void setUpdate(Boolean update) {
-		this.update = update;
-	}
-
-	@Column(name = "preg_status")
-	public String getPregStatus() {
-		return this.pregStatus;
-	}
-
-	public void setPregStatus(String pregStatus) {
-		this.pregStatus = pregStatus;
 	}
 
 	@Column(name = "birth_status")
@@ -1244,40 +1108,81 @@ public class MotherCase implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "cast_num_children")
-	public Short getCastNumChildren() {
-		return this.castNumChildren;
+	@Column(name = "term", length = 25)
+	public String getTerm() {
+		return this.term;
 	}
 
-	public void setCastNumChildren(Short castNumChildren) {
-		this.castNumChildren = castNumChildren;
+	public void setTerm(String term) {
+		this.term = term;
 	}
 
-	@Column(name = "received_tt1")
-	public Boolean getReceivedTt1() {
-		return this.receivedTt1;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_cf_7", length = 13)
+	public Date getDateCf7() {
+		return this.dateCf7;
 	}
 
-	public void setReceivedTt1(Boolean receivedTt1) {
-		this.receivedTt1 = receivedTt1;
+	public void setDateCf7(Date dateCf7) {
+		this.dateCf7 = dateCf7;
 	}
 
-	@Column(name = "received_tt2")
-	public Boolean getReceivedTt2() {
-		return this.receivedTt2;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_del_fu", length = 13)
+	public Date getDateDelFu() {
+		return this.dateDelFu;
 	}
 
-	public void setReceivedTt2(Boolean receivedTt2) {
-		this.receivedTt2 = receivedTt2;
+	public void setDateDelFu(Date dateDelFu) {
+		this.dateDelFu = dateDelFu;
 	}
 
-	@Column(name = "up_to_date", length = 15)
-	public String getUpToDate() {
-		return this.upToDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_next_reg", length = 13)
+	public Date getDateNextReg() {
+		return this.dateNextReg;
 	}
 
-	public void setUpToDate(String upToDate) {
-		this.upToDate = upToDate;
+	public void setDateNextReg(Date dateNextReg) {
+		this.dateNextReg = dateNextReg;
+	}
+
+	@Column(name = "institutional")
+	public Boolean getInstitutional() {
+		return this.institutional;
+	}
+
+	public void setInstitutional(Boolean institutional) {
+		this.institutional = institutional;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dob", length = 13)
+	public Date getDob() {
+		return this.dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	@Column(name = "closed")
+	public Boolean getClosed() {
+		return this.closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_closed", length = 13)
+	public Date getDateClosed() {
+		return this.dateClosed;
+	}
+
+	public void setDateClosed(Date dateClosed) {
+		this.dateClosed = dateClosed;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
@@ -1345,15 +1250,6 @@ public class MotherCase implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<ChildCase> getChildCases() {
-		return this.childCases;
-	}
-
-	public void setChildCases(Set<ChildCase> childCases) {
-		this.childCases = childCases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
 	public Set<RegistrationChildForm> getRegistrationChildForms() {
 		return this.registrationChildForms;
 	}
@@ -1361,6 +1257,15 @@ public class MotherCase implements java.io.Serializable {
 	public void setRegistrationChildForms(
 			Set<RegistrationChildForm> registrationChildForms) {
 		this.registrationChildForms = registrationChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
+	public Set<ChildCase> getChildCases() {
+		return this.childCases;
+	}
+
+	public void setChildCases(Set<ChildCase> childCases) {
+		this.childCases = childCases;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
@@ -1388,6 +1293,16 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setAbortForms(Set<AbortForm> abortForms) {
 		this.abortForms = abortForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
+	public Set<DeliveryMotherForm> getDeliveryMotherForms() {
+		return this.deliveryMotherForms;
+	}
+
+	public void setDeliveryMotherForms(
+			Set<DeliveryMotherForm> deliveryMotherForms) {
+		this.deliveryMotherForms = deliveryMotherForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")

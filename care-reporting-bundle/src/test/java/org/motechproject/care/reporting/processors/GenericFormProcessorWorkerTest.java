@@ -212,8 +212,8 @@ public class GenericFormProcessorWorkerTest {
         List<Serializable> serializables = processor.parseChildForms();
         assertEquals(2, serializables.size());
 
-        final EbfChildForm expectedForm1 = getExpectedForm(((EbfChildForm)serializables.get(0)).getCid());
-        final EbfChildForm expectedForm2 = getExpectedForm(((EbfChildForm)serializables.get(1)).getCid());
+        final EbfChildForm expectedForm1 = getExpectedForm(((EbfChildForm)serializables.get(0)).getChildCase().getCaseId());
+        final EbfChildForm expectedForm2 = getExpectedForm(((EbfChildForm)serializables.get(1)).getChildCase().getCaseId());
         assertReflectionEquals(expectedForm1, serializables.get(0));
         assertReflectionEquals(expectedForm2, serializables.get(1));
     }
@@ -233,7 +233,6 @@ public class GenericFormProcessorWorkerTest {
         expectedChildForm.setChildCase(expectedChildCase);
         expectedChildForm.setFlw(expectedFlw);
         expectedChildForm.setDateModified(new DateTime(2013, 3, 3, 10, 38, 52, 804, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-        expectedChildForm.setIndex(index);
         expectedChildForm.setNameUpdate(false);
         expectedChildForm.setChildName(null);
         expectedChildForm.setBreastfeeding(true);
@@ -241,7 +240,6 @@ public class GenericFormProcessorWorkerTest {
         expectedChildForm.setTeaOther(false);
         expectedChildForm.setEating(true);
         expectedChildForm.setEmptying(true);
-        expectedChildForm.setCid(caseId);
         expectedChildForm.setInstanceId("ff2eb090-03a9-4f23-afed-cf6012784c55");
         expectedChildForm.setTimeStart(new DateTime(2013, 3, 3, 10, 31, 51, 45, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
         expectedChildForm.setTimeEnd(new DateTime(2013, 3, 3, 10, 38, 52, 804, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());

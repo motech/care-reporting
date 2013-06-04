@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
@@ -37,6 +37,8 @@ public class CfMotherForm implements java.io.Serializable {
 	private Boolean playCompFeedingVid;
 	private Boolean lastvisit;
 	private Date dateCf7;
+	private Boolean confirmClose;
+	private Boolean close;
 
 	public CfMotherForm() {
 	}
@@ -51,7 +53,7 @@ public class CfMotherForm implements java.io.Serializable {
 			Date dateCf5, Date dateCf6, Date dateLastVisit, Date dateNextCf,
 			String lastVisitType, Short cfVisitNum, Integer children,
 			Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
-			Date dateCf7) {
+			Date dateCf7, Boolean confirmClose, Boolean close) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -74,6 +76,8 @@ public class CfMotherForm implements java.io.Serializable {
 		this.playCompFeedingVid = playCompFeedingVid;
 		this.lastvisit = lastvisit;
 		this.dateCf7 = dateCf7;
+		this.confirmClose = confirmClose;
+		this.close = close;
 	}
 
 	@Id
@@ -287,6 +291,24 @@ public class CfMotherForm implements java.io.Serializable {
 
 	public void setDateCf7(Date dateCf7) {
 		this.dateCf7 = dateCf7;
+	}
+
+	@Column(name = "confirm_close")
+	public Boolean getConfirmClose() {
+		return this.confirmClose;
+	}
+
+	public void setConfirmClose(Boolean confirmClose) {
+		this.confirmClose = confirmClose;
+	}
+
+	@Column(name = "close")
+	public Boolean getClose() {
+		return this.close;
+	}
+
+	public void setClose(Boolean close) {
+		this.close = close;
 	}
 
 }

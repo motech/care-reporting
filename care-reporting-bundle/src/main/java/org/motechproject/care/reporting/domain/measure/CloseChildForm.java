@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -24,7 +24,6 @@ public class CloseChildForm implements java.io.Serializable {
 	private Date dateModified;
 	private String close;
 	private Boolean childAlive;
-	private String cid;
 	private Boolean closeChild;
 	private Boolean confirmClose;
 	private Date dateDeath;
@@ -32,7 +31,6 @@ public class CloseChildForm implements java.io.Serializable {
 	private Boolean diedVillage;
 	private Boolean dupeReg;
 	private Boolean finishedContinuum;
-	private Integer index;
 	private String siteDeath;
 	private String placeDeath;
 
@@ -45,10 +43,10 @@ public class CloseChildForm implements java.io.Serializable {
 
 	public CloseChildForm(int id, Flw flw, ChildCase childCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Boolean childAlive, String cid, Boolean closeChild,
+			String close, Boolean childAlive, Boolean closeChild,
 			Boolean confirmClose, Date dateDeath, Boolean died,
 			Boolean diedVillage, Boolean dupeReg, Boolean finishedContinuum,
-			Integer index, String siteDeath, String placeDeath) {
+			String siteDeath, String placeDeath) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -58,7 +56,6 @@ public class CloseChildForm implements java.io.Serializable {
 		this.dateModified = dateModified;
 		this.close = close;
 		this.childAlive = childAlive;
-		this.cid = cid;
 		this.closeChild = closeChild;
 		this.confirmClose = confirmClose;
 		this.dateDeath = dateDeath;
@@ -66,7 +63,6 @@ public class CloseChildForm implements java.io.Serializable {
 		this.diedVillage = diedVillage;
 		this.dupeReg = dupeReg;
 		this.finishedContinuum = finishedContinuum;
-		this.index = index;
 		this.siteDeath = siteDeath;
 		this.placeDeath = placeDeath;
 	}
@@ -158,15 +154,6 @@ public class CloseChildForm implements java.io.Serializable {
 		this.childAlive = childAlive;
 	}
 
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
 	@Column(name = "close_child")
 	public Boolean getCloseChild() {
 		return this.closeChild;
@@ -229,15 +216,6 @@ public class CloseChildForm implements java.io.Serializable {
 
 	public void setFinishedContinuum(Boolean finishedContinuum) {
 		this.finishedContinuum = finishedContinuum;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 	@Column(name = "site_death")

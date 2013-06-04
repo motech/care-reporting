@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
@@ -22,7 +22,6 @@ public class ReferMotherForm implements java.io.Serializable {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Short castNumChildren;
 	private Integer children;
 	private Short numChildren;
 	private Boolean referMother;
@@ -36,8 +35,7 @@ public class ReferMotherForm implements java.io.Serializable {
 
 	public ReferMotherForm(int id, Flw flw, MotherCase motherCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Short castNumChildren, Integer children, Short numChildren,
-			Boolean referMother) {
+			Integer children, Short numChildren, Boolean referMother) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -45,7 +43,6 @@ public class ReferMotherForm implements java.io.Serializable {
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
-		this.castNumChildren = castNumChildren;
 		this.children = children;
 		this.numChildren = numChildren;
 		this.referMother = referMother;
@@ -118,15 +115,6 @@ public class ReferMotherForm implements java.io.Serializable {
 
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
-	}
-
-	@Column(name = "cast_num_children")
-	public Short getCastNumChildren() {
-		return this.castNumChildren;
-	}
-
-	public void setCastNumChildren(Short castNumChildren) {
-		this.castNumChildren = castNumChildren;
 	}
 
 	@Column(name = "children")

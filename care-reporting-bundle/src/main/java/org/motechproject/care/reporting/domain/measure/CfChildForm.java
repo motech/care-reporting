@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -53,12 +53,10 @@ public class CfChildForm implements java.io.Serializable {
 	private Date opv2Date;
 	private Date opv3Date;
 	private Date vitA1Date;
-	private String cid;
 	private Boolean dal;
 	private Boolean eatenCereal;
 	private Boolean egg;
 	private Boolean fish;
-	private Integer index;
 	private Boolean meat;
 	private Boolean milkCurd;
 	private Boolean moreFeedingLessSix;
@@ -80,6 +78,7 @@ public class CfChildForm implements java.io.Serializable {
 	private Date opvBoosterDate;
 	private Date vitA3Date;
 	private Date vitA2Date;
+	private String close;
 
 	public CfChildForm() {
 	}
@@ -99,15 +98,14 @@ public class CfChildForm implements java.io.Serializable {
 			Date dpt2Date, Date dpt3Date, Date hepB0Date, Date hepB1Date,
 			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
 			Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
-			String cid, Boolean dal, Boolean eatenCereal, Boolean egg,
-			Boolean fish, Integer index, Boolean meat, Boolean milkCurd,
-			Boolean moreFeedingLessSix, Boolean nameUpdate, String newName,
-			Boolean numberGood, Boolean oilGhee, Boolean recentFever,
-			Boolean treatedLessSix, Boolean babyDptBooster, Boolean babyJe,
-			Boolean babyMeaslesBooster, Boolean babyOpvBooster,
-			Boolean babyVita2, Boolean babyVita3, Date dateJe,
-			Date dateMeaslesBooster, Date dptBoosterDate, Date opvBoosterDate,
-			Date vitA3Date, Date vitA2Date) {
+			Boolean dal, Boolean eatenCereal, Boolean egg, Boolean fish,
+			Boolean meat, Boolean milkCurd, Boolean moreFeedingLessSix,
+			Boolean nameUpdate, String newName, Boolean numberGood,
+			Boolean oilGhee, Boolean recentFever, Boolean treatedLessSix,
+			Boolean babyDptBooster, Boolean babyJe, Boolean babyMeaslesBooster,
+			Boolean babyOpvBooster, Boolean babyVita2, Boolean babyVita3,
+			Date dateJe, Date dateMeaslesBooster, Date dptBoosterDate,
+			Date opvBoosterDate, Date vitA3Date, Date vitA2Date, String close) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -146,12 +144,10 @@ public class CfChildForm implements java.io.Serializable {
 		this.opv2Date = opv2Date;
 		this.opv3Date = opv3Date;
 		this.vitA1Date = vitA1Date;
-		this.cid = cid;
 		this.dal = dal;
 		this.eatenCereal = eatenCereal;
 		this.egg = egg;
 		this.fish = fish;
-		this.index = index;
 		this.meat = meat;
 		this.milkCurd = milkCurd;
 		this.moreFeedingLessSix = moreFeedingLessSix;
@@ -173,6 +169,7 @@ public class CfChildForm implements java.io.Serializable {
 		this.opvBoosterDate = opvBoosterDate;
 		this.vitA3Date = vitA3Date;
 		this.vitA2Date = vitA2Date;
+		this.close = close;
 	}
 
 	@Id
@@ -537,15 +534,6 @@ public class CfChildForm implements java.io.Serializable {
 		this.vitA1Date = vitA1Date;
 	}
 
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
 	@Column(name = "dal")
 	public Boolean getDal() {
 		return this.dal;
@@ -580,15 +568,6 @@ public class CfChildForm implements java.io.Serializable {
 
 	public void setFish(Boolean fish) {
 		this.fish = fish;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 	@Column(name = "meat")
@@ -784,6 +763,15 @@ public class CfChildForm implements java.io.Serializable {
 
 	public void setVitA2Date(Date vitA2Date) {
 		this.vitA2Date = vitA2Date;
+	}
+
+	@Column(name = "close")
+	public String getClose() {
+		return this.close;
+	}
+
+	public void setClose(String close) {
+		this.close = close;
 	}
 
 }

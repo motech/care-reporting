@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -38,7 +38,6 @@ public class UiChildForm implements java.io.Serializable {
 	private Boolean babyOpv3;
 	private Boolean babyVita1;
 	private Date bcgDate;
-	private String cid;
 	private Date dpt1Date;
 	private Date dpt2Date;
 	private Date dpt3Date;
@@ -47,7 +46,6 @@ public class UiChildForm implements java.io.Serializable {
 	private Date hepB1Date;
 	private Date hepB2Date;
 	private Date hepB3Date;
-	private Integer index;
 	private Date measlesDate;
 	private Date opv0Date;
 	private Date opv1Date;
@@ -80,12 +78,12 @@ public class UiChildForm implements java.io.Serializable {
 			Boolean babyHepB1, Boolean babyHepB2, Boolean babyHepB3,
 			Boolean babyMeasles, Boolean babyOpv0, Boolean babyOpv1,
 			Boolean babyOpv2, Boolean babyOpv3, Boolean babyVita1,
-			Date bcgDate, String cid, Date dpt1Date, Date dpt2Date,
-			Date dpt3Date, Date dptBoosterDate, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Integer index, Date measlesDate,
-			Date opv0Date, Date opv1Date, Date opv2Date, Date opv3Date,
-			Date opvBoosterDate, Date vitA1Date, Boolean babyDptBooster,
-			Boolean babyJe, Boolean babyMeaslesBooster, Boolean babyOpvBooster,
+			Date bcgDate, Date dpt1Date, Date dpt2Date, Date dpt3Date,
+			Date dptBoosterDate, Date hepB0Date, Date hepB1Date,
+			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
+			Date opv1Date, Date opv2Date, Date opv3Date, Date opvBoosterDate,
+			Date vitA1Date, Boolean babyDptBooster, Boolean babyJe,
+			Boolean babyMeaslesBooster, Boolean babyOpvBooster,
 			Boolean babyVita2, Boolean babyVita3, Date dateJe,
 			Date dateMeaslesBooster, Date vitA2Date, Date vitA3Date) {
 		this.id = id;
@@ -111,7 +109,6 @@ public class UiChildForm implements java.io.Serializable {
 		this.babyOpv3 = babyOpv3;
 		this.babyVita1 = babyVita1;
 		this.bcgDate = bcgDate;
-		this.cid = cid;
 		this.dpt1Date = dpt1Date;
 		this.dpt2Date = dpt2Date;
 		this.dpt3Date = dpt3Date;
@@ -120,7 +117,6 @@ public class UiChildForm implements java.io.Serializable {
 		this.hepB1Date = hepB1Date;
 		this.hepB2Date = hepB2Date;
 		this.hepB3Date = hepB3Date;
-		this.index = index;
 		this.measlesDate = measlesDate;
 		this.opv0Date = opv0Date;
 		this.opv1Date = opv1Date;
@@ -354,15 +350,6 @@ public class UiChildForm implements java.io.Serializable {
 		this.bcgDate = bcgDate;
 	}
 
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dpt_1_date", length = 13)
 	public Date getDpt1Date() {
@@ -441,15 +428,6 @@ public class UiChildForm implements java.io.Serializable {
 
 	public void setHepB3Date(Date hepB3Date) {
 		this.hepB3Date = hepB3Date;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 	@Temporal(TemporalType.DATE)

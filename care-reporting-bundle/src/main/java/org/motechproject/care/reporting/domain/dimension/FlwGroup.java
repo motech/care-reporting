@@ -2,14 +2,12 @@ package org.motechproject.care.reporting.domain.dimension;
 
 // Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -22,7 +22,6 @@ public class PncChildForm implements java.io.Serializable {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean abdominalPain;
 	private Boolean ableExpressedMilk;
 	private Boolean adequateSupport;
 	private Boolean appliedToStump;
@@ -33,7 +32,6 @@ public class PncChildForm implements java.io.Serializable {
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
-	private String cid;
 	private String close;
 	private Boolean cordFallen;
 	private Boolean correctPosition;
@@ -48,7 +46,6 @@ public class PncChildForm implements java.io.Serializable {
 	private Boolean feedVigour;
 	private Boolean goodLatch;
 	private Boolean improvementsBf;
-	private Short index;
 	private Boolean observedBf;
 	private Boolean otherMilkToChild;
 	private Boolean secondObservation;
@@ -66,20 +63,20 @@ public class PncChildForm implements java.io.Serializable {
 
 	public PncChildForm(int id, Flw flw, ChildCase childCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean abdominalPain, Boolean ableExpressedMilk,
-			Boolean adequateSupport, Boolean appliedToStump,
-			Boolean babyActive, Boolean breastfeedingWell, Boolean childAlive,
+			Boolean ableExpressedMilk, Boolean adequateSupport,
+			Boolean appliedToStump, Boolean babyActive,
+			Boolean breastfeedingWell, Boolean childAlive,
 			Boolean childDiedVillage, String childPlaceDeath,
-			String childSiteDeath, Date chldDateDeath, String cid,
-			String close, Boolean cordFallen, Boolean correctPosition,
+			String childSiteDeath, Date chldDateDeath, String close,
+			Boolean cordFallen, Boolean correctPosition,
 			Boolean counselCordCare, Boolean counselExclusiveBf,
 			Boolean counselExpressMilk, Boolean counselSkin,
 			Boolean couselBfCorrect, Boolean demonstrateExpressed,
 			Boolean demonstrateSkin, Boolean easyAwake, Boolean feedVigour,
-			Boolean goodLatch, Boolean improvementsBf, Short index,
-			Boolean observedBf, Boolean otherMilkToChild,
-			Boolean secondObservation, Boolean skinToSkin, Boolean warmToTouch,
-			String whatApplied, Boolean wrapped) {
+			Boolean goodLatch, Boolean improvementsBf, Boolean observedBf,
+			Boolean otherMilkToChild, Boolean secondObservation,
+			Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
+			Boolean wrapped) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -87,7 +84,6 @@ public class PncChildForm implements java.io.Serializable {
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
-		this.abdominalPain = abdominalPain;
 		this.ableExpressedMilk = ableExpressedMilk;
 		this.adequateSupport = adequateSupport;
 		this.appliedToStump = appliedToStump;
@@ -98,7 +94,6 @@ public class PncChildForm implements java.io.Serializable {
 		this.childPlaceDeath = childPlaceDeath;
 		this.childSiteDeath = childSiteDeath;
 		this.chldDateDeath = chldDateDeath;
-		this.cid = cid;
 		this.close = close;
 		this.cordFallen = cordFallen;
 		this.correctPosition = correctPosition;
@@ -113,7 +108,6 @@ public class PncChildForm implements java.io.Serializable {
 		this.feedVigour = feedVigour;
 		this.goodLatch = goodLatch;
 		this.improvementsBf = improvementsBf;
-		this.index = index;
 		this.observedBf = observedBf;
 		this.otherMilkToChild = otherMilkToChild;
 		this.secondObservation = secondObservation;
@@ -190,15 +184,6 @@ public class PncChildForm implements java.io.Serializable {
 
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
-	}
-
-	@Column(name = "abdominal_pain")
-	public Boolean getAbdominalPain() {
-		return this.abdominalPain;
-	}
-
-	public void setAbdominalPain(Boolean abdominalPain) {
-		this.abdominalPain = abdominalPain;
 	}
 
 	@Column(name = "able_expressed_milk")
@@ -290,15 +275,6 @@ public class PncChildForm implements java.io.Serializable {
 
 	public void setChldDateDeath(Date chldDateDeath) {
 		this.chldDateDeath = chldDateDeath;
-	}
-
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
 	}
 
 	@Column(name = "close")
@@ -425,15 +401,6 @@ public class PncChildForm implements java.io.Serializable {
 
 	public void setImprovementsBf(Boolean improvementsBf) {
 		this.improvementsBf = improvementsBf;
-	}
-
-	@Column(name = "index")
-	public Short getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Short index) {
-		this.index = index;
 	}
 
 	@Column(name = "observed_bf")

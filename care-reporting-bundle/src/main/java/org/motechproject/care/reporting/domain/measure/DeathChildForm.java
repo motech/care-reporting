@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -28,8 +28,6 @@ public class DeathChildForm implements java.io.Serializable {
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
-	private String cid;
-	private Integer index;
 
 	public DeathChildForm() {
 	}
@@ -41,8 +39,7 @@ public class DeathChildForm implements java.io.Serializable {
 	public DeathChildForm(int id, Flw flw, ChildCase childCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
 			String close, Boolean childAlive, Boolean childDiedVillage,
-			String childPlaceDeath, String childSiteDeath, Date chldDateDeath,
-			String cid, Integer index) {
+			String childPlaceDeath, String childSiteDeath, Date chldDateDeath) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -56,8 +53,6 @@ public class DeathChildForm implements java.io.Serializable {
 		this.childPlaceDeath = childPlaceDeath;
 		this.childSiteDeath = childSiteDeath;
 		this.chldDateDeath = chldDateDeath;
-		this.cid = cid;
-		this.index = index;
 	}
 
 	@Id
@@ -182,24 +177,6 @@ public class DeathChildForm implements java.io.Serializable {
 
 	public void setChldDateDeath(Date chldDateDeath) {
 		this.chldDateDeath = chldDateDeath;
-	}
-
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 }

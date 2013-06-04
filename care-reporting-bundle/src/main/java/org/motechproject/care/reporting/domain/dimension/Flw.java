@@ -1,14 +1,12 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-// Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +18,7 @@ import java.util.Set;
 public class Flw implements java.io.Serializable {
 
 	private int id;
+	private Location location;
 	private String flwId;
 	private String defaultPhoneNumber;
 	private String email;
@@ -33,14 +32,14 @@ public class Flw implements java.io.Serializable {
 	private String subcentre;
 	private String userType;
 	private String username;
+	private String population;
+	private String education;
+	private Short age;
     private Set<FlwGroup> flwGroups = new HashSet<>();
 	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
-	private Set<ReferChildForm> referChildForms = new HashSet<ReferChildForm>(0);
 	private Set<RegistrationMotherForm> registrationMotherForms = new HashSet<RegistrationMotherForm>(
 			0);
-	private Set<PncMotherForm> pncMotherForms = new HashSet<PncMotherForm>(0);
 	private Set<MiForm> miForms = new HashSet<MiForm>(0);
-	private Set<CloseChildForm> closeChildForms = new HashSet<CloseChildForm>(0);
 	private Set<MoForm> moForms = new HashSet<MoForm>(0);
 	private Set<EbfChildForm> ebfChildForms = new HashSet<EbfChildForm>(0);
 	private Set<CfChildForm> cfChildForms = new HashSet<CfChildForm>(0);
@@ -49,17 +48,26 @@ public class Flw implements java.io.Serializable {
 	private Set<UiChildForm> uiChildForms = new HashSet<UiChildForm>(0);
 	private Set<ReferMotherForm> referMotherForms = new HashSet<ReferMotherForm>(
 			0);
-	private Set<EbfMotherForm> ebfMotherForms = new HashSet<EbfMotherForm>(0);
 	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
 			0);
 	private Set<CloseMotherForm> closeMotherForms = new HashSet<CloseMotherForm>(
 			0);
 	private Set<CfMotherForm> cfMotherForms = new HashSet<CfMotherForm>(0);
 	private Set<AbortForm> abortForms = new HashSet<AbortForm>(0);
-	private Set<DeathMotherForm> deathMotherForms = new HashSet<DeathMotherForm>(
-			0);
 	private Set<NewForm> newForms = new HashSet<NewForm>(0);
 	private Set<PncChildForm> pncChildForms = new HashSet<PncChildForm>(0);
+	private Set<ReferChildForm> referChildForms = new HashSet<ReferChildForm>(0);
+	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
+	private Set<PncMotherForm> pncMotherForms = new HashSet<PncMotherForm>(0);
+	private Set<CloseChildForm> closeChildForms = new HashSet<CloseChildForm>(0);
+	private Set<DeliveryChildForm> deliveryChildForms = new HashSet<DeliveryChildForm>(
+			0);
+	private Set<EbfMotherForm> ebfMotherForms = new HashSet<EbfMotherForm>(0);
+	private Set<DeliveryMotherForm> deliveryMotherForms = new HashSet<DeliveryMotherForm>(
+			0);
+	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
+	private Set<DeathMotherForm> deathMotherForms = new HashSet<DeathMotherForm>(
+			0);
 
 	public Flw() {
 	}
@@ -68,27 +76,31 @@ public class Flw implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Flw(int id, String flwId, String defaultPhoneNumber, String email,
-               String firstName, String lastName, String phoneNumbers,
-               String assetId, String awcCode, String imeiNo, String role,
-               String subcentre, String userType, String username,
-               Set<FlwGroup> flwGroups,
-               Set<DeathChildForm> deathChildForms,
-               Set<ReferChildForm> referChildForms,
-               Set<RegistrationMotherForm> registrationMotherForms,
-               Set<PncMotherForm> pncMotherForms, Set<MiForm> miForms,
-               Set<CloseChildForm> closeChildForms, Set<MoForm> moForms,
-               Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
-               Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
-               Set<UiChildForm> uiChildForms,
-               Set<ReferMotherForm> referMotherForms,
-               Set<EbfMotherForm> ebfMotherForms,
-               Set<RegistrationChildForm> registrationChildForms,
-               Set<CloseMotherForm> closeMotherForms,
-               Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
-               Set<DeathMotherForm> deathMotherForms, Set<NewForm> newForms,
-               Set<PncChildForm> pncChildForms) {
+	public Flw(int id, Location location, String flwId,
+			String defaultPhoneNumber, String email, String firstName,
+			String lastName, String phoneNumbers, String assetId,
+			String awcCode, String imeiNo, String role, String subcentre,
+			String userType, String username, String population,
+			String education, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
+			Set<RegistrationMotherForm> registrationMotherForms,
+			Set<MiForm> miForms, Set<MoForm> moForms,
+			Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
+			Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
+			Set<UiChildForm> uiChildForms,
+			Set<ReferMotherForm> referMotherForms,
+			Set<RegistrationChildForm> registrationChildForms,
+			Set<CloseMotherForm> closeMotherForms,
+			Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
+			Set<NewForm> newForms, Set<PncChildForm> pncChildForms,
+			Set<ReferChildForm> referChildForms,
+			Set<MotherCase> motherCases, Set<PncMotherForm> pncMotherForms,
+			Set<CloseChildForm> closeChildForms,
+			Set<DeliveryChildForm> deliveryChildForms,
+			Set<EbfMotherForm> ebfMotherForms,
+			Set<DeliveryMotherForm> deliveryMotherForms,
+			Set<ChildCase> childCases, Set<DeathMotherForm> deathMotherForms) {
 		this.id = id;
+		this.location = location;
 		this.flwId = flwId;
 		this.defaultPhoneNumber = defaultPhoneNumber;
 		this.email = email;
@@ -99,16 +111,16 @@ public class Flw implements java.io.Serializable {
 		this.awcCode = awcCode;
 		this.imeiNo = imeiNo;
 		this.role = role;
-        this.subcentre = subcentre;
-        this.userType = userType;
+		this.subcentre = subcentre;
+		this.userType = userType;
 		this.username = username;
+		this.population = population;
+		this.education = education;
+		this.age = age;
         this.flwGroups = flwGroups;
         this.deathChildForms = deathChildForms;
-		this.referChildForms = referChildForms;
 		this.registrationMotherForms = registrationMotherForms;
-		this.pncMotherForms = pncMotherForms;
 		this.miForms = miForms;
-		this.closeChildForms = closeChildForms;
 		this.moForms = moForms;
 		this.ebfChildForms = ebfChildForms;
 		this.cfChildForms = cfChildForms;
@@ -116,14 +128,21 @@ public class Flw implements java.io.Serializable {
 		this.uiMotherForms = uiMotherForms;
 		this.uiChildForms = uiChildForms;
 		this.referMotherForms = referMotherForms;
-		this.ebfMotherForms = ebfMotherForms;
 		this.registrationChildForms = registrationChildForms;
 		this.closeMotherForms = closeMotherForms;
 		this.cfMotherForms = cfMotherForms;
 		this.abortForms = abortForms;
-		this.deathMotherForms = deathMotherForms;
 		this.newForms = newForms;
 		this.pncChildForms = pncChildForms;
+		this.referChildForms = referChildForms;
+		this.motherCases = motherCases;
+		this.pncMotherForms = pncMotherForms;
+		this.closeChildForms = closeChildForms;
+		this.deliveryChildForms = deliveryChildForms;
+		this.ebfMotherForms = ebfMotherForms;
+		this.deliveryMotherForms = deliveryMotherForms;
+		this.childCases = childCases;
+		this.deathMotherForms = deathMotherForms;
 	}
 
 	@Id
@@ -135,6 +154,16 @@ public class Flw implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	public Location getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	@Column(name = "flw_id", unique = true, length = 36)
@@ -182,7 +211,7 @@ public class Flw implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "phone_numbers")
+	@Column(name = "phone_numbers", length = 1000)
 	public String getPhoneNumbers() {
 		return this.phoneNumbers;
 	}
@@ -227,16 +256,16 @@ public class Flw implements java.io.Serializable {
 		this.role = role;
 	}
 
-    @Column(name = "subcentre")
-    public String getSubcentre() {
-        return subcentre;
-    }
+	@Column(name = "subcentre")
+	public String getSubcentre() {
+		return this.subcentre;
+	}
 
-    public void setSubcentre(String subcentre) {
-        this.subcentre = subcentre;
-    }
+	public void setSubcentre(String subcentre) {
+		this.subcentre = subcentre;
+	}
 
-    @Column(name = "user_type")
+	@Column(name = "user_type")
 	public String getUserType() {
 		return this.userType;
 	}
@@ -267,22 +296,40 @@ public class Flw implements java.io.Serializable {
         this.flwGroups = flwGroups;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+    @Column(name = "population")
+	public String getPopulation() {
+		return this.population;
+	}
+
+	public void setPopulation(String population) {
+		this.population = population;
+	}
+
+	@Column(name = "education")
+	public String getEducation() {
+		return this.education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	@Column(name = "age")
+	public Short getAge() {
+		return this.age;
+	}
+
+	public void setAge(Short age) {
+		this.age = age;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<DeathChildForm> getDeathChildForms() {
 		return this.deathChildForms;
 	}
 
 	public void setDeathChildForms(Set<DeathChildForm> deathChildForms) {
 		this.deathChildForms = deathChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<ReferChildForm> getReferChildForms() {
-		return this.referChildForms;
-	}
-
-	public void setReferChildForms(Set<ReferChildForm> referChildForms) {
-		this.referChildForms = referChildForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
@@ -296,30 +343,12 @@ public class Flw implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<PncMotherForm> getPncMotherForms() {
-		return this.pncMotherForms;
-	}
-
-	public void setPncMotherForms(Set<PncMotherForm> pncMotherForms) {
-		this.pncMotherForms = pncMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<MiForm> getMiForms() {
 		return this.miForms;
 	}
 
 	public void setMiForms(Set<MiForm> miForms) {
 		this.miForms = miForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<CloseChildForm> getCloseChildForms() {
-		return this.closeChildForms;
-	}
-
-	public void setCloseChildForms(Set<CloseChildForm> closeChildForms) {
-		this.closeChildForms = closeChildForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
@@ -386,15 +415,6 @@ public class Flw implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<EbfMotherForm> getEbfMotherForms() {
-		return this.ebfMotherForms;
-	}
-
-	public void setEbfMotherForms(Set<EbfMotherForm> ebfMotherForms) {
-		this.ebfMotherForms = ebfMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<RegistrationChildForm> getRegistrationChildForms() {
 		return this.registrationChildForms;
 	}
@@ -432,15 +452,6 @@ public class Flw implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<DeathMotherForm> getDeathMotherForms() {
-		return this.deathMotherForms;
-	}
-
-	public void setDeathMotherForms(Set<DeathMotherForm> deathMotherForms) {
-		this.deathMotherForms = deathMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<NewForm> getNewForms() {
 		return this.newForms;
 	}
@@ -456,6 +467,88 @@ public class Flw implements java.io.Serializable {
 
 	public void setPncChildForms(Set<PncChildForm> pncChildForms) {
 		this.pncChildForms = pncChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<ReferChildForm> getReferChildForms() {
+		return this.referChildForms;
+	}
+
+	public void setReferChildForms(Set<ReferChildForm> referChildForms) {
+		this.referChildForms = referChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<MotherCase> getMotherCases() {
+		return this.motherCases;
+	}
+
+	public void setMotherCases(Set<MotherCase> motherCases) {
+		this.motherCases = motherCases;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<PncMotherForm> getPncMotherForms() {
+		return this.pncMotherForms;
+	}
+
+	public void setPncMotherForms(Set<PncMotherForm> pncMotherForms) {
+		this.pncMotherForms = pncMotherForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<CloseChildForm> getCloseChildForms() {
+		return this.closeChildForms;
+	}
+
+	public void setCloseChildForms(Set<CloseChildForm> closeChildForms) {
+		this.closeChildForms = closeChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<DeliveryChildForm> getDeliveryChildForms() {
+		return this.deliveryChildForms;
+	}
+
+	public void setDeliveryChildForms(Set<DeliveryChildForm> deliveryChildForms) {
+		this.deliveryChildForms = deliveryChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<EbfMotherForm> getEbfMotherForms() {
+		return this.ebfMotherForms;
+	}
+
+	public void setEbfMotherForms(Set<EbfMotherForm> ebfMotherForms) {
+		this.ebfMotherForms = ebfMotherForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<DeliveryMotherForm> getDeliveryMotherForms() {
+		return this.deliveryMotherForms;
+	}
+
+	public void setDeliveryMotherForms(
+			Set<DeliveryMotherForm> deliveryMotherForms) {
+		this.deliveryMotherForms = deliveryMotherForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<ChildCase> getChildCases() {
+		return this.childCases;
+	}
+
+	public void setChildCases(Set<ChildCase> childCases) {
+		this.childCases = childCases;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+	public Set<DeathMotherForm> getDeathMotherForms() {
+		return this.deathMotherForms;
+	}
+
+	public void setDeathMotherForms(Set<DeathMotherForm> deathMotherForms) {
+		this.deathMotherForms = deathMotherForms;
 	}
 
 }

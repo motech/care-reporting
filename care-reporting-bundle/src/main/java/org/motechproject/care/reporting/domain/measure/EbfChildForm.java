@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -40,7 +40,6 @@ public class EbfChildForm implements java.io.Serializable {
 	private Boolean breastfeeding;
 	private String caseName;
 	private String childName;
-	private String cid;
 	private Boolean counselAdequateBf;
 	private Boolean counselOnlyMilk;
 	private Boolean counselStopBottle;
@@ -54,7 +53,6 @@ public class EbfChildForm implements java.io.Serializable {
 	private Date hepB1Date;
 	private Date hepB2Date;
 	private Date hepB3Date;
-	private Integer index;
 	private Boolean moreFeedingLessSix;
 	private Boolean nameUpdate;
 	private String notBreasfeeding;
@@ -83,15 +81,15 @@ public class EbfChildForm implements java.io.Serializable {
 			Boolean babyHepB3, Boolean babyOpv0, Boolean babyOpv1,
 			Boolean babyOpv2, Boolean babyOpv3, Date bcgDate,
 			Boolean breastfeeding, String caseName, String childName,
-			String cid, Boolean counselAdequateBf, Boolean counselOnlyMilk,
+			Boolean counselAdequateBf, Boolean counselOnlyMilk,
 			Boolean counselStopBottle, Date dpt1Date, Date dpt2Date,
 			Date dpt3Date, Boolean eating, Boolean emptying,
 			Boolean feedingBottle, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Integer index,
-			Boolean moreFeedingLessSix, Boolean nameUpdate,
-			String notBreasfeeding, Boolean onDemand, Date opv0Date,
-			Date opv1Date, Date opv2Date, Date opv3Date, Boolean recentFever,
-			Boolean teaOther, Boolean treatedLessSix, Boolean waterOrMilk) {
+			Date hepB2Date, Date hepB3Date, Boolean moreFeedingLessSix,
+			Boolean nameUpdate, String notBreasfeeding, Boolean onDemand,
+			Date opv0Date, Date opv1Date, Date opv2Date, Date opv3Date,
+			Boolean recentFever, Boolean teaOther, Boolean treatedLessSix,
+			Boolean waterOrMilk) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -117,7 +115,6 @@ public class EbfChildForm implements java.io.Serializable {
 		this.breastfeeding = breastfeeding;
 		this.caseName = caseName;
 		this.childName = childName;
-		this.cid = cid;
 		this.counselAdequateBf = counselAdequateBf;
 		this.counselOnlyMilk = counselOnlyMilk;
 		this.counselStopBottle = counselStopBottle;
@@ -131,7 +128,6 @@ public class EbfChildForm implements java.io.Serializable {
 		this.hepB1Date = hepB1Date;
 		this.hepB2Date = hepB2Date;
 		this.hepB3Date = hepB3Date;
-		this.index = index;
 		this.moreFeedingLessSix = moreFeedingLessSix;
 		this.nameUpdate = nameUpdate;
 		this.notBreasfeeding = notBreasfeeding;
@@ -378,15 +374,6 @@ public class EbfChildForm implements java.io.Serializable {
 		this.childName = childName;
 	}
 
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
 	@Column(name = "counsel_adequate_bf")
 	public Boolean getCounselAdequateBf() {
 		return this.counselAdequateBf;
@@ -509,15 +496,6 @@ public class EbfChildForm implements java.io.Serializable {
 
 	public void setHepB3Date(Date hepB3Date) {
 		this.hepB3Date = hepB3Date;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 	@Column(name = "more_feeding_less_six")

@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.measure.*;
 
@@ -18,28 +18,16 @@ import java.util.Set;
 public class ChildCase implements java.io.Serializable {
 
 	private int id;
+	private Flw flw;
 	private MotherCase motherCase;
 	private FlwGroup flwGroup;
 	private String caseId;
 	private String caseName;
 	private Date dateModified;
-	private Boolean abnormalities;
-	private Boolean addVaccinations;
-	private Boolean babyBcg;
-	private Boolean babyDpt1;
-	private Boolean babyDpt2;
-	private Boolean babyDpt3;
-	private Boolean babyHepB0;
-	private Boolean babyHepB1;
-	private Boolean babyHepB2;
-	private Boolean babyHepB3;
-	private Boolean babyMeasles;
-	private Boolean babyOpv0;
-	private Boolean babyOpv1;
-	private Boolean babyOpv2;
-	private Boolean babyOpv3;
-	private Boolean babyVita1;
+	private Date serverDateModified;
+	private Date serverDateOpened;
 	private String caseType;
+	private Boolean babyMeasles;
 	private Date bcgDate;
 	private String birthStatus;
 	private Date dob;
@@ -57,76 +45,19 @@ public class ChildCase implements java.io.Serializable {
 	private Date opv2Date;
 	private Date opv3Date;
 	private Date vitA1Date;
-	private Boolean childHaveAName;
-	private String childName;
-	private BigDecimal weight;
-	private Boolean amountGood;
-	private String cid;
-	private Boolean dal;
-	private Boolean eatenCereal;
-	private Boolean egg;
-	private Boolean fish;
-	private Integer index;
-	private Boolean meat;
-	private Boolean milkCurd;
-	private Boolean moreFeedingLessSix;
-	private Boolean nameUpdate;
-	private String newName;
-	private Boolean numberGood;
-	private Boolean oilGhee;
-	private Boolean recentFever;
-	private Boolean treatedLessSix;
-	private Boolean atNight;
-	private Boolean breastfeeding;
-	private Boolean counselAdequateBf;
-	private Boolean counselOnlyMilk;
-	private Boolean counselStopBottle;
-	private Boolean eating;
-	private Boolean emptying;
-	private Boolean feedingBottle;
-	private String notBreasfeeding;
-	private Boolean onDemand;
-	private Boolean teaOther;
-	private Boolean waterOrMilk;
-	private Boolean ableExpressedMilk;
-	private Boolean adequateSupport;
-	private Boolean appliedToStump;
-	private Boolean babyActive;
-	private Boolean breastfeedingWell;
 	private Boolean childAlive;
-	private Boolean childDiedVillage;
-	private String childPlaceDeath;
-	private String childSiteDeath;
-	private Date chldDateDeath;
-	private Boolean cordFallen;
-	private Boolean correctPosition;
-	private Boolean counselCordCare;
-	private Boolean counselExclusiveBf;
-	private Boolean counselExpressMilk;
-	private Boolean counselSkin;
-	private Boolean couselBfCorrect;
-	private Boolean demonstrateExpressed;
-	private Boolean demonstrateSkin;
-	private Boolean easyAwake;
-	private Boolean feedVigour;
-	private Boolean goodLatch;
-	private Boolean improvementsBf;
-	private Boolean observedBf;
-	private Boolean otherMilkToChild;
-	private Boolean secondObservation;
-	private Boolean skinToSkin;
-	private Boolean warmToTouch;
-	private String whatApplied;
-	private Boolean wrapped;
 	private Date dptBoosterDate;
 	private Date opvBoosterDate;
-	private Date dateDeath;
-	private Boolean died;
-	private Boolean diedVillage;
-	private Boolean dupeReg;
-	private Boolean finishedContinuum;
-	private String siteDeath;
-	private Boolean referChild;
+	private Date dateJe;
+	private Date dateMeaslesBooster;
+	private BigDecimal babyWeight;
+	private String name;
+	private String term;
+	private Date timeOfBirth;
+	private Date vitA2Date;
+	private Date vitA3Date;
+	private Boolean closed;
+	private Date dateClosed;
 	private Set<EbfChildForm> ebfChildForms = new HashSet<EbfChildForm>(0);
 	private Set<PncChildForm> pncChildForms = new HashSet<PncChildForm>(0);
 	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
@@ -135,6 +66,8 @@ public class ChildCase implements java.io.Serializable {
 	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
 			0);
 	private Set<CfChildForm> cfChildForms = new HashSet<CfChildForm>(0);
+	private Set<DeliveryChildForm> deliveryChildForms = new HashSet<DeliveryChildForm>(
+			0);
 	private Set<UiChildForm> uiChildForms = new HashSet<UiChildForm>(0);
 
 	public ChildCase() {
@@ -144,73 +77,37 @@ public class ChildCase implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public ChildCase(int id, MotherCase motherCase, FlwGroup flwGroup,
+	public ChildCase(int id, Flw flw, MotherCase motherCase, FlwGroup flwGroup,
 			String caseId, String caseName, Date dateModified,
-			Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
-			Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
-			Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
-			Boolean babyHepB3, Boolean babyMeasles, Boolean babyOpv0,
-			Boolean babyOpv1, Boolean babyOpv2, Boolean babyOpv3,
-			Boolean babyVita1, String caseType, Date bcgDate,
-			String birthStatus, Date dob, Date dpt1Date, Date dpt2Date,
-			Date dpt3Date, String gender, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
-			Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
-			Boolean childHaveAName, String childName, BigDecimal weight,
-			Boolean amountGood, String cid, Boolean dal, Boolean eatenCereal,
-			Boolean egg, Boolean fish, Integer index, Boolean meat,
-			Boolean milkCurd, Boolean moreFeedingLessSix, Boolean nameUpdate,
-			String newName, Boolean numberGood, Boolean oilGhee,
-			Boolean recentFever, Boolean treatedLessSix, Boolean atNight,
-			Boolean breastfeeding, Boolean counselAdequateBf,
-			Boolean counselOnlyMilk, Boolean counselStopBottle, Boolean eating,
-			Boolean emptying, Boolean feedingBottle, String notBreasfeeding,
-			Boolean onDemand, Boolean teaOther, Boolean waterOrMilk,
-			Boolean ableExpressedMilk, Boolean adequateSupport,
-			Boolean appliedToStump, Boolean babyActive,
-			Boolean breastfeedingWell, Boolean childAlive,
-			Boolean childDiedVillage, String childPlaceDeath,
-			String childSiteDeath, Date chldDateDeath, Boolean cordFallen,
-			Boolean correctPosition, Boolean counselCordCare,
-			Boolean counselExclusiveBf, Boolean counselExpressMilk,
-			Boolean counselSkin, Boolean couselBfCorrect,
-			Boolean demonstrateExpressed, Boolean demonstrateSkin,
-			Boolean easyAwake, Boolean feedVigour, Boolean goodLatch,
-			Boolean improvementsBf, Boolean observedBf,
-			Boolean otherMilkToChild, Boolean secondObservation,
-			Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
-			Boolean wrapped, Date dptBoosterDate, Date opvBoosterDate,
-			Date dateDeath, Boolean died, Boolean diedVillage, Boolean dupeReg,
-			Boolean finishedContinuum, String siteDeath, Boolean referChild,
-			Set<EbfChildForm> ebfChildForms, Set<PncChildForm> pncChildForms,
+			Date serverDateModified, Date serverDateOpened, String caseType,
+			Boolean babyMeasles, Date bcgDate, String birthStatus, Date dob,
+			Date dpt1Date, Date dpt2Date, Date dpt3Date, String gender,
+			Date hepB0Date, Date hepB1Date, Date hepB2Date, Date hepB3Date,
+			Date measlesDate, Date opv0Date, Date opv1Date, Date opv2Date,
+			Date opv3Date, Date vitA1Date, Boolean childAlive,
+			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
+			Date dateMeaslesBooster, BigDecimal babyWeight, String name,
+			String term, Date timeOfBirth, Date vitA2Date, Date vitA3Date,
+			Boolean closed, Date dateClosed, Set<EbfChildForm> ebfChildForms,
+			Set<PncChildForm> pncChildForms,
 			Set<DeathChildForm> deathChildForms,
 			Set<CloseChildForm> closeChildForms,
 			Set<ReferChildForm> referChildForms,
 			Set<RegistrationChildForm> registrationChildForms,
-			Set<CfChildForm> cfChildForms, Set<UiChildForm> uiChildForms) {
+			Set<CfChildForm> cfChildForms,
+			Set<DeliveryChildForm> deliveryChildForms,
+			Set<UiChildForm> uiChildForms) {
 		this.id = id;
+		this.flw = flw;
 		this.motherCase = motherCase;
 		this.flwGroup = flwGroup;
 		this.caseId = caseId;
 		this.caseName = caseName;
 		this.dateModified = dateModified;
-		this.abnormalities = abnormalities;
-		this.addVaccinations = addVaccinations;
-		this.babyBcg = babyBcg;
-		this.babyDpt1 = babyDpt1;
-		this.babyDpt2 = babyDpt2;
-		this.babyDpt3 = babyDpt3;
-		this.babyHepB0 = babyHepB0;
-		this.babyHepB1 = babyHepB1;
-		this.babyHepB2 = babyHepB2;
-		this.babyHepB3 = babyHepB3;
-		this.babyMeasles = babyMeasles;
-		this.babyOpv0 = babyOpv0;
-		this.babyOpv1 = babyOpv1;
-		this.babyOpv2 = babyOpv2;
-		this.babyOpv3 = babyOpv3;
-		this.babyVita1 = babyVita1;
+		this.serverDateModified = serverDateModified;
+		this.serverDateOpened = serverDateOpened;
 		this.caseType = caseType;
+		this.babyMeasles = babyMeasles;
 		this.bcgDate = bcgDate;
 		this.birthStatus = birthStatus;
 		this.dob = dob;
@@ -228,76 +125,19 @@ public class ChildCase implements java.io.Serializable {
 		this.opv2Date = opv2Date;
 		this.opv3Date = opv3Date;
 		this.vitA1Date = vitA1Date;
-		this.childHaveAName = childHaveAName;
-		this.childName = childName;
-		this.weight = weight;
-		this.amountGood = amountGood;
-		this.cid = cid;
-		this.dal = dal;
-		this.eatenCereal = eatenCereal;
-		this.egg = egg;
-		this.fish = fish;
-		this.index = index;
-		this.meat = meat;
-		this.milkCurd = milkCurd;
-		this.moreFeedingLessSix = moreFeedingLessSix;
-		this.nameUpdate = nameUpdate;
-		this.newName = newName;
-		this.numberGood = numberGood;
-		this.oilGhee = oilGhee;
-		this.recentFever = recentFever;
-		this.treatedLessSix = treatedLessSix;
-		this.atNight = atNight;
-		this.breastfeeding = breastfeeding;
-		this.counselAdequateBf = counselAdequateBf;
-		this.counselOnlyMilk = counselOnlyMilk;
-		this.counselStopBottle = counselStopBottle;
-		this.eating = eating;
-		this.emptying = emptying;
-		this.feedingBottle = feedingBottle;
-		this.notBreasfeeding = notBreasfeeding;
-		this.onDemand = onDemand;
-		this.teaOther = teaOther;
-		this.waterOrMilk = waterOrMilk;
-		this.ableExpressedMilk = ableExpressedMilk;
-		this.adequateSupport = adequateSupport;
-		this.appliedToStump = appliedToStump;
-		this.babyActive = babyActive;
-		this.breastfeedingWell = breastfeedingWell;
 		this.childAlive = childAlive;
-		this.childDiedVillage = childDiedVillage;
-		this.childPlaceDeath = childPlaceDeath;
-		this.childSiteDeath = childSiteDeath;
-		this.chldDateDeath = chldDateDeath;
-		this.cordFallen = cordFallen;
-		this.correctPosition = correctPosition;
-		this.counselCordCare = counselCordCare;
-		this.counselExclusiveBf = counselExclusiveBf;
-		this.counselExpressMilk = counselExpressMilk;
-		this.counselSkin = counselSkin;
-		this.couselBfCorrect = couselBfCorrect;
-		this.demonstrateExpressed = demonstrateExpressed;
-		this.demonstrateSkin = demonstrateSkin;
-		this.easyAwake = easyAwake;
-		this.feedVigour = feedVigour;
-		this.goodLatch = goodLatch;
-		this.improvementsBf = improvementsBf;
-		this.observedBf = observedBf;
-		this.otherMilkToChild = otherMilkToChild;
-		this.secondObservation = secondObservation;
-		this.skinToSkin = skinToSkin;
-		this.warmToTouch = warmToTouch;
-		this.whatApplied = whatApplied;
-		this.wrapped = wrapped;
 		this.dptBoosterDate = dptBoosterDate;
 		this.opvBoosterDate = opvBoosterDate;
-		this.dateDeath = dateDeath;
-		this.died = died;
-		this.diedVillage = diedVillage;
-		this.dupeReg = dupeReg;
-		this.finishedContinuum = finishedContinuum;
-		this.siteDeath = siteDeath;
-		this.referChild = referChild;
+		this.dateJe = dateJe;
+		this.dateMeaslesBooster = dateMeaslesBooster;
+		this.babyWeight = babyWeight;
+		this.name = name;
+		this.term = term;
+		this.timeOfBirth = timeOfBirth;
+		this.vitA2Date = vitA2Date;
+		this.vitA3Date = vitA3Date;
+		this.closed = closed;
+		this.dateClosed = dateClosed;
 		this.ebfChildForms = ebfChildForms;
 		this.pncChildForms = pncChildForms;
 		this.deathChildForms = deathChildForms;
@@ -305,6 +145,7 @@ public class ChildCase implements java.io.Serializable {
 		this.referChildForms = referChildForms;
 		this.registrationChildForms = registrationChildForms;
 		this.cfChildForms = cfChildForms;
+		this.deliveryChildForms = deliveryChildForms;
 		this.uiChildForms = uiChildForms;
 	}
 
@@ -316,6 +157,16 @@ public class ChildCase implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public Flw getFlw() {
+		return this.flw;
+	}
+
+	public void setFlw(Flw flw) {
+		this.flw = flw;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -366,148 +217,24 @@ public class ChildCase implements java.io.Serializable {
 		this.dateModified = dateModified;
 	}
 
-	@Column(name = "abnormalities")
-	public Boolean getAbnormalities() {
-		return this.abnormalities;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "server_date_modified", length = 35)
+	public Date getServerDateModified() {
+		return this.serverDateModified;
 	}
 
-	public void setAbnormalities(Boolean abnormalities) {
-		this.abnormalities = abnormalities;
+	public void setServerDateModified(Date serverDateModified) {
+		this.serverDateModified = serverDateModified;
 	}
 
-	@Column(name = "add_vaccinations")
-	public Boolean getAddVaccinations() {
-		return this.addVaccinations;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "server_date_opened", length = 35)
+	public Date getServerDateOpened() {
+		return this.serverDateOpened;
 	}
 
-	public void setAddVaccinations(Boolean addVaccinations) {
-		this.addVaccinations = addVaccinations;
-	}
-
-	@Column(name = "baby_bcg")
-	public Boolean getBabyBcg() {
-		return this.babyBcg;
-	}
-
-	public void setBabyBcg(Boolean babyBcg) {
-		this.babyBcg = babyBcg;
-	}
-
-	@Column(name = "baby_dpt1")
-	public Boolean getBabyDpt1() {
-		return this.babyDpt1;
-	}
-
-	public void setBabyDpt1(Boolean babyDpt1) {
-		this.babyDpt1 = babyDpt1;
-	}
-
-	@Column(name = "baby_dpt2")
-	public Boolean getBabyDpt2() {
-		return this.babyDpt2;
-	}
-
-	public void setBabyDpt2(Boolean babyDpt2) {
-		this.babyDpt2 = babyDpt2;
-	}
-
-	@Column(name = "baby_dpt3")
-	public Boolean getBabyDpt3() {
-		return this.babyDpt3;
-	}
-
-	public void setBabyDpt3(Boolean babyDpt3) {
-		this.babyDpt3 = babyDpt3;
-	}
-
-	@Column(name = "baby_hep_b_0")
-	public Boolean getBabyHepB0() {
-		return this.babyHepB0;
-	}
-
-	public void setBabyHepB0(Boolean babyHepB0) {
-		this.babyHepB0 = babyHepB0;
-	}
-
-	@Column(name = "baby_hep_b_1")
-	public Boolean getBabyHepB1() {
-		return this.babyHepB1;
-	}
-
-	public void setBabyHepB1(Boolean babyHepB1) {
-		this.babyHepB1 = babyHepB1;
-	}
-
-	@Column(name = "baby_hep_b_2")
-	public Boolean getBabyHepB2() {
-		return this.babyHepB2;
-	}
-
-	public void setBabyHepB2(Boolean babyHepB2) {
-		this.babyHepB2 = babyHepB2;
-	}
-
-	@Column(name = "baby_hep_b_3")
-	public Boolean getBabyHepB3() {
-		return this.babyHepB3;
-	}
-
-	public void setBabyHepB3(Boolean babyHepB3) {
-		this.babyHepB3 = babyHepB3;
-	}
-
-	@Column(name = "baby_measles")
-	public Boolean getBabyMeasles() {
-		return this.babyMeasles;
-	}
-
-	public void setBabyMeasles(Boolean babyMeasles) {
-		this.babyMeasles = babyMeasles;
-	}
-
-	@Column(name = "baby_opv0")
-	public Boolean getBabyOpv0() {
-		return this.babyOpv0;
-	}
-
-	public void setBabyOpv0(Boolean babyOpv0) {
-		this.babyOpv0 = babyOpv0;
-	}
-
-	@Column(name = "baby_opv1")
-	public Boolean getBabyOpv1() {
-		return this.babyOpv1;
-	}
-
-	public void setBabyOpv1(Boolean babyOpv1) {
-		this.babyOpv1 = babyOpv1;
-	}
-
-	@Column(name = "baby_opv2")
-	public Boolean getBabyOpv2() {
-		return this.babyOpv2;
-	}
-
-	public void setBabyOpv2(Boolean babyOpv2) {
-		this.babyOpv2 = babyOpv2;
-	}
-
-	@Column(name = "baby_opv3")
-	public Boolean getBabyOpv3() {
-		return this.babyOpv3;
-	}
-
-	public void setBabyOpv3(Boolean babyOpv3) {
-		this.babyOpv3 = babyOpv3;
-	}
-
-	@Column(name = "baby_vita1")
-	public Boolean getBabyVita1() {
-		return this.babyVita1;
-	}
-
-	public void setBabyVita1(Boolean babyVita1) {
-		this.babyVita1 = babyVita1;
+	public void setServerDateOpened(Date serverDateOpened) {
+		this.serverDateOpened = serverDateOpened;
 	}
 
 	@Column(name = "case_type")
@@ -517,6 +244,15 @@ public class ChildCase implements java.io.Serializable {
 
 	public void setCaseType(String caseType) {
 		this.caseType = caseType;
+	}
+
+	@Column(name = "baby_measles")
+	public Boolean getBabyMeasles() {
+		return this.babyMeasles;
+	}
+
+	public void setBabyMeasles(Boolean babyMeasles) {
+		this.babyMeasles = babyMeasles;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -687,330 +423,6 @@ public class ChildCase implements java.io.Serializable {
 		this.vitA1Date = vitA1Date;
 	}
 
-	@Column(name = "child_have_a_name")
-	public Boolean getChildHaveAName() {
-		return this.childHaveAName;
-	}
-
-	public void setChildHaveAName(Boolean childHaveAName) {
-		this.childHaveAName = childHaveAName;
-	}
-
-	@Column(name = "child_name")
-	public String getChildName() {
-		return this.childName;
-	}
-
-	public void setChildName(String childName) {
-		this.childName = childName;
-	}
-
-	@Column(name = "weight", precision = 131089, scale = 0)
-	public BigDecimal getWeight() {
-		return this.weight;
-	}
-
-	public void setWeight(BigDecimal weight) {
-		this.weight = weight;
-	}
-
-	@Column(name = "amount_good")
-	public Boolean getAmountGood() {
-		return this.amountGood;
-	}
-
-	public void setAmountGood(Boolean amountGood) {
-		this.amountGood = amountGood;
-	}
-
-	@Column(name = "cid", length = 36)
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
-	@Column(name = "dal")
-	public Boolean getDal() {
-		return this.dal;
-	}
-
-	public void setDal(Boolean dal) {
-		this.dal = dal;
-	}
-
-	@Column(name = "eaten_cereal")
-	public Boolean getEatenCereal() {
-		return this.eatenCereal;
-	}
-
-	public void setEatenCereal(Boolean eatenCereal) {
-		this.eatenCereal = eatenCereal;
-	}
-
-	@Column(name = "egg")
-	public Boolean getEgg() {
-		return this.egg;
-	}
-
-	public void setEgg(Boolean egg) {
-		this.egg = egg;
-	}
-
-	@Column(name = "fish")
-	public Boolean getFish() {
-		return this.fish;
-	}
-
-	public void setFish(Boolean fish) {
-		this.fish = fish;
-	}
-
-	@Column(name = "index")
-	public Integer getIndex() {
-		return this.index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
-	}
-
-	@Column(name = "meat")
-	public Boolean getMeat() {
-		return this.meat;
-	}
-
-	public void setMeat(Boolean meat) {
-		this.meat = meat;
-	}
-
-	@Column(name = "milk_curd")
-	public Boolean getMilkCurd() {
-		return this.milkCurd;
-	}
-
-	public void setMilkCurd(Boolean milkCurd) {
-		this.milkCurd = milkCurd;
-	}
-
-	@Column(name = "more_feeding_less_six")
-	public Boolean getMoreFeedingLessSix() {
-		return this.moreFeedingLessSix;
-	}
-
-	public void setMoreFeedingLessSix(Boolean moreFeedingLessSix) {
-		this.moreFeedingLessSix = moreFeedingLessSix;
-	}
-
-	@Column(name = "name_update")
-	public Boolean getNameUpdate() {
-		return this.nameUpdate;
-	}
-
-	public void setNameUpdate(Boolean nameUpdate) {
-		this.nameUpdate = nameUpdate;
-	}
-
-	@Column(name = "new_name")
-	public String getNewName() {
-		return this.newName;
-	}
-
-	public void setNewName(String newName) {
-		this.newName = newName;
-	}
-
-	@Column(name = "number_good")
-	public Boolean getNumberGood() {
-		return this.numberGood;
-	}
-
-	public void setNumberGood(Boolean numberGood) {
-		this.numberGood = numberGood;
-	}
-
-	@Column(name = "oil_ghee")
-	public Boolean getOilGhee() {
-		return this.oilGhee;
-	}
-
-	public void setOilGhee(Boolean oilGhee) {
-		this.oilGhee = oilGhee;
-	}
-
-	@Column(name = "recent_fever")
-	public Boolean getRecentFever() {
-		return this.recentFever;
-	}
-
-	public void setRecentFever(Boolean recentFever) {
-		this.recentFever = recentFever;
-	}
-
-	@Column(name = "treated_less_six")
-	public Boolean getTreatedLessSix() {
-		return this.treatedLessSix;
-	}
-
-	public void setTreatedLessSix(Boolean treatedLessSix) {
-		this.treatedLessSix = treatedLessSix;
-	}
-
-	@Column(name = "at_night")
-	public Boolean getAtNight() {
-		return this.atNight;
-	}
-
-	public void setAtNight(Boolean atNight) {
-		this.atNight = atNight;
-	}
-
-	@Column(name = "breastfeeding")
-	public Boolean getBreastfeeding() {
-		return this.breastfeeding;
-	}
-
-	public void setBreastfeeding(Boolean breastfeeding) {
-		this.breastfeeding = breastfeeding;
-	}
-
-	@Column(name = "counsel_adequate_bf")
-	public Boolean getCounselAdequateBf() {
-		return this.counselAdequateBf;
-	}
-
-	public void setCounselAdequateBf(Boolean counselAdequateBf) {
-		this.counselAdequateBf = counselAdequateBf;
-	}
-
-	@Column(name = "counsel_only_milk")
-	public Boolean getCounselOnlyMilk() {
-		return this.counselOnlyMilk;
-	}
-
-	public void setCounselOnlyMilk(Boolean counselOnlyMilk) {
-		this.counselOnlyMilk = counselOnlyMilk;
-	}
-
-	@Column(name = "counsel_stop_bottle")
-	public Boolean getCounselStopBottle() {
-		return this.counselStopBottle;
-	}
-
-	public void setCounselStopBottle(Boolean counselStopBottle) {
-		this.counselStopBottle = counselStopBottle;
-	}
-
-	@Column(name = "eating")
-	public Boolean getEating() {
-		return this.eating;
-	}
-
-	public void setEating(Boolean eating) {
-		this.eating = eating;
-	}
-
-	@Column(name = "emptying")
-	public Boolean getEmptying() {
-		return this.emptying;
-	}
-
-	public void setEmptying(Boolean emptying) {
-		this.emptying = emptying;
-	}
-
-	@Column(name = "feeding_bottle")
-	public Boolean getFeedingBottle() {
-		return this.feedingBottle;
-	}
-
-	public void setFeedingBottle(Boolean feedingBottle) {
-		this.feedingBottle = feedingBottle;
-	}
-
-	@Column(name = "not_breasfeeding")
-	public String getNotBreasfeeding() {
-		return this.notBreasfeeding;
-	}
-
-	public void setNotBreasfeeding(String notBreasfeeding) {
-		this.notBreasfeeding = notBreasfeeding;
-	}
-
-	@Column(name = "on_demand")
-	public Boolean getOnDemand() {
-		return this.onDemand;
-	}
-
-	public void setOnDemand(Boolean onDemand) {
-		this.onDemand = onDemand;
-	}
-
-	@Column(name = "tea_other")
-	public Boolean getTeaOther() {
-		return this.teaOther;
-	}
-
-	public void setTeaOther(Boolean teaOther) {
-		this.teaOther = teaOther;
-	}
-
-	@Column(name = "water_or_milk")
-	public Boolean getWaterOrMilk() {
-		return this.waterOrMilk;
-	}
-
-	public void setWaterOrMilk(Boolean waterOrMilk) {
-		this.waterOrMilk = waterOrMilk;
-	}
-
-	@Column(name = "able_expressed_milk")
-	public Boolean getAbleExpressedMilk() {
-		return this.ableExpressedMilk;
-	}
-
-	public void setAbleExpressedMilk(Boolean ableExpressedMilk) {
-		this.ableExpressedMilk = ableExpressedMilk;
-	}
-
-	@Column(name = "adequate_support")
-	public Boolean getAdequateSupport() {
-		return this.adequateSupport;
-	}
-
-	public void setAdequateSupport(Boolean adequateSupport) {
-		this.adequateSupport = adequateSupport;
-	}
-
-	@Column(name = "applied_to_stump")
-	public Boolean getAppliedToStump() {
-		return this.appliedToStump;
-	}
-
-	public void setAppliedToStump(Boolean appliedToStump) {
-		this.appliedToStump = appliedToStump;
-	}
-
-	@Column(name = "baby_active")
-	public Boolean getBabyActive() {
-		return this.babyActive;
-	}
-
-	public void setBabyActive(Boolean babyActive) {
-		this.babyActive = babyActive;
-	}
-
-	@Column(name = "breastfeeding_well")
-	public Boolean getBreastfeedingWell() {
-		return this.breastfeedingWell;
-	}
-
-	public void setBreastfeedingWell(Boolean breastfeedingWell) {
-		this.breastfeedingWell = breastfeedingWell;
-	}
-
 	@Column(name = "child_alive")
 	public Boolean getChildAlive() {
 		return this.childAlive;
@@ -1018,223 +430,6 @@ public class ChildCase implements java.io.Serializable {
 
 	public void setChildAlive(Boolean childAlive) {
 		this.childAlive = childAlive;
-	}
-
-	@Column(name = "child_died_village")
-	public Boolean getChildDiedVillage() {
-		return this.childDiedVillage;
-	}
-
-	public void setChildDiedVillage(Boolean childDiedVillage) {
-		this.childDiedVillage = childDiedVillage;
-	}
-
-	@Column(name = "child_place_death")
-	public String getChildPlaceDeath() {
-		return this.childPlaceDeath;
-	}
-
-	public void setChildPlaceDeath(String childPlaceDeath) {
-		this.childPlaceDeath = childPlaceDeath;
-	}
-
-	@Column(name = "child_site_death")
-	public String getChildSiteDeath() {
-		return this.childSiteDeath;
-	}
-
-	public void setChildSiteDeath(String childSiteDeath) {
-		this.childSiteDeath = childSiteDeath;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "chld_date_death", length = 13)
-	public Date getChldDateDeath() {
-		return this.chldDateDeath;
-	}
-
-	public void setChldDateDeath(Date chldDateDeath) {
-		this.chldDateDeath = chldDateDeath;
-	}
-
-	@Column(name = "cord_fallen")
-	public Boolean getCordFallen() {
-		return this.cordFallen;
-	}
-
-	public void setCordFallen(Boolean cordFallen) {
-		this.cordFallen = cordFallen;
-	}
-
-	@Column(name = "correct_position")
-	public Boolean getCorrectPosition() {
-		return this.correctPosition;
-	}
-
-	public void setCorrectPosition(Boolean correctPosition) {
-		this.correctPosition = correctPosition;
-	}
-
-	@Column(name = "counsel_cord_care")
-	public Boolean getCounselCordCare() {
-		return this.counselCordCare;
-	}
-
-	public void setCounselCordCare(Boolean counselCordCare) {
-		this.counselCordCare = counselCordCare;
-	}
-
-	@Column(name = "counsel_exclusive_bf")
-	public Boolean getCounselExclusiveBf() {
-		return this.counselExclusiveBf;
-	}
-
-	public void setCounselExclusiveBf(Boolean counselExclusiveBf) {
-		this.counselExclusiveBf = counselExclusiveBf;
-	}
-
-	@Column(name = "counsel_express_milk")
-	public Boolean getCounselExpressMilk() {
-		return this.counselExpressMilk;
-	}
-
-	public void setCounselExpressMilk(Boolean counselExpressMilk) {
-		this.counselExpressMilk = counselExpressMilk;
-	}
-
-	@Column(name = "counsel_skin")
-	public Boolean getCounselSkin() {
-		return this.counselSkin;
-	}
-
-	public void setCounselSkin(Boolean counselSkin) {
-		this.counselSkin = counselSkin;
-	}
-
-	@Column(name = "cousel_bf_correct")
-	public Boolean getCouselBfCorrect() {
-		return this.couselBfCorrect;
-	}
-
-	public void setCouselBfCorrect(Boolean couselBfCorrect) {
-		this.couselBfCorrect = couselBfCorrect;
-	}
-
-	@Column(name = "demonstrate_expressed")
-	public Boolean getDemonstrateExpressed() {
-		return this.demonstrateExpressed;
-	}
-
-	public void setDemonstrateExpressed(Boolean demonstrateExpressed) {
-		this.demonstrateExpressed = demonstrateExpressed;
-	}
-
-	@Column(name = "demonstrate_skin")
-	public Boolean getDemonstrateSkin() {
-		return this.demonstrateSkin;
-	}
-
-	public void setDemonstrateSkin(Boolean demonstrateSkin) {
-		this.demonstrateSkin = demonstrateSkin;
-	}
-
-	@Column(name = "easy_awake")
-	public Boolean getEasyAwake() {
-		return this.easyAwake;
-	}
-
-	public void setEasyAwake(Boolean easyAwake) {
-		this.easyAwake = easyAwake;
-	}
-
-	@Column(name = "feed_vigour")
-	public Boolean getFeedVigour() {
-		return this.feedVigour;
-	}
-
-	public void setFeedVigour(Boolean feedVigour) {
-		this.feedVigour = feedVigour;
-	}
-
-	@Column(name = "good_latch")
-	public Boolean getGoodLatch() {
-		return this.goodLatch;
-	}
-
-	public void setGoodLatch(Boolean goodLatch) {
-		this.goodLatch = goodLatch;
-	}
-
-	@Column(name = "improvements_bf")
-	public Boolean getImprovementsBf() {
-		return this.improvementsBf;
-	}
-
-	public void setImprovementsBf(Boolean improvementsBf) {
-		this.improvementsBf = improvementsBf;
-	}
-
-	@Column(name = "observed_bf")
-	public Boolean getObservedBf() {
-		return this.observedBf;
-	}
-
-	public void setObservedBf(Boolean observedBf) {
-		this.observedBf = observedBf;
-	}
-
-	@Column(name = "other_milk_to_child")
-	public Boolean getOtherMilkToChild() {
-		return this.otherMilkToChild;
-	}
-
-	public void setOtherMilkToChild(Boolean otherMilkToChild) {
-		this.otherMilkToChild = otherMilkToChild;
-	}
-
-	@Column(name = "second_observation")
-	public Boolean getSecondObservation() {
-		return this.secondObservation;
-	}
-
-	public void setSecondObservation(Boolean secondObservation) {
-		this.secondObservation = secondObservation;
-	}
-
-	@Column(name = "skin_to_skin")
-	public Boolean getSkinToSkin() {
-		return this.skinToSkin;
-	}
-
-	public void setSkinToSkin(Boolean skinToSkin) {
-		this.skinToSkin = skinToSkin;
-	}
-
-	@Column(name = "warm_to_touch")
-	public Boolean getWarmToTouch() {
-		return this.warmToTouch;
-	}
-
-	public void setWarmToTouch(Boolean warmToTouch) {
-		this.warmToTouch = warmToTouch;
-	}
-
-	@Column(name = "what_applied")
-	public String getWhatApplied() {
-		return this.whatApplied;
-	}
-
-	public void setWhatApplied(String whatApplied) {
-		this.whatApplied = whatApplied;
-	}
-
-	@Column(name = "wrapped")
-	public Boolean getWrapped() {
-		return this.wrapped;
-	}
-
-	public void setWrapped(Boolean wrapped) {
-		this.wrapped = wrapped;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -1258,67 +453,99 @@ public class ChildCase implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_death", length = 13)
-	public Date getDateDeath() {
-		return this.dateDeath;
+	@Column(name = "date_je", length = 13)
+	public Date getDateJe() {
+		return this.dateJe;
 	}
 
-	public void setDateDeath(Date dateDeath) {
-		this.dateDeath = dateDeath;
+	public void setDateJe(Date dateJe) {
+		this.dateJe = dateJe;
 	}
 
-	@Column(name = "died")
-	public Boolean getDied() {
-		return this.died;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_measles_booster", length = 13)
+	public Date getDateMeaslesBooster() {
+		return this.dateMeaslesBooster;
 	}
 
-	public void setDied(Boolean died) {
-		this.died = died;
+	public void setDateMeaslesBooster(Date dateMeaslesBooster) {
+		this.dateMeaslesBooster = dateMeaslesBooster;
 	}
 
-	@Column(name = "died_village")
-	public Boolean getDiedVillage() {
-		return this.diedVillage;
+	@Column(name = "baby_weight", precision = 131089, scale = 0)
+	public BigDecimal getBabyWeight() {
+		return this.babyWeight;
 	}
 
-	public void setDiedVillage(Boolean diedVillage) {
-		this.diedVillage = diedVillage;
+	public void setBabyWeight(BigDecimal babyWeight) {
+		this.babyWeight = babyWeight;
 	}
 
-	@Column(name = "dupe_reg")
-	public Boolean getDupeReg() {
-		return this.dupeReg;
+	@Column(name = "name")
+	public String getName() {
+		return this.name;
 	}
 
-	public void setDupeReg(Boolean dupeReg) {
-		this.dupeReg = dupeReg;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Column(name = "finished_continuum")
-	public Boolean getFinishedContinuum() {
-		return this.finishedContinuum;
+	@Column(name = "term", length = 50)
+	public String getTerm() {
+		return this.term;
 	}
 
-	public void setFinishedContinuum(Boolean finishedContinuum) {
-		this.finishedContinuum = finishedContinuum;
+	public void setTerm(String term) {
+		this.term = term;
 	}
 
-	@Column(name = "site_death")
-	public String getSiteDeath() {
-		return this.siteDeath;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "time_of_birth", length = 35)
+	public Date getTimeOfBirth() {
+		return this.timeOfBirth;
 	}
 
-	public void setSiteDeath(String siteDeath) {
-		this.siteDeath = siteDeath;
+	public void setTimeOfBirth(Date timeOfBirth) {
+		this.timeOfBirth = timeOfBirth;
 	}
 
-	@Column(name = "refer_child")
-	public Boolean getReferChild() {
-		return this.referChild;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "vit_a_2_date", length = 13)
+	public Date getVitA2Date() {
+		return this.vitA2Date;
 	}
 
-	public void setReferChild(Boolean referChild) {
-		this.referChild = referChild;
+	public void setVitA2Date(Date vitA2Date) {
+		this.vitA2Date = vitA2Date;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "vit_a_3_date", length = 13)
+	public Date getVitA3Date() {
+		return this.vitA3Date;
+	}
+
+	public void setVitA3Date(Date vitA3Date) {
+		this.vitA3Date = vitA3Date;
+	}
+
+	@Column(name = "closed")
+	public Boolean getClosed() {
+		return this.closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_closed", length = 13)
+	public Date getDateClosed() {
+		return this.dateClosed;
+	}
+
+	public void setDateClosed(Date dateClosed) {
+		this.dateClosed = dateClosed;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
@@ -1383,6 +610,15 @@ public class ChildCase implements java.io.Serializable {
 
 	public void setCfChildForms(Set<CfChildForm> cfChildForms) {
 		this.cfChildForms = cfChildForms;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
+	public Set<DeliveryChildForm> getDeliveryChildForms() {
+		return this.deliveryChildForms;
+	}
+
+	public void setDeliveryChildForms(Set<DeliveryChildForm> deliveryChildForms) {
+		this.deliveryChildForms = deliveryChildForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")

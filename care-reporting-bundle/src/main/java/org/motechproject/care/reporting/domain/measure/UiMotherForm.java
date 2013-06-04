@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.domain.measure;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
@@ -22,7 +22,6 @@ public class UiMotherForm implements java.io.Serializable {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Integer children;
 	private Boolean detailsAvailable;
 	private Date tt1Date;
 	private Date tt2Date;
@@ -43,10 +42,10 @@ public class UiMotherForm implements java.io.Serializable {
 
 	public UiMotherForm(int id, Flw flw, MotherCase motherCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Integer children, Boolean detailsAvailable, Date tt1Date,
-			Date tt2Date, Date ttBoosterDate, Boolean receivedTt1,
-			Boolean receivedTt2, String upToDate, Short numChildren,
-			Boolean updateMother, Date ttBooster) {
+			Boolean detailsAvailable, Date tt1Date, Date tt2Date,
+			Date ttBoosterDate, Boolean receivedTt1, Boolean receivedTt2,
+			String upToDate, Short numChildren, Boolean updateMother,
+			Date ttBooster) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -54,7 +53,6 @@ public class UiMotherForm implements java.io.Serializable {
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
-		this.children = children;
 		this.detailsAvailable = detailsAvailable;
 		this.tt1Date = tt1Date;
 		this.tt2Date = tt2Date;
@@ -134,15 +132,6 @@ public class UiMotherForm implements java.io.Serializable {
 
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
-	}
-
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
 	}
 
 	@Column(name = "details_available")
