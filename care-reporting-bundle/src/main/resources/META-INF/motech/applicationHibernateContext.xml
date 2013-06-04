@@ -21,6 +21,7 @@
                 <value>org.motechproject.care.reporting.domain.dimension.Flw</value>
                 <value>org.motechproject.care.reporting.domain.dimension.FlwGroup</value>
                 <value>org.motechproject.care.reporting.domain.dimension.MotherCase</value>
+                <value>org.motechproject.care.reporting.domain.dimension.Location</value>
 
                 <value>org.motechproject.care.reporting.domain.measure.AbortForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.BpForm</value>
@@ -43,6 +44,8 @@
                 <value>org.motechproject.care.reporting.domain.measure.RegistrationChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.UiChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.UiMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeliveryChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeliveryMotherForm</value>
             </list>
         </property>
 

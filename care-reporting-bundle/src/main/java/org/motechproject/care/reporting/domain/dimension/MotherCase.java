@@ -293,6 +293,7 @@ public class MotherCase implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
