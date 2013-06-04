@@ -1,32 +1,46 @@
+CREATE TABLE report.location (
+  id SERIAL PRIMARY KEY
+  ,district VARCHAR(255)
+	,block VARCHAR(255)
+	,panchayat VARCHAR(255)
+	,village VARCHAR(255),
+	UNIQUE (district, block, panchayat, village)
+);
+
 CREATE TABLE report.flw (
-	id SERIAL PRIMARY KEY
-	,flw_id VARCHAR(36) UNIQUE
-	,default_phone_number VARCHAR(20)
-	,email VARCHAR(255)
-	,first_name VARCHAR(255)
-	,last_name VARCHAR(255)
-	,phone_numbers TEXT
-	,asset_id VARCHAR(255)
-	,awc_code VARCHAR(255)
-	,imei_no VARCHAR(255)
-	,role VARCHAR(255)
-	,subcentre VARCHAR(255)
-	,user_type VARCHAR(255)
-	,username VARCHAR(255)
+       id SERIAL PRIMARY KEY
+       ,flw_id VARCHAR(36) UNIQUE
+       ,default_phone_number VARCHAR(20)
+       ,email VARCHAR(255)
+       ,first_name VARCHAR(255)
+       ,last_name VARCHAR(255)
+       ,phone_numbers VARCHAR(1000)
+       ,asset_id VARCHAR(255)
+       ,awc_code VARCHAR(255)
+       ,imei_no VARCHAR(255)
+       ,role VARCHAR(255)
+       ,subcentre VARCHAR(255)
+       ,user_type VARCHAR(255)
+       ,username VARCHAR(255)
+	   ,population VARCHAR(255)
+	   ,education VARCHAR(255)
+	   ,age SMALLINT
+	   ,location_id INTEGER REFERENCES report.location(id)
 );
 
 CREATE TABLE report.flw_group (
-   id SERIAL PRIMARY KEY
-   ,group_id VARCHAR(36) UNIQUE
-   ,case_sharing BOOLEAN
-   ,domain VARCHAR(255)
-   ,awc_code VARCHAR(255)
-   ,name VARCHAR(255)
-   ,reporting BOOLEAN
+  id SERIAL PRIMARY KEY
+  ,group_id VARCHAR(36) UNIQUE
+  ,case_sharing BOOLEAN
+  ,domain VARCHAR(255)
+  ,awc_code VARCHAR(255)
+  ,name VARCHAR(255)
+  ,reporting BOOLEAN
 );
 
 CREATE TABLE report.flw_group_map (
-   flw_id INTEGER REFERENCES report.flw(id)
+   id SERIAL PRIMARY KEY
+   ,flw_id INTEGER REFERENCES report.flw(id)
    ,group_id INTEGER REFERENCES report.flw_group(id)
 );
 
@@ -36,8 +50,10 @@ CREATE TABLE report.mother_case (
 	,case_name	VARCHAR(255)
 	,case_type	VARCHAR(255)
 	,owner_id	INTEGER REFERENCES report.flw_group(id)
+	,user_id INTEGER REFERENCES report.flw(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,date_next_reg	DATE
+	,server_date_modified TIMESTAMP WITH TIME ZONE
+	,server_date_opened TIMESTAMP WITH TIME ZONE
 	,family_number	INTEGER
 	,hh_number	INTEGER
 	,husband_name	VARCHAR(255)
@@ -45,9 +61,6 @@ CREATE TABLE report.mother_case (
 	,mother_alive	BOOLEAN
 	,mother_dob	DATE
 	,mother_name	VARCHAR(255)
-	,dob	DATE
-	,full_name	VARCHAR(255)
-	,age_est	SMALLINT
 	,close	 BOOLEAN
 	,case_closed	BOOLEAN
 	,closed_on	DATE
@@ -68,38 +81,28 @@ CREATE TABLE report.mother_case (
 	,last_preg_tt	BOOLEAN
 	,lmp	DATE
 	,mobile_number	VARCHAR(20)
-	,num_boys	SMALLINT
-	,children	INTEGER
-	,nextvisittype	VARCHAR(20)
-	,num_children	SMALLINT
+	,num_boys	SMALLINT	
 	,date_cf_1	DATE
 	,date_cf_2	DATE
 	,date_cf_3	DATE
 	,date_cf_4	DATE
 	,date_cf_5	DATE
 	,date_cf_6	DATE
-	,cf_visit_num	SMALLINT
 	,date_eb_1	DATE
 	,date_eb_2	DATE
 	,date_eb_3	DATE
 	,date_eb_4	DATE
 	,date_eb_5	DATE
 	,date_eb_6	DATE
-	,eb_visit_num	INTEGER
 	,all_pnc_on_time	BOOLEAN
 	,date_pnc_1	DATE
 	,date_pnc_2	DATE
 	,date_pnc_3	DATE
 	,first_pnc_time	VARCHAR(255)
-	,pnc_1_days_late	SMALLINT
-	,pnc_2_days_late	SMALLINT
-	,pnc_3_days_late	SMALLINT
-	,date_death	DATE
-	,pnc_visit_num	SMALLINT
-	,tt1_date	DATE
-	,tt2_date	DATE
+	,pnc_1_days_late	INTEGER
+	,pnc_2_days_late	INTEGER
+	,pnc_3_days_late	INTEGER
 	,tt_booster_date	DATE
-	,bp_visit_num	SMALLINT
 	,sba	BOOLEAN
 	,sba_phone	BOOLEAN
 	,accompany	BOOLEAN
@@ -124,42 +127,34 @@ CREATE TABLE report.mother_case (
 	,tt_1_date	DATE
 	,tt_2_date	DATE
 	,vehicle	BOOLEAN
-	,update	BOOLEAN
-	,preg_status	VARCHAR(255)
 	,birth_status	VARCHAR(255)
 	,migrate_out_date	DATE
 	,migrated_status	VARCHAR(255)
 	,status	VARCHAR(255)
-	,cast_num_children	SMALLINT
-	,received_tt1	BOOLEAN
-	,received_tt2	BOOLEAN
-	,up_to_date	VARCHAR(15)
+	,term VARCHAR(25)
+	,date_cf_7 DATE
+	,date_del_fu DATE
+	,date_next_reg DATE
+	,institutional BOOLEAN
+	,dob DATE
+	,closed BOOLEAN
+	,date_closed DATE
+
+
 );
 
 CREATE TABLE report.child_case (
 	id SERIAL PRIMARY KEY
 	,case_id	VARCHAR(36)
 	,case_name	VARCHAR(255)
-	,date_modified	TIMESTAMP WITH TIME ZONE
-    ,mother_id	INTEGER REFERENCES report.mother_case(id)
-	,abnormalities	BOOLEAN
-	,add_vaccinations	BOOLEAN
-	,baby_bcg	BOOLEAN
-	,baby_dpt1	BOOLEAN
-	,baby_dpt2	BOOLEAN
-	,baby_dpt3	BOOLEAN
-	,baby_hep_b_0	BOOLEAN
-	,baby_hep_b_1	BOOLEAN
-	,baby_hep_b_2	BOOLEAN
-	,baby_hep_b_3	BOOLEAN
-	,baby_measles	BOOLEAN
-	,baby_opv0	BOOLEAN
-	,baby_opv1	BOOLEAN
-	,baby_opv2	BOOLEAN
-	,baby_opv3	BOOLEAN
-	,baby_vita1	BOOLEAN
+	,date_modified	TIMESTAMP WITH TIME ZONE	
+	,server_date_modified TIMESTAMP WITH TIME ZONE
+	,server_date_opened TIMESTAMP WITH TIME ZONE
+    ,mother_id	INTEGER REFERENCES report.mother_case(id)	
 	,case_type	VARCHAR(255)
-	,owner_id	INTEGER REFERENCES report.flw_group(id)
+	,owner_id	INTEGER REFERENCES report.flw_group(id)	
+	,user_id INTEGER REFERENCES report.flw(id)
+	,baby_measles	BOOLEAN	
 	,bcg_date	DATE
 	,birth_status	VARCHAR(255)
 	,dob	DATE
@@ -176,77 +171,22 @@ CREATE TABLE report.child_case (
 	,opv_1_date	DATE
 	,opv_2_date	DATE
 	,opv_3_date	DATE
-	,vit_a_1_date	DATE
-	,child_have_a_name	BOOLEAN
-	,child_name	VARCHAR(255)
-	,weight	DECIMAL
-	,amount_good	BOOLEAN
-	,cid	VARCHAR(36)
-	,dal	BOOLEAN
-	,eaten_cereal	BOOLEAN
-	,egg	BOOLEAN
-	,fish	BOOLEAN
-	,index	INTEGER
-	,meat	BOOLEAN
-	,milk_curd	BOOLEAN
-	,more_feeding_less_six	BOOLEAN
-	,name_update	BOOLEAN
-	,new_name	VARCHAR(255)
-	,number_good	BOOLEAN
-	,oil_ghee	BOOLEAN
-	,recent_fever	BOOLEAN
-	,treated_less_six	BOOLEAN
-	,at_night	BOOLEAN
-	,breastfeeding	BOOLEAN
-	,counsel_adequate_bf	BOOLEAN
-	,counsel_only_milk	BOOLEAN
-	,counsel_stop_bottle	BOOLEAN
-	,eating	BOOLEAN
-	,emptying	BOOLEAN
-	,feeding_bottle	BOOLEAN
-	,not_breasfeeding	VARCHAR(255)
-	,on_demand	BOOLEAN
-	,tea_other	BOOLEAN
-	,water_or_milk	BOOLEAN
-	,able_expressed_milk	BOOLEAN
-	,adequate_support	BOOLEAN
-	,applied_to_stump	BOOLEAN
-	,baby_active	BOOLEAN
-	,breastfeeding_well	BOOLEAN
-	,child_alive	BOOLEAN
-	,child_died_village	BOOLEAN
-	,child_place_death	VARCHAR(255)
-	,child_site_death	VARCHAR(255)
-	,chld_date_death	DATE
-	,cord_fallen	BOOLEAN
-	,correct_position	BOOLEAN
-	,counsel_cord_care	BOOLEAN
-	,counsel_exclusive_bf	BOOLEAN
-	,counsel_express_milk	BOOLEAN
-	,counsel_skin	BOOLEAN
-	,cousel_bf_correct	BOOLEAN
-	,demonstrate_expressed	BOOLEAN
-	,demonstrate_skin	BOOLEAN
-	,easy_awake	BOOLEAN
-	,feed_vigour	BOOLEAN
-	,good_latch	BOOLEAN
-	,improvements_bf	BOOLEAN
-	,observed_bf	BOOLEAN
-	,other_milk_to_child	BOOLEAN
-	,second_observation	BOOLEAN
-	,skin_to_skin	BOOLEAN
-	,warm_to_touch	BOOLEAN
-	,what_applied	VARCHAR(255)
-	,wrapped	BOOLEAN
+	,vit_a_1_date	DATE	
+	,child_alive	BOOLEAN	
 	,dpt_booster_date	DATE
 	,opv_booster_date	DATE
-	,date_death	DATE
-	,died	BOOLEAN
-	,died_village	BOOLEAN
-	,dupe_reg	BOOLEAN
-	,finished_continuum	BOOLEAN
-	,site_death	VARCHAR(255)
-	,refer_child	BOOLEAN
+	,date_je DATE
+	,date_measles_booster DATE
+	,baby_weight DECIMAL
+	,name VARCHAR(255)
+	,term VARCHAR(50)
+	,time_of_birth TIMESTAMP WITH TIME ZONE	
+	,vit_a_2_date DATE
+	,vit_a_3_date DATE
+	,closed BOOLEAN
+	,date_closed DATE
+
+	
 );
 
 CREATE TABLE report.new_form (
@@ -531,6 +471,7 @@ CREATE TABLE report.bp_form(
 	,nextvisittype	VARCHAR(20)
 	,play_family_planning_vid	BOOLEAN
 	,postponing	VARCHAR(15)
+
 );
 
 
@@ -630,7 +571,6 @@ CREATE TABLE report.pnc_child_form(
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,abdominal_pain	BOOLEAN
 	,able_expressed_milk	BOOLEAN
 	,adequate_support	BOOLEAN
 	,applied_to_stump	BOOLEAN
@@ -640,8 +580,7 @@ CREATE TABLE report.pnc_child_form(
 	,child_died_village	BOOLEAN
 	,child_place_death	VARCHAR(255)
 	,child_site_death	VARCHAR(255)
-	,chld_date_death	DATE
-	,cid	VARCHAR(36)
+	,chld_date_death	DATE	
 	,close	VARCHAR(255)
 	,cord_fallen	BOOLEAN
 	,correct_position	BOOLEAN
@@ -656,7 +595,6 @@ CREATE TABLE report.pnc_child_form(
 	,feed_vigour	BOOLEAN
 	,good_latch	BOOLEAN
 	,improvements_bf	BOOLEAN
-	,index	SMALLINT
 	,observed_bf	BOOLEAN
 	,other_milk_to_child	BOOLEAN
 	,second_observation	BOOLEAN
@@ -786,7 +724,6 @@ CREATE TABLE report.ebf_child_form(
 	,breastfeeding	BOOLEAN
 	,case_name	VARCHAR(255)
 	,child_name	VARCHAR(255)
-	,cid	VARCHAR(36)
 	,counsel_adequate_bf	BOOLEAN
 	,counsel_only_milk	BOOLEAN
 	,counsel_stop_bottle	BOOLEAN
@@ -800,7 +737,6 @@ CREATE TABLE report.ebf_child_form(
 	,hep_b_1_date	DATE
 	,hep_b_2_date	DATE
 	,hep_b_3_date	DATE
-	,index	INTEGER
 	,more_feeding_less_six	BOOLEAN
 	,name_update	BOOLEAN
 	,not_breasfeeding	VARCHAR(255)
@@ -838,6 +774,8 @@ CREATE TABLE report.cf_mother_form(
 	,play_comp_feeding_vid	BOOLEAN
 	,lastvisit BOOLEAN
     ,date_cf_7 DATE
+	,confirm_close BOOLEAN
+	,close	BOOLEAN
 );
 
 CREATE TABLE report.cf_child_form(
@@ -879,12 +817,10 @@ CREATE TABLE report.cf_child_form(
 	,opv_2_date	DATE
 	,opv_3_date	DATE
 	,vit_a_1_date	DATE
-	,cid	VARCHAR(36)
 	,dal	BOOLEAN
 	,eaten_cereal	BOOLEAN
 	,egg	BOOLEAN
 	,fish	BOOLEAN
-	,index	INTEGER
 	,meat	BOOLEAN
 	,milk_curd	BOOLEAN
 	,more_feeding_less_six	BOOLEAN
@@ -906,8 +842,112 @@ CREATE TABLE report.cf_child_form(
     ,opv_booster_date DATE
     ,vit_a_3_date DATE
     ,vit_a_2_date DATE
+	,close	VARCHAR(255)
 );
 
+
+CREATE TABLE report.delivery_mother_form(
+	id SERIAL PRIMARY KEY
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
+	,case_id	INTEGER REFERENCES report.mother_case(id)
+	,date_modified	TIMESTAMP WITH TIME ZONE
+	,PPIUD	BOOLEAN
+	,PPTL	BOOLEAN
+	,abd_pain	BOOLEAN
+	,add	DATE
+	,close	VARCHAR(255)
+	,birth_place	VARCHAR(25)
+	,date_del_fu	DATE
+	,date_last_visit	DATE
+	,date_next_cf	DATE
+	,date_next_eb	DATE
+	,date_next_pnc	DATE
+	,family_planning_type	VARCHAR(50)
+	,last_visit_type	VARCHAR(255)
+	,mother_alive	BOOLEAN
+	,term	VARCHAR(50)
+	,cast_num_children	SMALLINT
+	,complications	BOOLEAN
+	,date_death	DATE
+	,death_village	BOOLEAN
+	,delivery_nature	VARCHAR(50)
+	,fever	BOOLEAN
+	,has_delivered	BOOLEAN
+	,how_many_children	SMALLINT
+	,ifa_tablets_given	BOOLEAN
+	,in_district	BOOLEAN
+	,jsy_money	BOOLEAN
+	,nextvisittype	VARCHAR(255)
+	,notified	DATE
+	,num_children	SMALLINT
+	,other_conditions	BOOLEAN
+	,other_district	VARCHAR(255)
+	,other_village	VARCHAR(255)
+	,pain_urine	BOOLEAN
+	,place_death	VARCHAR(255)
+	,post_postpartum_fp	BOOLEAN
+	,safe	BOOLEAN
+	,site_death	VARCHAR(255)
+	,vaginal_discharge	BOOLEAN
+	,where_born	VARCHAR(50)
+	,which_hospital	VARCHAR(255)
+	,which_village	VARCHAR(255)
+
+
+);
+
+CREATE TABLE report.delivery_child_form(
+	id SERIAL PRIMARY KEY
+	,instance_id VARCHAR(36) UNIQUE
+	,time_end	TIMESTAMP WITH TIME ZONE
+	,time_start	TIMESTAMP WITH TIME ZONE
+	,user_id	INTEGER REFERENCES report.flw(id)
+	,case_id	INTEGER REFERENCES report.child_case(id)
+	,date_modified	TIMESTAMP WITH TIME ZONE
+	,abnormalities 	BOOLEAN
+	,add_vaccinations 	BOOLEAN
+	,baby_bcg 	BOOLEAN
+	,baby_hep_b_0 	BOOLEAN
+	,baby_opv0 	BOOLEAN
+	,breastfed_hour 	BOOLEAN
+	,close 	VARCHAR(255)
+	,case_name 	VARCHAR(255)
+	,case_type 	VARCHAR(255)
+	,owner_id 	VARCHAR(255)
+	,baby_weight 	BOOLEAN
+	,bcg_date 	DATE
+	,birth_status 	VARCHAR(255)
+	,dob 	DATE
+	,gender 	VARCHAR(25)
+	,hep_b_0_date 	DATE
+	,opv_0_date 	DATE
+	,term 	VARCHAR(50)
+	,time_of_birth 	TIMESTAMP WITH TIME ZONE
+	,child_alive 	BOOLEAN
+	,child_breathing 	VARCHAR(25)
+	,child_cried 	BOOLEAN
+	,child_died_village 	BOOLEAN
+	,child_have_a_name 	BOOLEAN
+	,child_heartbeats 	VARCHAR(25)
+	,child_movement 	BOOLEAN
+	,child_name 	VARCHAR(25)
+	,child_place_death 	VARCHAR(25)
+	,child_site_death 	VARCHAR(50)
+	,chld_date_death 	DATE
+	,cord_applied 	BOOLEAN
+	,cord_cut 	BOOLEAN
+	,cord_tied 	BOOLEAN
+	,date_first_weight 	DATE
+	,date_time_feed 	DATE
+	,first_weight 	DECIMAL
+	,skin_care 	BOOLEAN
+	,what_applied 	VARCHAR(255)
+	,wrapped_dried 	BOOLEAN
+
+);
 
 CREATE TABLE report.death_mother_form(
 	id SERIAL PRIMARY KEY
@@ -943,8 +983,6 @@ CREATE TABLE report.death_child_form(
 	,child_place_death	VARCHAR(255)
 	,child_site_death	VARCHAR(255)
 	,chld_date_death	DATE
-	,cid	VARCHAR(36)
-	,index	INTEGER
 );
 
 CREATE TABLE report.close_mother_form(
@@ -956,7 +994,6 @@ CREATE TABLE report.close_mother_form(
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	 VARCHAR(20)
-	,update	 INTEGER
 	,children	INTEGER
 	,close_mother	BOOLEAN
 	,confirm_close	BOOLEAN
@@ -986,7 +1023,6 @@ CREATE TABLE report.close_child_form(
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	VARCHAR(20)
 	,child_alive	BOOLEAN
-	,cid	VARCHAR(36)
 	,close_child	BOOLEAN
 	,confirm_close	BOOLEAN
 	,date_death	DATE
@@ -994,7 +1030,6 @@ CREATE TABLE report.close_child_form(
 	,died_village	BOOLEAN
 	,dupe_reg	BOOLEAN
 	,finished_continuum	BOOLEAN
-	,index	INTEGER
 	,site_death	VARCHAR(255)
 	,place_death VARCHAR(255)
 );
@@ -1007,7 +1042,6 @@ CREATE TABLE report.refer_mother_form(
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,cast_num_children	SMALLINT
 	,children	INTEGER
 	,num_children	SMALLINT
 	,refer_mother	BOOLEAN
@@ -1033,7 +1067,6 @@ CREATE TABLE report.ui_mother_form(
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,children	INTEGER
 	,details_available	BOOLEAN
 	,tt_1_date	DATE
 	,tt_2_date	DATE
@@ -1070,7 +1103,6 @@ CREATE TABLE report.ui_child_form(
 	,baby_opv3	BOOLEAN
 	,baby_vita1	BOOLEAN
 	,bcg_date	DATE
-	,cid	VARCHAR(36)
 	,dpt_1_date	DATE
 	,dpt_2_date	DATE
 	,dpt_3_date	DATE
@@ -1079,7 +1111,6 @@ CREATE TABLE report.ui_child_form(
 	,hep_b_1_date	DATE
 	,hep_b_2_date	DATE
 	,hep_b_3_date	DATE
-	,index	INTEGER
 	,measles_date	DATE
 	,opv_0_date	DATE
 	,opv_1_date	DATE
