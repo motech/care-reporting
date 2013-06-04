@@ -1,12 +1,15 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,18 +18,16 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "flw_group", uniqueConstraints = @UniqueConstraint(columnNames = "group_id"))
-public class FlwGroup implements Serializable {
+public class FlwGroup implements java.io.Serializable {
 
 	private int id;
 	private String groupId;
 	private Boolean caseSharing;
-	private String groupDomain;
+	private String domain;
 	private String awcCode;
-	private String groupName;
-	private Serializable path;
+	private String name;
 	private Boolean reporting;
-	private String resourceUri;
-	private Set<FlwGroupMap> flwGroupMaps = new HashSet<FlwGroupMap>(0);
+    private Set<Flw> flws;
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
 			0);
@@ -40,23 +41,20 @@ public class FlwGroup implements Serializable {
 		this.id = id;
 	}
 
-	public FlwGroup(int id, String groupId, Boolean caseSharing,
-			String groupDomain, String awcCode, String groupName,
-			Serializable path, Boolean reporting, String resourceUri,
-			Set<FlwGroupMap> flwGroupMaps, Set<ChildCase> childCases,
-			Set<RegistrationChildForm> registrationChildForms,
-			Set<MotherCase> motherCases, Set<NewForm> newForms) {
+	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
+                    String awcCode, String name, Boolean reporting,
+                    Set<Flw> flws, Set<ChildCase> childCases,
+                    Set<RegistrationChildForm> registrationChildForms,
+                    Set<MotherCase> motherCases, Set<NewForm> newForms) {
 		this.id = id;
 		this.groupId = groupId;
 		this.caseSharing = caseSharing;
-		this.groupDomain = groupDomain;
+		this.domain = domain;
 		this.awcCode = awcCode;
-		this.groupName = groupName;
-		this.path = path;
+		this.name = name;
 		this.reporting = reporting;
-		this.resourceUri = resourceUri;
-		this.flwGroupMaps = flwGroupMaps;
-		this.childCases = childCases;
+        this.flws = flws;
+        this.childCases = childCases;
 		this.registrationChildForms = registrationChildForms;
 		this.motherCases = motherCases;
 		this.newForms = newForms;
@@ -64,6 +62,7 @@ public class FlwGroup implements Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -90,13 +89,13 @@ public class FlwGroup implements Serializable {
 		this.caseSharing = caseSharing;
 	}
 
-	@Column(name = "group_domain")
-	public String getGroupDomain() {
-		return this.groupDomain;
+	@Column(name = "domain")
+	public String getDomain() {
+		return this.domain;
 	}
 
-	public void setGroupDomain(String groupDomain) {
-		this.groupDomain = groupDomain;
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 	@Column(name = "awc_code")
@@ -108,22 +107,13 @@ public class FlwGroup implements Serializable {
 		this.awcCode = awcCode;
 	}
 
-	@Column(name = "group_name")
-	public String getGroupName() {
-		return this.groupName;
+	@Column(name = "name")
+	public String getName() {
+		return this.name;
 	}
 
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-
-	@Column(name = "path")
-	public Serializable getPath() {
-		return this.path;
-	}
-
-	public void setPath(Serializable path) {
-		this.path = path;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Column(name = "reporting")
@@ -135,30 +125,22 @@ public class FlwGroup implements Serializable {
 		this.reporting = reporting;
 	}
 
-	@Column(name = "resource_uri")
-	public String getResourceUri() {
-		return this.resourceUri;
-	}
-
-	public void setResourceUri(String resourceUri) {
-		this.resourceUri = resourceUri;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
-	public Set<FlwGroupMap> getFlwGroupMaps() {
-		return this.flwGroupMaps;
-	}
-
-	public void setFlwGroupMaps(Set<FlwGroupMap> flwGroupMaps) {
-		this.flwGroupMaps = flwGroupMaps;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
 	public Set<ChildCase> getChildCases() {
 		return this.childCases;
 	}
 
-	public void setChildCases(Set<ChildCase> childCases) {
+    @ManyToMany(mappedBy="flwGroups")
+    @Cascade(value = {CascadeType.SAVE_UPDATE})
+    public Set<Flw> getFlws() {
+        return flws;
+    }
+
+    public void setFlws(Set<Flw> flws) {
+        this.flws = flws;
+    }
+
+    public void setChildCases(Set<ChildCase> childCases) {
 		this.childCases = childCases;
 	}
 

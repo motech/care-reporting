@@ -21,7 +21,6 @@
                 <value>org.motechproject.care.reporting.domain.dimension.ChildCase</value>
                 <value>org.motechproject.care.reporting.domain.dimension.Flw</value>
                 <value>org.motechproject.care.reporting.domain.dimension.FlwGroup</value>
-                <value>org.motechproject.care.reporting.domain.dimension.FlwGroupMap</value>
                 <value>org.motechproject.care.reporting.domain.dimension.MotherCase</value>
 
                 <value>org.motechproject.care.reporting.domain.measure.AbortForm</value>

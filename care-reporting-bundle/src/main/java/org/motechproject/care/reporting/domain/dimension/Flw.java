@@ -1,11 +1,14 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-// Generated Jun 3, 2013 2:41:26 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "flw", uniqueConstraints = @UniqueConstraint(columnNames = "flw_id"))
-public class Flw implements Serializable {
+public class Flw implements java.io.Serializable {
 
 	private int id;
 	private String flwId;
@@ -22,8 +25,7 @@ public class Flw implements Serializable {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private Serializable phoneNumbers;
-	private String resourceUri;
+	private String phoneNumbers;
 	private String assetId;
 	private String awcCode;
 	private String imeiNo;
@@ -31,8 +33,8 @@ public class Flw implements Serializable {
 	private String subcentre;
 	private String userType;
 	private String username;
+    private Set<FlwGroup> flwGroups = new HashSet<>();
 	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
-	private Set<FlwGroupMap> flwGroupMaps = new HashSet<FlwGroupMap>(0);
 	private Set<ReferChildForm> referChildForms = new HashSet<ReferChildForm>(0);
 	private Set<RegistrationMotherForm> registrationMotherForms = new HashSet<RegistrationMotherForm>(
 			0);
@@ -67,24 +69,25 @@ public class Flw implements Serializable {
 	}
 
 	public Flw(int id, String flwId, String defaultPhoneNumber, String email,
-			String firstName, String lastName, Serializable phoneNumbers,
-			String resourceUri, String assetId, String awcCode, String imeiNo,
-			String role, String subcentre, String userType, String username,
-			Set<DeathChildForm> deathChildForms, Set<FlwGroupMap> flwGroupMaps,
-			Set<ReferChildForm> referChildForms,
-			Set<RegistrationMotherForm> registrationMotherForms,
-			Set<PncMotherForm> pncMotherForms, Set<MiForm> miForms,
-			Set<CloseChildForm> closeChildForms, Set<MoForm> moForms,
-			Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
-			Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
-			Set<UiChildForm> uiChildForms,
-			Set<ReferMotherForm> referMotherForms,
-			Set<EbfMotherForm> ebfMotherForms,
-			Set<RegistrationChildForm> registrationChildForms,
-			Set<CloseMotherForm> closeMotherForms,
-			Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
-			Set<DeathMotherForm> deathMotherForms, Set<NewForm> newForms,
-			Set<PncChildForm> pncChildForms) {
+               String firstName, String lastName, String phoneNumbers,
+               String assetId, String awcCode, String imeiNo, String role,
+               String subcentre, String userType, String username,
+               Set<FlwGroup> flwGroups,
+               Set<DeathChildForm> deathChildForms,
+               Set<ReferChildForm> referChildForms,
+               Set<RegistrationMotherForm> registrationMotherForms,
+               Set<PncMotherForm> pncMotherForms, Set<MiForm> miForms,
+               Set<CloseChildForm> closeChildForms, Set<MoForm> moForms,
+               Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
+               Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
+               Set<UiChildForm> uiChildForms,
+               Set<ReferMotherForm> referMotherForms,
+               Set<EbfMotherForm> ebfMotherForms,
+               Set<RegistrationChildForm> registrationChildForms,
+               Set<CloseMotherForm> closeMotherForms,
+               Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
+               Set<DeathMotherForm> deathMotherForms, Set<NewForm> newForms,
+               Set<PncChildForm> pncChildForms) {
 		this.id = id;
 		this.flwId = flwId;
 		this.defaultPhoneNumber = defaultPhoneNumber;
@@ -92,16 +95,15 @@ public class Flw implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumbers = phoneNumbers;
-		this.resourceUri = resourceUri;
 		this.assetId = assetId;
 		this.awcCode = awcCode;
 		this.imeiNo = imeiNo;
 		this.role = role;
-		this.subcentre = subcentre;
-		this.userType = userType;
+        this.subcentre = subcentre;
+        this.userType = userType;
 		this.username = username;
-		this.deathChildForms = deathChildForms;
-		this.flwGroupMaps = flwGroupMaps;
+        this.flwGroups = flwGroups;
+        this.deathChildForms = deathChildForms;
 		this.referChildForms = referChildForms;
 		this.registrationMotherForms = registrationMotherForms;
 		this.pncMotherForms = pncMotherForms;
@@ -126,6 +128,7 @@ public class Flw implements Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -180,21 +183,12 @@ public class Flw implements Serializable {
 	}
 
 	@Column(name = "phone_numbers")
-	public Serializable getPhoneNumbers() {
+	public String getPhoneNumbers() {
 		return this.phoneNumbers;
 	}
 
-	public void setPhoneNumbers(Serializable phoneNumbers) {
+	public void setPhoneNumbers(String phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
-	}
-
-	@Column(name = "resource_uri")
-	public String getResourceUri() {
-		return this.resourceUri;
-	}
-
-	public void setResourceUri(String resourceUri) {
-		this.resourceUri = resourceUri;
 	}
 
 	@Column(name = "asset_id")
@@ -233,16 +227,16 @@ public class Flw implements Serializable {
 		this.role = role;
 	}
 
-	@Column(name = "subcentre")
-	public String getSubcentre() {
-		return this.subcentre;
-	}
+    @Column(name = "subcentre")
+    public String getSubcentre() {
+        return subcentre;
+    }
 
-	public void setSubcentre(String subcentre) {
-		this.subcentre = subcentre;
-	}
+    public void setSubcentre(String subcentre) {
+        this.subcentre = subcentre;
+    }
 
-	@Column(name = "user_type")
+    @Column(name = "user_type")
 	public String getUserType() {
 		return this.userType;
 	}
@@ -260,22 +254,26 @@ public class Flw implements Serializable {
 		this.username = username;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+    @ManyToMany
+    @Cascade(value = {CascadeType.SAVE_UPDATE})
+    @JoinTable(name="flw_group_map",
+            joinColumns={@JoinColumn(name="flw_id")},
+            inverseJoinColumns={@JoinColumn(name="group_id")})
+    public Set<FlwGroup> getFlwGroups() {
+        return flwGroups;
+    }
+
+    public void setFlwGroups(Set<FlwGroup> flwGroups) {
+        this.flwGroups = flwGroups;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<DeathChildForm> getDeathChildForms() {
 		return this.deathChildForms;
 	}
 
 	public void setDeathChildForms(Set<DeathChildForm> deathChildForms) {
 		this.deathChildForms = deathChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
-	public Set<FlwGroupMap> getFlwGroupMaps() {
-		return this.flwGroupMaps;
-	}
-
-	public void setFlwGroupMaps(Set<FlwGroupMap> flwGroupMaps) {
-		this.flwGroupMaps = flwGroupMaps;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")

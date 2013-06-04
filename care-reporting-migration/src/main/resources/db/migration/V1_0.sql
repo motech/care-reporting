@@ -5,8 +5,7 @@ CREATE TABLE report.flw (
 	,email VARCHAR(255)
 	,first_name VARCHAR(255)
 	,last_name VARCHAR(255)
-	,phone_numbers VARCHAR(20) ARRAY
-	,resource_uri VARCHAR(255)
+	,phone_numbers TEXT
 	,asset_id VARCHAR(255)
 	,awc_code VARCHAR(255)
 	,imei_no VARCHAR(255)
@@ -20,17 +19,14 @@ CREATE TABLE report.flw_group (
    id SERIAL PRIMARY KEY
    ,group_id VARCHAR(36) UNIQUE
    ,case_sharing BOOLEAN
-   ,group_domain VARCHAR(255)
+   ,domain VARCHAR(255)
    ,awc_code VARCHAR(255)
-   ,group_name VARCHAR(255)
-   ,path VARCHAR(255) ARRAY
+   ,name VARCHAR(255)
    ,reporting BOOLEAN
-   ,resource_uri VARCHAR(255)
 );
 
 CREATE TABLE report.flw_group_map (
-   id SERIAL PRIMARY KEY
-   ,flw_id INTEGER REFERENCES report.flw(id)
+   flw_id INTEGER REFERENCES report.flw(id)
    ,group_id INTEGER REFERENCES report.flw_group(id)
 );
 

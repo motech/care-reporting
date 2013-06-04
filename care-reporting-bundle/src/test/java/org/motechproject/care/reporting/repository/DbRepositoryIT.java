@@ -1,9 +1,16 @@
 package org.motechproject.care.reporting.repository;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -12,6 +19,13 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
     @Autowired
     private Repository repository;
+
+    @Before
+    @After
+    public void setUp() {
+        template.deleteAll(template.loadAll(Flw.class));
+        template.deleteAll(template.loadAll(FlwGroup.class));
+    }
 
     @Test
     @Ignore
@@ -37,7 +51,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldGetByMatchingCriteria(){
+    public void shouldGetByMatchingCriteria() {
 
         NewForm form = new NewForm();
         form.setCaseName("mother");
@@ -57,5 +71,23 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         NewForm newForm = repository.get("caseName", "father", NewForm.class);
 
         assertNull(newForm);
+    }
+
+    @Test
+    public void shouldPerformCascadeSaveOnFlw(){
+        Flw flw = new Flw();
+        HashSet<FlwGroup> flwGroups = new HashSet<>();
+        flwGroups.add(new FlwGroup());
+        flwGroups.add(new FlwGroup());
+        flw.setFlwGroups(flwGroups);
+
+        template.save(flw);
+
+        List<Flw> savedFlws = template.loadAll(Flw.class);
+        List<FlwGroup> savedFlwGroups = template.loadAll(FlwGroup.class);
+        assertEquals(1, savedFlws.size());
+        assertEquals(2, savedFlwGroups.size());
+        assertEquals(flw, savedFlws.get(0));
+        assertEquals(flwGroups, savedFlws.get(0).getFlwGroups());
     }
 }
