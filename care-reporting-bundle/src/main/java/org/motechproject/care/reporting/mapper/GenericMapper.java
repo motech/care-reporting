@@ -29,7 +29,6 @@ public class GenericMapper {
             String value = field.getValue();
 
             logger.info("Setting " + value + " to " + key);
-            System.out.println("Setting " + value + " to " + key);
             ObjectUtils.set(typeInstance, key, value);
         }
 
