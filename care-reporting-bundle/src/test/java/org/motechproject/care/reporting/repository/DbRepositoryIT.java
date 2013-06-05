@@ -46,7 +46,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         System.out.println(savedFormId);
         System.out.println(otherFormId);
 
-        NewForm savedForm = repository.get(savedFormId, NewForm.class);
+        NewForm savedForm = repository.get(NewForm.class, savedFormId);
         assertEquals("mother", savedForm.getCaseName());
         assertEquals("abcd", savedForm.getInstanceId());
         assertEquals(savedFormId, savedForm.getId());
@@ -61,7 +61,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
         repository.save(form);
 
-        NewForm newForm = repository.get("caseName", "mother", NewForm.class);
+        NewForm newForm = repository.get(NewForm.class, "caseName", "mother");
 
         assertEquals("abcd", newForm.getInstanceId());
         assertEquals("mother", newForm.getCaseName());
@@ -70,7 +70,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Test
     public void shouldGetByNonMatchingCriteria(){
 
-        NewForm newForm = repository.get("caseName", "father", NewForm.class);
+        NewForm newForm = repository.get(NewForm.class, "caseName", "father");
 
         assertNull(newForm);
     }

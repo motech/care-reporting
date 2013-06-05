@@ -26,12 +26,12 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public <T> T get(int id, Class<T> entityClass) {
+    public <T> T get(Class<T> entityClass, int id) {
         return template.get(entityClass, id);
     }
 
     @Override
-    public <T> T get(String fieldName, Object value, Class<T> entityClass) {
+    public <T> T get(Class<T> entityClass, String fieldName, Object value) {
         DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
         criteria.add(Restrictions.eq(fieldName, value));
 

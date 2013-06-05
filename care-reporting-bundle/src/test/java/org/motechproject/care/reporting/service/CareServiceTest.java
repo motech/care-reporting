@@ -36,7 +36,7 @@ public class CareServiceTest {
         MotherCase expectedMotherCase = new MotherCase();
         expectedMotherCase.setCaseId("1");
 
-        when(dbRepository.get("caseId", "1", MotherCase.class)).thenReturn(expectedMotherCase);
+        when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(expectedMotherCase);
 
         MotherCase actualMotherCase = service.getMotherCase("1");
 
@@ -48,7 +48,7 @@ public class CareServiceTest {
         MotherCase expectedMotherCase = new MotherCase();
         expectedMotherCase.setCaseId("1");
 
-        when(dbRepository.get("caseId", "1", MotherCase.class)).thenReturn(null);
+        when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(null);
 
         MotherCase actualMotherCase = service.getMotherCase("1");
 
@@ -60,7 +60,7 @@ public class CareServiceTest {
         ChildCase expectedChildCase = new ChildCase();
         expectedChildCase.setCaseId("1");
 
-        when(dbRepository.get("caseId", "1", ChildCase.class)).thenReturn(expectedChildCase);
+        when(dbRepository.get(ChildCase.class, "caseId", "1")).thenReturn(expectedChildCase);
 
         ChildCase actualChildCase = service.getChildCase("1");
 
@@ -72,7 +72,7 @@ public class CareServiceTest {
         ChildCase expectedChildCase = new ChildCase();
         expectedChildCase.setCaseId("1");
 
-        when(dbRepository.get("caseId", "1", MotherCase.class)).thenReturn(null);
+        when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(null);
 
         ChildCase actualChildCase = service.getChildCase("1");
 
@@ -84,7 +84,7 @@ public class CareServiceTest {
         Flw expectedFlw = new Flw();
         expectedFlw.setFlwId("1");
 
-        when(dbRepository.get("flwId", "1", Flw.class)).thenReturn(expectedFlw);
+        when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(expectedFlw);
 
         Flw actualFlw = service.getFlw("1");
 
@@ -96,7 +96,7 @@ public class CareServiceTest {
         Flw expectedFlw = new Flw();
         expectedFlw.setFlwId("1");
 
-        when(dbRepository.get("flwId", "1", Flw.class)).thenReturn(null);
+        when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(null);
 
         Flw actualFlw = service.getFlw("1");
 
@@ -129,11 +129,11 @@ public class CareServiceTest {
         String fieldName = "groupId";
         String fieldValue = "groupId";
         FlwGroup flwGroup = new FlwGroup();
-        when(dbRepository.get(fieldName, fieldValue, FlwGroup.class)).thenReturn(flwGroup);
+        when(dbRepository.get(FlwGroup.class, fieldName, fieldValue)).thenReturn(flwGroup);
 
         FlwGroup actualGroup = service.getGroup(fieldValue);
 
-        verify(dbRepository).get(fieldName, fieldValue, FlwGroup.class);
+        verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(flwGroup, actualGroup);
     }
 
@@ -141,11 +141,37 @@ public class CareServiceTest {
     public void shouldGetNewGroupIfItDoesNotExist(){
         String fieldName = "groupId";
         String fieldValue = "groupId";
-        when(dbRepository.get(fieldName, fieldValue, FlwGroup.class)).thenReturn(null);
+        when(dbRepository.get(FlwGroup.class, fieldName, fieldValue)).thenReturn(null);
 
         FlwGroup actualGroup = service.getGroup(fieldValue);
 
-        verify(dbRepository).get(fieldName, fieldValue, FlwGroup.class);
+        verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualGroup.getGroupId());
+    }
+
+
+    @Test
+    public void shouldGetACaseIfExists(){
+        String fieldName = "fieldName";
+        String fieldValue = "fieldValue";
+        MotherCase motherCase = new MotherCase();
+        when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(motherCase);
+
+        MotherCase actualMotherCase = service.get(MotherCase.class, fieldName, fieldValue);
+
+        verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
+        assertEquals(motherCase, actualMotherCase);
+    }
+
+    @Test
+    public void shouldGetANewCaseIfItDoesNotExist(){
+        String fieldName = "caseId";
+        String fieldValue = "fieldValue";
+        when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(null);
+
+        MotherCase actualMotherCase = service.get(MotherCase.class, fieldName, fieldValue);
+
+        verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
+        assertEquals(fieldValue, actualMotherCase.getCaseId());
     }
 }

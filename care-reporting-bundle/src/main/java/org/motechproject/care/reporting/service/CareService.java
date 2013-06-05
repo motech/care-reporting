@@ -35,26 +35,27 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public FlwGroup getGroup(String groupId) {
-        return get("groupId", groupId, FlwGroup.class);
+        return get(FlwGroup.class, "groupId", groupId);
     }
 
     @Override
     public MotherCase getMotherCase(String caseId) {
-        return get("caseId", caseId, MotherCase.class);
+        return get(MotherCase.class, "caseId", caseId);
     }
 
     @Override
     public ChildCase getChildCase(String caseId) {
-        return get("caseId", caseId, ChildCase.class);
+        return get(ChildCase.class, "caseId", caseId);
     }
 
     @Override
     public Flw getFlw(String flwId) {
-        return get("flwId", flwId, Flw.class);
+        return get(Flw.class, "flwId", flwId);
     }
 
-    private <T> T get(String fieldName, String value, Class<T> type){
-        T instance = dbRepository.get(fieldName, value, type);
+    @Override
+    public <T> T get(Class<T> type, String fieldName, String value){
+        T instance = dbRepository.get(type, fieldName, value);
         if(null != instance)
             return instance;
 
