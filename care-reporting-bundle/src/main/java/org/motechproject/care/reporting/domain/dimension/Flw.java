@@ -18,8 +18,7 @@ import java.util.Set;
 public class Flw implements java.io.Serializable {
 
 	private int id;
-	private Location location;
-	private String flwId;
+    private String flwId;
 	private String defaultPhoneNumber;
 	private String email;
 	private String firstName;
@@ -34,6 +33,10 @@ public class Flw implements java.io.Serializable {
 	private String username;
 	private String population;
 	private String education;
+	private String district;
+	private String block;
+	private String panchayat;
+	private String village;
 	private Short age;
     private Set<FlwGroup> flwGroups = new HashSet<>();
 	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
@@ -76,31 +79,30 @@ public class Flw implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Flw(int id, Location location, String flwId,
-			String defaultPhoneNumber, String email, String firstName,
-			String lastName, String phoneNumbers, String assetId,
-			String awcCode, String imeiNo, String role, String subcentre,
-			String userType, String username, String population,
-			String education, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
-			Set<RegistrationMotherForm> registrationMotherForms,
-			Set<MiForm> miForms, Set<MoForm> moForms,
-			Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
-			Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
-			Set<UiChildForm> uiChildForms,
-			Set<ReferMotherForm> referMotherForms,
-			Set<RegistrationChildForm> registrationChildForms,
-			Set<CloseMotherForm> closeMotherForms,
-			Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
-			Set<NewForm> newForms, Set<PncChildForm> pncChildForms,
-			Set<ReferChildForm> referChildForms,
-			Set<MotherCase> motherCases, Set<PncMotherForm> pncMotherForms,
-			Set<CloseChildForm> closeChildForms,
-			Set<DeliveryChildForm> deliveryChildForms,
-			Set<EbfMotherForm> ebfMotherForms,
-			Set<DeliveryMotherForm> deliveryMotherForms,
-			Set<ChildCase> childCases, Set<DeathMotherForm> deathMotherForms) {
+	public Flw(int id, String flwId,
+               String defaultPhoneNumber, String email, String firstName,
+               String lastName, String phoneNumbers, String assetId,
+               String awcCode, String imeiNo, String role, String subcentre,
+               String userType, String username, String population,
+               String education, String district, String block, String panchayat, String village, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
+               Set<RegistrationMotherForm> registrationMotherForms,
+               Set<MiForm> miForms, Set<MoForm> moForms,
+               Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
+               Set<BpForm> bpForms, Set<UiMotherForm> uiMotherForms,
+               Set<UiChildForm> uiChildForms,
+               Set<ReferMotherForm> referMotherForms,
+               Set<RegistrationChildForm> registrationChildForms,
+               Set<CloseMotherForm> closeMotherForms,
+               Set<CfMotherForm> cfMotherForms, Set<AbortForm> abortForms,
+               Set<NewForm> newForms, Set<PncChildForm> pncChildForms,
+               Set<ReferChildForm> referChildForms,
+               Set<MotherCase> motherCases, Set<PncMotherForm> pncMotherForms,
+               Set<CloseChildForm> closeChildForms,
+               Set<DeliveryChildForm> deliveryChildForms,
+               Set<EbfMotherForm> ebfMotherForms,
+               Set<DeliveryMotherForm> deliveryMotherForms,
+               Set<ChildCase> childCases, Set<DeathMotherForm> deathMotherForms) {
 		this.id = id;
-		this.location = location;
 		this.flwId = flwId;
 		this.defaultPhoneNumber = defaultPhoneNumber;
 		this.email = email;
@@ -116,7 +118,11 @@ public class Flw implements java.io.Serializable {
 		this.username = username;
 		this.population = population;
 		this.education = education;
-		this.age = age;
+        this.district = district;
+        this.block = block;
+        this.panchayat = panchayat;
+        this.village = village;
+        this.age = age;
         this.flwGroups = flwGroups;
         this.deathChildForms = deathChildForms;
 		this.registrationMotherForms = registrationMotherForms;
@@ -156,17 +162,7 @@ public class Flw implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "location_id")
-	public Location getLocation() {
-		return this.location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	@Column(name = "flw_id", unique = true, length = 36)
+    @Column(name = "flw_id", unique = true, length = 36)
 	public String getFlwId() {
 		return this.flwId;
 	}
@@ -314,7 +310,43 @@ public class Flw implements java.io.Serializable {
 		this.education = education;
 	}
 
-	@Column(name = "age")
+    @Column(name = "district")
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    @Column(name = "block")
+    public String getBlock() {
+        return block;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
+    }
+
+    @Column(name = "panchayat")
+    public String getPanchayat() {
+        return panchayat;
+    }
+
+    public void setPanchayat(String panchayat) {
+        this.panchayat = panchayat;
+    }
+
+    @Column(name = "village")
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
+    }
+
+    @Column(name = "age")
 	public Short getAge() {
 		return this.age;
 	}

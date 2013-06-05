@@ -1,12 +1,3 @@
-CREATE TABLE report.location (
-  id SERIAL PRIMARY KEY
-  ,district VARCHAR(255)
-	,block VARCHAR(255)
-	,panchayat VARCHAR(255)
-	,village VARCHAR(255),
-	UNIQUE (district, block, panchayat, village)
-);
-
 CREATE TABLE report.flw (
        id SERIAL PRIMARY KEY
        ,flw_id VARCHAR(36) UNIQUE
@@ -25,7 +16,10 @@ CREATE TABLE report.flw (
 	   ,population VARCHAR(255)
 	   ,education VARCHAR(255)
 	   ,age SMALLINT
-	   ,location_id INTEGER REFERENCES report.location(id)
+	   ,district VARCHAR(255)
+	   ,block VARCHAR(255)
+	   ,panchayat VARCHAR(255)
+	   ,village VARCHAR(255)
 );
 
 CREATE TABLE report.flw_group (
