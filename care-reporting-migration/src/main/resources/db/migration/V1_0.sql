@@ -311,7 +311,7 @@ CREATE TABLE report.registration_mother_form (
 
 CREATE TABLE report.registration_child_form (
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -357,6 +357,7 @@ CREATE TABLE report.registration_child_form (
 	,child_have_a_name	BOOLEAN
 	,child_name	VARCHAR(255)
 	,weight	DECIMAL
+	,UNIQUE(instance_id, case_id)
 );
 
 
@@ -565,7 +566,7 @@ CREATE TABLE report.pnc_mother_form(
 
 CREATE TABLE report.pnc_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -602,6 +603,7 @@ CREATE TABLE report.pnc_child_form(
 	,warm_to_touch	BOOLEAN
 	,what_applied	VARCHAR(255)
 	,wrapped	BOOLEAN
+	,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.ebf_mother_form(
@@ -700,7 +702,7 @@ CREATE TABLE report.ebf_mother_form(
 
 CREATE TABLE report.ebf_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -749,6 +751,7 @@ CREATE TABLE report.ebf_child_form(
 	,tea_other	BOOLEAN
 	,treated_less_six	BOOLEAN
 	,water_or_milk	BOOLEAN
+	,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.cf_mother_form(
@@ -780,7 +783,7 @@ CREATE TABLE report.cf_mother_form(
 
 CREATE TABLE report.cf_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -843,6 +846,7 @@ CREATE TABLE report.cf_child_form(
     ,vit_a_3_date DATE
     ,vit_a_2_date DATE
 	,close	VARCHAR(255)
+	,UNIQUE(instance_id, case_id)
 );
 
 
@@ -901,7 +905,7 @@ CREATE TABLE report.delivery_mother_form(
 
 CREATE TABLE report.delivery_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -946,6 +950,7 @@ CREATE TABLE report.delivery_child_form(
 	,skin_care 	BOOLEAN
 	,what_applied 	VARCHAR(255)
 	,wrapped_dried 	BOOLEAN
+	,UNIQUE(instance_id, case_id)
 
 );
 
@@ -971,7 +976,7 @@ CREATE TABLE report.death_mother_form(
 
 CREATE TABLE report.death_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -983,6 +988,7 @@ CREATE TABLE report.death_child_form(
 	,child_place_death	VARCHAR(255)
 	,child_site_death	VARCHAR(255)
 	,chld_date_death	DATE
+	,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.close_mother_form(
@@ -1015,7 +1021,7 @@ CREATE TABLE report.close_mother_form(
 
 CREATE TABLE report.close_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1032,6 +1038,7 @@ CREATE TABLE report.close_child_form(
 	,finished_continuum	BOOLEAN
 	,site_death	VARCHAR(255)
 	,place_death VARCHAR(255)
+	,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -1049,13 +1056,14 @@ CREATE TABLE report.refer_mother_form(
 
 CREATE TABLE report.refer_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,refer_child	BOOLEAN
+	,UNIQUE(instance_id, case_id)
 );
 
 
@@ -1081,7 +1089,7 @@ CREATE TABLE report.ui_mother_form(
 
 CREATE TABLE report.ui_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(36)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1128,6 +1136,7 @@ CREATE TABLE report.ui_child_form(
     ,date_measles_booster DATE
     ,vit_a_2_date DATE
     ,vit_a_3_date DATE
+    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.abort_form(
