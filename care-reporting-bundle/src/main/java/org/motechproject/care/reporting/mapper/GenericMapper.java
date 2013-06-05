@@ -11,7 +11,7 @@ import java.util.Map;
 public class GenericMapper {
     protected Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-    public <T> T map(Map<String, String> keyStore, Class<T> type) {
+    public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
         T newInstance;
         try {
             newInstance = type.newInstance();
@@ -23,10 +23,10 @@ public class GenericMapper {
         return map(keyStore, newInstance);
     }
 
-    public <T> T map(Map<String, String> keyStore, T typeInstance) {
-        for (Map.Entry<String, String> field : keyStore.entrySet()) {
+    public <T, U> T map(Map<String, U> keyStore, T typeInstance) {
+        for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
-            String value = field.getValue();
+            U value = field.getValue();
 
             logger.info("Setting " + value + " to " + key);
             ObjectUtils.set(typeInstance, key, value);

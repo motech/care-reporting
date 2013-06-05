@@ -16,7 +16,7 @@ public class ProviderParserTest {
     public void shouldParseProviderWithAppropriateKeyConversions() {
         ProviderParser providerParser = new ProviderParser();
 
-        Map<String, String> parsedValues = providerParser.parse(provider());
+        Map<String, Object> parsedValues = providerParser.parse(provider());
 
         assertEquals("Sonia", parsedValues.get("firstName"));
         assertEquals("001", parsedValues.get("assetId"));

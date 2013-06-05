@@ -34,7 +34,7 @@ public class ProviderSyncProcessor {
     public void processGroupSync(List<Group> groups) {
         List<FlwGroup> flwGroups = new ArrayList<>();
         for (Group group : groups) {
-            Map<String, String> parsedGroups = groupParser.parse(group);
+            Map<String, Object> parsedGroups = groupParser.parse(group);
             flwGroups.add(genericMapper.map(parsedGroups, FlwGroup.class));
         }
         careService.saveOrUpdateAll(flwGroups);
@@ -43,7 +43,7 @@ public class ProviderSyncProcessor {
     public void processProviderSync(List<Provider> providers) {
         List<Flw> flws = new ArrayList<>();
         for (Provider provider : providers) {
-            Map<String, String> parsedProvider = providerParser.parse(provider);
+            Map<String, Object> parsedProvider = providerParser.parse(provider);
             Flw flw = genericMapper.map(parsedProvider, Flw.class);
             flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups())));
             flws.add(flw);

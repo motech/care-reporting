@@ -14,7 +14,7 @@ public class GroupParserTest {
     public void shouldParseAGivenGroupWithAppropriateKeyConversions() {
         final Group group = group();
 
-        Map<String, String> parsedGroupMap = new GroupParser().parse(group);
+        Map<String, Object> parsedGroupMap = new GroupParser().parse(group);
 
         assertEquals("3c5a80e4db53049dfc110c368a0d05d4", parsedGroupMap.get("groupId"));
         assertEquals("038", parsedGroupMap.get("awcCode"));

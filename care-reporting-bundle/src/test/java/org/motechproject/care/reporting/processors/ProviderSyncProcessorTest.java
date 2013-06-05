@@ -55,10 +55,10 @@ public class ProviderSyncProcessorTest {
             add(group1);
             add(group2);
         }};
-        when(groupParser.parse(group1)).thenReturn(new HashMap<String, String>() {{
+        when(groupParser.parse(group1)).thenReturn(new HashMap<String, Object>() {{
             put("name", "group1");
         }});
-        when(groupParser.parse(group2)).thenReturn(new HashMap<String, String>() {{
+        when(groupParser.parse(group2)).thenReturn(new HashMap<String, Object>() {{
             put("name", "group2");
         }});
 
@@ -82,10 +82,10 @@ public class ProviderSyncProcessorTest {
             add(provider1);
             add(provider2);
         }};
-        when(providerParser.parse(provider1)).thenReturn(new HashMap<String, String>() {{
+        when(providerParser.parse(provider1)).thenReturn(new HashMap<String, Object>() {{
             put("firstName", "provider1");
         }});
-        when(providerParser.parse(provider2)).thenReturn(new HashMap<String, String>() {{
+        when(providerParser.parse(provider2)).thenReturn(new HashMap<String, Object>() {{
             put("firstName", "provider2");
         }});
 
@@ -112,7 +112,7 @@ public class ProviderSyncProcessorTest {
         }});
         FlwGroup expectedFlwGroup1 = new FlwGroup();
         FlwGroup expectedFlwGroup2 = new FlwGroup();
-        when(providerParser.parse(provider)).thenReturn(new HashMap<String, String>());
+        when(providerParser.parse(provider)).thenReturn(new HashMap<String, Object>());
         when(careService.getGroup(groupId1)).thenReturn(expectedFlwGroup1);
         when(careService.getGroup(groupId2)).thenReturn(expectedFlwGroup2);
 

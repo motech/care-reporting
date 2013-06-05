@@ -38,16 +38,16 @@ public class InfoParser {
         return mapper;
     }
 
-    Map<String, String> parse(Object object) {
-        Map<String, String> objectFieldsMap = objectMapper.convertValue(object, Map.class);
+    Map<String, Object> parse(Object object) {
+        Map<String, Object> objectFieldsMap = objectMapper.convertValue(object, Map.class);
         return parse(objectFieldsMap);
     }
 
-    Map<String, String> parse(Map<String, String> map) {
+    <T> Map<String, T> parse(Map<String, T> map) {
 
-        HashMap<String, String> mapper = new HashMap<>();
+        HashMap<String, T> mapper = new HashMap<>();
 
-        for (Map.Entry<String, String> pair : map.entrySet()) {
+        for (Map.Entry<String, T> pair : map.entrySet()) {
             String key = applyKeyConversionMap(pair.getKey());
             key = applyCamelConversion(key);
 

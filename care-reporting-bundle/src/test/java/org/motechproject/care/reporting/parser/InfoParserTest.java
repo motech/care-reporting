@@ -130,7 +130,7 @@ public class InfoParserTest {
             put("fieldName", "fieldValue");
         }};
 
-        Map<String, String> parsedFlwMap = new InfoParser().parse(instance);
+        Map<String, Object> parsedFlwMap = new InfoParser().parse(instance);
 
         ReflectionAssert.assertReflectionEquals(expectedFlwMap, parsedFlwMap);
     }

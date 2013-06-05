@@ -10,12 +10,12 @@ import java.util.Map;
 @Component
 public class ProviderParser {
 
-    public Map<String, String> parse(Provider provider) {
-        HashMap<String, String> parsedProviderMap = new HashMap<>();
-        Map<String, String> providerData = parseProviderInfo(provider, new HashMap<String, String>() {{
+    public Map<String, Object> parse(Provider provider) {
+        HashMap<String, Object> parsedProviderMap = new HashMap<>();
+        Map<String, Object> providerData = parseProviderInfo(provider, new HashMap<String, String>() {{
             put("id", "flwId");
         }});
-        Map<String, String> userData = parseProviderInfo(provider.getUserData(), new HashMap<String, String>() {{
+        Map<String, Object> userData = parseProviderInfo(provider.getUserData(), new HashMap<String, String>() {{
             put("asset-id", "assetId");
             put("awc-code", "awcCode");
             put("imei-no", "imeiNo");
@@ -26,7 +26,7 @@ public class ProviderParser {
         return parsedProviderMap;
     }
 
-    private Map<String, String> parseProviderInfo(Object providerInfo, HashMap<String, String> keyConversionMap) {
+    private Map<String, Object> parseProviderInfo(Object providerInfo, HashMap<String, String> keyConversionMap) {
         InfoParser infoParser = new InfoParser(keyConversionMap);
         return infoParser.parse(providerInfo);
     }
