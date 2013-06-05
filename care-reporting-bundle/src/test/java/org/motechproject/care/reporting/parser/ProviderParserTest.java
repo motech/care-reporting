@@ -1,10 +1,9 @@
 package org.motechproject.care.reporting.parser;
 
 import org.junit.Test;
+import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.response.Provider;
-import org.unitils.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,27 +28,21 @@ public class ProviderParserTest {
 
     private Provider provider() {
         Provider provider = new Provider();
-        setField(provider, "id", "5ba9a0928dde95d187544babf6c0ad24");
-        setField(provider, "firstName", "Sonia");
-        setField(provider, "phoneNumbers", new ArrayList<String>() {{
-            add("9004195698");
-            add("919004195698");
-        }});
-        setField(provider, "userData", new HashMap<String, String>() {{
-            put("asset-id", "001");
-            put("awc-code", "somevalue1");
-            put("imei-no", "somevalue2");
-            put("block", "delhi");
-        }});
+        HashMap<String, Object> fieldMap = new HashMap<String, Object>() {{
+            put("id", "5ba9a0928dde95d187544babf6c0ad24");
+            put("firstName", "Sonia");
+            put("phoneNumbers", new ArrayList<String>() {{
+                add("9004195698");
+                add("919004195698");
+            }});
+            put("userData", new HashMap<String, String>() {{
+                put("asset-id", "001");
+                put("awc-code", "somevalue1");
+                put("imei-no", "somevalue2");
+                put("block", "delhi");
+            }});
+        }};
+        TestUtils.setField(provider, fieldMap);
         return provider;
-    }
-
-    private void setField(Provider provider, String fieldName, Object value) {
-        try {
-            Field field = Provider.class.getDeclaredField(fieldName);
-            ReflectionUtils.setFieldValue(provider, field, value);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

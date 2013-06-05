@@ -31,7 +31,7 @@ public class CommcareProviderSyncListenerTest {
     @Test
     public void shouldHandleGroupSyncEvent(){
         HashMap<String, Object> parameters = new HashMap<>();
-        ArrayList<Group> groups = new ArrayList<Group>();
+        ArrayList<Group> groups = new ArrayList<>();
         parameters.put(EventConstants.GROUP_DETAILS, groups);
         MotechEvent event = new MotechEvent(EventConstants.GROUP_DETAILS, parameters);
 
