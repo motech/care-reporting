@@ -194,7 +194,6 @@ CREATE TABLE report.new_form (
 	,age_calc	SMALLINT
 	,case_name	VARCHAR(255)
 	,case_type	VARCHAR(255)
-	,owner_id	VARCHAR(36)
 	,date_last_visit	DATE
 	,date_next_reg	DATE
 	,family_number	INTEGER
@@ -311,7 +310,6 @@ CREATE TABLE report.registration_child_form (
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,mother_id	INTEGER REFERENCES report.mother_case(id)
 	,abnormalities	BOOLEAN
 	,add_vaccinations	BOOLEAN
 	,baby_bcg	BOOLEAN
@@ -330,7 +328,6 @@ CREATE TABLE report.registration_child_form (
 	,baby_vita1	BOOLEAN
 	,case_name	VARCHAR(255)
 	,case_type	VARCHAR(255)
-	,owner_id	INTEGER REFERENCES report.flw_group(id)
 	,bcg_date	DATE
 	,birth_status	VARCHAR(255)
 	,dob	DATE
@@ -914,7 +911,6 @@ CREATE TABLE report.delivery_child_form(
 	,close 	VARCHAR(255)
 	,case_name 	VARCHAR(255)
 	,case_type 	VARCHAR(255)
-	,owner_id 	VARCHAR(255)
 	,baby_weight 	BOOLEAN
 	,bcg_date 	DATE
 	,birth_status 	VARCHAR(255)

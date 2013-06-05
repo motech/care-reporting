@@ -33,7 +33,6 @@ public class DeliveryChildForm implements java.io.Serializable {
 	private String close;
 	private String caseName;
 	private String caseType;
-	private String ownerId;
 	private Boolean babyWeight;
 	private Date bcgDate;
 	private String birthStatus;
@@ -75,7 +74,7 @@ public class DeliveryChildForm implements java.io.Serializable {
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
 			Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
 			Boolean babyHepB0, Boolean babyOpv0, Boolean breastfedHour,
-			String close, String caseName, String caseType, String ownerId,
+			String close, String caseName, String caseType,
 			Boolean babyWeight, Date bcgDate, String birthStatus, Date dob,
 			String gender, Date hepB0Date, Date opv0Date, String term,
 			Date timeOfBirth, Boolean childAlive, String childBreathing,
@@ -102,7 +101,6 @@ public class DeliveryChildForm implements java.io.Serializable {
 		this.close = close;
 		this.caseName = caseName;
 		this.caseType = caseType;
-		this.ownerId = ownerId;
 		this.babyWeight = babyWeight;
 		this.bcgDate = bcgDate;
 		this.birthStatus = birthStatus;
@@ -285,15 +283,6 @@ public class DeliveryChildForm implements java.io.Serializable {
 
 	public void setCaseType(String caseType) {
 		this.caseType = caseType;
-	}
-
-	@Column(name = "owner_id")
-	public String getOwnerId() {
-		return this.ownerId;
-	}
-
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
 	}
 
 	@Column(name = "baby_weight")

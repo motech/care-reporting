@@ -30,7 +30,6 @@ public class NewForm implements java.io.Serializable {
 	private Short ageCalc;
 	private String caseName;
 	private String caseType;
-	private String ownerId;
 	private Date dateLastVisit;
 	private Date dateNextReg;
 	private Integer familyNumber;
@@ -54,7 +53,7 @@ public class NewForm implements java.io.Serializable {
 
 	public NewForm(int id, Flw flw, FlwGroup flwGroup, MotherCase motherCase,
 			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Short ageCalc, String caseName, String caseType, String ownerId,
+			Short ageCalc, String caseName, String caseType,
 			Date dateLastVisit, Date dateNextReg, Integer familyNumber,
 			Integer hhNumber, String husbandName, String lastVisitType,
 			Boolean motherAlive, Date motherDob, String motherName,
@@ -70,7 +69,6 @@ public class NewForm implements java.io.Serializable {
 		this.ageCalc = ageCalc;
 		this.caseName = caseName;
 		this.caseType = caseType;
-		this.ownerId = ownerId;
 		this.dateLastVisit = dateLastVisit;
 		this.dateNextReg = dateNextReg;
 		this.familyNumber = familyNumber;
@@ -193,15 +191,6 @@ public class NewForm implements java.io.Serializable {
 
 	public void setCaseType(String caseType) {
 		this.caseType = caseType;
-	}
-
-	@Column(name = "owner_id", length = 36)
-	public String getOwnerId() {
-		return this.ownerId;
-	}
-
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
 	}
 
 	@Temporal(TemporalType.DATE)

@@ -21,8 +21,6 @@ public class RegistrationChildForm implements java.io.Serializable {
 
 	private int id;
 	private Flw flw;
-	private MotherCase motherCase;
-	private FlwGroup flwGroup;
 	private ChildCase childCase;
 	private String instanceId;
 	private Date timeEnd;
@@ -74,8 +72,7 @@ public class RegistrationChildForm implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public RegistrationChildForm(int id, Flw flw, MotherCase motherCase,
-			FlwGroup flwGroup, ChildCase childCase, String instanceId,
+	public RegistrationChildForm(int id, Flw flw, ChildCase childCase, String instanceId,
 			Date timeEnd, Date timeStart, Date dateModified,
 			Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
 			Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
@@ -90,8 +87,6 @@ public class RegistrationChildForm implements java.io.Serializable {
 			Boolean childHaveAName, String childName, BigDecimal weight) {
 		this.id = id;
 		this.flw = flw;
-		this.motherCase = motherCase;
-		this.flwGroup = flwGroup;
 		this.childCase = childCase;
 		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
@@ -157,26 +152,6 @@ public class RegistrationChildForm implements java.io.Serializable {
 
 	public void setFlw(Flw flw) {
 		this.flw = flw;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "mother_id")
-	public MotherCase getMotherCase() {
-		return this.motherCase;
-	}
-
-	public void setMotherCase(MotherCase motherCase) {
-		this.motherCase = motherCase;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id")
-	public FlwGroup getFlwGroup() {
-		return this.flwGroup;
-	}
-
-	public void setFlwGroup(FlwGroup flwGroup) {
-		this.flwGroup = flwGroup;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
