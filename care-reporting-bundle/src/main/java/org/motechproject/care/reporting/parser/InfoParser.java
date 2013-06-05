@@ -12,9 +12,16 @@ import java.util.Map;
 public class InfoParser {
 
     private boolean convertToCamelCase = true;
-    private Map<String, String> keyConversionMap = new HashMap<>();
+    private final Map<String, String> keyConversionMap;
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    public InfoParser() {
+        this(new HashMap<String, String>());
+    }
+
+    public InfoParser(Map<String, String> keyConversionMap) {
+        this.keyConversionMap = keyConversionMap;
+    }
 
     Map<String, String> parse(FormValueElement form) {
         Map<String, String> mapper = new HashMap<>();
@@ -59,13 +66,5 @@ public class InfoParser {
 
     public void setConvertToCamelCase(boolean convertToCamelCase) {
         this.convertToCamelCase = convertToCamelCase;
-    }
-
-    public void setKeyConversionMap(Map<String, String> keyConversionMap) {
-        this.keyConversionMap = keyConversionMap;
-    }
-
-    public Map<String, String> getKeyConversionMap() {
-        return keyConversionMap;
     }
 }

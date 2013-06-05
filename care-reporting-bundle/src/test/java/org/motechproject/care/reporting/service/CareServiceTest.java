@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.Repository;
@@ -121,5 +122,30 @@ public class CareServiceTest {
         service.saveOrUpdateAll(flws);
 
         verify(dbRepository).saveOrUpdateAll(flws);
+    }
+
+    @Test
+    public void shouldGetGroupIfExists(){
+        String fieldName = "groupId";
+        String fieldValue = "groupId";
+        FlwGroup flwGroup = new FlwGroup();
+        when(dbRepository.get(fieldName, fieldValue, FlwGroup.class)).thenReturn(flwGroup);
+
+        FlwGroup actualGroup = service.getGroup(fieldValue);
+
+        verify(dbRepository).get(fieldName, fieldValue, FlwGroup.class);
+        assertEquals(flwGroup, actualGroup);
+    }
+
+    @Test
+    public void shouldGetNewGroupIfItDoesNotExist(){
+        String fieldName = "groupId";
+        String fieldValue = "groupId";
+        when(dbRepository.get(fieldName, fieldValue, FlwGroup.class)).thenReturn(null);
+
+        FlwGroup actualGroup = service.getGroup(fieldValue);
+
+        verify(dbRepository).get(fieldName, fieldValue, FlwGroup.class);
+        assertEquals(fieldValue, actualGroup.getGroupId());
     }
 }

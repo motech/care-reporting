@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +44,21 @@ public class ProviderSyncProcessor {
         List<Flw> flws = new ArrayList<>();
         for (Provider provider : providers) {
             Map<String, String> parsedProvider = providerParser.parse(provider);
-            flws.add(genericMapper.map(parsedProvider, Flw.class));
+            Flw flw = genericMapper.map(parsedProvider, Flw.class);
+            flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups())));
+            flws.add(flw);
         }
         careService.saveOrUpdateAll(flws);
+    }
+
+    private List<FlwGroup> getAssociatedFlwGroups(List<String> groups) {
+        ArrayList<FlwGroup> flwGroups = new ArrayList<>();
+        if (groups == null)
+            return flwGroups;
+        for (String groupId : groups) {
+            FlwGroup group = careService.getGroup(groupId);
+            flwGroups.add(group);
+        }
+        return flwGroups;
     }
 }

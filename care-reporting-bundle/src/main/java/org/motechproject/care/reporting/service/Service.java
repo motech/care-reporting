@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.service;
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface Service {
     ChildCase getChildCase(String caseId);
 
     <T> void saveOrUpdateAll(List<T> instances);
+
+    FlwGroup getGroup(String groupId);
 }

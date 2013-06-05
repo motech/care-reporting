@@ -11,11 +11,9 @@ public class MetaInfoParser {
         put("instanceID", "instanceId");
     }};
 
-    private final InfoParser infoParser = new InfoParser();
+    private final InfoParser infoParser = new InfoParser(keyConversionMap);
 
     public Map<String, String> parse(CommcareForm commcareForm) {
-
-        infoParser.setKeyConversionMap(keyConversionMap);
         return infoParser.parse(commcareForm.getMetadata());
     }
 }

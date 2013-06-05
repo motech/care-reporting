@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.service;
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
@@ -30,6 +31,11 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public <T> void saveOrUpdateAll(List<T> instances) {
         dbRepository.saveOrUpdateAll(instances);
+    }
+
+    @Override
+    public FlwGroup getGroup(String groupId) {
+        return get("groupId", groupId, FlwGroup.class);
     }
 
     @Override

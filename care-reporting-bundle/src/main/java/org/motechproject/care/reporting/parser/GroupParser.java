@@ -9,12 +9,6 @@ import java.util.Map;
 @Component
 public class GroupParser {
 
-    InfoParser infoParser;
-
-    public GroupParser() {
-        infoParser = new InfoParser();
-    }
-
     public Map<String, String> parse(Group group) {
         Map<String, String> groupMap = new HashMap<>();
         Map<String, String> groupFieldMap = parseGroupInfo(group, new HashMap<String, String>() {{
@@ -29,7 +23,7 @@ public class GroupParser {
     }
 
     private Map<String, String> parseGroupInfo(Object groupInfo, Map<String, String> keyConversionMap) {
-        infoParser.setKeyConversionMap(keyConversionMap);
+        InfoParser infoParser = new InfoParser(keyConversionMap);
         return infoParser.parse(groupInfo);
     }
 }

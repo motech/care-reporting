@@ -4,7 +4,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.commcare.provider.sync.response.Group;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import static junit.framework.Assert.assertTrue;
 
 public class GroupParserTest {
     @Test
-    public void shouldParseAGivenGroupWithAppropriateKeyConversions() throws InvocationTargetException, IllegalAccessException {
+    public void shouldParseAGivenGroupWithAppropriateKeyConversions() {
         final Group group = new Group() {
             @JsonProperty
             private String id = "groupId1";

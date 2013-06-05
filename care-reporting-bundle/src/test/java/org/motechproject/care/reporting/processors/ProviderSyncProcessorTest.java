@@ -20,8 +20,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -74,8 +76,8 @@ public class ProviderSyncProcessorTest {
 
     @Test
     public void shouldParseProvidersAndMapToFlwDbEntityAndSaveAll() {
-        final Provider provider1 = provider("1");
-        final Provider provider2 = provider("2");
+        final Provider provider1 = provider("id", "1");
+        final Provider provider2 = provider("id", "2");
         final ArrayList<Provider> providers = new ArrayList<Provider>() {{
             add(provider1);
             add(provider2);
@@ -86,6 +88,7 @@ public class ProviderSyncProcessorTest {
         when(providerParser.parse(provider2)).thenReturn(new HashMap<String, String>() {{
             put("firstName", "provider2");
         }});
+
 
         providerSyncProcessor.processProviderSync(providers);
 
@@ -99,10 +102,38 @@ public class ProviderSyncProcessorTest {
         assertEquals("provider2", mappedFlws.get(1).getFirstName());
     }
 
-    private Provider provider(String value) {
+    @Test
+    public void shouldGetFlwGroupsAndAssociateItWithFlw() {
+        final String groupId1 = "groupId1";
+        final String groupId2 = "groupId2";
+        final Provider provider = provider("groups", new ArrayList<String>() {{
+            add(groupId1);
+            add(groupId2);
+        }});
+        FlwGroup expectedFlwGroup1 = new FlwGroup();
+        FlwGroup expectedFlwGroup2 = new FlwGroup();
+        when(providerParser.parse(provider)).thenReturn(new HashMap<String, String>());
+        when(careService.getGroup(groupId1)).thenReturn(expectedFlwGroup1);
+        when(careService.getGroup(groupId2)).thenReturn(expectedFlwGroup2);
+
+        providerSyncProcessor.processProviderSync(new ArrayList<Provider>() {{
+            add(provider);
+        }});
+
+        verify(careService).getGroup(groupId1);
+        verify(careService).getGroup(groupId2);
+        verify(careService, times(2)).getGroup(anyString());
+        verify(careService).saveOrUpdateAll(flwArgumentCaptor.capture());
+        Set<FlwGroup> actualFlwGroups = flwArgumentCaptor.getValue().get(0).getFlwGroups();
+        assertEquals(2, actualFlwGroups.size());
+        assertTrue(actualFlwGroups.contains(expectedFlwGroup1));
+        assertTrue(actualFlwGroups.contains(expectedFlwGroup2));
+    }
+
+    private Provider provider(String fieldName, Object value) {
         Provider provider = new Provider();
         try {
-            Field id = Provider.class.getDeclaredField("id");
+            Field id = Provider.class.getDeclaredField(fieldName);
             ReflectionUtils.setFieldValue(provider, id, value);
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);

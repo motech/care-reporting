@@ -67,8 +67,7 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParser();
-        infoParser.setKeyConversionMap(keyMap);
+        InfoParser infoParser = new InfoParser(keyMap);
 
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
@@ -115,8 +114,7 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParser();
-        infoParser.setKeyConversionMap(keyMap);
+        InfoParser infoParser = new InfoParser(keyMap);
         Map<String, String> actual = infoParser.parse(input);
 
         ReflectionAssert.assertReflectionEquals(expected, actual);
