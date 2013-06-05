@@ -119,8 +119,6 @@ public class MotherCase implements java.io.Serializable {
 	private Set<UiMotherForm> uiMotherForms = new HashSet<UiMotherForm>(0);
 	private Set<ReferMotherForm> referMotherForms = new HashSet<ReferMotherForm>(
 			0);
-	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
-			0);
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<CloseMotherForm> closeMotherForms = new HashSet<CloseMotherForm>(
 			0);
@@ -173,7 +171,6 @@ public class MotherCase implements java.io.Serializable {
 			Set<RegistrationMotherForm> registrationMotherForms,
 			Set<UiMotherForm> uiMotherForms,
 			Set<ReferMotherForm> referMotherForms,
-			Set<RegistrationChildForm> registrationChildForms,
 			Set<ChildCase> childCases, Set<CloseMotherForm> closeMotherForms,
 			Set<MoForm> moForms, Set<AbortForm> abortForms,
 			Set<DeliveryMotherForm> deliveryMotherForms,
@@ -280,7 +277,6 @@ public class MotherCase implements java.io.Serializable {
 		this.registrationMotherForms = registrationMotherForms;
 		this.uiMotherForms = uiMotherForms;
 		this.referMotherForms = referMotherForms;
-		this.registrationChildForms = registrationChildForms;
 		this.childCases = childCases;
 		this.closeMotherForms = closeMotherForms;
 		this.moForms = moForms;
@@ -1248,16 +1244,6 @@ public class MotherCase implements java.io.Serializable {
 
 	public void setReferMotherForms(Set<ReferMotherForm> referMotherForms) {
 		this.referMotherForms = referMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<RegistrationChildForm> getRegistrationChildForms() {
-		return this.registrationChildForms;
-	}
-
-	public void setRegistrationChildForms(
-			Set<RegistrationChildForm> registrationChildForms) {
-		this.registrationChildForms = registrationChildForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")

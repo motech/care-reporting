@@ -27,8 +27,6 @@ public class FlwGroup implements java.io.Serializable {
 	private Boolean reporting;
     private Set<Flw> flws;
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
-	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
-			0);
 	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
 	private Set<NewForm> newForms = new HashSet<NewForm>(0);
 
@@ -42,7 +40,6 @@ public class FlwGroup implements java.io.Serializable {
 	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
                     Set<Flw> flws, Set<ChildCase> childCases,
-                    Set<RegistrationChildForm> registrationChildForms,
                     Set<MotherCase> motherCases, Set<NewForm> newForms) {
 		this.id = id;
 		this.groupId = groupId;
@@ -53,7 +50,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.reporting = reporting;
         this.flws = flws;
         this.childCases = childCases;
-		this.registrationChildForms = registrationChildForms;
 		this.motherCases = motherCases;
 		this.newForms = newForms;
 	}
@@ -140,16 +136,6 @@ public class FlwGroup implements java.io.Serializable {
 
     public void setChildCases(Set<ChildCase> childCases) {
 		this.childCases = childCases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
-	public Set<RegistrationChildForm> getRegistrationChildForms() {
-		return this.registrationChildForms;
-	}
-
-	public void setRegistrationChildForms(
-			Set<RegistrationChildForm> registrationChildForms) {
-		this.registrationChildForms = registrationChildForms;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
