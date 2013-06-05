@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.parser;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
@@ -11,8 +12,6 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 
 public class InfoParserTest {
-
-
     @Test
     public void testPopulatesTheMapWithoutCamelCaseConversion() {
 
@@ -23,7 +22,7 @@ public class InfoParserTest {
 
         InfoParser infoParser = new InfoParser();
         infoParser.setConvertToCamelCase(false);
-        Map<String,String> info = infoParser.parse(commcareForm.getForm());
+        Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
         assertEquals(2, info.size());
 
@@ -43,7 +42,7 @@ public class InfoParserTest {
                 .addSubElement("family_number", "5")
                 .build();
 
-        Map<String,String> info = new InfoParser().parse(commcareForm.getForm());
+        Map<String, String> info = new InfoParser().parse(commcareForm.getForm());
 
         assertEquals(2, info.size());
 
@@ -71,7 +70,7 @@ public class InfoParserTest {
         InfoParser infoParser = new InfoParser();
         infoParser.setKeyConversionMap(keyMap);
 
-        Map<String,String> info = infoParser.parse(commcareForm.getForm());
+        Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
         assertEquals(2, info.size());
 
@@ -84,7 +83,7 @@ public class InfoParserTest {
     }
 
     @Test
-    public void testConvertsMapToCamelCase(){
+    public void testConvertsMapToCamelCase() {
         HashMap<String, String> input = new HashMap<String, String>() {{
             put("hh_number", "165");
             put("family_number", "5");
@@ -100,9 +99,8 @@ public class InfoParserTest {
         ReflectionAssert.assertReflectionEquals(expected, actual);
     }
 
-
     @Test
-    public void testConvertsMapToCamelCaseWithKeyConversion(){
+    public void testConvertsMapToCamelCaseWithKeyConversion() {
         HashMap<String, String> input = new HashMap<String, String>() {{
             put("hh_number", "165");
             put("family_number", "5");
@@ -124,5 +122,18 @@ public class InfoParserTest {
         ReflectionAssert.assertReflectionEquals(expected, actual);
     }
 
+    @Test
+    public void shouldParseGivenObject() {
+        Object instance = new Object() {
+            @JsonProperty("field_name")
+            String fieldName = "fieldValue";
+        };
+        HashMap<String, String> expectedFlwMap = new HashMap<String, String>() {{
+            put("fieldName", "fieldValue");
+        }};
 
+        Map<String, String> parsedFlwMap = new InfoParser().parse(instance);
+
+        ReflectionAssert.assertReflectionEquals(expectedFlwMap, parsedFlwMap);
+    }
 }

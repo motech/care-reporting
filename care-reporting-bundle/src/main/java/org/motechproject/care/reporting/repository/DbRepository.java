@@ -11,14 +11,18 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class DbRepository implements org.motechproject.care.reporting.repository.Repository{
-
+public class DbRepository implements org.motechproject.care.reporting.repository.Repository {
     @Autowired
     private DataAccessTemplate template;
 
     @Override
     public <T> Integer save(T instance) {
         return (Integer) template.save(instance);
+    }
+
+    @Override
+    public <T> void saveOrUpdateAll(List<T> instances) {
+        template.saveOrUpdateAll(instances);
     }
 
     @Override

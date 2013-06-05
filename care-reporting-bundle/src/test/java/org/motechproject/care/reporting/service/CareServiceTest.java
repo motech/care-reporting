@@ -9,6 +9,8 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.Repository;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -109,5 +111,15 @@ public class CareServiceTest {
 
         verify(dbRepository).save(newForm);
 
+    }
+
+    @Test
+    public void shouldSaveOrUpdateAll(){
+        ArrayList<Flw> flws = new ArrayList<>();
+        flws.add(new Flw());
+
+        service.saveOrUpdateAll(flws);
+
+        verify(dbRepository).saveOrUpdateAll(flws);
     }
 }

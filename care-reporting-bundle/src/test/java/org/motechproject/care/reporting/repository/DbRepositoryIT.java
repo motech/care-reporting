@@ -9,11 +9,13 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -89,5 +91,26 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         assertEquals(2, savedFlwGroups.size());
         assertEquals(flw, savedFlws.get(0));
         assertEquals(flwGroups, savedFlws.get(0).getFlwGroups());
+    }
+
+    @Test
+    public void shouldSaveOrUpdateAll(){
+        final FlwGroup existingFlwGroup = new FlwGroup();
+        existingFlwGroup.setName("group1");
+        final FlwGroup newFlwGroup = new FlwGroup();
+        newFlwGroup.setName("group2");
+        List<FlwGroup> flwGroups = new ArrayList<FlwGroup>() {{
+            add(existingFlwGroup);
+            add(newFlwGroup);
+        }};
+        template.save(existingFlwGroup);
+        existingFlwGroup.setName("changedGroupName");
+
+        repository.saveOrUpdateAll(flwGroups);
+
+        List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
+        assertEquals(2, flwGroupsFromDb.size());
+        assertTrue(flwGroupsFromDb.contains(existingFlwGroup));
+        assertTrue(flwGroupsFromDb.contains(newFlwGroup));
     }
 }

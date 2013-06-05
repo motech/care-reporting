@@ -4,6 +4,8 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 
+import java.util.List;
+
 public interface Service {
     MotherCase getMotherCase(String caseId);
 
@@ -12,4 +14,6 @@ public interface Service {
     <T> Integer save(T instance);
 
     ChildCase getChildCase(String caseId);
+
+    <T> void saveOrUpdateAll(List<T> instances);
 }

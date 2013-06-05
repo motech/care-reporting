@@ -8,6 +8,8 @@ import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CareService implements org.motechproject.care.reporting.service.Service {
     @Autowired
@@ -16,7 +18,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     public CareService() {
     }
 
-    public CareService(Repository dbRepository){
+    public CareService(Repository dbRepository) {
         this.dbRepository = dbRepository;
     }
 
@@ -25,14 +27,18 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return dbRepository.save(instance);
     }
 
+    @Override
+    public <T> void saveOrUpdateAll(List<T> instances) {
+        dbRepository.saveOrUpdateAll(instances);
+    }
 
     @Override
-    public MotherCase getMotherCase(String caseId){
+    public MotherCase getMotherCase(String caseId) {
         return get("caseId", caseId, MotherCase.class);
     }
 
     @Override
-    public ChildCase getChildCase(String caseId){
+    public ChildCase getChildCase(String caseId) {
         return get("caseId", caseId, ChildCase.class);
     }
 

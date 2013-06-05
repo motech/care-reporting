@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.parser;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.FormValueElement;
 
@@ -12,6 +13,7 @@ public class InfoParser {
 
     private boolean convertToCamelCase = true;
     private Map<String, String> keyConversionMap = new HashMap<>();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
 
     Map<String, String> parse(FormValueElement form) {
@@ -29,7 +31,12 @@ public class InfoParser {
         return mapper;
     }
 
-    Map<String, String> parse(Map<String, String> map){
+    Map<String, String> parse(Object object) {
+        Map<String, String> objectFieldsMap = objectMapper.convertValue(object, Map.class);
+        return parse(objectFieldsMap);
+    }
+
+    Map<String, String> parse(Map<String, String> map) {
 
         HashMap<String, String> mapper = new HashMap<>();
 
@@ -42,8 +49,8 @@ public class InfoParser {
         return mapper;
     }
 
-    private String applyCamelConversion(String input){
-        return  convertToCamelCase ? StringUtils.toCamelCase(input) : input;
+    private String applyCamelConversion(String input) {
+        return convertToCamelCase ? StringUtils.toCamelCase(input) : input;
     }
 
     private String applyKeyConversionMap(String keyValue) {
