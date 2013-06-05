@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.domain.dimension;
 
 // Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
+import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
@@ -151,6 +152,7 @@ public class ChildCase implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}

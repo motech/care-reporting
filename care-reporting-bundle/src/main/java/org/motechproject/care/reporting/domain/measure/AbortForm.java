@@ -2,6 +2,8 @@ package org.motechproject.care.reporting.domain.measure;
 
 // Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
+
+import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 
@@ -53,6 +55,7 @@ public class AbortForm implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -63,6 +66,7 @@ public class AbortForm implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -73,6 +77,7 @@ public class AbortForm implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}
