@@ -6,9 +6,9 @@ public class TestData {
     int anInt;
     String aString;
     boolean aBoolean;
-    Date aDate;
-    Date aDateTime;
-
+    Date aDateFormat1;
+    Date aDateFormat2;
+    Date aDateFormat3;
 
     public boolean isaBoolean() {
         return aBoolean;
@@ -34,19 +34,28 @@ public class TestData {
         this.anInt = anInt;
     }
 
-    public Date getaDateTime() {
-        return aDateTime;
+    public Date getaDateFormat1() {
+        return aDateFormat1;
     }
 
-    public void setaDateTime(Date aDateTime) {
-        this.aDateTime = aDateTime;
+    public void setaDateFormat1(Date aDateFormat1) {
+        this.aDateFormat1 = aDateFormat1;
     }
 
-    public Date getaDate() {
-        return aDate;
+    public Date getaDateFormat2() {
+        return aDateFormat2;
     }
 
-    public void setaDate(Date aDate) {
-        this.aDate = aDate;
+    public void setaDateFormat2(Date aDateFormat2) {
+        this.aDateFormat2 = aDateFormat2;
     }
+
+    public Date getaDateFormat3() {
+        return aDateFormat3;
+    }
+
+    public void setaDateFormat3(Date aDateFormat3) {
+        this.aDateFormat3 = aDateFormat3;
+    }
+
 }
