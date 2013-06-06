@@ -19,7 +19,6 @@ public class ProviderParser {
         Map<String, Object> userData = parseProviderInfo(provider.getUserData(), new HashMap<String, String>() {{
             put("asset-id", "assetId");
             put("awc-code", "awcCode");
-            put("imei-no", "imeiNo");
         }});
         parsedProviderMap.putAll(providerData);
         parsedProviderMap.putAll(userData);

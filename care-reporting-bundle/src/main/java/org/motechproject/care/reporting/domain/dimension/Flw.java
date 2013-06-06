@@ -27,8 +27,7 @@ public class Flw implements java.io.Serializable {
 	private String phoneNumber2;
 	private String assetId;
 	private String awcCode;
-	private String imeiNo;
-	private String role;
+    private String role;
 	private String subcentre;
 	private String userType;
 	private String username;
@@ -83,7 +82,7 @@ public class Flw implements java.io.Serializable {
 	public Flw(int id, String flwId,
                String defaultPhoneNumber, String email, String firstName,
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
-               String awcCode, String imeiNo, String role, String subcentre,
+               String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
                Set<RegistrationMotherForm> registrationMotherForms,
@@ -113,8 +112,7 @@ public class Flw implements java.io.Serializable {
         this.phoneNumber2 = phoneNumber2;
         this.assetId = assetId;
 		this.awcCode = awcCode;
-		this.imeiNo = imeiNo;
-		this.role = role;
+        this.role = role;
 		this.subcentre = subcentre;
 		this.userType = userType;
 		this.username = username;
@@ -156,7 +154,7 @@ public class Flw implements java.io.Serializable {
     public Flw(String flwId,
                String defaultPhoneNumber, String email, String firstName,
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
-               String awcCode, String imeiNo, String role, String subcentre,
+               String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village, Short age) {
         this.flwId = flwId;
@@ -168,7 +166,6 @@ public class Flw implements java.io.Serializable {
         this.phoneNumber2 = phoneNumber2;
         this.assetId = assetId;
         this.awcCode = awcCode;
-        this.imeiNo = imeiNo;
         this.role = role;
         this.subcentre = subcentre;
         this.userType = userType;
@@ -272,15 +269,6 @@ public class Flw implements java.io.Serializable {
 
 	public void setAwcCode(String awcCode) {
 		this.awcCode = awcCode;
-	}
-
-	@Column(name = "imei_no")
-	public String getImeiNo() {
-		return this.imeiNo;
-	}
-
-	public void setImeiNo(String imeiNo) {
-		this.imeiNo = imeiNo;
 	}
 
 	@Column(name = "role")

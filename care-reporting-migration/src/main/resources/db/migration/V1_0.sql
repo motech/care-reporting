@@ -9,7 +9,6 @@ CREATE TABLE report.flw (
        ,phone_number_2 VARCHAR(20)
        ,asset_id VARCHAR(255)
        ,awc_code VARCHAR(255)
-       ,imei_no VARCHAR(255)
        ,role VARCHAR(255)
        ,subcentre VARCHAR(255)
        ,user_type VARCHAR(255)

@@ -28,7 +28,6 @@ public class ProviderParserTest {
         assertEquals("Sonia", parsedValues.get("firstName"));
         assertEquals("001", parsedValues.get("assetId"));
         assertEquals("somevalue1", parsedValues.get("awcCode"));
-        assertEquals("somevalue2", parsedValues.get("imeiNo"));
         assertEquals("delhi", parsedValues.get("block"));
         assertEquals("919004195698", parsedValues.get("defaultPhoneNumber"));
         assertEquals("9004195698", parsedValues.get("phoneNumber1"));
@@ -62,7 +61,6 @@ public class ProviderParserTest {
             put("userData", new HashMap<String, String>() {{
                 put("asset-id", "001");
                 put("awc-code", "somevalue1");
-                put("imei-no", "somevalue2");
                 put("block", "delhi");
             }});
         }};

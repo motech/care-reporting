@@ -79,7 +79,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     }
 
     private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2) {
-        return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2, "P18", "001", "351971057712199", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null);
+        return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2, "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null);
     }
 
     private FlwGroup flwGroup(String groupId) {
@@ -121,7 +121,6 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
                 put("asset-id", "P18");
                 put("block", "Delhi");
                 put("district", "");
-                put("imei-no", "351971057712199");
                 put("location-code", "");
                 put("panchayat", "Kapra");
                 put("role", "MOIC");
