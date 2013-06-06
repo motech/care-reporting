@@ -151,7 +151,35 @@ public class Flw implements java.io.Serializable {
 		this.deathMotherForms = deathMotherForms;
 	}
 
-	@Id
+    public Flw(String flwId,
+               String defaultPhoneNumber, String email, String firstName,
+               String lastName, String phoneNumbers, String assetId,
+               String awcCode, String imeiNo, String role, String subcentre,
+               String userType, String username, String population,
+               String education, String district, String block, String panchayat, String village, Short age) {
+        this.flwId = flwId;
+        this.defaultPhoneNumber = defaultPhoneNumber;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumbers = phoneNumbers;
+        this.assetId = assetId;
+        this.awcCode = awcCode;
+        this.imeiNo = imeiNo;
+        this.role = role;
+        this.subcentre = subcentre;
+        this.userType = userType;
+        this.username = username;
+        this.population = population;
+        this.education = education;
+        this.district = district;
+        this.block = block;
+        this.panchayat = panchayat;
+        this.village = village;
+        this.age = age;
+    }
+
+    @Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {

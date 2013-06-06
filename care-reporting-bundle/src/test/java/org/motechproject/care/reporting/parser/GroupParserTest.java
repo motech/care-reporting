@@ -23,7 +23,7 @@ public class GroupParserTest {
 
     private Group group() {
         Group group = new Group();
-        TestUtils.setField(group, new HashMap<String, Object>() {{
+        TestUtils.setFields(group, new HashMap<String, Object>() {{
             put("id", "3c5a80e4db53049dfc110c368a0d05d4");
             put("name", "groupName1");
             put("metaData", new HashMap<String, String>() {{

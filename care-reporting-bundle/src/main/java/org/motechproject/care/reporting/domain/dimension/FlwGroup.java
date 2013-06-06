@@ -2,10 +2,7 @@ package org.motechproject.care.reporting.domain.dimension;
 
 // Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.NewForm;
-import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -25,7 +22,7 @@ public class FlwGroup implements java.io.Serializable {
 	private String awcCode;
 	private String name;
 	private Boolean reporting;
-    private Set<Flw> flws;
+    private Set<Flw> flws = new HashSet<>(0);
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
 	private Set<NewForm> newForms = new HashSet<NewForm>(0);
@@ -125,7 +122,6 @@ public class FlwGroup implements java.io.Serializable {
 	}
 
     @ManyToMany(mappedBy="flwGroups")
-    @Cascade(value = {CascadeType.SAVE_UPDATE})
     public Set<Flw> getFlws() {
         return flws;
     }

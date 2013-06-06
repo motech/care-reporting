@@ -11,10 +11,7 @@ import org.motechproject.commcare.provider.sync.response.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ProviderSyncProcessor {
@@ -42,21 +39,28 @@ public class ProviderSyncProcessor {
 
     public void processProviderSync(List<Provider> providers) {
         List<Flw> flws = new ArrayList<>();
+        Map<String, FlwGroup> flwGroups = new HashMap<String, FlwGroup>();
         for (Provider provider : providers) {
             Map<String, Object> parsedProvider = providerParser.parse(provider);
             Flw flw = genericMapper.map(parsedProvider, Flw.class);
-            flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups())));
+            flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
             flws.add(flw);
         }
         careService.saveOrUpdateAll(flws);
     }
 
-    private List<FlwGroup> getAssociatedFlwGroups(List<String> groups) {
+    private List<FlwGroup> getAssociatedFlwGroups(List<String> groups, Map<String, FlwGroup> existingFlwGroups) {
         ArrayList<FlwGroup> flwGroups = new ArrayList<>();
         if (groups == null)
             return flwGroups;
         for (String groupId : groups) {
-            FlwGroup group = careService.getGroup(groupId);
+            FlwGroup group;
+            if (existingFlwGroups.containsKey(groupId)) {
+                group = existingFlwGroups.get(groupId);
+            } else {
+                group = careService.getGroup(groupId);
+                existingFlwGroups.put(groupId, group);
+            }
             flwGroups.add(group);
         }
         return flwGroups;

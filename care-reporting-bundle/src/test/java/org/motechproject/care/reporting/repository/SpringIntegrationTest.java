@@ -22,7 +22,7 @@ public abstract class SpringIntegrationTest {
 
     @Before
     public void setUp() {
-        template.setAlwaysUseNewSession(true);
+        template.setAlwaysUseNewSession(false);
     }
 
     private List<Object> toDelete = new ArrayList<Object>();

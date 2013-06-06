@@ -22,8 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -128,6 +127,42 @@ public class ProviderSyncProcessorTest {
         assertEquals(2, actualFlwGroups.size());
         assertTrue(actualFlwGroups.contains(expectedFlwGroup1));
         assertTrue(actualFlwGroups.contains(expectedFlwGroup2));
+    }
+
+    @Test
+    public void shouldNotGetNewReferenceAgainToSameFlwGroup() {
+        final String groupId1 = "groupId1";
+        final String groupId2 = "groupId2";
+        final Provider provider1 = provider("groups", new ArrayList<String>() {{
+            add(groupId1);
+            add(groupId2);
+        }});
+        final Provider provider2 = provider("groups", new ArrayList<String>() {{
+            add(groupId1);
+        }});
+        FlwGroup expectedFlwGroup1 = new FlwGroup();
+        FlwGroup expectedFlwGroup2 = new FlwGroup();
+        when(providerParser.parse(provider1)).thenReturn(new HashMap<String, Object>());
+        when(careService.getGroup(groupId1)).thenReturn(expectedFlwGroup1);
+        when(careService.getGroup(groupId2)).thenReturn(expectedFlwGroup2);
+
+        providerSyncProcessor.processProviderSync(new ArrayList<Provider>() {{
+            add(provider1);
+            add(provider2);
+        }});
+
+        verify(careService).getGroup(groupId1);
+        verify(careService).getGroup(groupId2);
+        verify(careService, times(2)).getGroup(anyString());
+
+        verify(careService).saveOrUpdateAll(flwArgumentCaptor.capture());
+        Set<FlwGroup> actualFlwGroupsForProvider1 = flwArgumentCaptor.getValue().get(0).getFlwGroups();
+        assertEquals(2, actualFlwGroupsForProvider1.size());
+        assertTrue(actualFlwGroupsForProvider1.contains(expectedFlwGroup1));
+        assertTrue(actualFlwGroupsForProvider1.contains(expectedFlwGroup2));
+        Set<FlwGroup> actualFlwGroupsForProvider2 = flwArgumentCaptor.getValue().get(1).getFlwGroups();
+        assertEquals(1, actualFlwGroupsForProvider2.size());
+        assertSame(expectedFlwGroup1, actualFlwGroupsForProvider2.iterator().next());
     }
 
     private Provider provider(String fieldName, Object value) {

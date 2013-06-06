@@ -42,7 +42,7 @@ public class ProviderParserTest {
                 put("block", "delhi");
             }});
         }};
-        TestUtils.setField(provider, fieldMap);
+        TestUtils.setFields(provider, fieldMap);
         return provider;
     }
 }
