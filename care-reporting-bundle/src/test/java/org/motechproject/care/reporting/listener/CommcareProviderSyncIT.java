@@ -47,8 +47,9 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     @Test
     public void shouldHandleProviderSyncAndSaveFlwAndAssociatedGroups() {
         ArrayList<Provider> providers = new ArrayList<Provider>() {{
-            add(provider("b0645df855266f29849eb2515b5ed57c"));
-            add(provider("b0645df855266f29849eb2515b5ed374"));
+            add(provider("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"));
+            add(provider("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null));
+            add(provider("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"));
         }};
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(EventConstants.PROVIDER_DETAILS, providers);
@@ -58,9 +59,10 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         commcareProviderSyncListener.handleProviderSyncEvent(event);
 
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
-        assertEquals(2, flwsFromDb.size());
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c"), flwsFromDb, new String[]{"id", "flwGroups"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374"), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertEquals(3, flwsFromDb.size());
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups"});
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
@@ -76,8 +78,8 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         return flwGroup;
     }
 
-    private Flw flw(String providerId) {
-        return new Flw(providerId, "8294168471", "a@b.com", "Dr.Pramod", "Kumar Gautam", "8294168471,918294168471", "P18", "001", "351971057712199", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null);
+    private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2) {
+        return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2, "P18", "001", "351971057712199", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null);
     }
 
     private FlwGroup flwGroup(String groupId) {
@@ -102,16 +104,17 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         return group;
     }
 
-    private Provider provider(final String providerId) {
+    private Provider provider(final String providerId, final String defaultPhoneNumber, final String phoneNumber1, final String phoneNumber2) {
         final Provider provider = new Provider();
+        final List<String> phoneNumbers = phoneNumber2 == null ? Arrays.asList(phoneNumber1) : Arrays.asList(phoneNumber1, phoneNumber2);
         TestUtils.setFields(provider, new HashMap<String, Object>() {{
-            put("defaultPhoneNumber", "8294168471");
+            put("defaultPhoneNumber", defaultPhoneNumber);
             put("email", "a@b.com");
             put("firstName", "Dr.Pramod");
             put("groups", Arrays.asList("89fda0284e008d2e0c980fb13fb63886", "89fda0284e008d2e0c980fb13fb66a7b", "89fda0284e008d2e0c980fb13fb72931"));
             put("lastName", "Kumar Gautam");
             put("id", providerId);
-            put("phoneNumbers", Arrays.asList("8294168471", "918294168471"));
+            put("phoneNumbers", phoneNumbers);
             put("resourceURI", "");
             put("userData", new HashMap<String, String>() {{
                 put("awc-code", "001");

@@ -1,11 +1,12 @@
 package org.motechproject.care.reporting.parser;
 
-import org.apache.commons.lang.StringUtils;
 import org.motechproject.commcare.provider.sync.response.Provider;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.motechproject.care.reporting.utils.ListUtils.safeGet;
 
 @Component
 public class ProviderParser {
@@ -22,7 +23,9 @@ public class ProviderParser {
         }});
         parsedProviderMap.putAll(providerData);
         parsedProviderMap.putAll(userData);
-        parsedProviderMap.put("phoneNumbers", StringUtils.join(provider.getPhoneNumbers(), ","));
+
+        parsedProviderMap.put("phoneNumber1", safeGet(provider.getPhoneNumbers(), 0));
+        parsedProviderMap.put("phoneNumber2", safeGet(provider.getPhoneNumbers(), 1));
         return parsedProviderMap;
     }
 

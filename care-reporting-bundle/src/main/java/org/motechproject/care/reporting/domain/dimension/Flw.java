@@ -23,7 +23,8 @@ public class Flw implements java.io.Serializable {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private String phoneNumbers;
+	private String phoneNumber1;
+	private String phoneNumber2;
 	private String assetId;
 	private String awcCode;
 	private String imeiNo;
@@ -81,7 +82,7 @@ public class Flw implements java.io.Serializable {
 
 	public Flw(int id, String flwId,
                String defaultPhoneNumber, String email, String firstName,
-               String lastName, String phoneNumbers, String assetId,
+               String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String imeiNo, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
@@ -108,8 +109,9 @@ public class Flw implements java.io.Serializable {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.phoneNumbers = phoneNumbers;
-		this.assetId = assetId;
+		this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber2 = phoneNumber2;
+        this.assetId = assetId;
 		this.awcCode = awcCode;
 		this.imeiNo = imeiNo;
 		this.role = role;
@@ -153,7 +155,7 @@ public class Flw implements java.io.Serializable {
 
     public Flw(String flwId,
                String defaultPhoneNumber, String email, String firstName,
-               String lastName, String phoneNumbers, String assetId,
+               String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String imeiNo, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village, Short age) {
@@ -162,7 +164,8 @@ public class Flw implements java.io.Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumbers = phoneNumbers;
+        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber2 = phoneNumber2;
         this.assetId = assetId;
         this.awcCode = awcCode;
         this.imeiNo = imeiNo;
@@ -235,13 +238,22 @@ public class Flw implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "phone_numbers", length = 1000)
-	public String getPhoneNumbers() {
-		return this.phoneNumbers;
+	@Column(name = "phone_number_1", length = 20)
+	public String getPhoneNumber1() {
+		return this.phoneNumber1;
 	}
 
-	public void setPhoneNumbers(String phoneNumbers) {
-		this.phoneNumbers = phoneNumbers;
+	public void setPhoneNumber1(String phoneNumber1) {
+		this.phoneNumber1 = phoneNumber1;
+	}
+
+	@Column(name = "phone_number_2", length = 20)
+	public String getPhoneNumber2() {
+		return this.phoneNumber2;
+	}
+
+	public void setPhoneNumber2(String phoneNumber2) {
+		this.phoneNumber2 = phoneNumber2;
 	}
 
 	@Column(name = "asset_id")

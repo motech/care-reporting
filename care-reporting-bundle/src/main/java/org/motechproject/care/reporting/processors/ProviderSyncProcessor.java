@@ -39,7 +39,7 @@ public class ProviderSyncProcessor {
 
     public void processProviderSync(List<Provider> providers) {
         List<Flw> flws = new ArrayList<>();
-        Map<String, FlwGroup> flwGroups = new HashMap<String, FlwGroup>();
+        Map<String, FlwGroup> flwGroups = new HashMap<>();
         for (Provider provider : providers) {
             Map<String, Object> parsedProvider = providerParser.parse(provider);
             Flw flw = genericMapper.map(parsedProvider, Flw.class);
