@@ -18,7 +18,6 @@ import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.apache.commons.lang.builder.EqualsBuilder.reflectionEquals;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 
 public class CommcareProviderSyncIT extends SpringIntegrationTest {
@@ -54,6 +53,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(EventConstants.PROVIDER_DETAILS, providers);
         MotechEvent event = new MotechEvent(EventConstants.PROVIDER_DETAILS_EVENT, parameters);
+        template.save(flwGroup("89fda0284e008d2e0c980fb13fb72931"));
 
         commcareProviderSyncListener.handleProviderSyncEvent(event);
 
@@ -65,7 +65,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
 
-        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id"});
+        assertReflectionContains(flwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id"});
         assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb63886"), flwGroupsFromDb, new String[]{"id"});
         assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb66a7b"), flwGroupsFromDb, new String[]{"id"});
     }
