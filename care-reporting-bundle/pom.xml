@@ -140,6 +140,7 @@
                             org.motechproject.event.listener;version=${motech.version},
                             org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
+                            org.motechproject.commcare.builder;version=${motech.version},
                             org.springframework.orm.hibernate3.annotation,
                             org.springframework.aop,
                             org.springframework.aop.framework,
