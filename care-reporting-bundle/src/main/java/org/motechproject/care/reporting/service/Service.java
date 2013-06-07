@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.service;
 
+import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -16,9 +17,7 @@ public interface Service {
 
     ChildCase getChildCase(String caseId);
 
-    <T> void saveOrUpdateAll(List<T> instances);
-
-    void saveOrUpdateGroups(List<FlwGroup> instances);
+    <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(Class clazz, List<T> instances);
 
     FlwGroup getGroup(String groupId);
 

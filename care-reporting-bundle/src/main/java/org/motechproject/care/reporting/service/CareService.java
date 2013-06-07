@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -15,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 
 @Service
 @Transactional
@@ -35,45 +39,40 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T> void saveOrUpdateAll(List<T> instances) {
-        dbRepository.saveOrUpdateAll(instances);
+    public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(Class clazz, List<T> updatedEntities) {
+        List<T> existingEntities = findAllByExternalPrimaryKey(clazz, updatedEntities);
+        List<T> toBeSavedEntities = processToBeSavedEntities(updatedEntities, existingEntities);
+        dbRepository.saveOrUpdateAll(toBeSavedEntities);
     }
 
-    @Override
-    public void saveOrUpdateGroups(List<FlwGroup> updatedGroups) {
-        List<FlwGroup> existingGroups = findGroupsInDb(updatedGroups);
-        List<FlwGroup> toBeSavedGroups = processToBeSavedGroups(updatedGroups, existingGroups);
-        dbRepository.saveOrUpdateAll(toBeSavedGroups);
-    }
-
-    private List<FlwGroup> processToBeSavedGroups(List<FlwGroup> updatedGroups, List<FlwGroup> existingGroups) {
-        List<FlwGroup> toBeSavedGroups = new ArrayList<>();
-        for (final FlwGroup updatedGroup : updatedGroups) {
-            FlwGroup existingGroup = (FlwGroup) CollectionUtils.find(existingGroups, new Predicate() {
+    private <T extends SelfUpdatable> List<T> processToBeSavedEntities(List<T> updatedEntities, List<T> existingEntities) {
+        List<T> toBeSavedEntities = new ArrayList<>();
+        for (final T updatedEntity : updatedEntities) {
+            T existing = (T) CollectionUtils.find(existingEntities, new Predicate() {
                 @Override
                 public boolean evaluate(Object object) {
-                    return ((FlwGroup) object).getGroupId().equals(updatedGroup.getGroupId());
+                    return getExternalPrimaryKeyValue(object).equals(getExternalPrimaryKeyValue(updatedEntity));
                 }
             });
-            if (existingGroup != null) {
-                existingGroup.updateFrom(updatedGroup);
-                toBeSavedGroups.add(existingGroup);
+            if (existing != null) {
+                existing.updateFrom(updatedEntity);
+                toBeSavedEntities.add(existing);
             } else {
-                toBeSavedGroups.add(updatedGroup);
+                toBeSavedEntities.add(updatedEntity);
             }
         }
-        return toBeSavedGroups;
+        return toBeSavedEntities;
     }
 
-    private List<FlwGroup> findGroupsInDb(List<FlwGroup> groups) {
-        List<String> groupIds = new ArrayList<>();
+    private <T> List<T> findAllByExternalPrimaryKey(Class clazz, List<T> groups) {
+        List<String> externalPrimaryKeyValues = new ArrayList<>();
         CollectionUtils.collect(groups, new Transformer() {
             @Override
             public Object transform(Object input) {
-                return ((FlwGroup) input).getGroupId();
+                return getExternalPrimaryKeyValue(input);
             }
-        }, groupIds);
-        return dbRepository.findAllByField(FlwGroup.class, groupIds, "groupId");
+        }, externalPrimaryKeyValues);
+        return dbRepository.findAllByField(clazz, externalPrimaryKeyValues, getExternalPrimaryKeyField(clazz).getName());
     }
 
     @Override

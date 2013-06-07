@@ -115,16 +115,6 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldSaveOrUpdateAll(){
-        ArrayList<Flw> flws = new ArrayList<>();
-        flws.add(new Flw());
-
-        service.saveOrUpdateAll(flws);
-
-        verify(dbRepository).saveOrUpdateAll(flws);
-    }
-
-    @Test
     public void shouldGetGroupIfExists(){
         String fieldName = "groupId";
         String fieldValue = "groupId";

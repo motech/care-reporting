@@ -2,6 +2,8 @@ package org.motechproject.care.reporting.domain.dimension;
 
 // Generated Jun 4, 2013 10:01:13 AM by Hibernate Tools 3.4.0.CR1
 
+import org.motechproject.care.reporting.domain.SelfUpdatable;
+import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 
 import javax.persistence.*;
@@ -13,9 +15,10 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "flw_group", uniqueConstraints = @UniqueConstraint(columnNames = "group_id"))
-public class FlwGroup implements java.io.Serializable {
+public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 
 	private int id;
+    @ExternalPrimaryKey
 	private String groupId;
 	private Boolean caseSharing;
 	private String domain;
