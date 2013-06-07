@@ -34,7 +34,7 @@ public class TestUtils {
         if (isReferenceSame(lhs, rhs)) {
             return;
         }
-        if (!isClassSame(lhs, rhs)) {
+        if (!lhs.getClass().equals(rhs.getClass())) {
             throw new AssertionFailedError("Classes of the two objects are different.");
         }
         Difference difference = compareFields(lhs, rhs, ignoredFields);
@@ -89,29 +89,6 @@ public class TestUtils {
         public String message() {
             return String.format("Values for field %s don't match.\nExpected: %s\nActual: %s", field.getName(), value1, value2);
         }
-    }
-
-    private static boolean isClassSame(Object lhs, Object rhs) {
-        Class lhsClass = lhs.getClass();
-        Class rhsClass = rhs.getClass();
-        Class testClass;
-        if (lhsClass.isInstance(rhs)) {
-            testClass = lhsClass;
-            if (!rhsClass.isInstance(lhs)) {
-                // rhsClass is a subclass of lhsClass
-                testClass = rhsClass;
-            }
-        } else if (rhsClass.isInstance(lhs)) {
-            testClass = rhsClass;
-            if (!lhsClass.isInstance(rhs)) {
-                // lhsClass is a subclass of rhsClass
-                testClass = lhsClass;
-            }
-        } else {
-            // The two classes are not related.
-            return false;
-        }
-        return true;
     }
 
 

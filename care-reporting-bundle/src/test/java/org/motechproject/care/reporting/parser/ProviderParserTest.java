@@ -1,14 +1,10 @@
 package org.motechproject.care.reporting.parser;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.reporting.utils.TestUtils;
+import org.motechproject.care.reporting.builder.ProviderBuilder;
 import org.motechproject.commcare.provider.sync.response.Provider;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.*;
@@ -24,21 +20,21 @@ public class ProviderParserTest {
 
     @Test
     public void shouldParseProviderWithAppropriateKeyConversions() {
+        Map<String, Object> parsedValues = providerParser.parse(builder().build());
 
-        Map<String, Object> parsedValues = providerParser.parse(provider());
-
-        assertEquals("Sonia", parsedValues.get("firstName"));
-        assertEquals("001", parsedValues.get("assetId"));
-        assertEquals("somevalue1", parsedValues.get("awcCode"));
-        assertEquals("delhi", parsedValues.get("block"));
-        assertEquals("919004195698", parsedValues.get("defaultPhoneNumber"));
-        assertEquals("9004195698", parsedValues.get("phoneNumber1"));
-        assertEquals("919004195698", parsedValues.get("phoneNumber2"));
+        assertEquals("Dr.Pramod", parsedValues.get("firstName"));
+        assertEquals("P18", parsedValues.get("assetId"));
+        assertEquals("001", parsedValues.get("awcCode"));
+        assertEquals("Delhi", parsedValues.get("block"));
+        assertEquals("8294168471", parsedValues.get("defaultPhoneNumber"));
+        assertEquals("8294168471", parsedValues.get("phoneNumber1"));
+        assertEquals("918294168471", parsedValues.get("phoneNumber2"));
+        assertEquals(ProviderBuilder.DEFAULT_DOB, parsedValues.get("dob"));
     }
 
     @Test
     public void shouldParseIfPhoneNumbersNotProvided() throws Exception {
-        Provider providerWithNoPhoneNumber = customizedProvider(null, null);
+        Provider providerWithNoPhoneNumber = customizedProvider(null);
         Map<String, Object> output = providerParser.parse(providerWithNoPhoneNumber);
 
         assertTrue(output.containsKey("defaultPhoneNumber"));
@@ -49,49 +45,25 @@ public class ProviderParserTest {
         assertNull(output.get("phoneNumber2"));
     }
 
-    private Provider provider() {
-        return customizedProvider(null, "919004195698", "9004195698", "919004195698");
-    }
-
-    private Provider customizedProvider(final String dob, final String defaultPhoneNumber, final String... phoneNumbers) {
-        Provider provider = new Provider();
-        HashMap<String, Object> fieldMap = new HashMap<String, Object>() {{
-            put("id", "5ba9a0928dde95d187544babf6c0ad24");
-            put("firstName", "Sonia");
-            put("defaultPhoneNumber", defaultPhoneNumber);
-            put("phoneNumbers", Arrays.asList(phoneNumbers));
-            put("userData", new HashMap<String, String>() {{
-                put("asset-id", "001");
-                put("awc-code", "somevalue1");
-                put("block", "delhi");
-                put("dob", dob);
-            }});
-        }};
-        TestUtils.setFields(provider, fieldMap);
-        return provider;
-    }
-
-    @Test
-    public void shouldSerializeDob() throws Exception {
-        Date dob = DateTime.parse("2013-06-07").toDate();
-        Provider provider = customizedProvider("2013-06-07", "919004195698", "919004195698");
-
-        Map<String, Object> output = providerParser.parse(provider);
-
-        assertEquals(dob, output.get("dob"));
-    }
-
     @Test
     public void shouldParseDobIfItIsNull(){
-        Provider provider = customizedProvider(null, null);
+        Provider provider = builder().setDob(null).build();
         Map<String, Object> output = providerParser.parse(provider);
         assertNull(output.get("dob"));
     }
 
     @Test
     public void shouldParseDobIfIsBlank(){
-        Provider provider = customizedProvider("", null);
+        Provider provider = builder().setDob("").build();
         Map<String, Object> output = providerParser.parse(provider);
         assertNull(output.get("dob"));
+    }
+
+    private Provider customizedProvider(final String defaultPhoneNumber, final String... phoneNumbers) {
+        return builder().setDefaultPhoneNumber(defaultPhoneNumber).setPhoneNumbers(phoneNumbers).build();
+    }
+
+    private ProviderBuilder builder() {
+        return new ProviderBuilder("5ba9a0928dde95d187544babf6c0ad24");
     }
 }
