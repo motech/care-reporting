@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.listener;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -46,10 +47,11 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
     @Test
     public void shouldHandleProviderSyncAndSaveFlwAndAssociatedGroups() {
+        final String dobString = "2013-06-07";
         ArrayList<Provider> providers = new ArrayList<Provider>() {{
-            add(provider("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"));
-            add(provider("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null));
-            add(provider("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"));
+            add(provider("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471", dobString));
+            add(provider("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null, dobString));
+            add(provider("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472", dobString));
         }};
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(EventConstants.PROVIDER_DETAILS, providers);
@@ -60,9 +62,11 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertEquals(3, flwsFromDb.size());
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups"});
+
+        final Date expectedDob = new LocalDate(2013, 6, 7).toDate();
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471", expectedDob), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null, expectedDob), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472", expectedDob), flwsFromDb, new String[]{"id", "flwGroups"});
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
@@ -78,8 +82,9 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         return flwGroup;
     }
 
-    private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2) {
-        return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2, "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null);
+    private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2, Date dob) {
+        return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2,
+                "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null, "", "Delhi", "Kapra", "Kopargoan", null, "Thiruppalai", null, null, null, dob);
     }
 
     private FlwGroup flwGroup(String groupId) {
@@ -104,7 +109,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         return group;
     }
 
-    private Provider provider(final String providerId, final String defaultPhoneNumber, final String phoneNumber1, final String phoneNumber2) {
+    private Provider provider(final String providerId, final String defaultPhoneNumber, final String phoneNumber1, final String phoneNumber2, final String dob) {
         final Provider provider = new Provider();
         final List<String> phoneNumbers = phoneNumber2 == null ? Arrays.asList(phoneNumber1) : Arrays.asList(phoneNumber1, phoneNumber2);
         TestUtils.setFields(provider, new HashMap<String, Object>() {{
@@ -127,6 +132,8 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
                 put("subcentre", "");
                 put("user_type", "");
                 put("village", "Kopargoan");
+                put("ward", "Thiruppalai");
+                put("dob", dob);
             }});
             put("username", "8294168471@care-bihar.commcarehq.org");
         }});

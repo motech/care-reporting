@@ -7,6 +7,7 @@ import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +39,11 @@ public class Flw implements java.io.Serializable {
 	private String panchayat;
 	private String village;
 	private Short age;
+	private String ward;
+	private String caste;
+	private String ictcordinator;
+	private String remarks;
+    private Date dob;
     private Set<FlwGroup> flwGroups = new HashSet<>();
 	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
 	private Set<RegistrationMotherForm> registrationMotherForms = new HashSet<RegistrationMotherForm>(
@@ -84,7 +90,7 @@ public class Flw implements java.io.Serializable {
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
-               String education, String district, String block, String panchayat, String village, Short age, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
+               String education, String district, String block, String panchayat, String village, Short age, String ward, String caste, String ictcordinator, String remarks, Date dob, Set<FlwGroup> flwGroups, Set<DeathChildForm> deathChildForms,
                Set<RegistrationMotherForm> registrationMotherForms,
                Set<MiForm> miForms, Set<MoForm> moForms,
                Set<EbfChildForm> ebfChildForms, Set<CfChildForm> cfChildForms,
@@ -123,6 +129,11 @@ public class Flw implements java.io.Serializable {
         this.panchayat = panchayat;
         this.village = village;
         this.age = age;
+        this.ward = ward;
+        this.caste = caste;
+        this.ictcordinator = ictcordinator;
+        this.remarks = remarks;
+        this.dob = dob;
         this.flwGroups = flwGroups;
         this.deathChildForms = deathChildForms;
 		this.registrationMotherForms = registrationMotherForms;
@@ -156,7 +167,8 @@ public class Flw implements java.io.Serializable {
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
-               String education, String district, String block, String panchayat, String village, Short age) {
+               String education, String district, String block, String panchayat, String village, Short age,
+               String ward, String caste, String ictcordinator, String remarks, Date dob) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -177,6 +189,11 @@ public class Flw implements java.io.Serializable {
         this.panchayat = panchayat;
         this.village = village;
         this.age = age;
+        this.ward = ward;
+        this.caste = caste;
+        this.ictcordinator = ictcordinator;
+        this.remarks = remarks;
+        this.dob = dob;
     }
 
     @Id
@@ -383,7 +400,53 @@ public class Flw implements java.io.Serializable {
 		this.age = age;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
+    @Column
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
+
+    @Column
+    public String getCaste() {
+        return caste;
+    }
+
+    public void setCaste(String caste) {
+        this.caste = caste;
+    }
+
+    @Column
+    public String getIctcordinator() {
+        return ictcordinator;
+    }
+
+    public void setIctcordinator(String ictcordinator) {
+        this.ictcordinator = ictcordinator;
+    }
+
+    @Column
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dob")
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flw")
 	public Set<DeathChildForm> getDeathChildForms() {
 		return this.deathChildForms;
 	}

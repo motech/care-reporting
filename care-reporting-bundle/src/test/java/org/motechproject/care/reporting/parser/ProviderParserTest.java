@@ -1,11 +1,13 @@
 package org.motechproject.care.reporting.parser;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.response.Provider;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class ProviderParserTest {
 
     @Test
     public void shouldParseIfPhoneNumbersNotProvided() throws Exception {
-        Provider providerWithNoPhoneNumber = customizedProvider(null);
+        Provider providerWithNoPhoneNumber = customizedProvider(null, null);
         Map<String, Object> output = providerParser.parse(providerWithNoPhoneNumber);
 
         assertTrue(output.containsKey("defaultPhoneNumber"));
@@ -48,10 +50,10 @@ public class ProviderParserTest {
     }
 
     private Provider provider() {
-        return customizedProvider("919004195698", "9004195698", "919004195698");
+        return customizedProvider(null, "919004195698", "9004195698", "919004195698");
     }
 
-    private Provider customizedProvider(final String defaultPhoneNumber, final String... phoneNumbers) {
+    private Provider customizedProvider(final String dob, final String defaultPhoneNumber, final String... phoneNumbers) {
         Provider provider = new Provider();
         HashMap<String, Object> fieldMap = new HashMap<String, Object>() {{
             put("id", "5ba9a0928dde95d187544babf6c0ad24");
@@ -62,9 +64,34 @@ public class ProviderParserTest {
                 put("asset-id", "001");
                 put("awc-code", "somevalue1");
                 put("block", "delhi");
+                put("dob", dob);
             }});
         }};
         TestUtils.setFields(provider, fieldMap);
         return provider;
+    }
+
+    @Test
+    public void shouldSerializeDob() throws Exception {
+        Date dob = DateTime.parse("2013-06-07").toDate();
+        Provider provider = customizedProvider("2013-06-07", "919004195698", "919004195698");
+
+        Map<String, Object> output = providerParser.parse(provider);
+
+        assertEquals(dob, output.get("dob"));
+    }
+
+    @Test
+    public void shouldParseDobIfItIsNull(){
+        Provider provider = customizedProvider(null, null);
+        Map<String, Object> output = providerParser.parse(provider);
+        assertNull(output.get("dob"));
+    }
+
+    @Test
+    public void shouldParseDobIfIsBlank(){
+        Provider provider = customizedProvider("", null);
+        Map<String, Object> output = providerParser.parse(provider);
+        assertNull(output.get("dob"));
     }
 }

@@ -20,6 +20,11 @@ CREATE TABLE report.flw (
 	   ,block VARCHAR(255)
 	   ,panchayat VARCHAR(255)
 	   ,village VARCHAR(255)
+	   ,ward VARCHAR(255)
+	   ,caste VARCHAR(255)
+	   ,dob DATE
+	   ,ictcordinator VARCHAR(255)
+	   ,remarks TEXT
 );
 
 CREATE TABLE report.flw_group (
