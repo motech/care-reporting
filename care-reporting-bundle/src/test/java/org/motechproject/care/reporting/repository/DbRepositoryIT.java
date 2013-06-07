@@ -5,8 +5,10 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +29,8 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Before
     @After
     public void setUp() {
+        template.deleteAll(template.loadAll(ChildCase.class));
+        template.deleteAll(template.loadAll(MotherCase.class));
         template.deleteAll(template.loadAll(Flw.class));
         template.deleteAll(template.loadAll(FlwGroup.class));
     }
@@ -136,5 +140,48 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
     private FlwGroup flwGroupWithId(String groupId) {
         return new FlwGroupBuilder().groupId(groupId).build();
+    }
+
+    public void shouldSaveCase() {
+        String flwId = "flwId";
+        String groupId = "groupId";
+        String caseId = "caseId";
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase expectedMother = new MotherCase();
+        expectedMother.setCaseId(caseId);
+        expectedMother.setFlw(flw);
+        expectedMother.setFlwGroup(flwGroup);
+
+        repository.save(expectedMother);
+
+        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        assertEquals(1, motherCases.size());
+        MotherCase actualMother = motherCases.get(0);
+        assertEquals(caseId, actualMother.getCaseId());
+        assertEquals(flwId, actualMother.getFlw().getFlwId());
+        assertEquals(groupId, actualMother.getFlwGroup().getGroupId());
+    }
+
+    @Test
+    public void shouldUpdateCaseIfPresent() {
+        String caseId = "case Id";
+        ChildCase existingChild = new ChildCase();
+        existingChild.setCaseId(caseId);
+        existingChild.setName("old Child name");
+        template.save(existingChild);
+
+        ChildCase newChild = new ChildCase();
+        newChild.setCaseId(caseId);
+        String newChildName = "new child name";
+        newChild.setName(newChildName);
+
+        repository.saveOrUpdate(newChild, "caseId");
+
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        assertEquals(1, childCases.size());
+        assertEquals(newChildName, childCases.get(0).getCaseName());
     }
 }

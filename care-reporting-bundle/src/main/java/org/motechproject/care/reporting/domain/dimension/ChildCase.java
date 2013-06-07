@@ -163,6 +163,7 @@ public class ChildCase implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -173,6 +174,7 @@ public class ChildCase implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "mother_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}
@@ -183,6 +185,7 @@ public class ChildCase implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public FlwGroup getFlwGroup() {
 		return this.flwGroup;
 	}
