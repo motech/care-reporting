@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.repository;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,9 +24,9 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public List<FlwGroup> findAllByGroupId(List<String> groupIds) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(FlwGroup.class);
-        criteria.add(Restrictions.in("groupId", groupIds));
+    public <T> List<T> findAllByField(Class<T> clazz, List<String> values, String fieldName) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
+        criteria.add(Restrictions.in(fieldName, values));
         return template.findByCriteria(criteria);
     }
 

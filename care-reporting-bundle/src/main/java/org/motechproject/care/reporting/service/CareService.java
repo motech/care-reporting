@@ -73,7 +73,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
                 return ((FlwGroup) input).getGroupId();
             }
         }, groupIds);
-        return dbRepository.findAllByGroupId(groupIds);
+        return dbRepository.findAllByField(FlwGroup.class, groupIds, "groupId");
     }
 
     @Override

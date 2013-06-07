@@ -126,7 +126,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
                 flwGroup2,
                 flwGroup3));
 
-        List<FlwGroup> groupsFromDb = repository.findAllByGroupId(Arrays.asList("5ba9a0928dde95d187544babf6c0ad24","5ba9a0928dde95d187544babf6c0af36"));
+        List<FlwGroup> groupsFromDb = repository.findAllByField(FlwGroup.class, Arrays.asList("5ba9a0928dde95d187544babf6c0ad24","5ba9a0928dde95d187544babf6c0af36"), "groupId");
 
         assertEquals(2, groupsFromDb.size());
         assertReflectionContains(flwGroup1, groupsFromDb);
