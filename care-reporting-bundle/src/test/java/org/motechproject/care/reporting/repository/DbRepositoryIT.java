@@ -4,18 +4,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionDoesNotContains;
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -112,5 +114,27 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         assertEquals(2, flwGroupsFromDb.size());
         assertTrue(flwGroupsFromDb.contains(existingFlwGroup));
         assertTrue(flwGroupsFromDb.contains(newFlwGroup));
+    }
+
+    @Test
+    public void shouldFindAllGroupsByGroupId(){
+        FlwGroup flwGroup1 = flwGroupWithId("5ba9a0928dde95d187544babf6c0ad24");
+        FlwGroup flwGroup2 = flwGroupWithId("5ba9a0928dde95d187544babf6c0af36");
+        FlwGroup flwGroup3 = flwGroupWithId("5ba9a0928dde95d187544babf6c0ag48");
+        template.saveOrUpdateAll(Arrays.asList(
+                flwGroup1,
+                flwGroup2,
+                flwGroup3));
+
+        List<FlwGroup> groupsFromDb = repository.findAllByGroupId(Arrays.asList("5ba9a0928dde95d187544babf6c0ad24","5ba9a0928dde95d187544babf6c0af36"));
+
+        assertEquals(2, groupsFromDb.size());
+        assertReflectionContains(flwGroup1, groupsFromDb);
+        assertReflectionContains(flwGroup2, groupsFromDb);
+        assertReflectionDoesNotContains(flwGroup3, groupsFromDb);
+    }
+
+    private FlwGroup flwGroupWithId(String groupId) {
+        return new FlwGroupBuilder().groupId(groupId).build();
     }
 }

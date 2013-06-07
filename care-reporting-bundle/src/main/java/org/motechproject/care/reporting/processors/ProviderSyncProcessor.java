@@ -5,7 +5,7 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
-import org.motechproject.care.reporting.service.CareService;
+import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.provider.sync.response.Group;
 import org.motechproject.commcare.provider.sync.response.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,14 @@ import java.util.*;
 @Component
 public class ProviderSyncProcessor {
     private GroupParser groupParser;
-    private CareService careService;
+    private Service service;
+    private ProviderParser providerParser;
     private GenericMapper genericMapper;
-    private final ProviderParser providerParser;
 
     @Autowired
-    public ProviderSyncProcessor(GroupParser groupParser, ProviderParser providerParser, CareService careService) {
+    public ProviderSyncProcessor(GroupParser groupParser, ProviderParser providerParser, Service service) {
         this.groupParser = groupParser;
-        this.careService = careService;
+        this.service = service;
         this.providerParser = providerParser;
         this.genericMapper = new GenericMapper();
     }
@@ -34,7 +34,7 @@ public class ProviderSyncProcessor {
             Map<String, Object> parsedGroups = groupParser.parse(group);
             flwGroups.add(genericMapper.map(parsedGroups, FlwGroup.class));
         }
-        careService.saveOrUpdateAll(flwGroups);
+        service.saveOrUpdateGroups(flwGroups);
     }
 
     public void processProviderSync(List<Provider> providers) {
@@ -46,7 +46,7 @@ public class ProviderSyncProcessor {
             flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
             flws.add(flw);
         }
-        careService.saveOrUpdateAll(flws);
+        service.saveOrUpdateAll(flws);
     }
 
     private List<FlwGroup> getAssociatedFlwGroups(List<String> groups, Map<String, FlwGroup> existingFlwGroups) {
@@ -58,7 +58,7 @@ public class ProviderSyncProcessor {
             if (existingFlwGroups.containsKey(groupId)) {
                 group = existingFlwGroups.get(groupId);
             } else {
-                group = careService.getGroup(groupId);
+                group = service.getGroup(groupId);
                 existingFlwGroups.put(groupId, group);
             }
             flwGroups.add(group);

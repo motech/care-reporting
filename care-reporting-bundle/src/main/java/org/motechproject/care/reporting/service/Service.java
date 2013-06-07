@@ -18,7 +18,10 @@ public interface Service {
 
     <T> void saveOrUpdateAll(List<T> instances);
 
+    void saveOrUpdateGroups(List<FlwGroup> instances);
+
     FlwGroup getGroup(String groupId);
 
     <T> T get(Class<T> type, String fieldName, String value);
+
 }

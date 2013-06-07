@@ -66,7 +66,7 @@ public class ProviderSyncProcessorTest {
         verify(groupParser).parse(group1);
         verify(groupParser).parse(group2);
         verify(groupParser, times(2)).parse(any(Group.class));
-        verify(careService).saveOrUpdateAll(flwGroupArgumentCaptor.capture());
+        verify(careService).saveOrUpdateGroups(flwGroupArgumentCaptor.capture());
         List<FlwGroup> actualFlwGroups = flwGroupArgumentCaptor.getValue();
         assertEquals(2, actualFlwGroups.size());
         assertEquals("group1", actualFlwGroups.get(0).getName());

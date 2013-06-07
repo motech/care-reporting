@@ -34,11 +34,15 @@ public class TestUtils {
         if (isReferenceSame(lhs, rhs)) {
             return;
         }
-        if (!lhs.getClass().equals(rhs.getClass())) {
+        if (!isOfSameClass(lhs, rhs)) {
             throw new AssertionFailedError("Classes of the two objects are different.");
         }
         Difference difference = compareFields(lhs, rhs, ignoredFields);
         if (!difference.isNull()) throw new AssertionFailedError(difference.message());
+    }
+
+    private static boolean isOfSameClass(Object lhs, Object rhs) {
+        return lhs.getClass().isAssignableFrom(rhs.getClass()) || rhs.getClass().isAssignableFrom(lhs.getClass());
     }
 
     private static Difference compareFields(Object lhs, Object rhs, String[] ignoredFields) {
@@ -58,11 +62,18 @@ public class TestUtils {
         return lhs == rhs || lhs == null || rhs == null;
     }
 
-    public static <T> void assertReflectionContains(T object, Collection<T> collection, String[] ignoredFields) {
+    public static <T> void assertReflectionContains(T object, Collection<T> collection, String... ignoredFields) {
         for (T t : collection) {
             if (compareFields(object, t, ignoredFields).isNull()) return;
         }
         throw new AssertionFailedError("Object does not exist in collection.");
+    }
+
+    public static <T> void assertReflectionDoesNotContains(T object, Collection<T> collection, String... ignoredFields) {
+        for (T t : collection) {
+            if (compareFields(object, t, ignoredFields).isNull()) throw new AssertionFailedError("Object exists in collection.");
+        }
+        return;
     }
 
     private static class Difference {
