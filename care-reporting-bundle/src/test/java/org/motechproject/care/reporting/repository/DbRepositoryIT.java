@@ -168,27 +168,6 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     }
 
     @Test
-    @Ignore
-    public void shouldUpdateCaseIfPresent() {
-        String caseId = "case Id";
-        ChildCase existingChild = new ChildCase();
-        existingChild.setCaseId(caseId);
-        existingChild.setName("old Child name");
-        template.save(existingChild);
-
-        ChildCase newChild = new ChildCase();
-        newChild.setCaseId(caseId);
-        String newChildName = "new child name";
-        newChild.setName(newChildName);
-
-        repository.saveOrUpdate(newChild, "caseId");
-
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
-        assertEquals(1, childCases.size());
-        assertEquals(newChildName, childCases.get(0).getCaseName());
-    }
-
-    @Test
     public void shouldFindByExternalPrimaryKey() throws Exception {
         Flw flw = new FlwBuilder().flwId("5ba9a0928dde95d187544babf6c0ad24").build();
         template.save(flw);

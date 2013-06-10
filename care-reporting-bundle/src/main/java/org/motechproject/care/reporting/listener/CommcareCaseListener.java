@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class CommcareCaseListener {
 
     @Autowired
-    CaseProcessor caseProcessor;
+    private CaseProcessor caseProcessor;
 
     @MotechListener(subjects = EventSubjects.CASE_EVENT)
     public void handleEvent(MotechEvent event) {

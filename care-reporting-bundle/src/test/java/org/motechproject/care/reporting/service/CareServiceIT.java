@@ -1,10 +1,13 @@
 package org.motechproject.care.reporting.service;
 
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
@@ -16,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -110,8 +114,23 @@ public class CareServiceIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldUpdateEntityByExternalPrimaryKeyWhenExists() throws Exception {
+    public void shouldUpdateEntityByExternalPrimaryKeyWhenExists() {
+        String caseId = "case Id";
+        ChildCase existingChild = new ChildCase();
+        existingChild.setCaseId(caseId);
+        existingChild.setName("old Child name");
+        template.save(existingChild);
 
+        ChildCase newChild = new ChildCase();
+        newChild.setCaseId(caseId);
+        String newChildName = "new child name";
+        newChild.setName(newChildName);
+
+        careService.saveOrUpdateByExternalPrimaryKey(newChild);
+
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        Assert.assertEquals(1, childCases.size());
+        Assert.assertEquals(newChildName, childCases.get(0).getName());
     }
 
     private Flw flw(String flwId, String firstName, final FlwGroup flwGroup) {

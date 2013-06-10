@@ -42,6 +42,6 @@ public class GenericCaseProcessorWorker extends ProcessorWorker {
         setMotherCase(caseMap.get("motherId"), child);
         setFlw(caseMap.get("userId"), child);
         setFlwGroup(caseMap.get("ownerId"), child);
-        service.save(child);
+        service.saveOrUpdateByExternalPrimaryKey(((ChildCase) child));
     }
 }

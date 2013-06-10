@@ -95,7 +95,7 @@ public class GenericCaseProcessorWorkerTest {
         verify(service).getGroup(groupId);
         verify(service).getMotherCase(motherId);
         ArgumentCaptor<ChildCase> childCaptor = ArgumentCaptor.forClass(ChildCase.class);
-        verify(service).save(childCaptor.capture());
+        verify(service).saveOrUpdateByExternalPrimaryKey(childCaptor.capture());
         ChildCase actualChildCase = childCaptor.getValue();
         assertEquals(expectedFlw, actualChildCase.getFlw());
         assertEquals(expectedGroup, actualChildCase.getFlwGroup());
