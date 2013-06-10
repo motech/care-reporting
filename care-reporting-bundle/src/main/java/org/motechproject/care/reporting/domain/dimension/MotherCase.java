@@ -4,6 +4,7 @@ package org.motechproject.care.reporting.domain.dimension;
 
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
+import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	private int id;
 	private Flw flw;
 	private FlwGroup flwGroup;
+    @ExternalPrimaryKey
 	private String caseId;
 	private String caseName;
 	private String caseType;

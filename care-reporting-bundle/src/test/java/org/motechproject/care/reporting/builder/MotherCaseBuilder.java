@@ -13,7 +13,9 @@ public class MotherCaseBuilder {
     public MotherCaseBuilder() {
         motherCase = new MotherCase();
         motherCase.setFlw(FlwBuilder.buildDefault());
-        motherCase.setFlwGroup(FlwGroupBuilder.buildDefault());
+        motherCase.setFlwGroup(new FlwGroupBuilder()
+                .groupId("5ba9a0928dde95d187544babf6c0ad48")
+                .build());
         motherCase.setCaseId("001");
         motherCase.setCaseName("NEERAJ");
         motherCase.setCaseType("cc_bihar_pregnancy");

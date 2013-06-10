@@ -17,10 +17,11 @@ public interface Service {
 
     ChildCase getChildCase(String caseId);
 
-    <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(Class clazz, List<T> instances);
+    <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity);
+
+    <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> instances);
 
     FlwGroup getGroup(String groupId);
 
     <T> T get(Class<T> type, String fieldName, String value);
-
 }

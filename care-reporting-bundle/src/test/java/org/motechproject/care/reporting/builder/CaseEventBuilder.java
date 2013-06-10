@@ -53,8 +53,12 @@ public class CaseEventBuilder{
         return this;
     }
 
+    public CaseEventBuilder withHusbandName(String husbandName) {
+        caseEvent.getFieldValues().put("husband_name", husbandName);
+        return this;
+    }
+
     public CaseEvent build(){
         return caseEvent;
     }
-
 }

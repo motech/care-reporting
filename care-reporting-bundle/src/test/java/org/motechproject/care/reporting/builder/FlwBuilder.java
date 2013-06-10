@@ -30,4 +30,12 @@ public class FlwBuilder {
     public Flw build() {
         return flw;
     }
+
+    public static Flw buildDefault() {
+        return new FlwBuilder()
+                .flwId("5ba9a0928dde95d187544babf6c0ad24")
+                .firstName("FirstName1")
+                .flwGroups(FlwGroupBuilder.buildDefaultSet())
+                .build();
+    }
 }

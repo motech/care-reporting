@@ -168,6 +168,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void shouldUpdateCaseIfPresent() {
         String caseId = "case Id";
         ChildCase existingChild = new ChildCase();
@@ -195,6 +196,10 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         Flw flwFromDb = repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad24");
 
         assertReflectionEqualsWithIgnore(flw, flwFromDb);
+    }
+
+    @Test
+    public void shouldReturnNullIfCannotFindByExternalPrimaryKey() throws Exception {
         assertNull(repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad00"));
     }
 }

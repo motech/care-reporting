@@ -39,6 +39,17 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
+    public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
+        T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
+        if(persistedObject == null)
+            dbRepository.save(entity);
+        else {
+            persistedObject.updateFrom(entity);
+            dbRepository.save(persistedObject);
+        }
+    }
+
+    @Override
     public <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> updatedEntities) {
         List<T> existingEntities = findAllByExternalPrimaryKey(clazz, updatedEntities);
         List<T> toBeSavedEntities = processToBeSavedEntities(updatedEntities, existingEntities);
@@ -64,9 +75,9 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return toBeSavedEntities;
     }
 
-    private <T> List<T> findAllByExternalPrimaryKey(Class clazz, List<T> groups) {
+    private <T> List<T> findAllByExternalPrimaryKey(Class clazz, List<T> entities) {
         List<String> externalPrimaryKeyValues = new ArrayList<>();
-        CollectionUtils.collect(groups, new Transformer() {
+        CollectionUtils.collect(entities, new Transformer() {
             @Override
             public Object transform(Object input) {
                 return getExternalPrimaryKeyValue(input);

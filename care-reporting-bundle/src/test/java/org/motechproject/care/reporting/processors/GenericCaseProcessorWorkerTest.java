@@ -52,11 +52,22 @@ public class GenericCaseProcessorWorkerTest {
         verify(service).getGroup(groupId);
         verify(service, never()).getMotherCase(anyString());
         ArgumentCaptor<MotherCase> motherCaptor = ArgumentCaptor.forClass(MotherCase.class);
-        verify(service).save(motherCaptor.capture());
+        verify(service).saveOrUpdateByExternalPrimaryKey(motherCaptor.capture());
         MotherCase actualMotherCase = motherCaptor.getValue();
         assertEquals(expectedFlw, actualMotherCase.getFlw());
         assertEquals(expectedGroup, actualMotherCase.getFlwGroup());
         assertEquals(caseName, actualMotherCase.getCaseName());
+    }
+
+    @Test
+    public void shouldNotOverrideFormDataWhileUpdatingMotherCase() throws Exception {
+        caseWorker.process(new CaseEventBuilder("case id")
+                .withCaseName("NEERAJ")
+                .withCaseType("cc_bihar_pregnancy")
+                .withDateModified("2012-04-03")
+                .build()
+        );
+
     }
 
     @Test

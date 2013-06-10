@@ -8,7 +8,6 @@ import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
 
-import java.io.Serializable;
 import java.util.Map;
 
 public class GenericCaseProcessorWorker extends ProcessorWorker {
@@ -21,31 +20,28 @@ public class GenericCaseProcessorWorker extends ProcessorWorker {
         final Class<?> caseType = CaseFactory.getCase(caseEvent.getCaseType());
         final Map<String, String> caseMap = new CaseInfoParser().parse(caseEvent);
         Object patientCase = new GenericMapper().map(caseMap, caseType);
-        Serializable serializable = processCase(patientCase, caseMap);
-        service.save(serializable);
+        processCase(patientCase, caseMap);
     }
 
-    private Serializable processCase(Object patient, Map<String, String> caseMap) {
+    private void processCase(Object patient, Map<String, String> caseMap) {
         Class<?> clazz = patient.getClass();
         if (clazz.equals(MotherCase.class)) {
-            return processMother(patient, caseMap);
+            processMother(patient, caseMap);
         } else if (clazz.equals(ChildCase.class)) {
-            return processChild(patient, caseMap);
+            processChild(patient, caseMap);
         }
-        return null;
     }
 
-    private Serializable processMother(Object mother, Map<String, String> caseMap) {
+    private void processMother(Object mother, Map<String, String> caseMap) {
         setFlw(caseMap.get("userId"), mother);
         setFlwGroup(caseMap.get("ownerId"), mother);
-        return (Serializable) mother;
+        service.saveOrUpdateByExternalPrimaryKey(((MotherCase) mother));
     }
 
-    private Serializable processChild(Object child, Map<String, String> caseMap) {
+    private void processChild(Object child, Map<String, String> caseMap) {
         setMotherCase(caseMap.get("motherId"), child);
         setFlw(caseMap.get("userId"), child);
         setFlwGroup(caseMap.get("ownerId"), child);
-        return (Serializable) child;
+        service.save(child);
     }
-
 }
