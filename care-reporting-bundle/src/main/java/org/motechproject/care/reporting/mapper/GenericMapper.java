@@ -16,8 +16,7 @@ public class GenericMapper {
         try {
             newInstance = type.newInstance();
         } catch (Exception ex) {
-            logger.warn("Exception thrown when creating new instance" + ex);
-            return null;
+            throw new RuntimeException(ex);
         }
 
         return map(keyStore, newInstance);

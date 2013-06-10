@@ -15,6 +15,6 @@ public enum CaseType {
             if(caseType.type.equals(type))
                 return caseType;
         }
-        return null;
+        throw new IllegalArgumentException(String.format("Cannot find CaseType for value: %s", type));
     }
 }

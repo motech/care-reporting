@@ -16,8 +16,8 @@ public class CaseTypeTest {
         assertEquals(CaseType.Child, CaseType.getType("cc_bihar_newborn"));
     }
 
-    @Test
-    public void shouldReturnNullIfCaseTypeDoesNotExist(){
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionIfCaseTypeInvalid(){
         assertEquals(null, CaseType.getType("cc_unknown"));
     }
 

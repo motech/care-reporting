@@ -17,10 +17,9 @@ public class CaseFactoryTest {
         assertEquals(ChildCase.class, CaseFactory.getCase("cc_bihar_newborn"));
     }
 
-    @Test
-    public void testGetEmptyCase() throws Exception {
-        assertEquals(null, CaseFactory.getCase("cc_unknown"));
-
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionIfTryingToGetInvalidCase() throws Exception {
+        CaseFactory.getCase("cc_unknown");
     }
 
 }
