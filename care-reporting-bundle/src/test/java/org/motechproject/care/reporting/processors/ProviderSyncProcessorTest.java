@@ -66,7 +66,7 @@ public class ProviderSyncProcessorTest {
         verify(groupParser).parse(group1);
         verify(groupParser).parse(group2);
         verify(groupParser, times(2)).parse(any(Group.class));
-        verify(careService).saveOrUpdateByExternalPrimaryKey(eq(FlwGroup.class), flwGroupArgumentCaptor.capture());
+        verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(FlwGroup.class), flwGroupArgumentCaptor.capture());
         List<FlwGroup> actualFlwGroups = flwGroupArgumentCaptor.getValue();
         assertEquals(2, actualFlwGroups.size());
         assertEquals("group1", actualFlwGroups.get(0).getName());
@@ -94,7 +94,7 @@ public class ProviderSyncProcessorTest {
         verify(providerParser).parse(provider1);
         verify(providerParser).parse(provider2);
         verify(providerParser, times(2)).parse(any(Provider.class));
-        verify(careService).saveOrUpdateByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
+        verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
         List<Flw> mappedFlws = flwArgumentCaptor.getValue();
         assertEquals(2, mappedFlws.size());
         assertEquals("provider1", mappedFlws.get(0).getFirstName());
@@ -122,7 +122,7 @@ public class ProviderSyncProcessorTest {
         verify(careService).getGroup(groupId1);
         verify(careService).getGroup(groupId2);
         verify(careService, times(2)).getGroup(anyString());
-        verify(careService).saveOrUpdateByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
+        verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
         Set<FlwGroup> actualFlwGroups = flwArgumentCaptor.getValue().get(0).getFlwGroups();
         assertEquals(2, actualFlwGroups.size());
         assertTrue(actualFlwGroups.contains(expectedFlwGroup1));
@@ -155,7 +155,7 @@ public class ProviderSyncProcessorTest {
         verify(careService).getGroup(groupId2);
         verify(careService, times(2)).getGroup(anyString());
 
-        verify(careService).saveOrUpdateByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
+        verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
         Set<FlwGroup> actualFlwGroupsForProvider1 = flwArgumentCaptor.getValue().get(0).getFlwGroups();
         assertEquals(2, actualFlwGroupsForProvider1.size());
         assertTrue(actualFlwGroupsForProvider1.contains(expectedFlwGroup1));

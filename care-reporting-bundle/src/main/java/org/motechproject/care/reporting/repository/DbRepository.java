@@ -3,10 +3,13 @@ package org.motechproject.care.reporting.repository;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.motechproject.care.reporting.utils.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 
 @Repository
 public class DbRepository implements org.motechproject.care.reporting.repository.Repository {
@@ -28,6 +31,14 @@ public class DbRepository implements org.motechproject.care.reporting.repository
         DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
         criteria.add(Restrictions.in(fieldName, values));
         return template.findByCriteria(criteria);
+    }
+
+    @Override
+    public <T> T findByExternalPrimaryKey(Class<T> clazz, Object value) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
+        criteria.add(Restrictions.eq(getExternalPrimaryKeyField(clazz).getName(), value));
+        List<T> results = template.findByCriteria(criteria);
+        return ListUtils.safeGet(results, 0);
     }
 
     @Override

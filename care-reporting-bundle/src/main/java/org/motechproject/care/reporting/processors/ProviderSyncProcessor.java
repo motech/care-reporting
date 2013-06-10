@@ -34,7 +34,7 @@ public class ProviderSyncProcessor {
             Map<String, Object> parsedGroups = groupParser.parse(group);
             flwGroups.add(genericMapper.map(parsedGroups, FlwGroup.class));
         }
-        service.saveOrUpdateByExternalPrimaryKey(FlwGroup.class, flwGroups);
+        service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
     }
 
     public void processProviderSync(List<Provider> providers) {
@@ -46,7 +46,7 @@ public class ProviderSyncProcessor {
             flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
             flws.add(flw);
         }
-        service.saveOrUpdateByExternalPrimaryKey(Flw.class, flws);
+        service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
     }
 
     private List<FlwGroup> getAssociatedFlwGroups(List<String> groups, Map<String, FlwGroup> existingFlwGroups) {

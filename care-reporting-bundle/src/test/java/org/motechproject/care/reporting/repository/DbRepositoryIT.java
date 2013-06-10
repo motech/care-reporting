@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -20,6 +21,7 @@ import java.util.List;
 import static junit.framework.Assert.*;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionDoesNotContains;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -183,5 +185,16 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         List<ChildCase> childCases = template.loadAll(ChildCase.class);
         assertEquals(1, childCases.size());
         assertEquals(newChildName, childCases.get(0).getCaseName());
+    }
+
+    @Test
+    public void shouldFindByExternalPrimaryKey() throws Exception {
+        Flw flw = new FlwBuilder().flwId("5ba9a0928dde95d187544babf6c0ad24").build();
+        template.save(flw);
+
+        Flw flwFromDb = repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad24");
+
+        assertReflectionEqualsWithIgnore(flw, flwFromDb);
+        assertNull(repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad00"));
     }
 }

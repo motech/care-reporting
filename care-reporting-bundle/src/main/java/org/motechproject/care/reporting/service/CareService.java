@@ -39,7 +39,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(Class clazz, List<T> updatedEntities) {
+    public <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> updatedEntities) {
         List<T> existingEntities = findAllByExternalPrimaryKey(clazz, updatedEntities);
         List<T> toBeSavedEntities = processToBeSavedEntities(updatedEntities, existingEntities);
         dbRepository.saveOrUpdateAll(toBeSavedEntities);

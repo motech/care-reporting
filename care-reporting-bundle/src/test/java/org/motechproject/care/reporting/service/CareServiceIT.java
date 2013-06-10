@@ -44,7 +44,7 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         FlwGroup updatedGroup = updatedGroup();
 
-        careService.saveOrUpdateByExternalPrimaryKey(FlwGroup.class, Arrays.asList(updatedGroup));
+        careService.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, Arrays.asList(updatedGroup));
 
         FlwGroup loadedFlwGroup = template.load(FlwGroup.class, toBeUpdatedGroup.getId());
         FlwGroup unchangedFlwGroup = template.load(FlwGroup.class, notToBeUpdatedGroup.getId());
@@ -62,7 +62,7 @@ public class CareServiceIT extends SpringIntegrationTest {
                 .reporting(true)
                 .build();
 
-        careService.saveOrUpdateByExternalPrimaryKey(FlwGroup.class, Arrays.asList(newGroup));
+        careService.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, Arrays.asList(newGroup));
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(1, flwGroupsFromDb.size());
@@ -79,7 +79,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         ArrayList<Flw> flwsToUpdate = new ArrayList<>();
         flwsToUpdate.add(newFlw);
 
-        careService.saveOrUpdateByExternalPrimaryKey(Flw.class, flwsToUpdate);
+        careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flwsToUpdate);
 
         Flw updatedFlw = template.load(Flw.class, toBeUpdatedFlw.getId());
         assertReflectionEqualsWithIgnore(newFlw, updatedFlw, new String[]{"id"});
@@ -91,11 +91,27 @@ public class CareServiceIT extends SpringIntegrationTest {
     public void shouldCreateNewFlw(){
         Flw newFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", flwGroupWithNameAndId("64a9a0928dde95d187544babf6c0ad38", "oldGroupName"));
 
-        careService.saveOrUpdateByExternalPrimaryKey(Flw.class, Arrays.asList(newFlw));
+        careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, Arrays.asList(newFlw));
 
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertEquals(1, flwsFromDb.size());
         assertReflectionContains(newFlw, flwsFromDb, new String[]{"id"});
+    }
+
+    @Test
+    public void shouldInsertAnEntityByExternalPrimaryKeyWhenDoesNotExists() throws Exception {
+        Flw newFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", flwGroupWithNameAndId("64a9a0928dde95d187544babf6c0ad38", "oldGroupName"));
+        careService.saveOrUpdateByExternalPrimaryKey(newFlw);
+
+        List<Flw> flws = template.loadAll(Flw.class);
+
+        assertEquals(1, flws.size());
+        assertReflectionContains(newFlw, flws);
+    }
+
+    @Test
+    public void shouldUpdateEntityByExternalPrimaryKeyWhenExists() throws Exception {
+
     }
 
     private Flw flw(String flwId, String firstName, final FlwGroup flwGroup) {

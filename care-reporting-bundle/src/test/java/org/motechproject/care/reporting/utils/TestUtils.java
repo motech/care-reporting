@@ -30,7 +30,7 @@ public class TestUtils {
         return ReflectionUtils.getFieldValue(object, field);
     }
 
-    public static void assertReflectionEqualsWithIgnore(Object lhs, Object rhs, String[] ignoredFields) {
+    public static void assertReflectionEqualsWithIgnore(Object lhs, Object rhs, String... ignoredFields) {
         if (isReferenceSame(lhs, rhs)) {
             return;
         }
