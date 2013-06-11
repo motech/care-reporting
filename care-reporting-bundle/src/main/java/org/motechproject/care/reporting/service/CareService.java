@@ -44,7 +44,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         if(persistedObject == null)
             dbRepository.save(entity);
         else {
-            persistedObject.updateFrom(entity);
+            persistedObject.updateToLatest(entity);
             dbRepository.save(persistedObject);
         }
     }
@@ -66,7 +66,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
                 }
             });
             if (existing != null) {
-                existing.updateFrom(updatedEntity);
+                existing.updateToLatest(updatedEntity);
                 toBeSavedEntities.add(existing);
             } else {
                 toBeSavedEntities.add(updatedEntity);

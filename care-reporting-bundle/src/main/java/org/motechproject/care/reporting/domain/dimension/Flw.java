@@ -680,7 +680,7 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
 	}
 
     @Override
-    public void updateFrom(Flw object) {
+    public void updateToLatest(Flw object) {
         String[] fieldsToBeUpdated = {
                 "defaultPhoneNumber", "email", "firstName", "lastName", "phoneNumber1", "phoneNumber2", "assetId",
                 "awcCode", "role", "subcentre", "userType", "username", "population", "education", "district", "block",
@@ -690,4 +690,5 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
             updateValue(fieldName, object, this);
         }
     }
+
 }

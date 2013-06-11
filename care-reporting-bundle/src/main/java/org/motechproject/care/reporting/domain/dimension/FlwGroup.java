@@ -155,11 +155,12 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 		this.newForms = newForms;
 	}
 
-    public void updateFrom(FlwGroup other) {
+    public void updateToLatest(FlwGroup other) {
         this.name = other.name;
         this.domain = other.domain;
         this.awcCode = other.awcCode;
         this.caseSharing = other.caseSharing;
         this.reporting = other.reporting;
     }
+
 }

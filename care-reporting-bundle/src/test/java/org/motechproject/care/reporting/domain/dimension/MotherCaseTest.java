@@ -17,7 +17,7 @@ public class MotherCaseTest {
         MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").dateModified(jan01).alive(false).build();
         MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").dateModified(dec01).alive(true).build();
 
-        oldMother.updateFrom(updatedMother);
+        oldMother.updateToLatest(updatedMother);
 
         assertEquals("devi", oldMother.getCaseName());
         assertEquals(dec01, oldMother.getDateModified());
@@ -31,7 +31,7 @@ public class MotherCaseTest {
         NewForm newForm = new NewForm(1);
         MotherCase updatedMother = new MotherCaseBuilder().caseId("01").newForm(newForm).build();
 
-        oldMother.updateFrom(updatedMother);
+        oldMother.updateToLatest(updatedMother);
 
         assertEquals(1, oldMother.getNewForms().size());
         assertSame(oldNewForm, oldMother.getNewForms().iterator().next());
@@ -39,6 +39,18 @@ public class MotherCaseTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenCaseIdMismatch() {
-        new MotherCaseBuilder().caseId("01").build().updateFrom(new MotherCaseBuilder().caseId("02").build());
+        new MotherCaseBuilder().caseId("01").build().updateToLatest(new MotherCaseBuilder().caseId("02").build());
+    }
+
+    @Test
+    public void shouldNotUpdateIfDateModifiedOlderThanPresent() throws Exception {
+        Date jan01 = DateTime.parse("2012-01-01").toDate();
+        Date dec01 = DateTime.parse("2012-12-01").toDate();
+        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").dateModified(dec01).alive(false).build();
+        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").dateModified(jan01).alive(true).build();
+
+        oldMother.updateToLatest(updatedMother);
+
+        assertEquals("durga", oldMother.getCaseName());
     }
 }

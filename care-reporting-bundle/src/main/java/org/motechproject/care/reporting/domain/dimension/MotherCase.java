@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.care.reporting.domain.measure.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
@@ -19,8 +21,9 @@ import static org.motechproject.care.reporting.utils.ReflectionUtils.updateValue
 @Entity
 @Table(name = "mother_case", uniqueConstraints = @UniqueConstraint(columnNames = "case_id"))
 public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCase> {
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-	private int id;
+    private int id;
 	private Flw flw;
 	private FlwGroup flwGroup;
     @ExternalPrimaryKey
@@ -1327,16 +1330,27 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	}
 
     @Override
-    public void updateFrom(MotherCase updated) {
-        if(!this.caseId.equals(updated.caseId))
+    public void updateToLatest(MotherCase updated) {
+        if (!this.caseId.equals(updated.caseId))
             throw new IllegalArgumentException(String.format("Cannot Update MotherCase, case Id does not match. Case Id for source %s, Case Id for updated %s", this.caseId, updated.caseId));
-
+        if (!shouldUpdate(updated)) {
+            logger.warn(String.format("Ignoring mother case update with case id: %s since current date modified is %s and given date modified is %s", this.caseId, this.dateModified, updated.dateModified));
+            return;
+        }
         List<String> ignoredFields = Arrays.asList(new String[]{"id", "caseId", "miForms", "bpForms", "pncMotherForms",
                 "cfMotherForms", "registrationMotherForms", "uiMotherForms", "referMotherForms", "childCases",
                 "closeMotherForms", "moForms", "abortForms", "deliveryMotherForms", "deathMotherForms", "ebfMotherForms", "newForms"});
         for (Field field : this.getClass().getDeclaredFields()) {
-            if(ignoredFields.contains(field.getName())) continue;
+            if (ignoredFields.contains(field.getName())) continue;
             updateValue(field.getName(), updated, this);
         }
+    }
+
+    private boolean shouldUpdate(MotherCase updatedObject) {
+        if (this.dateModified == null)
+            return true;
+        else if (updatedObject.dateModified == null)
+            return false;
+        return this.dateModified.compareTo(updatedObject.dateModified) <= 0;
     }
 }
