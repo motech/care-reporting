@@ -38,6 +38,9 @@ public class FormFactory {
         put(new Pair<>(FormType.Ui, CaseType.Mother), UiMotherForm.class);
         put(new Pair<>(FormType.Ui, CaseType.Child), UiChildForm.class);
 
+        put(new Pair<>(FormType.Delivery, CaseType.Mother), DeliveryMotherForm.class);
+        put(new Pair<>(FormType.Delivery, CaseType.Child), DeliveryChildForm.class);
+
         put(new Pair<>(FormType.Abort, CaseType.Mother), AbortForm.class);
         put(new Pair<>(FormType.Bp, CaseType.Mother), BpForm.class);
         put(new Pair<>(FormType.Mi, CaseType.Mother), MiForm.class);
