@@ -7,10 +7,13 @@ import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class GenericCaseProcessorWorker extends ProcessorWorker {
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public GenericCaseProcessorWorker(Service service) {
         super(service);
@@ -35,13 +38,21 @@ public class GenericCaseProcessorWorker extends ProcessorWorker {
     private void processMother(Object mother, Map<String, String> caseMap) {
         setFlw(caseMap.get("userId"), mother);
         setFlwGroup(caseMap.get("ownerId"), mother);
-        service.saveOrUpdateByExternalPrimaryKey(((MotherCase) mother));
+
+        MotherCase motherCase = (MotherCase) mother;
+        logger.info(String.format("Started processing mother case with case ID %s", motherCase.getCaseId()));
+        service.saveOrUpdateByExternalPrimaryKey(motherCase);
+        logger.info(String.format("Finished processing mother case with case ID %s", motherCase.getCaseId()));
     }
 
     private void processChild(Object child, Map<String, String> caseMap) {
         setMotherCase(caseMap.get("motherId"), child);
         setFlw(caseMap.get("userId"), child);
         setFlwGroup(caseMap.get("ownerId"), child);
+
+        ChildCase childCase = (ChildCase) child;
+        logger.info(String.format("Started processing child case with case ID %s", childCase.getCaseId()));
         service.saveOrUpdateByExternalPrimaryKey(((ChildCase) child));
+        logger.info(String.format("Finished processing child case with case ID %s", childCase.getCaseId()));
     }
 }

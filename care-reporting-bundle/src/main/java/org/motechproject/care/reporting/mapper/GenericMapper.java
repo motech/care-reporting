@@ -9,7 +9,6 @@ import java.util.Map;
 
 
 public class GenericMapper {
-    protected Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
         T newInstance;
@@ -27,7 +26,6 @@ public class GenericMapper {
             String key = field.getKey();
             U value = field.getValue();
 
-            logger.info("Setting " + value + " to " + key);
             ObjectUtils.set(typeInstance, key, value);
         }
 
