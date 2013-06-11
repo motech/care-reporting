@@ -30,7 +30,7 @@ public class CaseInfoParser{
         if(null == fieldValues)
             return map;
 
-        Map<String, String> fieldValuesMap = parser.parse(fieldValues);
+        Map<String, String> fieldValuesMap = (Map) parser.parse(fieldValues);
         map.putAll(fieldValuesMap);
 
         return map;

@@ -14,6 +14,6 @@ public class MetaInfoParser {
     private final InfoParser infoParser = new InfoParser(keyConversionMap);
 
     public Map<String, String> parse(CommcareForm commcareForm) {
-        return infoParser.parse(commcareForm.getMetadata());
+        return (Map) infoParser.parse(commcareForm.getMetadata());
     }
 }

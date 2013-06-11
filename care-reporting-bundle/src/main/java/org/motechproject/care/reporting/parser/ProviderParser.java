@@ -28,7 +28,7 @@ public class ProviderParser {
 
         parsedProviderMap.put("phoneNumber1", safeGet(provider.getPhoneNumbers(), 0));
         parsedProviderMap.put("phoneNumber2", safeGet(provider.getPhoneNumbers(), 1));
-        parsedProviderMap.put("dob", transformDob(provider.getUserData().get("dob")));
+        parsedProviderMap.put("dob", transformDob((String) provider.getUserData().get("dob")));
         return parsedProviderMap;
     }
 

@@ -2,11 +2,13 @@ package org.motechproject.care.reporting.parser;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.motechproject.care.reporting.utils.ListUtils;
 import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.FormValueElement;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InfoParser {
@@ -43,17 +45,21 @@ public class InfoParser {
         return parse(objectFieldsMap);
     }
 
-    <T> Map<String, T> parse(Map<String, T> map) {
-
-        HashMap<String, T> mapper = new HashMap<>();
-
-        for (Map.Entry<String, T> pair : map.entrySet()) {
-            String key = applyKeyConversionMap(pair.getKey());
+    Map<String, Object> parse(Map map) {
+        HashMap<String, Object> mapper = new HashMap<>();
+        for(Object mapKey : map.keySet()) {
+            String key = applyKeyConversionMap((String) mapKey);
             key = applyCamelConversion(key);
-
-            mapper.put(key, pair.getValue());
+            mapper.put(key, getSingleValue(map.get(mapKey)));
         }
         return mapper;
+    }
+
+    private Object getSingleValue(Object value) {
+        if(value instanceof List) {
+            return ListUtils.safeGet((List) value, 0);
+        }
+        return value;
     }
 
     private String applyCamelConversion(String input) {
