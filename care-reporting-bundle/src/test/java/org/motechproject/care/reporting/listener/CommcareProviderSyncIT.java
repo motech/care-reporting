@@ -95,14 +95,14 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
     private MotechEvent motechProviderEvent(final List<Provider> providers) {
         return new MotechEvent(EventConstants.PROVIDER_DETAILS_EVENT, new HashMap<String, Object>() {{
-            put(EventConstants.PROVIDER_DETAILS, providers);
+            put(EventConstants.DETAILS_LIST, providers);
         }});
     }
 
     private MotechEvent motechGroupDetailsEvent(List<Group> groups) {
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put(EventConstants.GROUP_DETAILS, groups);
-        return new MotechEvent(EventConstants.GROUP_DETAILS, parameters);
+        parameters.put(EventConstants.DETAILS_LIST, groups);
+        return new MotechEvent(EventConstants.DETAILS_LIST, parameters);
     }
 
     private Provider provider(final String providerId, final String defaultPhoneNumber, final String phoneNumber1, final String phoneNumber2) {

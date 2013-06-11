@@ -23,13 +23,13 @@ public class CommcareProviderSyncListener {
 
     @MotechListener(subjects = EventConstants.GROUP_DETAILS_EVENT)
     public void handleGroupSyncEvent(MotechEvent event) {
-        List<Group> groups = (List<Group>) event.getParameters().get(EventConstants.GROUP_DETAILS);
+        List<Group> groups = (List<Group>) event.getParameters().get(EventConstants.DETAILS_LIST);
         providerSyncProcessor.processGroupSync(groups);
     }
 
     @MotechListener(subjects = EventConstants.PROVIDER_DETAILS_EVENT)
     public void handleProviderSyncEvent(MotechEvent event) {
-        List<Provider> providers = (List<Provider>) event.getParameters().get(EventConstants.PROVIDER_DETAILS);
+        List<Provider> providers = (List<Provider>) event.getParameters().get(EventConstants.DETAILS_LIST);
         providerSyncProcessor.processProviderSync(providers);
     }
 }

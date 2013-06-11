@@ -32,8 +32,8 @@ public class CommcareProviderSyncListenerTest {
     public void shouldHandleGroupSyncEvent(){
         HashMap<String, Object> parameters = new HashMap<>();
         ArrayList<Group> groups = new ArrayList<>();
-        parameters.put(EventConstants.GROUP_DETAILS, groups);
-        MotechEvent event = new MotechEvent(EventConstants.GROUP_DETAILS, parameters);
+        parameters.put(EventConstants.DETAILS_LIST, groups);
+        MotechEvent event = new MotechEvent(EventConstants.DETAILS_LIST, parameters);
 
         commcareProviderSyncListener.handleGroupSyncEvent(event);
 
@@ -44,7 +44,7 @@ public class CommcareProviderSyncListenerTest {
     public void shouldHandleProviderSyncEvent(){
         HashMap<String, Object> parameters = new HashMap<>();
         ArrayList<Provider> providers = new ArrayList<>();
-        parameters.put(EventConstants.PROVIDER_DETAILS, providers);
+        parameters.put(EventConstants.DETAILS_LIST, providers);
         MotechEvent event = new MotechEvent(EventConstants.PROVIDER_DETAILS_EVENT, parameters);
 
         commcareProviderSyncListener.handleProviderSyncEvent(event);
