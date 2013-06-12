@@ -66,17 +66,7 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 	private Date vitA3Date;
 	private Boolean closed;
 	private Date dateClosed;
-	private Set<EbfChildForm> ebfChildForms = new HashSet<EbfChildForm>(0);
-	private Set<PncChildForm> pncChildForms = new HashSet<PncChildForm>(0);
-	private Set<DeathChildForm> deathChildForms = new HashSet<DeathChildForm>(0);
-	private Set<CloseChildForm> closeChildForms = new HashSet<CloseChildForm>(0);
-	private Set<ReferChildForm> referChildForms = new HashSet<ReferChildForm>(0);
-	private Set<RegistrationChildForm> registrationChildForms = new HashSet<RegistrationChildForm>(
-			0);
-	private Set<CfChildForm> cfChildForms = new HashSet<CfChildForm>(0);
-	private Set<DeliveryChildForm> deliveryChildForms = new HashSet<DeliveryChildForm>(
-			0);
-	private Set<UiChildForm> uiChildForms = new HashSet<UiChildForm>(0);
+
 
 	public ChildCase() {
 	}
@@ -96,15 +86,7 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
 			Date dateMeaslesBooster, BigDecimal babyWeight, String name,
 			String term, Date timeOfBirth, Date vitA2Date, Date vitA3Date,
-			Boolean closed, Date dateClosed, Set<EbfChildForm> ebfChildForms,
-			Set<PncChildForm> pncChildForms,
-			Set<DeathChildForm> deathChildForms,
-			Set<CloseChildForm> closeChildForms,
-			Set<ReferChildForm> referChildForms,
-			Set<RegistrationChildForm> registrationChildForms,
-			Set<CfChildForm> cfChildForms,
-			Set<DeliveryChildForm> deliveryChildForms,
-			Set<UiChildForm> uiChildForms) {
+			Boolean closed, Date dateClosed) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -146,15 +128,6 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 		this.vitA3Date = vitA3Date;
 		this.closed = closed;
 		this.dateClosed = dateClosed;
-		this.ebfChildForms = ebfChildForms;
-		this.pncChildForms = pncChildForms;
-		this.deathChildForms = deathChildForms;
-		this.closeChildForms = closeChildForms;
-		this.referChildForms = referChildForms;
-		this.registrationChildForms = registrationChildForms;
-		this.cfChildForms = cfChildForms;
-		this.deliveryChildForms = deliveryChildForms;
-		this.uiChildForms = uiChildForms;
 	}
 
 	@Id
@@ -560,88 +533,6 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 		this.dateClosed = dateClosed;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<EbfChildForm> getEbfChildForms() {
-		return this.ebfChildForms;
-	}
-
-	public void setEbfChildForms(Set<EbfChildForm> ebfChildForms) {
-		this.ebfChildForms = ebfChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<PncChildForm> getPncChildForms() {
-		return this.pncChildForms;
-	}
-
-	public void setPncChildForms(Set<PncChildForm> pncChildForms) {
-		this.pncChildForms = pncChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<DeathChildForm> getDeathChildForms() {
-		return this.deathChildForms;
-	}
-
-	public void setDeathChildForms(Set<DeathChildForm> deathChildForms) {
-		this.deathChildForms = deathChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<CloseChildForm> getCloseChildForms() {
-		return this.closeChildForms;
-	}
-
-	public void setCloseChildForms(Set<CloseChildForm> closeChildForms) {
-		this.closeChildForms = closeChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<ReferChildForm> getReferChildForms() {
-		return this.referChildForms;
-	}
-
-	public void setReferChildForms(Set<ReferChildForm> referChildForms) {
-		this.referChildForms = referChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<RegistrationChildForm> getRegistrationChildForms() {
-		return this.registrationChildForms;
-	}
-
-	public void setRegistrationChildForms(
-			Set<RegistrationChildForm> registrationChildForms) {
-		this.registrationChildForms = registrationChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<CfChildForm> getCfChildForms() {
-		return this.cfChildForms;
-	}
-
-	public void setCfChildForms(Set<CfChildForm> cfChildForms) {
-		this.cfChildForms = cfChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<DeliveryChildForm> getDeliveryChildForms() {
-		return this.deliveryChildForms;
-	}
-
-	public void setDeliveryChildForms(Set<DeliveryChildForm> deliveryChildForms) {
-		this.deliveryChildForms = deliveryChildForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "childCase")
-	public Set<UiChildForm> getUiChildForms() {
-		return this.uiChildForms;
-	}
-
-	public void setUiChildForms(Set<UiChildForm> uiChildForms) {
-		this.uiChildForms = uiChildForms;
-	}
-
     @Override
     public void updateToLatest(ChildCase updated) {
         if(!this.caseId.equals(updated.caseId))
@@ -651,10 +542,7 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
             return;
         }
 
-        List<String> ignoredFields = Arrays.asList(new String[]{"id", "caseId",
-                "uiChildForms", "deliveryChildForms", "cfChildForms",
-                "registrationChildForms","referChildForms","closeChildForms",
-                "deathChildForms","pncChildForms","ebfChildForms"});
+        List<String> ignoredFields = Arrays.asList(new String[]{"id", "caseId"});
         for (Field field : this.getClass().getDeclaredFields()) {
             if(ignoredFields.contains(field.getName())) continue;
             updateValue(field.getName(), updated, this);

@@ -26,9 +26,6 @@ public class ChildCaseTest {
         oldChild.setName("old name");
         oldChild.setDateModified(JAN_09);
 
-        HashSet<CfChildForm> cfChildForms = new HashSet<>();
-        oldChild.setCfChildForms(cfChildForms);
-
         ChildCase updatedChild = new ChildCase(2);
         updatedChild.setCaseId("656a96a1-af77-4dca-9dd0-579d933733da");
         updatedChild.setName("new name");
@@ -36,7 +33,6 @@ public class ChildCaseTest {
 
         oldChild.updateToLatest(updatedChild);
 
-        assertSame(cfChildForms, oldChild.getCfChildForms());
         assertEquals("new name", oldChild.getName());
     }
 

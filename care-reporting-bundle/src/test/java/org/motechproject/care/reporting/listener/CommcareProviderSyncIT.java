@@ -86,7 +86,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     }
 
     private FlwGroup flwGroup(String groupId) {
-        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, new HashSet<Flw>(), new HashSet<ChildCase>(), new HashSet<MotherCase>(), new HashSet<NewForm>());
+        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, new HashSet<Flw>(), new HashSet<ChildCase>(), new HashSet<MotherCase>());
     }
 
     private Group group(final String groupId) {

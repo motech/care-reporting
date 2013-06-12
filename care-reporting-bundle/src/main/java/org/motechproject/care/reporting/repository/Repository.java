@@ -17,6 +17,4 @@ public interface Repository {
     <T> List<T> findAllByField(Class<T> clazz, List<String> values, String fieldName);
 
     <T> T findByExternalPrimaryKey(Class<T> clazz, Object value);
-
-    <T> void saveOrUpdate(T instance, String entityName);
 }

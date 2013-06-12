@@ -42,11 +42,6 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public <T> void saveOrUpdate(T instances, String entityName) {
-        template.saveOrUpdate(entityName, instances);
-    }
-
-    @Override
     public <T> T get(Class<T> entityClass, int id) {
         return template.get(entityClass, id);
     }

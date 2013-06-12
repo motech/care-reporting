@@ -28,7 +28,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
     private Set<Flw> flws = new HashSet<>(0);
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
-	private Set<NewForm> newForms = new HashSet<NewForm>(0);
 
 	public FlwGroup() {
 	}
@@ -40,7 +39,7 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
                     Set<Flw> flws, Set<ChildCase> childCases,
-                    Set<MotherCase> motherCases, Set<NewForm> newForms) {
+                    Set<MotherCase> motherCases) {
 		this.id = id;
 		this.groupId = groupId;
 		this.caseSharing = caseSharing;
@@ -51,7 +50,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
         this.flws = flws;
         this.childCases = childCases;
 		this.motherCases = motherCases;
-		this.newForms = newForms;
 	}
 
 	@Id
@@ -144,15 +142,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 
 	public void setMotherCases(Set<MotherCase> motherCases) {
 		this.motherCases = motherCases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
-	public Set<NewForm> getNewForms() {
-		return this.newForms;
-	}
-
-	public void setNewForms(Set<NewForm> newForms) {
-		this.newForms = newForms;
 	}
 
     public void updateToLatest(FlwGroup other) {

@@ -47,9 +47,4 @@ public class MotherCaseBuilder {
         motherCase.setMotherAlive(isAlive);
         return this;
     }
-
-    public MotherCaseBuilder newForm(NewForm newForm) {
-        motherCase.getNewForms().add(newForm);
-        return this;
-    }
 }

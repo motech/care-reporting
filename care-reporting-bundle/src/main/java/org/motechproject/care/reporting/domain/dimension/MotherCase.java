@@ -5,13 +5,14 @@ package org.motechproject.care.reporting.domain.dimension;
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-import org.motechproject.care.reporting.domain.measure.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static org.motechproject.care.reporting.utils.ReflectionUtils.updateValue;
 
@@ -118,26 +119,7 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	private Date dob;
 	private Boolean closed;
 	private Date dateClosed;
-	private Set<MiForm> miForms = new HashSet<MiForm>(0);
-	private Set<BpForm> bpForms = new HashSet<BpForm>(0);
-	private Set<PncMotherForm> pncMotherForms = new HashSet<PncMotherForm>(0);
-	private Set<CfMotherForm> cfMotherForms = new HashSet<CfMotherForm>(0);
-	private Set<RegistrationMotherForm> registrationMotherForms = new HashSet<RegistrationMotherForm>(
-			0);
-	private Set<UiMotherForm> uiMotherForms = new HashSet<UiMotherForm>(0);
-	private Set<ReferMotherForm> referMotherForms = new HashSet<ReferMotherForm>(
-			0);
-	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
-	private Set<CloseMotherForm> closeMotherForms = new HashSet<CloseMotherForm>(
-			0);
-	private Set<MoForm> moForms = new HashSet<MoForm>(0);
-	private Set<AbortForm> abortForms = new HashSet<AbortForm>(0);
-	private Set<DeliveryMotherForm> deliveryMotherForms = new HashSet<DeliveryMotherForm>(
-			0);
-	private Set<DeathMotherForm> deathMotherForms = new HashSet<DeathMotherForm>(
-			0);
-	private Set<EbfMotherForm> ebfMotherForms = new HashSet<EbfMotherForm>(0);
-	private Set<NewForm> newForms = new HashSet<NewForm>(0);
+
 
 	public MotherCase() {
 	}
@@ -174,16 +156,7 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 			String birthStatus, Date migrateOutDate, String migratedStatus,
 			String status, String term, Date dateCf7, Date dateDelFu,
 			Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
-			Date dateClosed, Set<MiForm> miForms, Set<BpForm> bpForms,
-			Set<PncMotherForm> pncMotherForms, Set<CfMotherForm> cfMotherForms,
-			Set<RegistrationMotherForm> registrationMotherForms,
-			Set<UiMotherForm> uiMotherForms,
-			Set<ReferMotherForm> referMotherForms,
-			Set<ChildCase> childCases, Set<CloseMotherForm> closeMotherForms,
-			Set<MoForm> moForms, Set<AbortForm> abortForms,
-			Set<DeliveryMotherForm> deliveryMotherForms,
-			Set<DeathMotherForm> deathMotherForms,
-			Set<EbfMotherForm> ebfMotherForms, Set<NewForm> newForms) {
+			Date dateClosed) {
 		this.id = id;
 		this.flw = flw;
 		this.flwGroup = flwGroup;
@@ -278,21 +251,6 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 		this.dob = dob;
 		this.closed = closed;
 		this.dateClosed = dateClosed;
-		this.miForms = miForms;
-		this.bpForms = bpForms;
-		this.pncMotherForms = pncMotherForms;
-		this.cfMotherForms = cfMotherForms;
-		this.registrationMotherForms = registrationMotherForms;
-		this.uiMotherForms = uiMotherForms;
-		this.referMotherForms = referMotherForms;
-		this.childCases = childCases;
-		this.closeMotherForms = closeMotherForms;
-		this.moForms = moForms;
-		this.abortForms = abortForms;
-		this.deliveryMotherForms = deliveryMotherForms;
-		this.deathMotherForms = deathMotherForms;
-		this.ebfMotherForms = ebfMotherForms;
-		this.newForms = newForms;
 	}
 
 	@Id
@@ -1192,143 +1150,6 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 		this.dateClosed = dateClosed;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<MiForm> getMiForms() {
-		return this.miForms;
-	}
-
-	public void setMiForms(Set<MiForm> miForms) {
-		this.miForms = miForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<BpForm> getBpForms() {
-		return this.bpForms;
-	}
-
-	public void setBpForms(Set<BpForm> bpForms) {
-		this.bpForms = bpForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<PncMotherForm> getPncMotherForms() {
-		return this.pncMotherForms;
-	}
-
-	public void setPncMotherForms(Set<PncMotherForm> pncMotherForms) {
-		this.pncMotherForms = pncMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<CfMotherForm> getCfMotherForms() {
-		return this.cfMotherForms;
-	}
-
-	public void setCfMotherForms(Set<CfMotherForm> cfMotherForms) {
-		this.cfMotherForms = cfMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<RegistrationMotherForm> getRegistrationMotherForms() {
-		return this.registrationMotherForms;
-	}
-
-	public void setRegistrationMotherForms(
-			Set<RegistrationMotherForm> registrationMotherForms) {
-		this.registrationMotherForms = registrationMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<UiMotherForm> getUiMotherForms() {
-		return this.uiMotherForms;
-	}
-
-	public void setUiMotherForms(Set<UiMotherForm> uiMotherForms) {
-		this.uiMotherForms = uiMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<ReferMotherForm> getReferMotherForms() {
-		return this.referMotherForms;
-	}
-
-	public void setReferMotherForms(Set<ReferMotherForm> referMotherForms) {
-		this.referMotherForms = referMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<ChildCase> getChildCases() {
-		return this.childCases;
-	}
-
-	public void setChildCases(Set<ChildCase> childCases) {
-		this.childCases = childCases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<CloseMotherForm> getCloseMotherForms() {
-		return this.closeMotherForms;
-	}
-
-	public void setCloseMotherForms(Set<CloseMotherForm> closeMotherForms) {
-		this.closeMotherForms = closeMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<MoForm> getMoForms() {
-		return this.moForms;
-	}
-
-	public void setMoForms(Set<MoForm> moForms) {
-		this.moForms = moForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<AbortForm> getAbortForms() {
-		return this.abortForms;
-	}
-
-	public void setAbortForms(Set<AbortForm> abortForms) {
-		this.abortForms = abortForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<DeliveryMotherForm> getDeliveryMotherForms() {
-		return this.deliveryMotherForms;
-	}
-
-	public void setDeliveryMotherForms(
-			Set<DeliveryMotherForm> deliveryMotherForms) {
-		this.deliveryMotherForms = deliveryMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<DeathMotherForm> getDeathMotherForms() {
-		return this.deathMotherForms;
-	}
-
-	public void setDeathMotherForms(Set<DeathMotherForm> deathMotherForms) {
-		this.deathMotherForms = deathMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<EbfMotherForm> getEbfMotherForms() {
-		return this.ebfMotherForms;
-	}
-
-	public void setEbfMotherForms(Set<EbfMotherForm> ebfMotherForms) {
-		this.ebfMotherForms = ebfMotherForms;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "motherCase")
-	public Set<NewForm> getNewForms() {
-		return this.newForms;
-	}
-
-	public void setNewForms(Set<NewForm> newForms) {
-		this.newForms = newForms;
-	}
-
     @Override
     public void updateToLatest(MotherCase updated) {
         if (!this.caseId.equals(updated.caseId))
@@ -1337,9 +1158,7 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
             logger.warn(String.format("Ignoring mother case update with case id: %s since current date modified is %s and given date modified is %s", this.caseId, this.dateModified, updated.dateModified));
             return;
         }
-        List<String> ignoredFields = Arrays.asList(new String[]{"id", "caseId", "miForms", "bpForms", "pncMotherForms",
-                "cfMotherForms", "registrationMotherForms", "uiMotherForms", "referMotherForms", "childCases",
-                "closeMotherForms", "moForms", "abortForms", "deliveryMotherForms", "deathMotherForms", "ebfMotherForms", "newForms"});
+        List<String> ignoredFields = Arrays.asList(new String[]{"id", "caseId"});
         for (Field field : this.getClass().getDeclaredFields()) {
             if (ignoredFields.contains(field.getName())) continue;
             updateValue(field.getName(), updated, this);
