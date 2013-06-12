@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.parser;
 
-import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.motechproject.care.reporting.utils.ListUtils;
@@ -36,9 +35,7 @@ public class InfoParser {
 
             key = applyConversions(key);
 
-            Collection<FormValueElement> subElementValue = subElement.getValue();
-            FormValueElement fieldValue = (FormValueElement) CollectionUtils.get(subElementValue, 0);
-            mapper.put(key, fieldValue.getValue());
+            mapper.put(key, getFormValueElementValue(subElement));
         }
         return mapper;
     }
@@ -60,6 +57,12 @@ public class InfoParser {
             mapper.put(key, getSingleValue(map.get(mapKey)));
         }
         return mapper;
+    }
+
+    private String getFormValueElementValue(Map.Entry<String, Collection<FormValueElement>> subElement) {
+        Collection<FormValueElement> subElementValue = subElement.getValue();
+        FormValueElement fieldValue = (FormValueElement) CollectionUtils.get(subElementValue, 0);
+        return fieldValue.getValue();
     }
 
     private Object getSingleValue(Object value) {
