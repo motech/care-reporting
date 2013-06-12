@@ -14,9 +14,12 @@ public class MotherInfoParser {
     public Map<String, String> parse(CommcareForm commcareForm) {
         FormValueElement form = commcareForm.getForm();
 
-        Map<String, String> motherInfo = infoParser.parse(form);
+        Map<String, String> caseMap = parseCaseInfo(commcareForm);
+        Map<String, String> motherInfo = new HashMap<>(caseMap);
 
-        motherInfo.putAll(parseCaseInfo(commcareForm));
+        Map<String, String> motherMap = infoParser.parse(form);
+
+        motherInfo.putAll(motherMap);
         return motherInfo;
 
     }
@@ -29,6 +32,10 @@ public class MotherInfoParser {
         final String dateModified = motherCase.getAttributes().get("date_modified");
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
+
+        for (Map.Entry<String, FormValueElement> caseElement : motherCase.getSubElements().entries()) {
+            caseInfo.putAll(infoParser.parse(caseElement.getValue()));
+        }
 
         return caseInfo;
     }

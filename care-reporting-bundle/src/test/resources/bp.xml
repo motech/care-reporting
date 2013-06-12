@@ -10,26 +10,53 @@
         <cc:appVersion>v2.0.0alpha (990ba3-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #48 b:2012-Jul-26 r:2012-Jul-28</cc:appVersion>
     </n0:meta>
     <n1:case case_id="68878268-fa9a-4458-9c94-eadc27f742f2" date_modified="2012-09-12T18:35:32.445+05:30" user_id="89fda0284e008d2e0c980fb13f95d481" xmlns:n1="http://commcarehq.org/case/transaction/v2">
+        <n1:create>
+            <n1:age>25</n1:age>
+        </n1:create>
         <n1:update>
             <n1:ifa_tablets_100>2012-09-12</n1:ifa_tablets_100>
             <n1:ifa_tablets>100</n1:ifa_tablets>
             <n1:institutional>yes</n1:institutional>
-            <n1:institutional>yes</n1:institutional>
+            <n1:institutional>no</n1:institutional>
             <n1:vehicle>yes</n1:vehicle>
             <n1:maternal_emergency>yes</n1:maternal_emergency>
             <n1:maternal_emergency_number>yes</n1:maternal_emergency_number>
             <n1:accompany>yes</n1:accompany>
             <n1:phone_vehicle>yes</n1:phone_vehicle>
             <n1:saving_money>yes</n1:saving_money>
-            <n1:delivery_type>institutional</n1:delivery_type>
+            <n1:delivery_type>home</n1:delivery_type>
             <n1:last_visit_type>bp</n1:last_visit_type>
             <n1:date_last_visit>2012-09-12</n1:date_last_visit>
         </n1:update>
     </n1:case>
+    <egg>yes</egg>
     <bp_visit_num>4</bp_visit_num>
     <delivery_type>institutional</delivery_type>
     <anc_latest_num>0</anc_latest_num>
     <anc_latest_date>2012-09-12</anc_latest_date>
+    <child_info>
+        <cid>ae78e331-d0ed-410c-84df-921b7cdca742</cid>
+        <index>0</index>
+        <n2:case case_id="ae78e331-d0ed-410c-84df-921b7cdca742" date_modified="2013-05-09T20:06:06.403+05:30" user_id="89fda0284e008d2e0c980fb13f9cb0c2" xmlns:n2="http://commcarehq.org/case/transaction/v2">
+            <n2:update>
+                <n2:baby_measles />
+            </n2:update>
+        </n2:case>
+        <display_child>OK</display_child>
+        <name_update>no</name_update>
+        <new_name />
+        <eaten_cereal>yes</eaten_cereal>
+        <number_good>yes</number_good>
+        <amount_good>yes</amount_good>
+        <dal>yes</dal>
+        <oil_ghee>yes</oil_ghee>
+        <milk_curd>yes</milk_curd>
+        <egg>no</egg>
+        <fish>yes</fish>
+        <meat>yes</meat>
+        <recent_fever>no</recent_fever>
+        <add_vaccinations>no</add_vaccinations>
+    </child_info>
     <bp2>
         <now_institutional>yes</now_institutional>
         <play_birth_preparedness_vid>yes</play_birth_preparedness_vid>
