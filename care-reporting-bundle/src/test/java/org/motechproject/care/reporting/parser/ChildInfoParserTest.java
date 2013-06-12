@@ -3,8 +3,10 @@ package org.motechproject.care.reporting.parser;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
+import org.motechproject.care.reporting.utils.ResourceUtils;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.commcare.parser.FullFormParser;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 public class ChildInfoParserTest {
 
@@ -67,10 +70,26 @@ public class ChildInfoParserTest {
             put("caseId", caseId);
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
             put("cid",caseId);
-            put("case",null);
             put("index", index);
             put("displayChild", "OK");
         }};
+    }
+
+    @Test
+    public void shouldRecursivelyGetChildDetails() throws Exception{
+        String formXml = new ResourceUtils().formXml("bp.xml");
+        FormValueElement root = new FullFormParser(formXml).parse();
+
+        CommcareForm form = new CommcareFormBuilder().setRootElement(root);
+
+        List<Map<String, String>> mappedFieldValues = new ChildInfoParser().parse(form);
+
+        assertEquals(1,mappedFieldValues.size());
+        Map<String, String> childFields = mappedFieldValues.get(0);
+        assertEquals("1", childFields.get("age"));
+        assertEquals("yes", childFields.get("fever"));
+        assertNull(childFields.get("new_name"));
+        assertEquals("no", childFields.get("addVaccinations"));
     }
 }
 

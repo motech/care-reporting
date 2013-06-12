@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Arrays.asList;
+
 public class ChildInfoParser{
 
     private final InfoParser infoParser = new InfoParser();
@@ -18,10 +20,16 @@ public class ChildInfoParser{
         List<Map<String, String>> childInfoList = new ArrayList<>();
         List<FormValueElement> child_infos = commcareForm.getForm().getAllElements("child_info");
 
+        infoParser.setRestrictedElements(asList("case"));
         for(FormValueElement child_info : child_infos){
-            Map<String, String> childInfo = infoParser.parse(child_info);
+            Map<String, String> caseInfo = parseCaseInfo(child_info);
 
-            childInfo.putAll(parseCaseInfo(child_info));
+            Map<String, String> childInfoMap = infoParser.parse(child_info, true);
+            Map<String, String> childInfo = new HashMap<>();
+
+            childInfo.putAll(caseInfo);
+            childInfo.putAll(childInfoMap);
+
             childInfoList.add(childInfo);
         }
 
@@ -36,6 +44,7 @@ public class ChildInfoParser{
         final String dateModified = childCase.getAttributes().get("date_modified");
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
+        caseInfo.putAll(infoParser.parse(childCase, true));
 
         return caseInfo;
     }

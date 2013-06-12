@@ -36,10 +36,13 @@
     <anc_latest_date>2012-09-12</anc_latest_date>
     <child_info>
         <cid>ae78e331-d0ed-410c-84df-921b7cdca742</cid>
+        <fever>yes</fever>
         <index>0</index>
         <n2:case case_id="ae78e331-d0ed-410c-84df-921b7cdca742" date_modified="2013-05-09T20:06:06.403+05:30" user_id="89fda0284e008d2e0c980fb13f9cb0c2" xmlns:n2="http://commcarehq.org/case/transaction/v2">
             <n2:update>
                 <n2:baby_measles />
+                <n2:fever>no</n2:fever>
+                <n2:age>1</n2:age>
             </n2:update>
         </n2:case>
         <display_child>OK</display_child>
