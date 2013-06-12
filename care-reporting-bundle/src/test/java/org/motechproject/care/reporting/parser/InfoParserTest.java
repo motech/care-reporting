@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
+import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.motechproject.commcare.parser.FullFormParser;
@@ -20,6 +21,7 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
+import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
 public class InfoParserTest {
     @Test
@@ -212,29 +214,25 @@ public class InfoParserTest {
     @Test
     public void shouldRecursivelyParseSubElements() throws Exception {
         InfoParser infoParser = new InfoParser();
-        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
+        FormValueElement root = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
+                .build();
 
         Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
 
-        assertEquals("2012-09-12", parsedFieldValueMap.get("ifaTablets100"));
-        assertEquals("yes", parsedFieldValueMap.get("counselAccessible"));
+        assertEquals("1", parsedFieldValueMap.get("age"));
     }
 
     @Test
     public void shouldRecursivelyParseWithRestrictedElements() throws Exception{
         InfoParser infoParser = new InfoParser();
-        infoParser.setRestrictedElements(asList("child_info"));
-        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
+        infoParser.setRestrictedElements(asList("restricted"));
+        FormValueElement root = new FormValueElementBuilder()
+                                    .addSubElement("case", getFVE("update", getFVE("age", "1")))
+                                    .addSubElement("restricted",getFVE("age","2"))
+                                    .build();
 
         Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
 
-        assertEquals("yes", parsedFieldValueMap.get("egg"));
-    }
-
-    private String caseXml(String fileName) throws IOException {
-        InputStream xmlStream = this.getClass().getResourceAsStream("/" + fileName);
-        StringWriter writer = new StringWriter();
-        IOUtils.copy(xmlStream, writer, "UTF-8");
-        return writer.toString();
+        assertEquals("1", parsedFieldValueMap.get("age"));
     }
 }

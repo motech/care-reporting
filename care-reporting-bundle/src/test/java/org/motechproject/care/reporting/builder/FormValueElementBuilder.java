@@ -41,6 +41,14 @@ public class FormValueElementBuilder {
         return element;
     }
 
+    public static FormValueElement getFVE(String key, String value) {
+        return new FormValueElementBuilder().addSubElement(key, value).build();
+    }
+
+    public static FormValueElement getFVE(String key, FormValueElement value) {
+        return new FormValueElementBuilder().addSubElement(key, value).build();
+    }
+
     private FormValueElement formWithSingleValue(final String elementName, final String value) {
         return new FormValueElement() {{
             setValue(value);

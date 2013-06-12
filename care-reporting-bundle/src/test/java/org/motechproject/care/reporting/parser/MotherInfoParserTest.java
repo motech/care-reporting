@@ -17,6 +17,7 @@ import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
+import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
 public class MotherInfoParserTest {
 
@@ -56,37 +57,27 @@ public class MotherInfoParserTest {
 
     @Test
     public void shouldCopyCaseValues() throws Exception {
-        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
-        CommcareForm form = new CommcareFormBuilder().setRootElement(root);
+        FormValueElement caseElement = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
+                .build();
+        CommcareForm form = new CommcareFormBuilder().setRootElement(caseElement);
 
         Map<String, String> mappedValues = new MotherInfoParser().parse(form);
 
-        assertEquals("2012-09-12", mappedValues.get("ifaTablets100"));
-        assertEquals("yes", mappedValues.get("vehicle"));
-        assertEquals("institutional", mappedValues.get("deliveryType"));
-        assertEquals("yes", mappedValues.get("institutional"));
-        assertEquals("25", mappedValues.get("age"));
+        assertEquals("1", mappedValues.get("age"));
     }
 
     @Test
     public void shouldCopyNestedValues() throws Exception {
-        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
-        CommcareForm form = new CommcareFormBuilder().setRootElement(root);
+
+        FormValueElement caseElement = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
+                .addSubElement("nestedField", getFVE("age", "2"))
+                .build();
+        CommcareForm form = new CommcareFormBuilder().setRootElement(caseElement);
 
         Map<String, String> mappedValues = new MotherInfoParser().parse(form);
 
-        assertEquals("yes", mappedValues.get("playBirthPreparednessVid"));
-        assertEquals("OK", mappedValues.get("totalIfa"));
-        assertNull(mappedValues.get("ifaTabletsIssued"));
-        assertNull(mappedValues.get("oilGhee"));
-        assertEquals("yes", mappedValues.get("counselAccessible"));
+        assertEquals("2", mappedValues.get("age"));
     }
 
-    private String caseXml(String fileName) throws IOException {
-        InputStream xmlStream = this.getClass().getResourceAsStream("/"+fileName);
-        StringWriter writer = new StringWriter();
-        IOUtils.copy(xmlStream, writer, "UTF-8");
-        return writer.toString();
-    }
 }
 
