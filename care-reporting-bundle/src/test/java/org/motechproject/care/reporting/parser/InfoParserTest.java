@@ -12,7 +12,10 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
@@ -96,7 +99,7 @@ public class InfoParserTest {
                 .addSubElement("family_number", "5")
                 .build();
 
-        List<String>  restrictedElements = asList("hh_number");
+        List<String> restrictedElements = asList("hh_number");
         InfoParser infoParser = new InfoParser();
         infoParser.setRestrictedElements(restrictedElements);
 
@@ -204,5 +207,34 @@ public class InfoParserTest {
         assertNull(parsedFieldValueMap.get("field3"));
         assertNull(parsedFieldValueMap.get("field4"));
         assertEquals(5, parsedFieldValueMap.get("field5"));
+    }
+
+    @Test
+    public void shouldRecursivelyParseSubElements() throws Exception {
+        InfoParser infoParser = new InfoParser();
+        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
+
+        Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
+
+        assertEquals("2012-09-12", parsedFieldValueMap.get("ifaTablets100"));
+        assertEquals("yes", parsedFieldValueMap.get("counselAccessible"));
+    }
+
+    @Test
+    public void shouldRecursivelyParseWithRestrictedElements() throws Exception{
+        InfoParser infoParser = new InfoParser();
+        infoParser.setRestrictedElements(asList("child_info"));
+        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
+
+        Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
+
+        assertEquals("yes", parsedFieldValueMap.get("egg"));
+    }
+
+    private String caseXml(String fileName) throws IOException {
+        InputStream xmlStream = this.getClass().getResourceAsStream("/" + fileName);
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(xmlStream, writer, "UTF-8");
+        return writer.toString();
     }
 }

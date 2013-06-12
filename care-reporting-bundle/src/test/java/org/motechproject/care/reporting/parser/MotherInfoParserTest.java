@@ -6,7 +6,6 @@ import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
-import org.motechproject.commcare.exception.FullFormParserException;
 import org.motechproject.commcare.parser.FullFormParser;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -22,28 +21,32 @@ import static junit.framework.Assert.assertNull;
 public class MotherInfoParserTest {
 
     @Test
-    public void testConvertsToCamelCaseAndPopulatesTheMapWithCaseInformation() throws Exception {
+    public void shouldMapOnlyMotherCaseInfo() throws Exception {
 
         FormValueElement motherCase = new FormValueElementBuilder()
                                             .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
                                             .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
                                             .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                                             .build();
+        FormValueElement childCase = new FormValueElementBuilder()
+                                            .addSubElement("hh_number", "555")
+                                            .addSubElement("age", "1")
+                                            .build();
 
         CommcareForm commcareForm = new CommcareFormBuilder()
                                             .addSubElement("hh_number", "165")
                                             .addSubElement("family_number", "5")
                                             .addSubElement("case", motherCase)
+                                            .addSubElement("child_info", childCase)
                                             .build();
 
         Map<String,String> motherInfo = new MotherInfoParser().parse(commcareForm);
 
-        assertEquals(5, motherInfo.size());
+        assertEquals(4, motherInfo.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
-            put("case", null);
             put("hhNumber", "165");
             put("familyNumber", "5");
         }};
@@ -63,6 +66,20 @@ public class MotherInfoParserTest {
         assertEquals("institutional", mappedValues.get("deliveryType"));
         assertEquals("yes", mappedValues.get("institutional"));
         assertEquals("25", mappedValues.get("age"));
+    }
+
+    @Test
+    public void shouldCopyNestedValues() throws Exception {
+        FormValueElement root = new FullFormParser(caseXml("bp.xml")).parse();
+        CommcareForm form = new CommcareFormBuilder().setRootElement(root);
+
+        Map<String, String> mappedValues = new MotherInfoParser().parse(form);
+
+        assertEquals("yes", mappedValues.get("playBirthPreparednessVid"));
+        assertEquals("OK", mappedValues.get("totalIfa"));
+        assertNull(mappedValues.get("ifaTabletsIssued"));
+        assertNull(mappedValues.get("oilGhee"));
+        assertEquals("yes", mappedValues.get("counselAccessible"));
     }
 
     private String caseXml(String fileName) throws IOException {

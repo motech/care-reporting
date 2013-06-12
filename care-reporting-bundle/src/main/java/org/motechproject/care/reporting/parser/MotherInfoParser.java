@@ -7,6 +7,8 @@ import org.motechproject.commcare.domain.FormValueElement;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Arrays.asList;
+
 public class MotherInfoParser {
 
     private final InfoParser infoParser = new InfoParser();
@@ -17,11 +19,11 @@ public class MotherInfoParser {
         Map<String, String> caseMap = parseCaseInfo(commcareForm);
         Map<String, String> motherInfo = new HashMap<>(caseMap);
 
-        Map<String, String> motherMap = infoParser.parse(form);
+        infoParser.setRestrictedElements(asList("case", "child_info"));
+        Map<String, String> motherMap = infoParser.parse(form, true);
 
         motherInfo.putAll(motherMap);
         return motherInfo;
-
     }
 
     private Map<String, String> parseCaseInfo(CommcareForm commcareForm) {
@@ -32,10 +34,7 @@ public class MotherInfoParser {
         final String dateModified = motherCase.getAttributes().get("date_modified");
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
-
-        for (Map.Entry<String, FormValueElement> caseElement : motherCase.getSubElements().entries()) {
-            caseInfo.putAll(infoParser.parse(caseElement.getValue()));
-        }
+        caseInfo.putAll(infoParser.parse(motherCase, true));
 
         return caseInfo;
     }
