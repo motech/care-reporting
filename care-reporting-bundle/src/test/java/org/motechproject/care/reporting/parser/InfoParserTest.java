@@ -1,16 +1,20 @@
 package org.motechproject.care.reporting.parser;
 
+import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
+import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.commcare.parser.FullFormParser;
 import org.unitils.reflectionassert.ReflectionAssert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.util.*;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 
@@ -85,6 +89,29 @@ public class InfoParserTest {
     }
 
     @Test
+    public void testExcludesRestrictedElementsOnConvertingFVEToMap() {
+
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("hh_number", "165")
+                .addSubElement("family_number", "5")
+                .build();
+
+        List<String>  restrictedElements = asList("hh_number");
+        InfoParser infoParser = new InfoParser();
+        infoParser.setRestrictedElements(restrictedElements);
+
+        Map<String, String> info = infoParser.parse(commcareForm.getForm());
+
+        assertEquals(1, info.size());
+
+        HashMap<String, String> expected = new HashMap<String, String>() {{
+            put("familyNumber", "5");
+        }};
+
+        ReflectionAssert.assertReflectionEquals(expected, info);
+    }
+
+    @Test
     public void testConvertsMapToCamelCase() {
         HashMap<String, String> input = new HashMap<String, String>() {{
             put("hh_number", "165");
@@ -123,6 +150,28 @@ public class InfoParserTest {
         ReflectionAssert.assertReflectionEquals(expected, actual);
     }
 
+
+    @Test
+    public void testExcludesRestrictedElementsOnConvertingMap() {
+        HashMap<String, String> input = new HashMap<String, String>() {{
+            put("hh_number", "165");
+            put("family_number", "5");
+        }};
+
+        HashMap<String, String> expected = new HashMap<String, String>() {{
+            put("familyNumber", "5");
+        }};
+
+        List<String> restrictedElements = asList("hh_number");
+
+        InfoParser infoParser = new InfoParser();
+        infoParser.setRestrictedElements(restrictedElements);
+
+        Map<String, Object> actual = infoParser.parse(input);
+
+        ReflectionAssert.assertReflectionEquals(expected, actual);
+    }
+
     @Test
     public void shouldParseGivenObject() {
         Object instance = new Object() {
@@ -144,7 +193,7 @@ public class InfoParserTest {
 
         Map<String, Object> parsedFieldValueMap = infoParser.parse(new HashMap<String, Object>() {{
             put("field1", "value1");
-            put("field2", Arrays.asList("value2", "value3"));
+            put("field2", asList("value2", "value3"));
             put("field3", new ArrayList<>());
             put("field4", null);
             put("field5", 5);

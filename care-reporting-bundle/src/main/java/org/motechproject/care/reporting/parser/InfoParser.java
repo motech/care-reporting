@@ -1,21 +1,20 @@
 package org.motechproject.care.reporting.parser;
 
+import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.motechproject.care.reporting.utils.ListUtils;
 import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.FormValueElement;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InfoParser {
 
     private boolean convertToCamelCase = true;
     private final Map<String, String> keyConversionMap;
     private ObjectMapper objectMapper = new ObjectMapper();
+    private List<String> restrictedElements = new ArrayList<>();
 
     public InfoParser() {
         this(new HashMap<String, String>());
@@ -30,8 +29,12 @@ public class InfoParser {
         Map<String, Collection<FormValueElement>> subElementsMap = form.getSubElements().asMap();
         for (Map.Entry<String, Collection<FormValueElement>> subElement : subElementsMap.entrySet()) {
 
-            String key = applyKeyConversionMap(subElement.getKey());
-            key = applyCamelConversion(key);
+            String key = subElement.getKey();
+
+            if (isRestricted(key))
+                continue;
+
+            key = applyConversions(key);
 
             Collection<FormValueElement> subElementValue = subElement.getValue();
             FormValueElement fieldValue = (FormValueElement) CollectionUtils.get(subElementValue, 0);
@@ -48,8 +51,12 @@ public class InfoParser {
     Map<String, Object> parse(Map map) {
         HashMap<String, Object> mapper = new HashMap<>();
         for(Object mapKey : map.keySet()) {
-            String key = applyKeyConversionMap((String) mapKey);
-            key = applyCamelConversion(key);
+            String key = (String) mapKey;
+            if (isRestricted(key))
+                continue;
+
+            key = applyConversions(key);
+
             mapper.put(key, getSingleValue(map.get(mapKey)));
         }
         return mapper;
@@ -62,6 +69,16 @@ public class InfoParser {
         return value;
     }
 
+    private String applyConversions(String key){
+        key = applyKeyConversionMap(key);
+        key = applyCamelConversion(key);
+        return key;
+    }
+
+    private boolean isRestricted(String key){
+        return null != restrictedElements && restrictedElements.contains(key);
+    }
+
     private String applyCamelConversion(String input) {
         return convertToCamelCase ? StringUtils.toCamelCase(input) : input;
     }
@@ -72,5 +89,9 @@ public class InfoParser {
 
     public void setConvertToCamelCase(boolean convertToCamelCase) {
         this.convertToCamelCase = convertToCamelCase;
+    }
+
+    public void setRestrictedElements(List<String> restrictedElements) {
+        this.restrictedElements = restrictedElements;
     }
 }
