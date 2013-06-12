@@ -14,28 +14,28 @@ public class CommcareFormBuilder {
     Map<String, String> metadata = new HashMap<>();
 
 
-    public CommcareFormBuilder addMetadata(String key, String value){
+    public CommcareFormBuilder addMetadata(String key, String value) {
         metadata.put(key, value);
         return this;
     }
 
-    public CommcareFormBuilder addAttribute(String key, String value){
+    public CommcareFormBuilder addAttribute(String key, String value) {
         formBuilder.addAttribute(key, value);
         return this;
     }
 
-    public CommcareFormBuilder addSubElement(String key, String value){
+    public CommcareFormBuilder addSubElement(String key, String value) {
         formBuilder.addSubElement(key, value);
         return this;
     }
 
-    public CommcareFormBuilder addSubElement(String key, FormValueElement value){
+    public CommcareFormBuilder addSubElement(String key, FormValueElement value) {
         formBuilder.addSubElement(key, value);
         return this;
     }
 
 
-    public CommcareForm build(){
+    public CommcareForm build() {
 
         form.setForm(formBuilder.build());
         form.setMetadata(metadata);
@@ -43,4 +43,8 @@ public class CommcareFormBuilder {
         return form;
     }
 
+    public CommcareForm setRootElement(FormValueElement valueElement) {
+        form.setForm(valueElement);
+        return form;
+    }
 }
