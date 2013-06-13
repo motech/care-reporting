@@ -15,8 +15,10 @@ public class CaseFactory {
     }};
 
     public static Class<?> getCase(String type) {
-        final CaseType caseType = CaseType.getType(type);
-        return caseMapper.get(caseType);
+        return caseMapper.get(getCaseType(type));
     }
 
+    public static CaseType getCaseType(String type) {
+        return CaseType.getType(type);
+    }
 }
