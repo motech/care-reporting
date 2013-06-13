@@ -42,11 +42,19 @@ public class FormValueElementBuilder {
     }
 
     public static FormValueElement getFVE(String key, String value) {
-        return new FormValueElementBuilder().addSubElement(key, value).build();
+        return getFVEB(key, value).build();
     }
 
     public static FormValueElement getFVE(String key, FormValueElement value) {
-        return new FormValueElementBuilder().addSubElement(key, value).build();
+        return getFVEB(key, value).build();
+    }
+
+    public static FormValueElementBuilder getFVEB(String key, String value) {
+        return new FormValueElementBuilder().addSubElement(key, value);
+    }
+
+    public static FormValueElementBuilder getFVEB(String key, FormValueElement value) {
+        return new FormValueElementBuilder().addSubElement(key, value);
     }
 
     private FormValueElement formWithSingleValue(final String elementName, final String value) {

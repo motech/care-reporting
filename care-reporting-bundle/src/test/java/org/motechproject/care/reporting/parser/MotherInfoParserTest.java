@@ -1,28 +1,34 @@
 package org.motechproject.care.reporting.parser;
 
-import org.apache.commons.io.IOUtils;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
-import org.motechproject.commcare.parser.FullFormParser;
 import org.unitils.reflectionassert.ReflectionAssert;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
-import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MotherInfoParserTest {
 
+    @Mock
+    InfoParser infoParser;
+
+    @Before
+    public void setUp(){
+        initMocks(this);
+    }
+
     @Test
-    public void shouldMapOnlyMotherCaseInfo() throws Exception {
+    public void shouldMapCaseIdAndDateModified() throws Exception {
 
         FormValueElement motherCase = new FormValueElementBuilder()
                                             .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
@@ -41,43 +47,20 @@ public class MotherInfoParserTest {
                                             .addSubElement("child_info", childCase)
                                             .build();
 
-        Map<String,String> motherInfo = new MotherInfoParser().parse(commcareForm);
+        Map<String,String> motherInfo = new MotherInfoParser(infoParser).parse(commcareForm);
 
-        assertEquals(4, motherInfo.size());
+        assertEquals(2, motherInfo.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
-            put("hhNumber", "165");
-            put("familyNumber", "5");
         }};
+
+        verify(infoParser).parse(commcareForm.getForm(), true);
+        verify(infoParser).parse(motherCase, true);
+        verify(infoParser, never()).parse(childCase, true);
 
         ReflectionAssert.assertReflectionEquals(expected, motherInfo);
     }
-
-    @Test
-    public void shouldCopyCaseValues() throws Exception {
-        FormValueElement caseElement = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
-                .build();
-        CommcareForm form = new CommcareFormBuilder().setRootElement(caseElement);
-
-        Map<String, String> mappedValues = new MotherInfoParser().parse(form);
-
-        assertEquals("1", mappedValues.get("age"));
-    }
-
-    @Test
-    public void shouldCopyNestedValues() throws Exception {
-
-        FormValueElement caseElement = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
-                .addSubElement("nestedField", getFVE("age", "2"))
-                .build();
-        CommcareForm form = new CommcareFormBuilder().setRootElement(caseElement);
-
-        Map<String, String> mappedValues = new MotherInfoParser().parse(form);
-
-        assertEquals("2", mappedValues.get("age"));
-    }
-
 }
 

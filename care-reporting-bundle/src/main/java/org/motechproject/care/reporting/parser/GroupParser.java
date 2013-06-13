@@ -6,8 +6,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class GroupParser {
+public class GroupParser extends BaseInfoParser {
+
+    public GroupParser(InfoParser infoParser) {
+        super(infoParser);
+    }
 
     public Map<String, Object> parse(Group group) {
         Map<String, Object> groupMap = new HashMap<>();
@@ -23,7 +26,7 @@ public class GroupParser {
     }
 
     private Map<String, Object> parseGroupInfo(Object groupInfo, Map<String, String> keyConversionMap) {
-        InfoParser infoParser = new InfoParser(keyConversionMap);
+        infoParser.setKeyConversionMap(keyConversionMap);
         return infoParser.parse(groupInfo);
     }
 }

@@ -5,6 +5,8 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.factory.CaseFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
+import org.motechproject.care.reporting.parser.InfoParser;
+import org.motechproject.care.reporting.parser.InfoParserImpl;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
 import org.slf4j.Logger;
@@ -21,7 +23,7 @@ public class GenericCaseProcessorWorker extends ProcessorWorker {
 
     public void process(CaseEvent caseEvent) {
         final Class<?> caseType = CaseFactory.getCase(caseEvent.getCaseType());
-        final Map<String, String> caseMap = new CaseInfoParser().parse(caseEvent);
+        final Map<String, String> caseMap = new CaseInfoParser(new InfoParserImpl()).parse(caseEvent);
         Object patientCase = new GenericMapper().map(caseMap, caseType);
         processCase(patientCase, caseMap);
     }

@@ -107,6 +107,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
     private Provider provider(final String providerId, final String defaultPhoneNumber, final String phoneNumber1, final String phoneNumber2) {
         return new ProviderBuilder(providerId)
+                .setDefaults()
                 .setDefaultPhoneNumber(defaultPhoneNumber)
                 .setPhoneNumbers(phoneNumber1, phoneNumber2)
                 .build();

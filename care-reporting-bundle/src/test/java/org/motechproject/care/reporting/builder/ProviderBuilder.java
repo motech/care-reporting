@@ -13,9 +13,13 @@ public class ProviderBuilder {
     public static final Date DEFAULT_DOB = new LocalDate(1980, 1, 1).toDate();
     private Provider provider;
 
+
     public ProviderBuilder(String providerId) {
         this.provider = new Provider();
         setField("id", providerId);
+    }
+
+    public ProviderBuilder setDefaults(){
         setField("defaultPhoneNumber", "8294168471");
         setField("email", "a@b.com");
         setField("firstName", "Dr.Pramod");
@@ -38,6 +42,7 @@ public class ProviderBuilder {
             put("dob", "1980-01-01");
         }});
         setField("username", "8294168471@care-bihar.commcarehq.org");
+        return this;
     }
 
     public Provider build() {
@@ -49,8 +54,9 @@ public class ProviderBuilder {
         return this;
     }
 
-    private void setField(String fieldName, Object value) {
+    public ProviderBuilder setField(String fieldName, Object value) {
         TestUtils.setField(provider, fieldName, value);
+        return this;
     }
 
     public ProviderBuilder setPhoneNumbers(String phoneNumber1, String phoneNumber2) {

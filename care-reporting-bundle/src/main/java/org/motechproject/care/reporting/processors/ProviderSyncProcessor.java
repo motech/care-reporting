@@ -4,6 +4,7 @@ import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
+import org.motechproject.care.reporting.parser.InfoParserImpl;
 import org.motechproject.care.reporting.parser.ProviderParser;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.provider.sync.response.Group;
@@ -21,6 +22,10 @@ public class ProviderSyncProcessor {
     private GenericMapper genericMapper;
 
     @Autowired
+    public ProviderSyncProcessor(Service service) {
+        this(new GroupParser(new InfoParserImpl()), new ProviderParser(new InfoParserImpl()), service);
+    }
+
     public ProviderSyncProcessor(GroupParser groupParser, ProviderParser providerParser, Service service) {
         this.groupParser = groupParser;
         this.service = service;

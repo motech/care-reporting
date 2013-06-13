@@ -9,9 +9,12 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 
-public class MotherInfoParser {
+public class MotherInfoParser extends BaseInfoParser {
 
-    private final InfoParser infoParser = new InfoParser();
+    public MotherInfoParser(InfoParser infoParser) {
+        super(infoParser);
+        infoParser.setRestrictedElements(asList("case", "child_info"));
+    }
 
     public Map<String, String> parse(CommcareForm commcareForm) {
         FormValueElement form = commcareForm.getForm();
@@ -19,7 +22,7 @@ public class MotherInfoParser {
         Map<String, String> caseMap = parseCaseInfo(commcareForm);
         Map<String, String> motherInfo = new HashMap<>(caseMap);
 
-        infoParser.setRestrictedElements(asList("case", "child_info"));
+
         Map<String, String> motherMap = infoParser.parse(form, true);
 
         motherInfo.putAll(motherMap);

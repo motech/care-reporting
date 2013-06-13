@@ -1,6 +1,8 @@
 package org.motechproject.care.reporting.parser;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
@@ -12,51 +14,51 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
 public class ChildInfoParserTest {
 
+    @Mock
+    InfoParser infoParser;
+
+    @Before
+    public void setUp(){
+        initMocks(this);
+    }
+
     @Test
-    public void testConvertsToCamelCaseAndPopulatesTheMapWithCaseInformation() throws Exception {
+    public void shouldPopulateCaseInformation() throws Exception {
 
         FormValueElement childCase1 = new FormValueElementBuilder()
                 .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
                 .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
-                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                 .build();
 
-        FormValueElement childCase1Details = new FormValueElementBuilder()
-                .addSubElement("cid", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
-                .addSubElement("index", "0")
-                .addSubElement("case", childCase1)
-                .addSubElement("display_child", "OK")
-                .build();
+        FormValueElement childCase1Details = getFVE("case", childCase1);
 
         FormValueElement childCase2 = new FormValueElementBuilder()
                 .addAttribute("case_id", "59ab28e0-2d2d-4bc7-933f-09dcacf70d61")
                 .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
-                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                 .build();
 
-        FormValueElement childCase2Details = new FormValueElementBuilder()
-                .addSubElement("cid", "59ab28e0-2d2d-4bc7-933f-09dcacf70d61")
-                .addSubElement("index", "1")
-                .addSubElement("case", childCase2)
-                .addSubElement("display_child", "OK")
-                .build();
-
+        FormValueElement childCase2Details = getFVE("case", childCase2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
-                .addSubElement("hh_number", "165")
-                .addSubElement("family_number", "5")
                 .addSubElement("child_info", childCase1Details)
                 .addSubElement("child_info", childCase2Details)
                 .build();
 
-        List<Map<String, String>> childInfos = new ChildInfoParser().parse(commcareForm);
+        List<Map<String, String>> childInfos = new ChildInfoParser(infoParser).parse(commcareForm);
 
         assertEquals(2, childInfos.size());
+
+        verify(infoParser).parse(childCase1Details, true);
+        verify(infoParser).parse(childCase1, true);
+        verify(infoParser).parse(childCase2Details, true);
+        verify(infoParser).parse(childCase2, true);
 
         ReflectionAssert.assertReflectionEquals(getExpectedChild(childInfos.get(0).get("caseId")), childInfos.get(0));
         ReflectionAssert.assertReflectionEquals(getExpectedChild(childInfos.get(1).get("caseId")), childInfos.get(1));
@@ -64,44 +66,51 @@ public class ChildInfoParserTest {
 
     private HashMap<String, String> getExpectedChild(final String caseId) {
 
-        final String index = caseId.equals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61") ? "1" : "0";
         return new HashMap<String, String>() {{
             put("caseId", caseId);
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
-            put("cid", caseId);
-            put("index", index);
-            put("displayChild", "OK");
         }};
     }
 
     @Test
-    public void shouldFetchDetailsFromCaseUpdate() throws Exception {
+    public void shouldChildFormInfoOverwriteChildCaseInfo(){
+        FormValueElement childCase1 = new FormValueElementBuilder()
+                .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .build();
 
-        FormValueElement caseElement = new FormValueElementBuilder().withName("child_info")
-                                                                    .addSubElement("case", getFVE("update", getFVE("age", "1")))
-                                                                    .build();
-        CommcareForm form = new CommcareFormBuilder().addSubElement("child_info", caseElement).build();
+        FormValueElement childCase1Details = getFVE("case", childCase1);
 
-        List<Map<String, String>> childInfoMap = new ChildInfoParser().parse(form);
-        assertEquals(1, childInfoMap.size());
-        Map<String, String> childInfo = childInfoMap.get(0);
-        assertEquals("1", childInfo.get("age"));
-    }
 
-    @Test
-    public void shouldFetchDetailsFromNestedField() throws Exception {
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("child_info", childCase1Details)
+                .build();
 
-        FormValueElement caseElement = new FormValueElementBuilder().withName("child_info")
-                                                                    .addSubElement("case", getFVE("update", getFVE("age", "1")))
-                                                                    .addSubElement("nestedField", getFVE("age", "2"))
-                                                                    .build();
 
-        CommcareForm form = new CommcareFormBuilder().addSubElement("child_info", caseElement).build();
+        final HashMap<String, String> expected = new HashMap<String, String>() {{
+            put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
+            put("dateModified", "2012-07-21T12:02:59.923+05:30");
+            put("age", "22");
+        }};
 
-        List<Map<String, String>> childInfoMap = new ChildInfoParser().parse(form);
-        assertEquals(1, childInfoMap.size());
-        Map<String, String> childInfo = childInfoMap.get(0);
-        assertEquals("2", childInfo.get("age"));
+        final HashMap<String, String> childCaseDetails = new HashMap<String, String>() {{
+            put("age", "21");
+        }};
+        final HashMap<String, String> childFormDetails = new HashMap<String, String>() {{
+            put("age", "22");
+        }};
+
+        when(infoParser.parse(childCase1, true)).thenReturn(childCaseDetails);
+        when(infoParser.parse(childCase1Details, true)).thenReturn(childFormDetails);
+
+        List<Map<String, String>> childInfos = new ChildInfoParser(infoParser).parse(commcareForm);
+
+        assertEquals(1, childInfos.size());
+
+        verify(infoParser).parse(childCase1Details, true);
+        verify(infoParser).parse(childCase1, true);
+
+        ReflectionAssert.assertReflectionEquals(expected, childInfos.get(0));
     }
 }
 

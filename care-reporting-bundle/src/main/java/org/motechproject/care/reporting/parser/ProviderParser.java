@@ -11,8 +11,11 @@ import java.util.Map;
 
 import static org.motechproject.care.reporting.utils.ListUtils.safeGet;
 
-@Component
-public class ProviderParser {
+public class ProviderParser extends BaseInfoParser {
+
+    public ProviderParser(InfoParser infoParser) {
+        super(infoParser);
+    }
 
     public Map<String, Object> parse(Provider provider) {
         HashMap<String, Object> parsedProviderMap = new HashMap<>();
@@ -37,7 +40,7 @@ public class ProviderParser {
     }
 
     private Map<String, Object> parseProviderInfo(Object providerInfo, HashMap<String, String> keyConversionMap) {
-        InfoParser infoParser = new InfoParser(keyConversionMap);
+        infoParser.setKeyConversionMap(keyConversionMap);
         return infoParser.parse(providerInfo);
     }
 }

@@ -5,9 +5,11 @@ import org.motechproject.commcare.events.CaseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CaseInfoParser{
+public class CaseInfoParser extends BaseInfoParser{
 
-    InfoParser parser = new InfoParser();
+    public CaseInfoParser(InfoParser infoParser) {
+        super(infoParser);
+    }
 
     public Map<String, String> parse(CaseEvent caseEvent){
         final HashMap<String, String> map = new HashMap<>();
@@ -30,7 +32,7 @@ public class CaseInfoParser{
         if(null == fieldValues)
             return map;
 
-        Map<String, String> fieldValuesMap = (Map) parser.parse(fieldValues);
+        Map<String, String> fieldValuesMap = (Map) infoParser.parse(fieldValues);
         map.putAll(fieldValuesMap);
 
         return map;

@@ -3,9 +3,8 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
-import org.motechproject.care.reporting.parser.ChildInfoParser;
-import org.motechproject.care.reporting.parser.MetaInfoParser;
-import org.motechproject.care.reporting.parser.MotherInfoParser;
+import org.motechproject.care.reporting.parser.*;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
 
     void initialize(CommcareForm commcareForm) {
         this.commcareForm = commcareForm;
-        metadata = new MetaInfoParser().parse(commcareForm);
+        metadata = new MetaInfoParser(new InfoParserImpl()).parse(commcareForm);
         String namespace = namespace(commcareForm);
         motherForm = FormFactory.getForm(namespace, CaseType.Mother);
         childForm = FormFactory.getForm(namespace, CaseType.Child);
@@ -48,7 +47,7 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
 
     Serializable parseMotherForm() {
         Map<String, String> motherInfo = new HashMap<>(metadata);
-        motherInfo.putAll(new MotherInfoParser().parse(commcareForm));
+        motherInfo.putAll(new MotherInfoParser(new InfoParserImpl()).parse(commcareForm));
 
         Object formObject = new GenericMapper().map(motherInfo, motherForm);
 
@@ -63,7 +62,7 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
             return new ArrayList<>();
 
         List<Serializable> childForms = new ArrayList<>();
-        List<Map<String, String>> childDetails = new ChildInfoParser().parse(commcareForm);
+        List<Map<String, String>> childDetails = new ChildInfoParser(new InfoParserImpl()).parse(commcareForm);
 
         for (Map<String, String> childDetail : childDetails) {
 

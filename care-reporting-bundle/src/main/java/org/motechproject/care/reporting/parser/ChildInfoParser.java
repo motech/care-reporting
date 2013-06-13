@@ -11,16 +11,19 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 
-public class ChildInfoParser{
+public class ChildInfoParser extends BaseInfoParser{
 
-    private final InfoParser infoParser = new InfoParser();
+    public ChildInfoParser(InfoParser infoParser) {
+        super(infoParser);
+        infoParser.setRestrictedElements(asList("case"));
+    }
 
     public List<Map<String, String>> parse(CommcareForm commcareForm){
 
         List<Map<String, String>> childInfoList = new ArrayList<>();
         List<FormValueElement> child_infos = commcareForm.getForm().getAllElements("child_info");
 
-        infoParser.setRestrictedElements(asList("case"));
+
         for(FormValueElement child_info : child_infos){
             Map<String, String> caseInfo = parseCaseInfo(child_info);
 

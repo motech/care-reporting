@@ -1,18 +1,13 @@
 package org.motechproject.care.reporting.parser;
 
-import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
-import org.motechproject.commcare.parser.FullFormParser;
 import org.unitils.reflectionassert.ReflectionAssert;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +27,7 @@ public class InfoParserTest {
                 .addSubElement("family_number", "5")
                 .build();
 
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
         infoParser.setConvertToCamelCase(false);
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
@@ -54,7 +49,7 @@ public class InfoParserTest {
                 .addSubElement("family_number", "5")
                 .build();
 
-        Map<String, String> info = new InfoParser().parse(commcareForm.getForm());
+        Map<String, String> info = new InfoParserImpl().parse(commcareForm.getForm());
 
         assertEquals(2, info.size());
 
@@ -79,7 +74,7 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParser(keyMap);
+        InfoParser infoParser = new InfoParserImpl(keyMap);
 
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
@@ -102,7 +97,7 @@ public class InfoParserTest {
                 .build();
 
         List<String> restrictedElements = asList("hh_number");
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(restrictedElements);
 
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
@@ -128,7 +123,7 @@ public class InfoParserTest {
             put("familyNumber", "5");
         }};
 
-        Map<String, Object> actual = new InfoParser().parse(input);
+        Map<String, Object> actual = new InfoParserImpl().parse(input);
 
         ReflectionAssert.assertReflectionEquals(expected, actual);
     }
@@ -149,7 +144,7 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParser(keyMap);
+        InfoParser infoParser = new InfoParserImpl(keyMap);
         Map<String, Object> actual = infoParser.parse(input);
 
         ReflectionAssert.assertReflectionEquals(expected, actual);
@@ -169,7 +164,7 @@ public class InfoParserTest {
 
         List<String> restrictedElements = asList("hh_number");
 
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(restrictedElements);
 
         Map<String, Object> actual = infoParser.parse(input);
@@ -187,14 +182,14 @@ public class InfoParserTest {
             put("fieldName", "fieldValue");
         }};
 
-        Map<String, Object> parsedFlwMap = new InfoParser().parse(instance);
+        Map<String, Object> parsedFlwMap = new InfoParserImpl().parse(instance);
 
         ReflectionAssert.assertReflectionEquals(expectedFlwMap, parsedFlwMap);
     }
 
     @Test
     public void shouldGetTheFirstValueIfAFieldHasListOfValues() {
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
 
         Map<String, Object> parsedFieldValueMap = infoParser.parse(new HashMap<String, Object>() {{
             put("field1", "value1");
@@ -213,7 +208,7 @@ public class InfoParserTest {
 
     @Test
     public void shouldRecursivelyParseSubElements() throws Exception {
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
         FormValueElement root = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
                 .build();
 
@@ -224,7 +219,7 @@ public class InfoParserTest {
 
     @Test
     public void shouldRecursivelyParseWithRestrictedElements() throws Exception{
-        InfoParser infoParser = new InfoParser();
+        InfoParser infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(asList("restricted"));
         FormValueElement root = new FormValueElementBuilder()
                                     .addSubElement("case", getFVE("update", getFVE("age", "1")))

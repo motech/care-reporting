@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.builder;
 import org.motechproject.commcare.events.CaseEvent;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class CaseEventBuilder{
     CaseEvent caseEvent;
@@ -14,6 +15,11 @@ public class CaseEventBuilder{
 
     public CaseEventBuilder with(String fieldName, String fieldValue){
         caseEvent.getFieldValues().put(fieldName, fieldValue);
+        return this;
+    }
+
+    public CaseEventBuilder with(Map<String, String> fieldMap){
+        caseEvent.getFieldValues().putAll(fieldMap);
         return this;
     }
 

@@ -1,41 +1,37 @@
 package org.motechproject.care.reporting.parser;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MetaInfoParserTest {
+
+    @Mock
+    InfoParser infoParser;
+
+    @Before
+    public void setUp(){
+        initMocks(this);
+    }
+
     @Test
-    public void shouldConvertToCamelCase() throws Exception {
+    public void shouldParseMetaInfo() throws Exception {
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addMetadata("user_id", "89fda0284e008d2e0c980fb13fa0e5bb").build();
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
-            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("user_id", "89fda0284e008d2e0c980fb13fa0e5bb");
         }};
 
-        Map<String,String> actualMetadata = new MetaInfoParser().parse(commcareForm);
+        new MetaInfoParser(infoParser).parse(commcareForm);
 
-        assertEquals(expected, actualMetadata);
-    }
-
-    @Test
-    public void shouldConvertKeyName() throws Exception {
-
-        CommcareForm commcareForm = new CommcareFormBuilder()
-                .addMetadata("instanceID", "e34707f8-80c8-4198-bf99-c11c90ba5c98").build();
-
-        HashMap<String, String> expected = new HashMap<String, String>() {{
-            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
-        }};
-
-        Map<String,String> actualMetadata = new MetaInfoParser().parse(commcareForm);
-
-        assertEquals(expected, actualMetadata);
+        verify(infoParser).parse(expected);
     }
 }
