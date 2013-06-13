@@ -5,14 +5,17 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 
 public class ProcessorWorker {
     protected Service service;
+    protected MapperService mapperService;
 
-    public ProcessorWorker(Service service) {
+    public ProcessorWorker(Service service, MapperService mapperService) {
         this.service = service;
+        this.mapperService = mapperService;
     }
 
     protected void setFlwGroup(String ownerId, Object object) {

@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.processors;
 
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.events.CaseEvent;
@@ -11,9 +12,12 @@ public class GenericCaseProcessor implements CaseProcessor {
     @Autowired
     private Service service;
 
+    @Autowired
+    private MapperService mapperService;
+
     @Override
     public void process(CaseEvent caseEvent) {
-        new GenericCaseProcessorWorker(service).process(caseEvent);
+        new GenericCaseProcessorWorker(service, mapperService).process(caseEvent);
     }
 }
 

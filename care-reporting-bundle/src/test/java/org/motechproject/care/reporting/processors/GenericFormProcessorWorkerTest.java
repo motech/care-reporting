@@ -12,6 +12,9 @@ import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.EbfChildForm;
 import org.motechproject.care.reporting.domain.measure.NewForm;
+import org.motechproject.care.reporting.enums.FormSegment;
+import org.motechproject.care.reporting.parser.InfoParserImpl;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
@@ -31,13 +34,18 @@ public class GenericFormProcessorWorkerTest {
     @Mock
     Service service;
 
+    @Mock
+    MapperService mapperService;
+
     private GenericFormProcessorWorker processor;
 
 
     @Before
     public void setUp(){
         initMocks(this);
-        processor = new GenericFormProcessorWorker(service);
+        processor = new GenericFormProcessorWorker(service, mapperService);
+
+        when(mapperService.getFormInfoParser(anyString(), isA(FormSegment.class), anyString())).thenReturn(new InfoParserImpl());
     }
 
     @Test
@@ -251,7 +259,7 @@ public class GenericFormProcessorWorkerTest {
     @Test
     public void shouldSaveForm(){
         Serializable newFormObject = new NewForm();
-        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service);
+        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service, mapperService);
 
         processor.saveForm(newFormObject, NewForm.class);
 
@@ -265,7 +273,7 @@ public class GenericFormProcessorWorkerTest {
         serializables.add(new EbfChildForm());
         serializables.add(new EbfChildForm());
 
-        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service);
+        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service, mapperService);
 
         processor.saveForm(serializables, EbfChildForm.class);
 

@@ -6,7 +6,7 @@ import org.motechproject.care.reporting.factory.CaseFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
-import org.motechproject.care.reporting.parser.InfoParserImpl;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
 import org.slf4j.Logger;
@@ -17,14 +17,16 @@ import java.util.Map;
 public class GenericCaseProcessorWorker extends ProcessorWorker {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-    public GenericCaseProcessorWorker(Service service) {
-        super(service);
+    public GenericCaseProcessorWorker(Service service, MapperService mapperService) {
+        super(service, mapperService);
     }
 
     public void process(CaseEvent caseEvent) {
-        final Class<?> caseType = CaseFactory.getCase(caseEvent.getCaseType());
-        final Map<String, String> caseMap = new CaseInfoParser(new InfoParserImpl()).parse(caseEvent);
-        Object patientCase = new GenericMapper().map(caseMap, caseType);
+        final String caseType = caseEvent.getCaseType();
+        final Class<?> caseTypeClass = CaseFactory.getCase(caseType);
+        final InfoParser infoParser = mapperService.getCaseInfoParser(CaseFactory.getCaseType(caseType), null);
+        final Map<String, String> caseMap = new CaseInfoParser(infoParser).parse(caseEvent);
+        Object patientCase = new GenericMapper().map(caseMap, caseTypeClass);
         processCase(patientCase, caseMap);
     }
 

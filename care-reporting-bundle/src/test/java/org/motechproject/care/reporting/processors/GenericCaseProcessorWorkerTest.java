@@ -9,6 +9,9 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.enums.CaseType;
+import org.motechproject.care.reporting.parser.InfoParserImpl;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
 
@@ -22,12 +25,18 @@ public class GenericCaseProcessorWorkerTest {
 
     @Mock
     private Service service;
+
+    @Mock
+    private MapperService mapperService;
+
     private GenericCaseProcessorWorker caseWorker;
 
     @Before
     public void setUp() {
         initMocks(this);
-        caseWorker = new GenericCaseProcessorWorker(service);
+        caseWorker = new GenericCaseProcessorWorker(service, mapperService);
+
+        when(mapperService.getCaseInfoParser(isA(CaseType.class), anyString())).thenReturn(new InfoParserImpl());
     }
 
     @Test

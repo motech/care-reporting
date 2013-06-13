@@ -1,9 +1,13 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.enums.CaseType;
+import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
-import org.motechproject.care.reporting.parser.*;
+import org.motechproject.care.reporting.parser.ChildInfoParser;
+import org.motechproject.care.reporting.parser.InfoParser;
+import org.motechproject.care.reporting.parser.MetaInfoParser;
+import org.motechproject.care.reporting.parser.MotherInfoParser;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
@@ -23,9 +27,11 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
     Class<?> childForm;
     private CommcareForm commcareForm;
     private Map<String, String> metadata;
+    String namespace;
+    String version;
 
-    public GenericFormProcessorWorker(Service service) {
-        super(service);
+    public GenericFormProcessorWorker(Service service, MapperService mapperService) {
+        super(service, mapperService);
     }
 
     public void process(CommcareForm commcareForm) {
@@ -39,15 +45,19 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
 
     void initialize(CommcareForm commcareForm) {
         this.commcareForm = commcareForm;
-        metadata = new MetaInfoParser(new InfoParserImpl()).parse(commcareForm);
-        String namespace = namespace(commcareForm);
+        namespace = namespace(commcareForm);
+        version = version(commcareForm);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Metadata, version);
+        metadata = new MetaInfoParser(infoParser).parse(commcareForm);
+
         motherForm = FormFactory.getForm(namespace, CaseType.Mother);
         childForm = FormFactory.getForm(namespace, CaseType.Child);
     }
 
     Serializable parseMotherForm() {
         Map<String, String> motherInfo = new HashMap<>(metadata);
-        motherInfo.putAll(new MotherInfoParser(new InfoParserImpl()).parse(commcareForm));
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Mother, version);
+        motherInfo.putAll(new MotherInfoParser(infoParser).parse(commcareForm));
 
         Object formObject = new GenericMapper().map(motherInfo, motherForm);
 
@@ -62,7 +72,8 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
             return new ArrayList<>();
 
         List<Serializable> childForms = new ArrayList<>();
-        List<Map<String, String>> childDetails = new ChildInfoParser(new InfoParserImpl()).parse(commcareForm);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Child, version);
+        List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
 
         for (Map<String, String> childDetail : childDetails) {
 
@@ -90,7 +101,15 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
     }
 
     private String namespace(CommcareForm commcareForm) {
-        return commcareForm.getForm().getAttributes().get("xmlns");
+        return attribute(commcareForm, "xmlns");
+    }
+
+    private String version(CommcareForm commcareForm) {
+        return commcareForm.getVersion();
+    }
+
+    private String attribute(CommcareForm commcareForm, String name) {
+        return commcareForm.getForm().getAttributes().get(name);
     }
 }
 
