@@ -28,8 +28,7 @@ public class DeathMotherForm implements java.io.Serializable {
 	private Boolean motherAlive;
 	private String status;
 	private Short castNumChildren;
-	private Integer children;
-	private Date dateDeath;
+    private Date dateDeath;
 	private Boolean deathVillage;
 	private Short numChildren;
 	private String placeDeath;
@@ -43,11 +42,11 @@ public class DeathMotherForm implements java.io.Serializable {
 	}
 
 	public DeathMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Boolean motherAlive, String status,
-			Short castNumChildren, Integer children, Date dateDeath,
-			Boolean deathVillage, Short numChildren, String placeDeath,
-			String siteDeath) {
+                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                           String close, Boolean motherAlive, String status,
+                           Short castNumChildren, Date dateDeath,
+                           Boolean deathVillage, Short numChildren, String placeDeath,
+                           String siteDeath) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -59,8 +58,7 @@ public class DeathMotherForm implements java.io.Serializable {
 		this.motherAlive = motherAlive;
 		this.status = status;
 		this.castNumChildren = castNumChildren;
-		this.children = children;
-		this.dateDeath = dateDeath;
+        this.dateDeath = dateDeath;
 		this.deathVillage = deathVillage;
 		this.numChildren = numChildren;
 		this.placeDeath = placeDeath;
@@ -175,16 +173,7 @@ public class DeathMotherForm implements java.io.Serializable {
 		this.castNumChildren = castNumChildren;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
 	@Column(name = "date_death", length = 13)
 	public Date getDateDeath() {
 		return this.dateDeath;

@@ -254,7 +254,6 @@ CREATE TABLE report.registration_mother_form (
 	,num_boys	SMALLINT
 	,status	VARCHAR(255)
 	,child_dob	DATE
-	,children	INTEGER
 	,client_no_register	VARCHAR(10)
 	,client_not_pregnant	VARCHAR(10)
 	,clinical_exam	BOOLEAN
@@ -485,7 +484,6 @@ CREATE TABLE report.pnc_mother_form(
 	,adopt_immediately	BOOLEAN
 	,all_pnc_on_time	BOOLEAN
 	,bleeding	BOOLEAN
-	,children	INTEGER
 	,complications	BOOLEAN
 	,congested	BOOLEAN
 	,counsel_breast	BOOLEAN
@@ -615,7 +613,6 @@ CREATE TABLE report.ebf_mother_form(
 	,ask_ppiud	BOOLEAN
 	,aware_of_failure	BOOLEAN
 	,bleeding	BOOLEAN
-	,children	VARCHAR(255)
 	,complications	BOOLEAN
 	,condoms	BOOLEAN
 	,counsel_follow_up_ppiud	BOOLEAN
@@ -768,7 +765,6 @@ CREATE TABLE report.cf_mother_form(
 	,date_next_cf	DATE
 	,last_visit_type	VARCHAR(20)
 	,cf_visit_num	SMALLINT
-	,children	INTEGER
 	,num_children	SMALLINT
 	,play_comp_feeding_vid	BOOLEAN
 	,lastvisit BOOLEAN
@@ -961,7 +957,6 @@ CREATE TABLE report.death_mother_form(
 	,mother_alive	BOOLEAN
 	,status	VARCHAR(255)
 	,cast_num_children	SMALLINT
-	,children	INTEGER
 	,date_death	DATE
 	,death_village	BOOLEAN
 	,num_children	SMALLINT
@@ -995,7 +990,6 @@ CREATE TABLE report.close_mother_form(
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,close	 VARCHAR(20)
-	,children	INTEGER
 	,close_mother	BOOLEAN
 	,confirm_close	BOOLEAN
 	,death_village	BOOLEAN
@@ -1044,7 +1038,6 @@ CREATE TABLE report.refer_mother_form(
 	,user_id	INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,children	INTEGER
 	,num_children	SMALLINT
 	,refer_mother	BOOLEAN
 );

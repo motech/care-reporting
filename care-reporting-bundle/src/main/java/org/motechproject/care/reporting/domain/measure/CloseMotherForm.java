@@ -25,8 +25,7 @@ public class CloseMotherForm implements java.io.Serializable {
 	private Date timeStart;
 	private Date dateModified;
 	private String close;
-	private Integer children;
-	private Boolean closeMother;
+    private Boolean closeMother;
 	private Boolean confirmClose;
 	private Boolean deathVillage;
 	private String diedVillage;
@@ -51,13 +50,13 @@ public class CloseMotherForm implements java.io.Serializable {
 	}
 
 	public CloseMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Integer children, Boolean closeMother,
-			Boolean confirmClose, Boolean deathVillage, String diedVillage,
-			Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
-			String motherAlive, Boolean moved, Boolean migrated,
-			Date dateLearned, Date dateLeft, Boolean migrationNote,
-			Boolean died, Date dateDeath, String siteDeath) {
+                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                           String close, Boolean closeMother,
+                           Boolean confirmClose, Boolean deathVillage, String diedVillage,
+                           Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
+                           String motherAlive, Boolean moved, Boolean migrated,
+                           Date dateLearned, Date dateLeft, Boolean migrationNote,
+                           Boolean died, Date dateDeath, String siteDeath) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -66,8 +65,7 @@ public class CloseMotherForm implements java.io.Serializable {
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
 		this.close = close;
-		this.children = children;
-		this.closeMother = closeMother;
+        this.closeMother = closeMother;
 		this.confirmClose = confirmClose;
 		this.deathVillage = deathVillage;
 		this.diedVillage = diedVillage;
@@ -166,16 +164,7 @@ public class CloseMotherForm implements java.io.Serializable {
 		this.close = close;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "close_mother")
+    @Column(name = "close_mother")
 	public Boolean getCloseMother() {
 		return this.closeMother;
 	}

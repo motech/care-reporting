@@ -24,8 +24,7 @@ public class ReferMotherForm implements java.io.Serializable {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Integer children;
-	private Short numChildren;
+    private Short numChildren;
 	private Boolean referMother;
 
 	public ReferMotherForm() {
@@ -36,8 +35,8 @@ public class ReferMotherForm implements java.io.Serializable {
 	}
 
 	public ReferMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Integer children, Short numChildren, Boolean referMother) {
+                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                           Short numChildren, Boolean referMother) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -45,8 +44,7 @@ public class ReferMotherForm implements java.io.Serializable {
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
-		this.children = children;
-		this.numChildren = numChildren;
+        this.numChildren = numChildren;
 		this.referMother = referMother;
 	}
 
@@ -122,16 +120,7 @@ public class ReferMotherForm implements java.io.Serializable {
 		this.dateModified = dateModified;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "num_children")
+    @Column(name = "num_children")
 	public Short getNumChildren() {
 		return this.numChildren;
 	}

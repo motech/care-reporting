@@ -34,8 +34,7 @@ public class CfMotherForm implements java.io.Serializable {
 	private Date dateNextCf;
 	private String lastVisitType;
 	private Short cfVisitNum;
-	private Integer children;
-	private Short numChildren;
+    private Short numChildren;
 	private Boolean playCompFeedingVid;
 	private Boolean lastvisit;
 	private Date dateCf7;
@@ -50,12 +49,12 @@ public class CfMotherForm implements java.io.Serializable {
 	}
 
 	public CfMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
-			Date dateCf5, Date dateCf6, Date dateLastVisit, Date dateNextCf,
-			String lastVisitType, Short cfVisitNum, Integer children,
-			Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
-			Date dateCf7, Boolean confirmClose, Boolean close) {
+                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                        Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
+                        Date dateCf5, Date dateCf6, Date dateLastVisit, Date dateNextCf,
+                        String lastVisitType, Short cfVisitNum,
+                        Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
+                        Date dateCf7, Boolean confirmClose, Boolean close) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -73,8 +72,7 @@ public class CfMotherForm implements java.io.Serializable {
 		this.dateNextCf = dateNextCf;
 		this.lastVisitType = lastVisitType;
 		this.cfVisitNum = cfVisitNum;
-		this.children = children;
-		this.numChildren = numChildren;
+        this.numChildren = numChildren;
 		this.playCompFeedingVid = playCompFeedingVid;
 		this.lastvisit = lastvisit;
 		this.dateCf7 = dateCf7;
@@ -252,16 +250,7 @@ public class CfMotherForm implements java.io.Serializable {
 		this.cfVisitNum = cfVisitNum;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "num_children")
+    @Column(name = "num_children")
 	public Short getNumChildren() {
 		return this.numChildren;
 	}

@@ -29,8 +29,7 @@ public class PncMotherForm implements java.io.Serializable {
 	private Boolean adoptImmediately;
 	private Boolean allPncOnTime;
 	private Boolean bleeding;
-	private Integer children;
-	private Boolean complications;
+    private Boolean complications;
 	private Boolean congested;
 	private Boolean counselBreast;
 	private Boolean counselFollowUpPpiud;
@@ -111,38 +110,38 @@ public class PncMotherForm implements java.io.Serializable {
 	}
 
 	public PncMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean abdominalPain, Date addval, Boolean adoptImmediately,
-			Boolean allPncOnTime, Boolean bleeding, Integer children,
-			Boolean complications, Boolean congested, Boolean counselBreast,
-			Boolean counselFollowUpPpiud, Boolean counselFollowUpPptl,
-			Boolean counselIncreaseFoodBf, Boolean counselMateralComp,
-			Boolean counselMethods, Boolean counselNeonatalComp,
-			Boolean counselPpfp, Boolean counselTimeIud, Date dateDeath,
-			Date dateIudAdopted, Date dateLastVisit, Date dateNextEb,
-			Date dateNextPnc, Date datePnc1, Date datePnc2, Date datePnc3,
-			Date dateTlAdopted, Boolean deathVillage, Boolean discharge,
-			Boolean distension, Boolean eatingWell, String familyPlanningType,
-			Boolean fever, String firstPncTime, Boolean intervalPpfpInterest,
-			Boolean iud, Boolean iudAdopted, Boolean iudCounselDuration,
-			Boolean iudCounselFollowUp, Boolean iudCounselHospital,
-			Boolean iudCounselPlacement, Boolean iudCounselScreening,
-			Boolean iudCounselSideEffects, String lastVisitType,
-			Boolean motherAlive, Boolean motherChildAlive,
-			String nextvisittype, Short numChildren, Boolean otherIssues,
-			Boolean painUrination, Boolean painfulNipples, String placeDeath,
-			Integer pnc1DaysLate, Integer pnc2DaysLate, Integer pnc3DaysLate,
-			Short pncVisitNum, Boolean ppfpInterest,
-			Boolean ppiudAbdominalPain, Boolean ppiudBleeding,
-			Boolean ppiudDischarge, Boolean ppiudFever, Boolean ppiudProblems,
-			Boolean pptlAbdominalPain, Boolean pptlExcessiveBleeding,
-			Boolean pptlPainSurgery, Boolean pptlProblems,
-			Boolean problemsBreast, Boolean safe, String siteDeath, Boolean tl,
-			Boolean tlAdopted, Boolean tlConselIncentives,
-			Boolean tlCounselFollowUp, Boolean tlCounselHospital,
-			Boolean tlCounselIrreversible, Boolean tlCounselScreening,
-			Boolean tlCounselSideEffects, Boolean tlCounselTiming,
-			String whyNoPpffp) {
+                         String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                         Boolean abdominalPain, Date addval, Boolean adoptImmediately,
+                         Boolean allPncOnTime, Boolean bleeding,
+                         Boolean complications, Boolean congested, Boolean counselBreast,
+                         Boolean counselFollowUpPpiud, Boolean counselFollowUpPptl,
+                         Boolean counselIncreaseFoodBf, Boolean counselMateralComp,
+                         Boolean counselMethods, Boolean counselNeonatalComp,
+                         Boolean counselPpfp, Boolean counselTimeIud, Date dateDeath,
+                         Date dateIudAdopted, Date dateLastVisit, Date dateNextEb,
+                         Date dateNextPnc, Date datePnc1, Date datePnc2, Date datePnc3,
+                         Date dateTlAdopted, Boolean deathVillage, Boolean discharge,
+                         Boolean distension, Boolean eatingWell, String familyPlanningType,
+                         Boolean fever, String firstPncTime, Boolean intervalPpfpInterest,
+                         Boolean iud, Boolean iudAdopted, Boolean iudCounselDuration,
+                         Boolean iudCounselFollowUp, Boolean iudCounselHospital,
+                         Boolean iudCounselPlacement, Boolean iudCounselScreening,
+                         Boolean iudCounselSideEffects, String lastVisitType,
+                         Boolean motherAlive, Boolean motherChildAlive,
+                         String nextvisittype, Short numChildren, Boolean otherIssues,
+                         Boolean painUrination, Boolean painfulNipples, String placeDeath,
+                         Integer pnc1DaysLate, Integer pnc2DaysLate, Integer pnc3DaysLate,
+                         Short pncVisitNum, Boolean ppfpInterest,
+                         Boolean ppiudAbdominalPain, Boolean ppiudBleeding,
+                         Boolean ppiudDischarge, Boolean ppiudFever, Boolean ppiudProblems,
+                         Boolean pptlAbdominalPain, Boolean pptlExcessiveBleeding,
+                         Boolean pptlPainSurgery, Boolean pptlProblems,
+                         Boolean problemsBreast, Boolean safe, String siteDeath, Boolean tl,
+                         Boolean tlAdopted, Boolean tlConselIncentives,
+                         Boolean tlCounselFollowUp, Boolean tlCounselHospital,
+                         Boolean tlCounselIrreversible, Boolean tlCounselScreening,
+                         Boolean tlCounselSideEffects, Boolean tlCounselTiming,
+                         String whyNoPpffp) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -155,8 +154,7 @@ public class PncMotherForm implements java.io.Serializable {
 		this.adoptImmediately = adoptImmediately;
 		this.allPncOnTime = allPncOnTime;
 		this.bleeding = bleeding;
-		this.children = children;
-		this.complications = complications;
+        this.complications = complications;
 		this.congested = congested;
 		this.counselBreast = counselBreast;
 		this.counselFollowUpPpiud = counselFollowUpPpiud;
@@ -348,16 +346,7 @@ public class PncMotherForm implements java.io.Serializable {
 		this.bleeding = bleeding;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "complications")
+    @Column(name = "complications")
 	public Boolean getComplications() {
 		return this.complications;
 	}

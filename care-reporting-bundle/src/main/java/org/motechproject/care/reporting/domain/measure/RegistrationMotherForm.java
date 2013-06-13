@@ -55,8 +55,7 @@ public class RegistrationMotherForm implements java.io.Serializable {
 	private Short numBoys;
 	private String status;
 	private Date childDob;
-	private Integer children;
-	private String clientNoRegister;
+    private String clientNoRegister;
 	private String clientNotPregnant;
 	private Boolean clinicalExam;
 	private Boolean condoms;
@@ -115,34 +114,34 @@ public class RegistrationMotherForm implements java.io.Serializable {
 	}
 
 	public RegistrationMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean ppiud, Boolean pptl, Boolean abdPain, Short ageCalc,
-			Short ageCalcAdj, Short ageEst, String ageEstTrigger, String close,
-			Date add, Short age, String birthPlace, Boolean complications,
-			Date dateLastVisit, Date dateNextBp, Date dateNextCf,
-			Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
-			Boolean enrolledInKilkari, String familyPlanningType,
-			Short howManyChildren, Boolean interestInKilkari,
-			Boolean lastPregTt, String lastVisitType, Date lmp,
-			String mobileNumber, Date motherDob, Short numBoys, String status,
-			Date childDob, Integer children, String clientNoRegister,
-			String clientNotPregnant, Boolean clinicalExam, Boolean condoms,
-			Boolean continuePreg, String deliveryNature, String dobEst,
-			Date eddCalc, Boolean eddKnown, String education, Boolean fever,
-			Boolean firstPregnancy, Short gestAge, Boolean goodToRegister,
-			Boolean inDistrict, Boolean injectible, Boolean isPregnant,
-			Boolean iudUsed, Boolean jsyBeneficiary, Boolean jsyMoney,
-			Integer lastPreg, Boolean lastPregCSection,
-			Boolean lastPregFullTerm, Date lmpCalc, Boolean lmpKnown,
-			Boolean missedPeriod, String mobileNumberWhose, String nextvisit,
-			String nextvisitBp, String nextvisittype, Short numChildren,
-			Short numGirls, Boolean ocpUsed, String otherConditions,
-			String otherDistrict, String otherVillage, Boolean painUrine,
-			Boolean postPostpartumFp, Boolean pregDesired,
-			Boolean recentlyDelivered, String referralPrompt, String resident,
-			String success, Boolean urineTest, Boolean usedFp,
-			Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
-			String whichHospital, String whichVillage) {
+                                  String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                                  Boolean ppiud, Boolean pptl, Boolean abdPain, Short ageCalc,
+                                  Short ageCalcAdj, Short ageEst, String ageEstTrigger, String close,
+                                  Date add, Short age, String birthPlace, Boolean complications,
+                                  Date dateLastVisit, Date dateNextBp, Date dateNextCf,
+                                  Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
+                                  Boolean enrolledInKilkari, String familyPlanningType,
+                                  Short howManyChildren, Boolean interestInKilkari,
+                                  Boolean lastPregTt, String lastVisitType, Date lmp,
+                                  String mobileNumber, Date motherDob, Short numBoys, String status,
+                                  Date childDob, String clientNoRegister,
+                                  String clientNotPregnant, Boolean clinicalExam, Boolean condoms,
+                                  Boolean continuePreg, String deliveryNature, String dobEst,
+                                  Date eddCalc, Boolean eddKnown, String education, Boolean fever,
+                                  Boolean firstPregnancy, Short gestAge, Boolean goodToRegister,
+                                  Boolean inDistrict, Boolean injectible, Boolean isPregnant,
+                                  Boolean iudUsed, Boolean jsyBeneficiary, Boolean jsyMoney,
+                                  Integer lastPreg, Boolean lastPregCSection,
+                                  Boolean lastPregFullTerm, Date lmpCalc, Boolean lmpKnown,
+                                  Boolean missedPeriod, String mobileNumberWhose, String nextvisit,
+                                  String nextvisitBp, String nextvisittype, Short numChildren,
+                                  Short numGirls, Boolean ocpUsed, String otherConditions,
+                                  String otherDistrict, String otherVillage, Boolean painUrine,
+                                  Boolean postPostpartumFp, Boolean pregDesired,
+                                  Boolean recentlyDelivered, String referralPrompt, String resident,
+                                  String success, Boolean urineTest, Boolean usedFp,
+                                  Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
+                                  String whichHospital, String whichVillage) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -181,8 +180,7 @@ public class RegistrationMotherForm implements java.io.Serializable {
 		this.numBoys = numBoys;
 		this.status = status;
 		this.childDob = childDob;
-		this.children = children;
-		this.clientNoRegister = clientNoRegister;
+        this.clientNoRegister = clientNoRegister;
 		this.clientNotPregnant = clientNotPregnant;
 		this.clinicalExam = clinicalExam;
 		this.condoms = condoms;
@@ -595,16 +593,7 @@ public class RegistrationMotherForm implements java.io.Serializable {
 		this.childDob = childDob;
 	}
 
-	@Column(name = "children")
-	public Integer getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(Integer children) {
-		this.children = children;
-	}
-
-	@Column(name = "client_no_register", length = 10)
+    @Column(name = "client_no_register", length = 10)
 	public String getClientNoRegister() {
 		return this.clientNoRegister;
 	}

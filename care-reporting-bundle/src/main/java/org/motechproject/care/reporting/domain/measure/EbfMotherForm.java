@@ -29,8 +29,7 @@ public class EbfMotherForm implements java.io.Serializable {
 	private Boolean askPpiud;
 	private Boolean awareOfFailure;
 	private Boolean bleeding;
-	private String children;
-	private Boolean complications;
+    private Boolean complications;
 	private Boolean condoms;
 	private Boolean counselFollowUpPpiud;
 	private Boolean counselFollowUpPptl;
@@ -116,41 +115,41 @@ public class EbfMotherForm implements java.io.Serializable {
 	}
 
 	public EbfMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Date addval, Boolean adoptImmediately, Boolean askPpiud,
-			Boolean awareOfFailure, Boolean bleeding, String children,
-			Boolean complications, Boolean condoms,
-			Boolean counselFollowUpPpiud, Boolean counselFollowUpPptl,
-			Boolean counselMenstrualCycle, Boolean counselMethods,
-			Boolean counselPpfp, Boolean counselTimeIud, Date dateEb1,
-			Date dateEb2, Date dateEb3, Date dateEb4, Date dateEb5,
-			Date dateEb6, Date dateIudAdopted, Date dateLastInj,
-			Date dateLastVisit, Date dateNextCf, Date dateNextEb,
-			Boolean discharge, Boolean distension, Short ebVisitNum,
-			String familyPlanningType, Boolean fever, Boolean haveCondoms,
-			Boolean headaches, Boolean highBp,
-			Boolean injMenstrualIrregularity, Boolean injectable,
-			Boolean intendToContinue, Boolean intervalPpfpInterest,
-			Boolean iud, Boolean iudAdopted, Boolean iudCounselDuration,
-			Boolean iudCounselFollowUp, Boolean iudCounselHospital,
-			Boolean iudCounselPlacement, Boolean iudCounselScreening,
-			Boolean iudCounselSideEffects, String lastVisitType,
-			Boolean menstrualIrregularity, Date nextInjCalc,
-			String nextvisittype, Short numChildren, Boolean ocp,
-			Boolean ocpContinue, Boolean ocpCounselRegularity,
-			Boolean painSwelling, Boolean ppfpInterest,
-			Boolean ppiudAbdominalPain, Boolean ppiudProblems,
-			Boolean pptlAbdominalPain, Boolean pptlPainSurgery,
-			Boolean pptlProblems, Boolean regularPeriods,
-			Boolean tabletsReceived, Boolean takenAsPrescribed, Boolean tl,
-			Boolean tlAdopted, Boolean tlConselIncentives,
-			Boolean tlCounselFollowUp, Boolean tlCounselHospital,
-			Boolean tlCounselIrreversible, Boolean tlCounselScreening,
-			Boolean tlCounselSideEffects, Boolean tlCounselTiming,
-			Boolean understandTablets, Boolean usingCorrectly,
-			Boolean whereReplace, String whyNoPpffp, Boolean within42,
-			Date dateTlAdopted, Boolean abdominalPain, Boolean painUrination,
-			Boolean ppiudBleeding, Boolean ppiudDischarge, Boolean ppiudFever) {
+                         String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                         Date addval, Boolean adoptImmediately, Boolean askPpiud,
+                         Boolean awareOfFailure, Boolean bleeding,
+                         Boolean complications, Boolean condoms,
+                         Boolean counselFollowUpPpiud, Boolean counselFollowUpPptl,
+                         Boolean counselMenstrualCycle, Boolean counselMethods,
+                         Boolean counselPpfp, Boolean counselTimeIud, Date dateEb1,
+                         Date dateEb2, Date dateEb3, Date dateEb4, Date dateEb5,
+                         Date dateEb6, Date dateIudAdopted, Date dateLastInj,
+                         Date dateLastVisit, Date dateNextCf, Date dateNextEb,
+                         Boolean discharge, Boolean distension, Short ebVisitNum,
+                         String familyPlanningType, Boolean fever, Boolean haveCondoms,
+                         Boolean headaches, Boolean highBp,
+                         Boolean injMenstrualIrregularity, Boolean injectable,
+                         Boolean intendToContinue, Boolean intervalPpfpInterest,
+                         Boolean iud, Boolean iudAdopted, Boolean iudCounselDuration,
+                         Boolean iudCounselFollowUp, Boolean iudCounselHospital,
+                         Boolean iudCounselPlacement, Boolean iudCounselScreening,
+                         Boolean iudCounselSideEffects, String lastVisitType,
+                         Boolean menstrualIrregularity, Date nextInjCalc,
+                         String nextvisittype, Short numChildren, Boolean ocp,
+                         Boolean ocpContinue, Boolean ocpCounselRegularity,
+                         Boolean painSwelling, Boolean ppfpInterest,
+                         Boolean ppiudAbdominalPain, Boolean ppiudProblems,
+                         Boolean pptlAbdominalPain, Boolean pptlPainSurgery,
+                         Boolean pptlProblems, Boolean regularPeriods,
+                         Boolean tabletsReceived, Boolean takenAsPrescribed, Boolean tl,
+                         Boolean tlAdopted, Boolean tlConselIncentives,
+                         Boolean tlCounselFollowUp, Boolean tlCounselHospital,
+                         Boolean tlCounselIrreversible, Boolean tlCounselScreening,
+                         Boolean tlCounselSideEffects, Boolean tlCounselTiming,
+                         Boolean understandTablets, Boolean usingCorrectly,
+                         Boolean whereReplace, String whyNoPpffp, Boolean within42,
+                         Date dateTlAdopted, Boolean abdominalPain, Boolean painUrination,
+                         Boolean ppiudBleeding, Boolean ppiudDischarge, Boolean ppiudFever) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -163,8 +162,7 @@ public class EbfMotherForm implements java.io.Serializable {
 		this.askPpiud = askPpiud;
 		this.awareOfFailure = awareOfFailure;
 		this.bleeding = bleeding;
-		this.children = children;
-		this.complications = complications;
+        this.complications = complications;
 		this.condoms = condoms;
 		this.counselFollowUpPpiud = counselFollowUpPpiud;
 		this.counselFollowUpPptl = counselFollowUpPptl;
@@ -361,16 +359,7 @@ public class EbfMotherForm implements java.io.Serializable {
 		this.bleeding = bleeding;
 	}
 
-	@Column(name = "children")
-	public String getChildren() {
-		return this.children;
-	}
-
-	public void setChildren(String children) {
-		this.children = children;
-	}
-
-	@Column(name = "complications")
+    @Column(name = "complications")
 	public Boolean getComplications() {
 		return this.complications;
 	}
