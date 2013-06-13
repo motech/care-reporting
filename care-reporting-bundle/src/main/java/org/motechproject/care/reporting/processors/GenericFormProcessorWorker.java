@@ -8,6 +8,8 @@ import org.motechproject.care.reporting.parser.MetaInfoParser;
 import org.motechproject.care.reporting.parser.MotherInfoParser;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GenericFormProcessorWorker extends ProcessorWorker {
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     Class<?> motherForm;
     Class<?> childForm;
@@ -76,7 +79,9 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
     }
 
     void saveForm(Serializable form, Class<?> type) {
+        logger.info(String.format("Started processing form %s", form));
         service.save(type.cast(form));
+        logger.info(String.format("Finished processing form %s", form));
     }
 
     void saveForm(List<Serializable> forms, Class<?> type) {

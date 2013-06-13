@@ -6,6 +6,7 @@ import org.hibernate.annotations.*;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -314,4 +315,8 @@ public class NewForm implements java.io.Serializable {
 		this.fullName = fullName;
 	}
 
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

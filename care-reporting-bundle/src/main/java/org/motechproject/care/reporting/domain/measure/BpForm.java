@@ -5,6 +5,7 @@ package org.motechproject.care.reporting.domain.measure;
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -1305,4 +1306,8 @@ public class BpForm implements java.io.Serializable {
 		this.postponing = postponing;
 	}
 
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

@@ -5,6 +5,7 @@ package org.motechproject.care.reporting.domain.measure;
 import org.hibernate.annotations.*;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -780,4 +781,8 @@ public class CfChildForm implements java.io.Serializable {
 		this.close = close;
 	}
 
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

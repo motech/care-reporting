@@ -5,6 +5,7 @@ package org.motechproject.care.reporting.domain.measure;
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -554,4 +555,8 @@ public class DeliveryChildForm implements java.io.Serializable {
 		this.wrappedDried = wrappedDried;
 	}
 
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

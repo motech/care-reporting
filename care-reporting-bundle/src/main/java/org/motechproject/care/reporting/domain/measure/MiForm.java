@@ -5,6 +5,7 @@ package org.motechproject.care.reporting.domain.measure;
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -220,4 +221,8 @@ public class MiForm implements java.io.Serializable {
 		this.migratedStatus = migratedStatus;
 	}
 
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

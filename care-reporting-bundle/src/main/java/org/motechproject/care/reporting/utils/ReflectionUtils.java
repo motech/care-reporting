@@ -15,4 +15,14 @@ public class ReflectionUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static Object getValue(Object object, String fieldName) {
+        try {
+            Field field = object.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return field.get(object);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
