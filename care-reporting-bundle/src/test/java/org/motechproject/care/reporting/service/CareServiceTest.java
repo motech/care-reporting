@@ -15,7 +15,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
-import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 public class CareServiceTest {
 
@@ -75,7 +74,7 @@ public class CareServiceTest {
 
         ChildCase actualChildCase = service.getChildCase("1");
 
-        assertReflectionEquals(expectedChildCase, actualChildCase);
+        assertReflectionEqualsWithIgnore(expectedChildCase, actualChildCase, new String[]{"creationTime"});
     }
 
     @Test
