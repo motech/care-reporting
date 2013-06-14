@@ -35,8 +35,9 @@ public class CloseChildForm implements java.io.Serializable {
 	private Boolean finishedContinuum;
 	private String siteDeath;
 	private String placeDeath;
+    private Date creationTime = new Date();
 
-	public CloseChildForm() {
+    public CloseChildForm() {
 	}
 
 	public CloseChildForm(int id) {
@@ -44,11 +45,11 @@ public class CloseChildForm implements java.io.Serializable {
 	}
 
 	public CloseChildForm(int id, Flw flw, ChildCase childCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Boolean childAlive, Boolean closeChild,
-			Boolean confirmClose, Date dateDeath, Boolean died,
-			Boolean diedVillage, Boolean dupeReg, Boolean finishedContinuum,
-			String siteDeath, String placeDeath) {
+                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                          String close, Boolean childAlive, Boolean closeChild,
+                          Boolean confirmClose, Date dateDeath, Boolean died,
+                          Boolean diedVillage, Boolean dupeReg, Boolean finishedContinuum,
+                          String siteDeath, String placeDeath, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -67,7 +68,8 @@ public class CloseChildForm implements java.io.Serializable {
 		this.finishedContinuum = finishedContinuum;
 		this.siteDeath = siteDeath;
 		this.placeDeath = placeDeath;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -240,6 +242,16 @@ public class CloseChildForm implements java.io.Serializable {
 	public void setPlaceDeath(String placeDeath) {
 		this.placeDeath = placeDeath;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

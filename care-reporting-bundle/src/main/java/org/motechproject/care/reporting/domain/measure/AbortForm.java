@@ -29,8 +29,9 @@ public class AbortForm implements java.io.Serializable {
 	private String close;
 	private String birthStatus;
 	private Date dateAborted;
+    private Date creationTime = new Date();
 
-	public AbortForm() {
+    public AbortForm() {
 	}
 
 	public AbortForm(int id) {
@@ -38,9 +39,9 @@ public class AbortForm implements java.io.Serializable {
 	}
 
 	public AbortForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified,
-			String abortionType, String close, String birthStatus,
-			Date dateAborted) {
+                     Date timeEnd, Date timeStart, Date dateModified,
+                     String abortionType, String close, String birthStatus,
+                     Date dateAborted, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -52,7 +53,8 @@ public class AbortForm implements java.io.Serializable {
 		this.close = close;
 		this.birthStatus = birthStatus;
 		this.dateAborted = dateAborted;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -162,6 +164,17 @@ public class AbortForm implements java.io.Serializable {
 	public void setDateAborted(Date dateAborted) {
 		this.dateAborted = dateAborted;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
 
     @Override
     public String toString() {

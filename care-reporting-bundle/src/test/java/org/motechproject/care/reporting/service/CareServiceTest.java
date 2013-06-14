@@ -10,12 +10,11 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.Repository;
 
-import java.util.ArrayList;
-
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 public class CareServiceTest {
@@ -52,7 +51,7 @@ public class CareServiceTest {
 
         MotherCase actualMotherCase = service.getMotherCase("1");
 
-        assertReflectionEquals(expectedMotherCase, actualMotherCase);
+        assertReflectionEqualsWithIgnore(expectedMotherCase, actualMotherCase, new String[]{"creationTime"});
     }
 
     @Test

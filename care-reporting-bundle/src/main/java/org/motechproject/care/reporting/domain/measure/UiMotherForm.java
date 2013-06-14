@@ -34,8 +34,9 @@ public class UiMotherForm implements java.io.Serializable {
 	private Short numChildren;
 	private Boolean updateMother;
 	private Date ttBooster;
+    private Date creationTime = new Date();
 
-	public UiMotherForm() {
+    public UiMotherForm() {
 	}
 
 	public UiMotherForm(int id) {
@@ -43,11 +44,11 @@ public class UiMotherForm implements java.io.Serializable {
 	}
 
 	public UiMotherForm(int id, Flw flw, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean detailsAvailable, Date tt1Date, Date tt2Date,
-			Date ttBoosterDate, Boolean receivedTt1, Boolean receivedTt2,
-			String upToDate, Short numChildren, Boolean updateMother,
-			Date ttBooster) {
+                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                        Boolean detailsAvailable, Date tt1Date, Date tt2Date,
+                        Date ttBoosterDate, Boolean receivedTt1, Boolean receivedTt2,
+                        String upToDate, Short numChildren, Boolean updateMother,
+                        Date ttBooster, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -65,7 +66,8 @@ public class UiMotherForm implements java.io.Serializable {
 		this.numChildren = numChildren;
 		this.updateMother = updateMother;
 		this.ttBooster = ttBooster;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -232,6 +234,16 @@ public class UiMotherForm implements java.io.Serializable {
 	public void setTtBooster(Date ttBooster) {
 		this.ttBooster = ttBooster;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

@@ -5,14 +5,15 @@ package org.motechproject.care.reporting.domain.dimension;
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-import org.motechproject.care.reporting.domain.measure.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static org.motechproject.care.reporting.utils.ReflectionUtils.updateValue;
 
@@ -66,9 +67,10 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 	private Date vitA3Date;
 	private Boolean closed;
 	private Date dateClosed;
+    private Date creationTime = new Date();
+    private Date lastModifiedTime;
 
-
-	public ChildCase() {
+    public ChildCase() {
 	}
 
 	public ChildCase(int id) {
@@ -86,7 +88,7 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
 			Date dateMeaslesBooster, BigDecimal babyWeight, String name,
 			String term, Date timeOfBirth, Date vitA2Date, Date vitA3Date,
-			Boolean closed, Date dateClosed) {
+			Boolean closed, Date dateClosed, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -128,7 +130,9 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 		this.vitA3Date = vitA3Date;
 		this.closed = closed;
 		this.dateClosed = dateClosed;
-	}
+        this.creationTime = creationTime;
+        this.lastModifiedTime = lastModifiedTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -532,6 +536,26 @@ public class ChildCase implements java.io.Serializable, SelfUpdatable<ChildCase>
 	public void setDateClosed(Date dateClosed) {
 		this.dateClosed = dateClosed;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_modified_time")
+    public Date getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
 
     @Override
     public void updateToLatest(ChildCase updated) {

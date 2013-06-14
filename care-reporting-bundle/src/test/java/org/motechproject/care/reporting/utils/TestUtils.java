@@ -3,11 +3,16 @@ package org.motechproject.care.reporting.utils;
 
 import junit.framework.AssertionFailedError;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.unitils.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestUtils {
     public static void setFields(Object object, Map<String, Object> fieldMap) {
@@ -30,6 +35,10 @@ public class TestUtils {
         return ReflectionUtils.getFieldValue(object, field);
     }
 
+    public static void assertDateIgnoringSeconds(Date expected, Date actual) {
+        assertEquals(DateUtils.truncate(expected, Calendar.MINUTE), DateUtils.truncate(actual, Calendar.MINUTE));
+    }
+
     public static void assertReflectionEqualsWithIgnore(Object lhs, Object rhs, String... ignoredFields) {
         if (isReferenceSame(lhs, rhs)) {
             return;
@@ -41,8 +50,22 @@ public class TestUtils {
         if (!difference.isNull()) throw new AssertionFailedError(difference.message());
     }
 
+    public static <T> void assertReflectionContains(T object, Collection<T> collection, String... ignoredFields) {
+        for (T t : collection) {
+            if (compareFields(object, t, ignoredFields).isNull()) return;
+        }
+        throw new AssertionFailedError("Object does not exist in collection.");
+    }
+
     private static boolean isOfSameClass(Object lhs, Object rhs) {
         return lhs.getClass().isAssignableFrom(rhs.getClass()) || rhs.getClass().isAssignableFrom(lhs.getClass());
+    }
+
+    public static <T> void assertReflectionDoesNotContains(T object, Collection<T> collection, String... ignoredFields) {
+        for (T t : collection) {
+            if (compareFields(object, t, ignoredFields).isNull()) throw new AssertionFailedError("Object exists in collection.");
+        }
+        return;
     }
 
     private static Difference compareFields(Object lhs, Object rhs, String[] ignoredFields) {
@@ -60,20 +83,6 @@ public class TestUtils {
 
     private static boolean isReferenceSame(Object lhs, Object rhs) {
         return lhs == rhs || lhs == null || rhs == null;
-    }
-
-    public static <T> void assertReflectionContains(T object, Collection<T> collection, String... ignoredFields) {
-        for (T t : collection) {
-            if (compareFields(object, t, ignoredFields).isNull()) return;
-        }
-        throw new AssertionFailedError("Object does not exist in collection.");
-    }
-
-    public static <T> void assertReflectionDoesNotContains(T object, Collection<T> collection, String... ignoredFields) {
-        for (T t : collection) {
-            if (compareFields(object, t, ignoredFields).isNull()) throw new AssertionFailedError("Object exists in collection.");
-        }
-        return;
     }
 
     private static class Difference {

@@ -67,8 +67,9 @@ public class EbfChildForm implements java.io.Serializable {
 	private Boolean teaOther;
 	private Boolean treatedLessSix;
 	private Boolean waterOrMilk;
+    private Date creationTime = new Date();
 
-	public EbfChildForm() {
+    public EbfChildForm() {
 	}
 
 	public EbfChildForm(int id) {
@@ -76,22 +77,22 @@ public class EbfChildForm implements java.io.Serializable {
 	}
 
 	public EbfChildForm(int id, Flw flw, ChildCase childCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean addVaccinations, Boolean atNight, Boolean babyBcg,
-			Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
-			Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
-			Boolean babyHepB3, Boolean babyOpv0, Boolean babyOpv1,
-			Boolean babyOpv2, Boolean babyOpv3, Date bcgDate,
-			Boolean breastfeeding, String caseName, String childName,
-			Boolean counselAdequateBf, Boolean counselOnlyMilk,
-			Boolean counselStopBottle, Date dpt1Date, Date dpt2Date,
-			Date dpt3Date, Boolean eating, Boolean emptying,
-			Boolean feedingBottle, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Boolean moreFeedingLessSix,
-			Boolean nameUpdate, String notBreasfeeding, Boolean onDemand,
-			Date opv0Date, Date opv1Date, Date opv2Date, Date opv3Date,
-			Boolean recentFever, Boolean teaOther, Boolean treatedLessSix,
-			Boolean waterOrMilk) {
+                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                        Boolean addVaccinations, Boolean atNight, Boolean babyBcg,
+                        Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
+                        Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
+                        Boolean babyHepB3, Boolean babyOpv0, Boolean babyOpv1,
+                        Boolean babyOpv2, Boolean babyOpv3, Date bcgDate,
+                        Boolean breastfeeding, String caseName, String childName,
+                        Boolean counselAdequateBf, Boolean counselOnlyMilk,
+                        Boolean counselStopBottle, Date dpt1Date, Date dpt2Date,
+                        Date dpt3Date, Boolean eating, Boolean emptying,
+                        Boolean feedingBottle, Date hepB0Date, Date hepB1Date,
+                        Date hepB2Date, Date hepB3Date, Boolean moreFeedingLessSix,
+                        Boolean nameUpdate, String notBreasfeeding, Boolean onDemand,
+                        Date opv0Date, Date opv1Date, Date opv2Date, Date opv3Date,
+                        Boolean recentFever, Boolean teaOther, Boolean treatedLessSix,
+                        Boolean waterOrMilk, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -142,7 +143,8 @@ public class EbfChildForm implements java.io.Serializable {
 		this.teaOther = teaOther;
 		this.treatedLessSix = treatedLessSix;
 		this.waterOrMilk = waterOrMilk;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -614,6 +616,16 @@ public class EbfChildForm implements java.io.Serializable {
 	public void setWaterOrMilk(Boolean waterOrMilk) {
 		this.waterOrMilk = waterOrMilk;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

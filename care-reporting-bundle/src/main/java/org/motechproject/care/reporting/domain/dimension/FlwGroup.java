@@ -4,9 +4,9 @@ package org.motechproject.care.reporting.domain.dimension;
 
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-import org.motechproject.care.reporting.domain.measure.NewForm;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +25,8 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 	private String awcCode;
 	private String name;
 	private Boolean reporting;
+    private Date creationTime = new Date();
+    private Date lastModifiedTime;
     private Set<Flw> flws = new HashSet<>(0);
 	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
 	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
@@ -38,7 +40,7 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 
 	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
-                    Set<Flw> flws, Set<ChildCase> childCases,
+                    Date creationTime, Date lastModifiedTime, Set<Flw> flws, Set<ChildCase> childCases,
                     Set<MotherCase> motherCases) {
 		this.id = id;
 		this.groupId = groupId;
@@ -47,6 +49,8 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 		this.awcCode = awcCode;
 		this.name = name;
 		this.reporting = reporting;
+        this.creationTime = creationTime;
+        this.lastModifiedTime = lastModifiedTime;
         this.flws = flws;
         this.childCases = childCases;
 		this.motherCases = motherCases;
@@ -117,7 +121,27 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 		this.reporting = reporting;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_modified_time")
+    public Date getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
 	public Set<ChildCase> getChildCases() {
 		return this.childCases;
 	}

@@ -6,7 +6,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-import org.motechproject.care.reporting.domain.measure.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -49,6 +48,8 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
 	private String ictcordinator;
 	private String remarks;
     private Date dob;
+    private Date creationTime = new Date();
+    private Date lastModifiedTime;
     private Set<FlwGroup> flwGroups = new HashSet<>();
 
 	public Flw() {
@@ -63,7 +64,7 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
-               String education, String district, String block, String panchayat, String village, Short age, String ward, String caste, String ictcordinator, String remarks, Date dob, Set<FlwGroup> flwGroups) {
+               String education, String district, String block, String panchayat, String village, Short age, String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, Set<FlwGroup> flwGroups) {
 		this.id = id;
 		this.flwId = flwId;
 		this.defaultPhoneNumber = defaultPhoneNumber;
@@ -90,6 +91,8 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
         this.ictcordinator = ictcordinator;
         this.remarks = remarks;
         this.dob = dob;
+        this.creationTime = creationTime;
+        this.lastModifiedTime = lastModifiedTime;
         this.flwGroups = flwGroups;
 	}
 
@@ -99,7 +102,7 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village, Short age,
-               String ward, String caste, String ictcordinator, String remarks, Date dob) {
+               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -125,6 +128,8 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
         this.ictcordinator = ictcordinator;
         this.remarks = remarks;
         this.dob = dob;
+        this.creationTime = creationTime;
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     @Id
@@ -375,6 +380,26 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_modified_time")
+    public Date getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     @Override

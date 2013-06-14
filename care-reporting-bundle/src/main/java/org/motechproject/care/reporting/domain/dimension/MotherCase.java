@@ -119,9 +119,11 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	private Date dob;
 	private Boolean closed;
 	private Date dateClosed;
+    private Date creationTime = new Date();
+    private Date lastModifiedTime;
 
 
-	public MotherCase() {
+    public MotherCase() {
 	}
 
 	public MotherCase(int id) {
@@ -129,34 +131,34 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	}
 
 	public MotherCase(int id, Flw flw, FlwGroup flwGroup, String caseId,
-			String caseName, String caseType, Date dateModified,
-			Date serverDateModified, Date serverDateOpened,
-			Integer familyNumber, Integer hhNumber, String husbandName,
-			Integer lastVisitType, Boolean motherAlive, Date motherDob,
-			String motherName, Boolean close, Boolean caseClosed,
-			Date closedOn, Date add, Short age, String birthPlace,
-			Boolean complications, Date dateNextBp, Date dateNextCf,
-			Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
-			Boolean enrolledInKilkari, String familyPlanningType,
-			Short howManyChildren, Boolean interestInKilkari,
-			Boolean lastPregTt, Date lmp, String mobileNumber, Short numBoys,
-			Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
-			Date dateCf5, Date dateCf6, Date dateEb1, Date dateEb2,
-			Date dateEb3, Date dateEb4, Date dateEb5, Date dateEb6,
-			Boolean allPncOnTime, Date datePnc1, Date datePnc2, Date datePnc3,
-			String firstPncTime, Integer pnc1DaysLate, Integer pnc2DaysLate,
-			Integer pnc3DaysLate, Date ttBoosterDate, Boolean sba,
-			Boolean sbaPhone, Boolean accompany, Date anc1Date, Date anc2Date,
-			Date anc3Date, Date anc4Date, Boolean cleanCloth,
-			String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
-			Date dateLastVisit, String deliveryType, Short ifaTablets,
-			Date ifaTablets100, Boolean materials, Boolean maternalEmergency,
-			Boolean maternalEmergencyNumber, Boolean phoneVehicle,
-			Boolean savingMoney, Date tt1Date, Date tt2Date, Boolean vehicle,
-			String birthStatus, Date migrateOutDate, String migratedStatus,
-			String status, String term, Date dateCf7, Date dateDelFu,
-			Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
-			Date dateClosed) {
+                      String caseName, String caseType, Date dateModified,
+                      Date serverDateModified, Date serverDateOpened,
+                      Integer familyNumber, Integer hhNumber, String husbandName,
+                      Integer lastVisitType, Boolean motherAlive, Date motherDob,
+                      String motherName, Boolean close, Boolean caseClosed,
+                      Date closedOn, Date add, Short age, String birthPlace,
+                      Boolean complications, Date dateNextBp, Date dateNextCf,
+                      Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
+                      Boolean enrolledInKilkari, String familyPlanningType,
+                      Short howManyChildren, Boolean interestInKilkari,
+                      Boolean lastPregTt, Date lmp, String mobileNumber, Short numBoys,
+                      Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
+                      Date dateCf5, Date dateCf6, Date dateEb1, Date dateEb2,
+                      Date dateEb3, Date dateEb4, Date dateEb5, Date dateEb6,
+                      Boolean allPncOnTime, Date datePnc1, Date datePnc2, Date datePnc3,
+                      String firstPncTime, Integer pnc1DaysLate, Integer pnc2DaysLate,
+                      Integer pnc3DaysLate, Date ttBoosterDate, Boolean sba,
+                      Boolean sbaPhone, Boolean accompany, Date anc1Date, Date anc2Date,
+                      Date anc3Date, Date anc4Date, Boolean cleanCloth,
+                      String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
+                      Date dateLastVisit, String deliveryType, Short ifaTablets,
+                      Date ifaTablets100, Boolean materials, Boolean maternalEmergency,
+                      Boolean maternalEmergencyNumber, Boolean phoneVehicle,
+                      Boolean savingMoney, Date tt1Date, Date tt2Date, Boolean vehicle,
+                      String birthStatus, Date migrateOutDate, String migratedStatus,
+                      String status, String term, Date dateCf7, Date dateDelFu,
+                      Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
+                      Date dateClosed, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
 		this.flwGroup = flwGroup;
@@ -251,7 +253,9 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 		this.dob = dob;
 		this.closed = closed;
 		this.dateClosed = dateClosed;
-	}
+        this.creationTime = creationTime;
+        this.lastModifiedTime = lastModifiedTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -1149,6 +1153,26 @@ public class MotherCase implements java.io.Serializable, SelfUpdatable<MotherCas
 	public void setDateClosed(Date dateClosed) {
 		this.dateClosed = dateClosed;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_modified_time")
+    public Date getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
 
     @Override
     public void updateToLatest(MotherCase updated) {

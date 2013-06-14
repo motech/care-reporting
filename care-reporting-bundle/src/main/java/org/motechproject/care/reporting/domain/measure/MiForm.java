@@ -33,8 +33,9 @@ public class MiForm implements java.io.Serializable {
 	private String abortionType;
 	private Date dateAborted;
 	private String migratedStatus;
+    private Date creationTime = new Date();
 
-	public MiForm() {
+    public MiForm() {
 	}
 
 	public MiForm(int id) {
@@ -42,10 +43,10 @@ public class MiForm implements java.io.Serializable {
 	}
 
 	public MiForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified, Date dateArrived,
-			Date dateLearned, Date dateOfDelivery, String name,
-			String pregStatus, String referralInfo, String abortionType,
-			Date dateAborted, String migratedStatus) {
+                  Date timeEnd, Date timeStart, Date dateModified, Date dateArrived,
+                  Date dateLearned, Date dateOfDelivery, String name,
+                  String pregStatus, String referralInfo, String abortionType,
+                  Date dateAborted, String migratedStatus, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -62,7 +63,8 @@ public class MiForm implements java.io.Serializable {
 		this.abortionType = abortionType;
 		this.dateAborted = dateAborted;
 		this.migratedStatus = migratedStatus;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -220,6 +222,16 @@ public class MiForm implements java.io.Serializable {
 	public void setMigratedStatus(String migratedStatus) {
 		this.migratedStatus = migratedStatus;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

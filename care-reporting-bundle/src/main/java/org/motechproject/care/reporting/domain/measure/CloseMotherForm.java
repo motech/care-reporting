@@ -41,8 +41,9 @@ public class CloseMotherForm implements java.io.Serializable {
 	private Boolean died;
 	private Date dateDeath;
 	private String siteDeath;
+    private Date creationTime = new Date();
 
-	public CloseMotherForm() {
+    public CloseMotherForm() {
 	}
 
 	public CloseMotherForm(int id) {
@@ -56,7 +57,7 @@ public class CloseMotherForm implements java.io.Serializable {
                            Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
                            String motherAlive, Boolean moved, Boolean migrated,
                            Date dateLearned, Date dateLeft, Boolean migrationNote,
-                           Boolean died, Date dateDeath, String siteDeath) {
+                           Boolean died, Date dateDeath, String siteDeath, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -81,7 +82,8 @@ public class CloseMotherForm implements java.io.Serializable {
 		this.died = died;
 		this.dateDeath = dateDeath;
 		this.siteDeath = siteDeath;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -310,6 +312,16 @@ public class CloseMotherForm implements java.io.Serializable {
 	public void setSiteDeath(String siteDeath) {
 		this.siteDeath = siteDeath;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

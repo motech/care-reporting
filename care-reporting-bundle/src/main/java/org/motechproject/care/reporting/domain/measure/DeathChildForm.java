@@ -30,8 +30,9 @@ public class DeathChildForm implements java.io.Serializable {
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
+    private Date creationTime = new Date();
 
-	public DeathChildForm() {
+    public DeathChildForm() {
 	}
 
 	public DeathChildForm(int id) {
@@ -39,9 +40,9 @@ public class DeathChildForm implements java.io.Serializable {
 	}
 
 	public DeathChildForm(int id, Flw flw, ChildCase childCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			String close, Boolean childAlive, Boolean childDiedVillage,
-			String childPlaceDeath, String childSiteDeath, Date chldDateDeath) {
+                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                          String close, Boolean childAlive, Boolean childDiedVillage,
+                          String childPlaceDeath, String childSiteDeath, Date chldDateDeath, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -55,7 +56,8 @@ public class DeathChildForm implements java.io.Serializable {
 		this.childPlaceDeath = childPlaceDeath;
 		this.childSiteDeath = childSiteDeath;
 		this.chldDateDeath = chldDateDeath;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -183,6 +185,16 @@ public class DeathChildForm implements java.io.Serializable {
 	public void setChldDateDeath(Date chldDateDeath) {
 		this.chldDateDeath = chldDateDeath;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

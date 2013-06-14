@@ -63,8 +63,9 @@ public class RegistrationChildForm implements java.io.Serializable {
 	private Boolean childHaveAName;
 	private String childName;
 	private BigDecimal weight;
+    private Date creationTime = new Date();
 
-	public RegistrationChildForm() {
+    public RegistrationChildForm() {
 	}
 
 	public RegistrationChildForm(int id) {
@@ -72,18 +73,18 @@ public class RegistrationChildForm implements java.io.Serializable {
 	}
 
 	public RegistrationChildForm(int id, Flw flw, ChildCase childCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified,
-			Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
-			Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
-			Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
-			Boolean babyHepB3, Boolean babyMeasles, Boolean babyOpv0,
-			Boolean babyOpv1, Boolean babyOpv2, Boolean babyOpv3,
-			Boolean babyVita1, String caseName, String caseType, Date bcgDate,
-			String birthStatus, Date dob, Date dpt1Date, Date dpt2Date,
-			Date dpt3Date, String gender, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
-			Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
-			Boolean childHaveAName, String childName, BigDecimal weight) {
+                                 Date timeEnd, Date timeStart, Date dateModified,
+                                 Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
+                                 Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
+                                 Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
+                                 Boolean babyHepB3, Boolean babyMeasles, Boolean babyOpv0,
+                                 Boolean babyOpv1, Boolean babyOpv2, Boolean babyOpv3,
+                                 Boolean babyVita1, String caseName, String caseType, Date bcgDate,
+                                 String birthStatus, Date dob, Date dpt1Date, Date dpt2Date,
+                                 Date dpt3Date, String gender, Date hepB0Date, Date hepB1Date,
+                                 Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
+                                 Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
+                                 Boolean childHaveAName, String childName, BigDecimal weight, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -129,7 +130,8 @@ public class RegistrationChildForm implements java.io.Serializable {
 		this.childHaveAName = childHaveAName;
 		this.childName = childName;
 		this.weight = weight;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -559,6 +561,16 @@ public class RegistrationChildForm implements java.io.Serializable {
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

@@ -27,7 +27,8 @@ import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
+import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class GenericFormProcessorWorkerTest {
 
@@ -110,7 +111,8 @@ public class GenericFormProcessorWorkerTest {
         processor.initialize(newForm);
         NewForm motherForm = (NewForm) processor.parseMotherForm();
 
-        assertReflectionEquals(expectedForm, motherForm);
+        assertReflectionEqualsWithIgnore(expectedForm, motherForm, new String[]{"creationTime"});
+        assertDateIgnoringSeconds(expectedForm.getCreationTime(), motherForm.getCreationTime());
     }
 
     @Test
@@ -222,8 +224,16 @@ public class GenericFormProcessorWorkerTest {
 
         final EbfChildForm expectedForm1 = getExpectedForm(((EbfChildForm)serializables.get(0)).getChildCase().getCaseId());
         final EbfChildForm expectedForm2 = getExpectedForm(((EbfChildForm)serializables.get(1)).getChildCase().getCaseId());
-        assertReflectionEquals(expectedForm1, serializables.get(0));
-        assertReflectionEquals(expectedForm2, serializables.get(1));
+
+        assertChildEbfForm(expectedForm1, (EbfChildForm) serializables.get(0));
+        assertChildEbfForm(expectedForm2, (EbfChildForm) serializables.get(1));
+    }
+
+    private void assertChildEbfForm(EbfChildForm expectedForm, EbfChildForm actualForm) {
+        assertReflectionEqualsWithIgnore(expectedForm, actualForm, new String[]{"creationTime", "flw", "childCase"});
+        assertReflectionEqualsWithIgnore(expectedForm.getFlw(), actualForm.getFlw(), new String[]{"creationTime"});
+        assertReflectionEqualsWithIgnore(expectedForm.getChildCase(), actualForm.getChildCase(), new String[]{"creationTime"});
+        assertDateIgnoringSeconds(expectedForm.getCreationTime(), actualForm.getCreationTime());
     }
 
     private EbfChildForm getExpectedForm(String caseId){

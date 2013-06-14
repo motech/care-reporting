@@ -105,8 +105,9 @@ public class RegistrationMotherForm implements java.io.Serializable {
 	private String whereBorn;
 	private String whichHospital;
 	private String whichVillage;
+    private Date creationTime = new Date();
 
-	public RegistrationMotherForm() {
+    public RegistrationMotherForm() {
 	}
 
 	public RegistrationMotherForm(int id) {
@@ -141,7 +142,7 @@ public class RegistrationMotherForm implements java.io.Serializable {
                                   Boolean recentlyDelivered, String referralPrompt, String resident,
                                   String success, Boolean urineTest, Boolean usedFp,
                                   Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
-                                  String whichHospital, String whichVillage) {
+                                  String whichHospital, String whichVillage, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -230,7 +231,8 @@ public class RegistrationMotherForm implements java.io.Serializable {
 		this.whereBorn = whereBorn;
 		this.whichHospital = whichHospital;
 		this.whichVillage = whichVillage;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -1044,6 +1046,16 @@ public class RegistrationMotherForm implements java.io.Serializable {
 	public void setWhichVillage(String whichVillage) {
 		this.whichVillage = whichVillage;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

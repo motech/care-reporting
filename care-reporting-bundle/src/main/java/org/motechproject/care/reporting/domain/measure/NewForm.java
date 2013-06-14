@@ -44,8 +44,9 @@ public class NewForm implements java.io.Serializable {
 	private Date dob;
 	private Boolean dobKnown;
 	private String fullName;
+    private Date creationTime = new Date();
 
-	public NewForm() {
+    public NewForm() {
 	}
 
 	public NewForm(int id) {
@@ -53,12 +54,12 @@ public class NewForm implements java.io.Serializable {
 	}
 
 	public NewForm(int id, Flw flw, FlwGroup flwGroup, MotherCase motherCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Short ageCalc, String caseName, String caseType,
-			Date dateLastVisit, Date dateNextReg, Integer familyNumber,
-			Integer hhNumber, String husbandName, String lastVisitType,
-			Boolean motherAlive, Date motherDob, String motherName,
-			String caste, Date dob, Boolean dobKnown, String fullName) {
+                   String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                   Short ageCalc, String caseName, String caseType,
+                   Date dateLastVisit, Date dateNextReg, Integer familyNumber,
+                   Integer hhNumber, String husbandName, String lastVisitType,
+                   Boolean motherAlive, Date motherDob, String motherName,
+                   String caste, Date dob, Boolean dobKnown, String fullName, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.flwGroup = flwGroup;
@@ -83,7 +84,8 @@ public class NewForm implements java.io.Serializable {
 		this.dob = dob;
 		this.dobKnown = dobKnown;
 		this.fullName = fullName;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -314,6 +316,16 @@ public class NewForm implements java.io.Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

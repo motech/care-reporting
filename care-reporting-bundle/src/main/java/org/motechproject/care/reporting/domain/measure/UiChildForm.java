@@ -65,8 +65,9 @@ public class UiChildForm implements java.io.Serializable {
 	private Date dateMeaslesBooster;
 	private Date vitA2Date;
 	private Date vitA3Date;
+    private Date creationTime = new Date();
 
-	public UiChildForm() {
+    public UiChildForm() {
 	}
 
 	public UiChildForm(int id) {
@@ -74,20 +75,20 @@ public class UiChildForm implements java.io.Serializable {
 	}
 
 	public UiChildForm(int id, Flw flw, ChildCase childCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified,
-			Boolean addVaccinations, Boolean babyBcg, Boolean babyDpt1,
-			Boolean babyDpt2, Boolean babyDpt3, Boolean babyHepB0,
-			Boolean babyHepB1, Boolean babyHepB2, Boolean babyHepB3,
-			Boolean babyMeasles, Boolean babyOpv0, Boolean babyOpv1,
-			Boolean babyOpv2, Boolean babyOpv3, Boolean babyVita1,
-			Date bcgDate, Date dpt1Date, Date dpt2Date, Date dpt3Date,
-			Date dptBoosterDate, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
-			Date opv1Date, Date opv2Date, Date opv3Date, Date opvBoosterDate,
-			Date vitA1Date, Boolean babyDptBooster, Boolean babyJe,
-			Boolean babyMeaslesBooster, Boolean babyOpvBooster,
-			Boolean babyVita2, Boolean babyVita3, Date dateJe,
-			Date dateMeaslesBooster, Date vitA2Date, Date vitA3Date) {
+                       Date timeEnd, Date timeStart, Date dateModified,
+                       Boolean addVaccinations, Boolean babyBcg, Boolean babyDpt1,
+                       Boolean babyDpt2, Boolean babyDpt3, Boolean babyHepB0,
+                       Boolean babyHepB1, Boolean babyHepB2, Boolean babyHepB3,
+                       Boolean babyMeasles, Boolean babyOpv0, Boolean babyOpv1,
+                       Boolean babyOpv2, Boolean babyOpv3, Boolean babyVita1,
+                       Date bcgDate, Date dpt1Date, Date dpt2Date, Date dpt3Date,
+                       Date dptBoosterDate, Date hepB0Date, Date hepB1Date,
+                       Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
+                       Date opv1Date, Date opv2Date, Date opv3Date, Date opvBoosterDate,
+                       Date vitA1Date, Boolean babyDptBooster, Boolean babyJe,
+                       Boolean babyMeaslesBooster, Boolean babyOpvBooster,
+                       Boolean babyVita2, Boolean babyVita3, Date dateJe,
+                       Date dateMeaslesBooster, Date vitA2Date, Date vitA3Date, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -136,7 +137,8 @@ public class UiChildForm implements java.io.Serializable {
 		this.dateMeaslesBooster = dateMeaslesBooster;
 		this.vitA2Date = vitA2Date;
 		this.vitA3Date = vitA3Date;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -598,6 +600,16 @@ public class UiChildForm implements java.io.Serializable {
 	public void setVitA3Date(Date vitA3Date) {
 		this.vitA3Date = vitA3Date;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

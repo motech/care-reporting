@@ -4,7 +4,6 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
@@ -19,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -52,7 +50,7 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         FlwGroup loadedFlwGroup = template.load(FlwGroup.class, toBeUpdatedGroup.getId());
         FlwGroup unchangedFlwGroup = template.load(FlwGroup.class, notToBeUpdatedGroup.getId());
-        assertReflectionEqualsWithIgnore(updatedGroup(), loadedFlwGroup, new String[]{"id"});
+        assertReflectionEqualsWithIgnore(updatedGroup(), loadedFlwGroup, new String[]{"id", "creationTime"});
         assertEquals("ashok team 1", unchangedFlwGroup.getName());
     }
 
@@ -86,13 +84,13 @@ public class CareServiceIT extends SpringIntegrationTest {
         careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flwsToUpdate);
 
         Flw updatedFlw = template.load(Flw.class, toBeUpdatedFlw.getId());
-        assertReflectionEqualsWithIgnore(newFlw, updatedFlw, new String[]{"id"});
+        assertReflectionEqualsWithIgnore(newFlw, updatedFlw, new String[]{"id", "creationTime"});
         Flw unchangedFlw = template.load(Flw.class, notToBeUpdateFlw.getId());
         assertEquals("FirstName2", unchangedFlw.getFirstName());
     }
 
     @Test
-    public void shouldCreateNewFlw(){
+    public void shouldCreateNewFlw() {
         Flw newFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", flwGroupWithNameAndId("64a9a0928dde95d187544babf6c0ad38", "oldGroupName"));
 
         careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, Arrays.asList(newFlw));

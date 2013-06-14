@@ -83,8 +83,9 @@ public class CfChildForm implements java.io.Serializable {
 	private Date vitA3Date;
 	private Date vitA2Date;
 	private String close;
+    private Date creationTime = new Date();
 
-	public CfChildForm() {
+    public CfChildForm() {
 	}
 
 	public CfChildForm(int id) {
@@ -92,24 +93,24 @@ public class CfChildForm implements java.io.Serializable {
 	}
 
 	public CfChildForm(int id, Flw flw, ChildCase childCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified,
-			Boolean addVaccinations, Boolean amountGood, Boolean babyBcg,
-			Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
-			Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
-			Boolean babyHepB3, Boolean babyMeasles, Boolean babyOpv0,
-			Boolean babyOpv1, Boolean babyOpv2, Boolean babyOpv3,
-			Boolean babyVita1, Date bcgDate, String caseName, Date dpt1Date,
-			Date dpt2Date, Date dpt3Date, Date hepB0Date, Date hepB1Date,
-			Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
-			Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
-			Boolean dal, Boolean eatenCereal, Boolean egg, Boolean fish,
-			Boolean meat, Boolean milkCurd, Boolean moreFeedingLessSix,
-			Boolean nameUpdate, String newName, Boolean numberGood,
-			Boolean oilGhee, Boolean recentFever, Boolean treatedLessSix,
-			Boolean babyDptBooster, Boolean babyJe, Boolean babyMeaslesBooster,
-			Boolean babyOpvBooster, Boolean babyVita2, Boolean babyVita3,
-			Date dateJe, Date dateMeaslesBooster, Date dptBoosterDate,
-			Date opvBoosterDate, Date vitA3Date, Date vitA2Date, String close) {
+                       Date timeEnd, Date timeStart, Date dateModified,
+                       Boolean addVaccinations, Boolean amountGood, Boolean babyBcg,
+                       Boolean babyDpt1, Boolean babyDpt2, Boolean babyDpt3,
+                       Boolean babyHepB0, Boolean babyHepB1, Boolean babyHepB2,
+                       Boolean babyHepB3, Boolean babyMeasles, Boolean babyOpv0,
+                       Boolean babyOpv1, Boolean babyOpv2, Boolean babyOpv3,
+                       Boolean babyVita1, Date bcgDate, String caseName, Date dpt1Date,
+                       Date dpt2Date, Date dpt3Date, Date hepB0Date, Date hepB1Date,
+                       Date hepB2Date, Date hepB3Date, Date measlesDate, Date opv0Date,
+                       Date opv1Date, Date opv2Date, Date opv3Date, Date vitA1Date,
+                       Boolean dal, Boolean eatenCereal, Boolean egg, Boolean fish,
+                       Boolean meat, Boolean milkCurd, Boolean moreFeedingLessSix,
+                       Boolean nameUpdate, String newName, Boolean numberGood,
+                       Boolean oilGhee, Boolean recentFever, Boolean treatedLessSix,
+                       Boolean babyDptBooster, Boolean babyJe, Boolean babyMeaslesBooster,
+                       Boolean babyOpvBooster, Boolean babyVita2, Boolean babyVita3,
+                       Date dateJe, Date dateMeaslesBooster, Date dptBoosterDate,
+                       Date opvBoosterDate, Date vitA3Date, Date vitA2Date, String close, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -174,7 +175,8 @@ public class CfChildForm implements java.io.Serializable {
 		this.vitA3Date = vitA3Date;
 		this.vitA2Date = vitA2Date;
 		this.close = close;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -780,6 +782,16 @@ public class CfChildForm implements java.io.Serializable {
 	public void setClose(String close) {
 		this.close = close;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

@@ -25,6 +25,8 @@ CREATE TABLE report.flw (
 	   ,dob DATE
 	   ,ictcordinator VARCHAR(255)
 	   ,remarks TEXT
+ 	   ,creation_time TIMESTAMP WITH TIME ZONE
+ 	   ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.flw_group (
@@ -35,6 +37,8 @@ CREATE TABLE report.flw_group (
   ,awc_code VARCHAR(255)
   ,name VARCHAR(255)
   ,reporting BOOLEAN
+  ,creation_time TIMESTAMP WITH TIME ZONE
+  ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.flw_group_map (
@@ -138,8 +142,8 @@ CREATE TABLE report.mother_case (
 	,dob DATE
 	,closed BOOLEAN
 	,date_closed DATE
-
-
+    ,creation_time TIMESTAMP WITH TIME ZONE
+    ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.child_case (
@@ -184,8 +188,8 @@ CREATE TABLE report.child_case (
 	,vit_a_3_date DATE
 	,closed BOOLEAN
 	,date_closed DATE
-
-	
+    ,creation_time TIMESTAMP WITH TIME ZONE
+    ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.new_form (
@@ -213,6 +217,7 @@ CREATE TABLE report.new_form (
 	,dob_known	BOOLEAN
 	,full_name	VARCHAR(255)
 	,manual_group	INTEGER REFERENCES report.flw_group(id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.registration_mother_form (
@@ -304,6 +309,7 @@ CREATE TABLE report.registration_mother_form (
 	,where_born	VARCHAR(255)
 	,which_hospital	VARCHAR(255)
 	,which_village	VARCHAR(255)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.registration_child_form (
@@ -352,6 +358,7 @@ CREATE TABLE report.registration_child_form (
 	,child_have_a_name	BOOLEAN
 	,child_name	VARCHAR(255)
 	,weight	DECIMAL
+    ,creation_time TIMESTAMP WITH TIME ZONE
 	,UNIQUE(instance_id, case_id)
 );
 
@@ -467,7 +474,7 @@ CREATE TABLE report.bp_form(
 	,nextvisittype	VARCHAR(20)
 	,play_family_planning_vid	BOOLEAN
 	,postponing	VARCHAR(15)
-
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 
@@ -556,6 +563,7 @@ CREATE TABLE report.pnc_mother_form(
 	,tl_counsel_side_effects	BOOLEAN
 	,tl_counsel_timing	BOOLEAN
 	,why_no_ppffp	VARCHAR(255)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.pnc_child_form(
@@ -598,6 +606,7 @@ CREATE TABLE report.pnc_child_form(
 	,what_applied	VARCHAR(255)
 	,wrapped	BOOLEAN
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.ebf_mother_form(
@@ -690,7 +699,7 @@ CREATE TABLE report.ebf_mother_form(
     ,ppiud_bleeding BOOLEAN
     ,ppiud_discharge BOOLEAN
     ,ppiud_fever BOOLEAN
-
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.ebf_child_form(
@@ -745,6 +754,7 @@ CREATE TABLE report.ebf_child_form(
 	,treated_less_six	BOOLEAN
 	,water_or_milk	BOOLEAN
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.cf_mother_form(
@@ -771,6 +781,7 @@ CREATE TABLE report.cf_mother_form(
     ,date_cf_7 DATE
 	,confirm_close BOOLEAN
 	,close	BOOLEAN
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.cf_child_form(
@@ -839,6 +850,7 @@ CREATE TABLE report.cf_child_form(
     ,vit_a_2_date DATE
 	,close	VARCHAR(255)
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 
@@ -891,8 +903,7 @@ CREATE TABLE report.delivery_mother_form(
 	,where_born	VARCHAR(50)
 	,which_hospital	VARCHAR(255)
 	,which_village	VARCHAR(255)
-
-
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.delivery_child_form(
@@ -941,8 +952,8 @@ CREATE TABLE report.delivery_child_form(
 	,skin_care 	BOOLEAN
 	,what_applied 	VARCHAR(255)
 	,wrapped_dried 	BOOLEAN
+    ,creation_time TIMESTAMP WITH TIME ZONE
 	,UNIQUE(instance_id, case_id)
-
 );
 
 CREATE TABLE report.death_mother_form(
@@ -962,6 +973,7 @@ CREATE TABLE report.death_mother_form(
 	,num_children	SMALLINT
 	,place_death	VARCHAR(255)
 	,site_death	VARCHAR(255)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.death_child_form(
@@ -979,6 +991,7 @@ CREATE TABLE report.death_child_form(
 	,child_site_death	VARCHAR(255)
 	,chld_date_death	DATE
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.close_mother_form(
@@ -1006,6 +1019,7 @@ CREATE TABLE report.close_mother_form(
     ,died BOOLEAN
     ,date_death DATE
     ,site_death VARCHAR(255)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.close_child_form(
@@ -1028,6 +1042,7 @@ CREATE TABLE report.close_child_form(
 	,site_death	VARCHAR(255)
 	,place_death VARCHAR(255)
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -1040,6 +1055,7 @@ CREATE TABLE report.refer_mother_form(
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,num_children	SMALLINT
 	,refer_mother	BOOLEAN
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.refer_child_form(
@@ -1052,6 +1068,7 @@ CREATE TABLE report.refer_child_form(
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,refer_child	BOOLEAN
 	,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 
@@ -1073,6 +1090,7 @@ CREATE TABLE report.ui_mother_form(
 	,num_children	SMALLINT
 	,update_mother	BOOLEAN
 	,tt_booster DATE
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.ui_child_form(
@@ -1125,6 +1143,7 @@ CREATE TABLE report.ui_child_form(
     ,vit_a_2_date DATE
     ,vit_a_3_date DATE
     ,UNIQUE(instance_id, case_id)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.abort_form(
@@ -1139,6 +1158,7 @@ CREATE TABLE report.abort_form(
 	,close	 VARCHAR(20)
 	,birth_status	VARCHAR(255)
 	,date_aborted	DATE
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.mo_form(
@@ -1156,6 +1176,7 @@ CREATE TABLE report.mo_form(
 	,date_left	DATE
 	,name	VARCHAR(255)
 	,note_given	BOOLEAN
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.mi_form(
@@ -1175,4 +1196,5 @@ CREATE TABLE report.mi_form(
 	,abortion_type VARCHAR(255)
     ,date_aborted DATE
     ,migrated_status VARCHAR(255)
+    ,creation_time TIMESTAMP WITH TIME ZONE
 );

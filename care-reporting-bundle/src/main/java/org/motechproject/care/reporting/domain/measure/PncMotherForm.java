@@ -101,8 +101,9 @@ public class PncMotherForm implements java.io.Serializable {
 	private Boolean tlCounselSideEffects;
 	private Boolean tlCounselTiming;
 	private String whyNoPpffp;
+    private Date creationTime = new Date();
 
-	public PncMotherForm() {
+    public PncMotherForm() {
 	}
 
 	public PncMotherForm(int id) {
@@ -141,7 +142,7 @@ public class PncMotherForm implements java.io.Serializable {
                          Boolean tlCounselFollowUp, Boolean tlCounselHospital,
                          Boolean tlCounselIrreversible, Boolean tlCounselScreening,
                          Boolean tlCounselSideEffects, Boolean tlCounselTiming,
-                         String whyNoPpffp) {
+                         String whyNoPpffp, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -226,7 +227,8 @@ public class PncMotherForm implements java.io.Serializable {
 		this.tlCounselSideEffects = tlCounselSideEffects;
 		this.tlCounselTiming = tlCounselTiming;
 		this.whyNoPpffp = whyNoPpffp;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -1002,6 +1004,16 @@ public class PncMotherForm implements java.io.Serializable {
 	public void setWhyNoPpffp(String whyNoPpffp) {
 		this.whyNoPpffp = whyNoPpffp;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

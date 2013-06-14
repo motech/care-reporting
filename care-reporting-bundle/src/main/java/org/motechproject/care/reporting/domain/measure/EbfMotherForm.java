@@ -106,8 +106,9 @@ public class EbfMotherForm implements java.io.Serializable {
 	private Boolean ppiudBleeding;
 	private Boolean ppiudDischarge;
 	private Boolean ppiudFever;
+    private Date creationTime = new Date();
 
-	public EbfMotherForm() {
+    public EbfMotherForm() {
 	}
 
 	public EbfMotherForm(int id) {
@@ -149,7 +150,7 @@ public class EbfMotherForm implements java.io.Serializable {
                          Boolean understandTablets, Boolean usingCorrectly,
                          Boolean whereReplace, String whyNoPpffp, Boolean within42,
                          Date dateTlAdopted, Boolean abdominalPain, Boolean painUrination,
-                         Boolean ppiudBleeding, Boolean ppiudDischarge, Boolean ppiudFever) {
+                         Boolean ppiudBleeding, Boolean ppiudDischarge, Boolean ppiudFever, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -239,7 +240,8 @@ public class EbfMotherForm implements java.io.Serializable {
 		this.ppiudBleeding = ppiudBleeding;
 		this.ppiudDischarge = ppiudDischarge;
 		this.ppiudFever = ppiudFever;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -1064,6 +1066,16 @@ public class EbfMotherForm implements java.io.Serializable {
 	public void setPpiudFever(Boolean ppiudFever) {
 		this.ppiudFever = ppiudFever;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

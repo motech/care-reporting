@@ -25,8 +25,9 @@ public class ReferChildForm implements java.io.Serializable {
 	private Date timeStart;
 	private Date dateModified;
 	private Boolean referChild;
+    private Date creationTime = new Date();
 
-	public ReferChildForm() {
+    public ReferChildForm() {
 	}
 
 	public ReferChildForm(int id) {
@@ -34,8 +35,8 @@ public class ReferChildForm implements java.io.Serializable {
 	}
 
 	public ReferChildForm(int id, Flw flw, ChildCase childCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean referChild) {
+                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                          Boolean referChild, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -44,7 +45,8 @@ public class ReferChildForm implements java.io.Serializable {
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
 		this.referChild = referChild;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -126,6 +128,16 @@ public class ReferChildForm implements java.io.Serializable {
 	public void setReferChild(Boolean referChild) {
 		this.referChild = referChild;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

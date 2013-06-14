@@ -55,8 +55,9 @@ public class PncChildForm implements java.io.Serializable {
 	private Boolean warmToTouch;
 	private String whatApplied;
 	private Boolean wrapped;
+    private Date creationTime = new Date();
 
-	public PncChildForm() {
+    public PncChildForm() {
 	}
 
 	public PncChildForm(int id) {
@@ -64,21 +65,21 @@ public class PncChildForm implements java.io.Serializable {
 	}
 
 	public PncChildForm(int id, Flw flw, ChildCase childCase,
-			String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-			Boolean ableExpressedMilk, Boolean adequateSupport,
-			Boolean appliedToStump, Boolean babyActive,
-			Boolean breastfeedingWell, Boolean childAlive,
-			Boolean childDiedVillage, String childPlaceDeath,
-			String childSiteDeath, Date chldDateDeath, String close,
-			Boolean cordFallen, Boolean correctPosition,
-			Boolean counselCordCare, Boolean counselExclusiveBf,
-			Boolean counselExpressMilk, Boolean counselSkin,
-			Boolean couselBfCorrect, Boolean demonstrateExpressed,
-			Boolean demonstrateSkin, Boolean easyAwake, Boolean feedVigour,
-			Boolean goodLatch, Boolean improvementsBf, Boolean observedBf,
-			Boolean otherMilkToChild, Boolean secondObservation,
-			Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
-			Boolean wrapped) {
+                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
+                        Boolean ableExpressedMilk, Boolean adequateSupport,
+                        Boolean appliedToStump, Boolean babyActive,
+                        Boolean breastfeedingWell, Boolean childAlive,
+                        Boolean childDiedVillage, String childPlaceDeath,
+                        String childSiteDeath, Date chldDateDeath, String close,
+                        Boolean cordFallen, Boolean correctPosition,
+                        Boolean counselCordCare, Boolean counselExclusiveBf,
+                        Boolean counselExpressMilk, Boolean counselSkin,
+                        Boolean couselBfCorrect, Boolean demonstrateExpressed,
+                        Boolean demonstrateSkin, Boolean easyAwake, Boolean feedVigour,
+                        Boolean goodLatch, Boolean improvementsBf, Boolean observedBf,
+                        Boolean otherMilkToChild, Boolean secondObservation,
+                        Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
+                        Boolean wrapped, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
@@ -117,7 +118,8 @@ public class PncChildForm implements java.io.Serializable {
 		this.warmToTouch = warmToTouch;
 		this.whatApplied = whatApplied;
 		this.wrapped = wrapped;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -470,6 +472,16 @@ public class PncChildForm implements java.io.Serializable {
 	public void setWrapped(Boolean wrapped) {
 		this.wrapped = wrapped;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

@@ -40,8 +40,9 @@ public class CfMotherForm implements java.io.Serializable {
 	private Date dateCf7;
 	private Boolean confirmClose;
 	private Boolean close;
+    private Date creationTime = new Date();
 
-	public CfMotherForm() {
+    public CfMotherForm() {
 	}
 
 	public CfMotherForm(int id) {
@@ -54,7 +55,7 @@ public class CfMotherForm implements java.io.Serializable {
                         Date dateCf5, Date dateCf6, Date dateLastVisit, Date dateNextCf,
                         String lastVisitType, Short cfVisitNum,
                         Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
-                        Date dateCf7, Boolean confirmClose, Boolean close) {
+                        Date dateCf7, Boolean confirmClose, Boolean close, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -78,7 +79,8 @@ public class CfMotherForm implements java.io.Serializable {
 		this.dateCf7 = dateCf7;
 		this.confirmClose = confirmClose;
 		this.close = close;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -304,6 +306,16 @@ public class CfMotherForm implements java.io.Serializable {
 	public void setClose(Boolean close) {
 		this.close = close;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

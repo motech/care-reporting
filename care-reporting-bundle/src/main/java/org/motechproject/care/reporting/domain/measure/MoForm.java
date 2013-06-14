@@ -31,8 +31,9 @@ public class MoForm implements java.io.Serializable {
 	private Date dateLeft;
 	private String name;
 	private Boolean noteGiven;
+    private Date creationTime = new Date();
 
-	public MoForm() {
+    public MoForm() {
 	}
 
 	public MoForm(int id) {
@@ -40,9 +41,9 @@ public class MoForm implements java.io.Serializable {
 	}
 
 	public MoForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-			Date timeEnd, Date timeStart, Date dateModified,
-			Date migrateOutDate, String migratedStatus, String status,
-			Date dateLearned, Date dateLeft, String name, Boolean noteGiven) {
+                  Date timeEnd, Date timeStart, Date dateModified,
+                  Date migrateOutDate, String migratedStatus, String status,
+                  Date dateLearned, Date dateLeft, String name, Boolean noteGiven, Date creationTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -57,7 +58,8 @@ public class MoForm implements java.io.Serializable {
 		this.dateLeft = dateLeft;
 		this.name = name;
 		this.noteGiven = noteGiven;
-	}
+        this.creationTime = creationTime;
+    }
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -196,6 +198,16 @@ public class MoForm implements java.io.Serializable {
 	public void setNoteGiven(Boolean noteGiven) {
 		this.noteGiven = noteGiven;
 	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
     @Override
     public String toString() {

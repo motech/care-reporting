@@ -7,7 +7,6 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.constants.EventConstants;
@@ -41,8 +40,8 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(2, flwGroupsFromDb.size());
-        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d05d4"), flwGroupsFromDb, new String[]{"id"});
-        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d1de1"), flwGroupsFromDb, new String[]{"id"});
+        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d05d4"), flwGroupsFromDb, new String[]{"id", "creationTime"});
+        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d1de1"), flwGroupsFromDb, new String[]{"id", "creationTime"});
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertTrue(flwsFromDb.isEmpty());
     }
@@ -61,16 +60,16 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertEquals(3, flwsFromDb.size());
 
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
 
-        assertReflectionContains(flwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id"});
-        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb63886"), flwGroupsFromDb, new String[]{"id"});
-        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb66a7b"), flwGroupsFromDb, new String[]{"id"});
+        assertReflectionContains(flwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id", "creationTime"});
+        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb63886"), flwGroupsFromDb, new String[]{"id", "creationTime"});
+        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb66a7b"), flwGroupsFromDb, new String[]{"id", "creationTime"});
     }
 
     private FlwGroup blankFlwGroup(String groupId) {
@@ -82,11 +81,11 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2) {
         return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2,
                 "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null,
-                "", "Delhi", "Kapra", "Kopargoan", null, "Thiruppalai", null, null, null, DEFAULT_DOB);
+                "", "Delhi", "Kapra", "Kopargoan", null, "Thiruppalai", null, null, null, DEFAULT_DOB, null, null);
     }
 
     private FlwGroup flwGroup(String groupId) {
-        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, new HashSet<Flw>(), new HashSet<ChildCase>(), new HashSet<MotherCase>());
+        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, null, null, new HashSet<Flw>(), new HashSet<ChildCase>(), new HashSet<MotherCase>());
     }
 
     private Group group(final String groupId) {
