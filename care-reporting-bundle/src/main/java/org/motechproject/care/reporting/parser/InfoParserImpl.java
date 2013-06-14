@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.parser;
 
 import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.motechproject.care.reporting.utils.ListUtils;
 import org.motechproject.care.reporting.utils.StringUtils;
@@ -11,9 +12,13 @@ import java.util.*;
 
 public class InfoParserImpl implements InfoParser {
 
+    @JsonProperty("convertToCamelCase")
     private boolean convertToCamelCase = true;
+    @JsonProperty("keyConversionMap")
     private Map<String, String> keyConversionMap;
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    @JsonProperty("restrictedElements")
     private List<String> restrictedElements = new ArrayList<>();
 
     public InfoParserImpl() {
