@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.builder;
 
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.NewForm;
 
 import java.util.Date;
 
@@ -45,6 +44,11 @@ public class MotherCaseBuilder {
 
     public MotherCaseBuilder alive(boolean isAlive) {
         motherCase.setMotherAlive(isAlive);
+        return this;
+    }
+
+    public MotherCaseBuilder creationTime(Date creationTime) {
+        motherCase.setCreationTime(creationTime);
         return this;
     }
 }

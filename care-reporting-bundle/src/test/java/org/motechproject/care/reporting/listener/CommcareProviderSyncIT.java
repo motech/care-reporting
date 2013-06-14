@@ -3,10 +3,8 @@ package org.motechproject.care.reporting.listener;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.GroupBuilder;
 import org.motechproject.care.reporting.builder.ProviderBuilder;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.constants.EventConstants;
@@ -85,7 +83,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     }
 
     private FlwGroup flwGroup(String groupId) {
-        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, null, null, new HashSet<Flw>(), new HashSet<ChildCase>(), new HashSet<MotherCase>());
+        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, null, null, new HashSet<Flw>());
     }
 
     private Group group(final String groupId) {

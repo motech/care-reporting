@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.builder;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 
+import java.util.Date;
 import java.util.HashSet;
 
 public class FlwGroupBuilder {
@@ -51,6 +52,11 @@ public class FlwGroupBuilder {
         return new HashSet<FlwGroup>() {{
             add(buildDefault());
         }};
+    }
+
+    public FlwGroupBuilder creationTime(Date creationTime) {
+        flwGroup.setCreationTime(creationTime);
+        return this;
     }
 
     public static FlwGroup buildDefault() {

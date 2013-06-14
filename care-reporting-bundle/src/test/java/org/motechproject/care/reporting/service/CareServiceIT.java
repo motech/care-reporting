@@ -12,14 +12,10 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import static org.motechproject.care.reporting.utils.TestUtils.*;
 
 public class CareServiceIT extends SpringIntegrationTest {
     @Autowired
@@ -50,7 +46,9 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         FlwGroup loadedFlwGroup = template.load(FlwGroup.class, toBeUpdatedGroup.getId());
         FlwGroup unchangedFlwGroup = template.load(FlwGroup.class, notToBeUpdatedGroup.getId());
-        assertReflectionEqualsWithIgnore(updatedGroup(), loadedFlwGroup, new String[]{"id", "creationTime"});
+        assertReflectionEqualsWithIgnore(updatedGroup(), loadedFlwGroup, new String[]{"id", "creationTime", "lastModifiedTime"});
+        assertDateIgnoringSeconds(new Date(), loadedFlwGroup.getCreationTime());
+        assertDateIgnoringSeconds(new Date(), loadedFlwGroup.getLastModifiedTime());
         assertEquals("ashok team 1", unchangedFlwGroup.getName());
     }
 
@@ -84,7 +82,10 @@ public class CareServiceIT extends SpringIntegrationTest {
         careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flwsToUpdate);
 
         Flw updatedFlw = template.load(Flw.class, toBeUpdatedFlw.getId());
-        assertReflectionEqualsWithIgnore(newFlw, updatedFlw, new String[]{"id", "creationTime"});
+        assertReflectionEqualsWithIgnore(newFlw, updatedFlw, new String[]{"id", "creationTime", "lastModifiedTime"});
+        assertDateIgnoringSeconds(new Date(), updatedFlw.getCreationTime());
+        assertDateIgnoringSeconds(new Date(), updatedFlw.getLastModifiedTime());
+
         Flw unchangedFlw = template.load(Flw.class, notToBeUpdateFlw.getId());
         assertEquals("FirstName2", unchangedFlw.getFirstName());
     }

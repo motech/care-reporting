@@ -3,11 +3,13 @@ package org.motechproject.care.reporting.domain.dimension;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.domain.measure.NewForm;
+import org.motechproject.care.reporting.utils.TestUtils;
 
 import java.util.Date;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 public class MotherCaseTest {
     @Test
@@ -39,5 +41,23 @@ public class MotherCaseTest {
         oldMother.updateToLatest(updatedMother);
 
         assertEquals("durga", oldMother.getCaseName());
+    }
+
+    @Test
+    public void shouldUpdateTheLastModifiedTimeToCurrentTime(){
+        MotherCase motherCase = new MotherCaseBuilder().caseId("01").build();
+
+        motherCase.updateToLatest(new MotherCaseBuilder().caseId("01").build());
+
+        TestUtils.assertDateIgnoringSeconds(new Date(), motherCase.getLastModifiedTime());
+    }
+
+    @Test
+    public void shouldNotUpdateTheCreationTime(){
+        MotherCase motherCase = new MotherCaseBuilder().caseId("01").build();
+
+        motherCase.updateToLatest(new MotherCaseBuilder().caseId("01").creationTime(null).build());
+
+        assertNotNull(motherCase.getCreationTime());
     }
 }

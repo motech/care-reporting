@@ -6,6 +6,7 @@ import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "flw_group", uniqueConstraints = @UniqueConstraint(columnNames = "group_id"))
-public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
+public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Serializable {
 
 	private int id;
     @ExternalPrimaryKey
@@ -28,8 +29,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
     private Date creationTime = new Date();
     private Date lastModifiedTime;
     private Set<Flw> flws = new HashSet<>(0);
-	private Set<ChildCase> childCases = new HashSet<ChildCase>(0);
-	private Set<MotherCase> motherCases = new HashSet<MotherCase>(0);
 
 	public FlwGroup() {
 	}
@@ -40,8 +39,7 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 
 	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
-                    Date creationTime, Date lastModifiedTime, Set<Flw> flws, Set<ChildCase> childCases,
-                    Set<MotherCase> motherCases) {
+                    Date creationTime, Date lastModifiedTime, Set<Flw> flws) {
 		this.id = id;
 		this.groupId = groupId;
 		this.caseSharing = caseSharing;
@@ -52,8 +50,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
         this.flws = flws;
-        this.childCases = childCases;
-		this.motherCases = motherCases;
 	}
 
 	@Id
@@ -141,11 +137,6 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
-	public Set<ChildCase> getChildCases() {
-		return this.childCases;
-	}
-
     @ManyToMany(mappedBy="flwGroups")
     public Set<Flw> getFlws() {
         return flws;
@@ -155,25 +146,15 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
         this.flws = flws;
     }
 
-    public void setChildCases(Set<ChildCase> childCases) {
-		this.childCases = childCases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flwGroup")
-	public Set<MotherCase> getMotherCases() {
-		return this.motherCases;
-	}
-
-	public void setMotherCases(Set<MotherCase> motherCases) {
-		this.motherCases = motherCases;
-	}
-
+    @Override
     public void updateToLatest(FlwGroup other) {
-        this.name = other.name;
-        this.domain = other.domain;
-        this.awcCode = other.awcCode;
-        this.caseSharing = other.caseSharing;
-        this.reporting = other.reporting;
+        validateIfUpdatable(this.groupId, other.groupId);
+
+        updateFields(other, Arrays.asList("id", "groupId", "creationTime", "flws"));
     }
 
+    @Override
+    protected void updateLastModifiedTime() {
+        this.lastModifiedTime = new Date();
+    }
 }

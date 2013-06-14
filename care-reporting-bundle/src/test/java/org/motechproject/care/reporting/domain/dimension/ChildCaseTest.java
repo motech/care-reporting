@@ -1,17 +1,13 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.care.reporting.domain.measure.CfChildForm;
 
 import java.util.Date;
-import java.util.HashSet;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotNull;
+import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
 
 public class ChildCaseTest {
 
@@ -105,6 +101,26 @@ public class ChildCaseTest {
         existingChildCase.updateToLatest(newChildCase);
 
         assertEquals("New Name", existingChildCase.getName());
+    }
+
+    @Test
+    public void shouldUpdateLastModifiedToCurrentTime(){
+        ChildCase childCase = childCaseWithDateModified(null, null);
+
+        childCase.updateToLatest(childCaseWithDateModified(null, null));
+
+        assertDateIgnoringSeconds(new Date(), childCase.getLastModifiedTime());
+    }
+
+    @Test
+    public void shouldNotUpdateCreationTimeOfChildCase(){
+        ChildCase childCase = childCaseWithDateModified(null, null);
+        ChildCase updatedChildCase = childCaseWithDateModified(null, null);
+        updatedChildCase.setCreationTime(null);
+
+        childCase.updateToLatest(updatedChildCase);
+
+        assertNotNull(childCase.getCreationTime());
     }
 
     private ChildCase childCaseWithDateModified(Date date, String name) {

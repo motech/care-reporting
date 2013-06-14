@@ -6,7 +6,7 @@ public class ReflectionUtils {
     public static void updateValue(String fieldName, Object source, Object target) {
         try {
             Field field = source.getClass().getDeclaredField(fieldName);
-            if(java.lang.reflect.Modifier.isStatic(field.getModifiers()))
+            if (java.lang.reflect.Modifier.isStatic(field.getModifiers()))
                 return;
             field.setAccessible(true);
             Object updatedValue = field.get(source);

@@ -99,7 +99,7 @@ public class CareServiceTest {
 
         Flw actualFlw = service.getFlw("1");
 
-        assertReflectionEquals(expectedFlw, actualFlw);
+        assertReflectionEqualsWithIgnore(expectedFlw, actualFlw, new String[]{"creationTime"});
     }
 
     @Test
