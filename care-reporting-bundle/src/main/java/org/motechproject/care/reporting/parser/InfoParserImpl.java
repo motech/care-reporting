@@ -88,28 +88,13 @@ public class InfoParserImpl implements InfoParser {
     }
 
     @Override
-    public boolean isCamelCaseConversionOn(){
-        return this.convertToCamelCase;
-    }
-
-    @Override
     public void setRestrictedElements(List<String> restrictedElements) {
         this.restrictedElements = restrictedElements;
     }
 
     @Override
-    public Collection<String> getRestrictedElements(){
-        return restrictedElements;
-    }
-
-    @Override
     public void setKeyConversionMap(Map<String, String> keyConversionMap){
         this.keyConversionMap = keyConversionMap;
-    }
-
-    @Override
-    public Map<String, String> getKeyConversionMap(){
-        return keyConversionMap;
     }
 
     private boolean empty(Multimap<?, ?> subElements) {
