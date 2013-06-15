@@ -13,6 +13,12 @@
     <!-- get a settings instance to store your module's properties -->
     <bean id="settings" class="org.motechproject.server.config.SettingsFacade" autowire="byType">
         <property name="moduleName" value="care-reporting"/>
+        <property name="configFiles">
+            <list>
+                <value>classpath:care_report.properties</value>
+                <value>classpath:postgres.properties</value>
+            </list>
+        </property>
     </bean>
 
     <import resource="classpath:META-INF/motech/applicationHibernateContext.xml"/>
