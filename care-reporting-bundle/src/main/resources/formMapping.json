@@ -3,7 +3,7 @@
         "identifier": "*",
         "version": "*",
         "segment": "*",
-        "infoparser": {
+        "parser": {
             "convertToCamelCase": "true",
             "restrictedElements": [],
             "keyConversionMap": {

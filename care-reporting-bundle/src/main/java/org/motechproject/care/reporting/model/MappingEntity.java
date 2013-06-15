@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.model;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.InfoParserImpl;
@@ -23,6 +24,7 @@ public class MappingEntity {
     private String version;
     private String segment;
 
+    @JsonProperty("parser")
     @JsonDeserialize(as = InfoParserImpl.class)
     private InfoParser infoParser = new InfoParserImpl();
 

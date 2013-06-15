@@ -2,13 +2,12 @@ package org.motechproject.care.reporting.utils;
 
 import org.junit.Test;
 import org.motechproject.care.reporting.model.MappingEntity;
-import org.motechproject.care.reporting.parser.*;
+import org.motechproject.care.reporting.parser.InfoParser;
+import org.motechproject.care.reporting.parser.InfoParserImpl;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class JsonUtilsTest {
                 +   "identifier\": \"myId\",\""
                 +       "version\": \"myVersion\",\""
                 +       "segment\": \"mySegment\",\""
-                +       "infoParser\": {"
+                +       "parser\": {"
                 +   "\"convertToCamelCase\": false,"
                 +           "\"restrictedElements\": [\"case\", \"child_info\"],"
                 +   "\"keyConversionMap\": {"
