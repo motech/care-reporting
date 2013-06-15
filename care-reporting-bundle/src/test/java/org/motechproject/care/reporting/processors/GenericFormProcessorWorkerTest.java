@@ -46,7 +46,7 @@ public class GenericFormProcessorWorkerTest {
         initMocks(this);
         processor = new GenericFormProcessorWorker(service, mapperService);
 
-        when(mapperService.getFormInfoParser(anyString(), isA(FormSegment.class), anyString())).thenReturn(new InfoParserImpl());
+        when(mapperService.getFormInfoParser(anyString(), anyString(), isA(FormSegment.class))).thenReturn(new InfoParserImpl());
     }
 
     @Test
