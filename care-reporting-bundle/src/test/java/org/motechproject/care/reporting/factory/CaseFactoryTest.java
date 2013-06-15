@@ -20,12 +20,12 @@ public class CaseFactoryTest {
 
     @Test
     public void testGetMotherCaseType() throws Exception {
-        assertEquals(CaseType.Mother, CaseFactory.getCaseType("cc_bihar_pregnancy"));
+        assertEquals(CaseType.MOTHER, CaseFactory.getCaseType("cc_bihar_pregnancy"));
     }
 
     @Test
     public void testGetChildCaseType() throws Exception {
-        assertEquals(CaseType.Child, CaseFactory.getCaseType("cc_bihar_newborn"));
+        assertEquals(CaseType.CHILD, CaseFactory.getCaseType("cc_bihar_newborn"));
     }
 
     @Test(expected = IllegalArgumentException.class)

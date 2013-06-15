@@ -8,12 +8,12 @@ public class CaseTypeTest {
 
     @Test
     public void shouldGetMotherCaseType(){
-        assertEquals(CaseType.Mother, CaseType.getType("cc_bihar_pregnancy"));
+        assertEquals(CaseType.MOTHER, CaseType.getType("cc_bihar_pregnancy"));
     }
 
     @Test
     public void shouldGetChildCaseType(){
-        assertEquals(CaseType.Child, CaseType.getType("cc_bihar_newborn"));
+        assertEquals(CaseType.CHILD, CaseType.getType("cc_bihar_newborn"));
     }
 
     @Test(expected = IllegalArgumentException.class)

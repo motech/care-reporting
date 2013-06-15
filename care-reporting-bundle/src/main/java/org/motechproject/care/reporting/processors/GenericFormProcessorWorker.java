@@ -1,7 +1,7 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.enums.CaseType;
-import org.motechproject.care.reporting.enums.FormSegment;
+import org.motechproject.care.reporting.enums.*;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.ChildInfoParser;
@@ -47,16 +47,16 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
         this.commcareForm = commcareForm;
         namespace = namespace(commcareForm);
         version = version(commcareForm);
-        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Metadata, version);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, version, FormSegment.METADATA);
         metadata = new MetaInfoParser(infoParser).parse(commcareForm);
 
-        motherForm = FormFactory.getForm(namespace, CaseType.Mother);
-        childForm = FormFactory.getForm(namespace, CaseType.Child);
+        motherForm = FormFactory.getForm(namespace, CaseType.MOTHER);
+        childForm = FormFactory.getForm(namespace, CaseType.CHILD);
     }
 
     Serializable parseMotherForm() {
         Map<String, String> motherInfo = new HashMap<>(metadata);
-        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Mother, version);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, version, FormSegment.MOTHER);
         motherInfo.putAll(new MotherInfoParser(infoParser).parse(commcareForm));
 
         Object formObject = new GenericMapper().map(motherInfo, motherForm);
@@ -72,7 +72,7 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
             return new ArrayList<>();
 
         List<Serializable> childForms = new ArrayList<>();
-        InfoParser infoParser = mapperService.getFormInfoParser(namespace, FormSegment.Child, version);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace, version, FormSegment.CHILD);
         List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
 
         for (Map<String, String> childDetail : childDetails) {

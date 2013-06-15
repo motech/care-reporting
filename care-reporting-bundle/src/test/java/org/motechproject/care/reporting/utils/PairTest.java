@@ -18,11 +18,11 @@ public class PairTest {
 
     @Test
     public void testStringEnumPair(){
-        Pair<String, CaseType> stringPair = new Pair<>("namespace", CaseType.Mother);
-        Pair<String, CaseType> expectedStringEnumPair = new Pair<>("namespace", CaseType.Mother);
+        Pair<String, CaseType> stringPair = new Pair<>("namespace", CaseType.MOTHER);
+        Pair<String, CaseType> expectedStringEnumPair = new Pair<>("namespace", CaseType.MOTHER);
         assertEquals(expectedStringEnumPair, stringPair);
         assertEquals("namespace", stringPair.getFirst());
-        assertEquals("Mother", stringPair.getSecond().name());
+        assertEquals("MOTHER", stringPair.getSecond().name());
     }
 
 }

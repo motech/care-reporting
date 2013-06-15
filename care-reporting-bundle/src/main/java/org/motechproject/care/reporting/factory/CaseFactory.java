@@ -10,8 +10,8 @@ import java.util.Map;
 public class CaseFactory {
 
     private static Map<CaseType, Class<?>> caseMapper = new HashMap<CaseType, Class<?>>() {{
-        put(CaseType.Mother, MotherCase.class);
-        put(CaseType.Child, ChildCase.class);
+        put(CaseType.MOTHER, MotherCase.class);
+        put(CaseType.CHILD, ChildCase.class);
     }};
 
     public static Class<?> getCase(String type) {

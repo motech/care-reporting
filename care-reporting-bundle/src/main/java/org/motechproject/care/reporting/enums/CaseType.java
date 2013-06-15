@@ -1,8 +1,8 @@
 package org.motechproject.care.reporting.enums;
 
 public enum CaseType {
-    Mother("cc_bihar_pregnancy"),
-    Child("cc_bihar_newborn");
+    MOTHER("cc_bihar_pregnancy"),
+    CHILD("cc_bihar_newborn");
 
     private final String type;
 
