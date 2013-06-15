@@ -22,8 +22,12 @@ public class BestMatchProcessor {
         this.mappingEntities = mappingEntities;
     }
 
-    public MappingEntity getBestMatch(String identifier, String version, String segmentName) {
 
+    public MappingEntity getBestMatch(String identifier, String version) {
+        return getBestMatch(identifier, version, null);
+    }
+
+    public MappingEntity getBestMatch(String identifier, String version, String segmentName) {
         int bestMatchWeight = 0;
 
         MappingEntity bestMatchEntity = new MappingEntity();
@@ -39,7 +43,6 @@ public class BestMatchProcessor {
                 bestMatchEntity = mappingEntity;
             }
         }
-
         return bestMatchEntity;
     }
 
@@ -67,11 +70,7 @@ public class BestMatchProcessor {
         return weight;
     }
 
-    public MappingEntity getBestMatch(String identifier, String version) {
-        return getBestMatch(identifier, version, null);
-    }
-
-    public int getBestExactMatchWeight() {
+    private int getBestExactMatchWeight() {
         return (IDENTIFIER_WEIGHT + SEGMENT_WEIGHT + VERSION_WEIGHT) * ACTUAL_MATCH_RATIO;
     }
 }
