@@ -6,7 +6,7 @@
             "convertToCamelCase": "true",
             "restrictedElements": [],
             "keyConversionMap": {
-                "instance_ID": "instanceID"
+
             }
         }
     }

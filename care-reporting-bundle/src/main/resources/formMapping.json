@@ -2,13 +2,33 @@
     {
         "identifier": "*",
         "version": "*",
-        "segment": "*",
+        "segment": "META",
         "parser": {
             "convertToCamelCase": "true",
             "restrictedElements": [],
             "keyConversionMap": {
-                "instance_ID": "instanceID"
+                "instanceID": "instanceId"
             }
+        }
+    },
+    {
+        "identifier": "*",
+        "version": "*",
+        "segment": "MOTHER",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case","child_info"],
+            "keyConversionMap": {}
+        }
+    },
+    {
+        "identifier": "*",
+        "version": "*",
+        "segment": "CHILD",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case"],
+            "keyConversionMap": {}
         }
     }
 ]

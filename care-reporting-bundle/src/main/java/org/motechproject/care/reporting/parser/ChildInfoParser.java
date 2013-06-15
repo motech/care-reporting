@@ -9,13 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
-
 public class ChildInfoParser extends BaseInfoParser{
 
     public ChildInfoParser(InfoParser infoParser) {
         super(infoParser);
-        infoParser.setRestrictedElements(asList("case"));
     }
 
     public List<Map<String, String>> parse(CommcareForm commcareForm){

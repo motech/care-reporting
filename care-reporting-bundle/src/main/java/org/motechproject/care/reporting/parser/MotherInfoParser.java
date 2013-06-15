@@ -7,13 +7,10 @@ import org.motechproject.commcare.domain.FormValueElement;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
-
 public class MotherInfoParser extends BaseInfoParser {
 
     public MotherInfoParser(InfoParser infoParser) {
         super(infoParser);
-        infoParser.setRestrictedElements(asList("case", "child_info"));
     }
 
     public Map<String, String> parse(CommcareForm commcareForm) {
