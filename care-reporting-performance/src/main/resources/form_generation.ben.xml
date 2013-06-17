@@ -3,6 +3,7 @@
         xmlns="http://databene.org/benerator/0.7.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+        defaultPageSize="1000"
         >
 
     <import platforms="db"/>
@@ -14,13 +15,16 @@
     <setting name="dbCatalog" default="care_reporting"/>
     <setting name="dbSchema" default="report"/>
     <setting name="dbPassword" default="password"/>
-    <setting name="dbBatch" default="false"/>
-    <setting name="flw_count" default="5"/>
-    <setting name="flw_group_count" default="1"/>
-    <setting name="flw_group_map_count" default="50"/>
-    <setting name="mother_count" default="70"/>
-    <setting name="child_count" default="100"/>
-    <setting name="forms_count" default="200"/>
+    <setting name="dbBatch" default="true"/>
+
+    <setting name="string_length" default="10"/>
+    
+    <setting name="flw_count" default="5000"/>
+    <setting name="flw_group_count" default="1000"/>
+    <setting name="flw_group_map_count" default="50000"/>
+    <setting name="mother_count" default="70000"/>
+    <setting name="child_count" default="100000"/>
+    <setting name="forms_count" default="200000"/>
 
 
     <include uri="{ftl:postgres.ben.properties}"/>
@@ -46,39 +50,39 @@
 
     <generate type="flw" count="{flw_count}" consumer="db">
         <attribute name="flw_id" type="string" generator="UUIDGenerator"/>
-        <attribute name="default_phone_number" type="string"/>
-        <attribute name="email" type="string"/>
-        <attribute name="first_name" type="string"/>
-        <attribute name="last_name" type="string"/>
-        <attribute name="phone_number_1" type="string"/>
-        <attribute name="phone_number_2" type="string"/>
-        <attribute name="asset_id" type="string"/>
-        <attribute name="awc_code" type="string"/>
-        <attribute name="role" type="string"/>
-        <attribute name="subcentre" type="string"/>
-        <attribute name="user_type" type="string"/>
-        <attribute name="username" type="string"/>
-        <attribute name="population" type="string"/>
-        <attribute name="education" type="string"/>
+        <attribute name="default_phone_number" type="string" maxLength="{string_length}"/>
+        <attribute name="email" type="string" maxLength="{string_length}"/>
+        <attribute name="first_name" type="string" maxLength="{string_length}"/>
+        <attribute name="last_name" type="string" maxLength="{string_length}"/>
+        <attribute name="phone_number_1" type="string" maxLength="{string_length}"/>
+        <attribute name="phone_number_2" type="string" maxLength="{string_length}"/>
+        <attribute name="asset_id" type="string" maxLength="{string_length}"/>
+        <attribute name="awc_code" type="string" maxLength="{string_length}"/>
+        <attribute name="role" type="string" maxLength="{string_length}"/>
+        <attribute name="subcentre" type="string" maxLength="{string_length}"/>
+        <attribute name="user_type" type="string" maxLength="{string_length}"/>
+        <attribute name="username" type="string" maxLength="{string_length}"/>
+        <attribute name="population" type="string" maxLength="{string_length}"/>
+        <attribute name="education" type="string" maxLength="{string_length}"/>
         <attribute name="age" type="short"/>
-        <attribute name="district" type="string"/>
-        <attribute name="block" type="string"/>
-        <attribute name="panchayat" type="string"/>
-        <attribute name="village" type="string"/>
-        <attribute name="ward" type="string"/>
-        <attribute name="caste" type="string"/>
+        <attribute name="district" type="string" maxLength="{string_length}"/>
+        <attribute name="block" type="string" maxLength="{string_length}"/>
+        <attribute name="panchayat" type="string" maxLength="{string_length}"/>
+        <attribute name="village" type="string" maxLength="{string_length}"/>
+        <attribute name="ward" type="string" maxLength="{string_length}"/>
+        <attribute name="caste" type="string" maxLength="{string_length}"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
-        <attribute name="ictcordinator" type="string"/>
-        <attribute name="remarks" type="text"/>
+        <attribute name="ictcordinator" type="string" maxLength="{string_length}"/>
+        <attribute name="remarks" type="string" maxLength="5"/>
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
     <generate type="flw_group" count="{flw_group_count}" consumer="db">
         <attribute name="group_id" type="string" generator="UUIDGenerator"/>
         <attribute name="case_sharing" type="boolean"/>
-        <attribute name="domain" type="string"/>
-        <attribute name="awc_code" type="string"/>
-        <attribute name="name" type="string"/>
+        <attribute name="domain" type="string" maxLength="{string_length}"/>
+        <attribute name="awc_code" type="string" maxLength="{string_length}"/>
+        <attribute name="name" type="string" maxLength="{string_length}"/>
         <attribute name="reporting" type="boolean"/>
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
@@ -91,8 +95,8 @@
     <generate type="mother_case" count="{mother_count}" consumer="db">
         <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
         <attribute name="case_id" type="string" generator="UUIDGenerator"/>
-        <attribute name="case_name" type="string"/>
-        <attribute name="case_type" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
+        <attribute name="case_type" type="string" maxLength="{string_length}"/>
         <reference name="owner_id" selector="select id from report.flw_group" source="db" distribution="random" />
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <attribute name="date_modified" type="date" generator="DateTimeGenerator"/>
@@ -100,17 +104,17 @@
         <attribute name="server_date_opened" type="date" generator="DateTimeGenerator"/>
         <attribute name="family_number" type="int"/>
         <attribute name="hh_number" type="int"/>
-        <attribute name="husband_name" type="string"/>
+        <attribute name="husband_name" type="string" maxLength="{string_length}"/>
         <attribute name="last_visit_type" type="int"/>
         <attribute name="mother_alive" type="boolean"/>
         <attribute name="mother_dob" type="date" generator="DateGenerator"/>
-        <attribute name="mother_name" type="string"/>
+        <attribute name="mother_name" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean"/>
         <attribute name="case_closed" type="boolean"/>
         <attribute name="closed_on" type="date" generator="DateGenerator"/>
         <attribute name="add" type="date" generator="DateGenerator"/>
         <attribute name="age" type="short"/>
-        <attribute name="birth_place" type="string"/>
+        <attribute name="birth_place" type="string" maxLength="{string_length}"/>
         <attribute name="complications" type="boolean"/>
         <attribute name="date_next_bp" type="date" generator="DateGenerator"/>
         <attribute name="date_next_cf" type="date" generator="DateGenerator"/>
@@ -119,12 +123,12 @@
         <attribute name="eats_meat" type="boolean"/>
         <attribute name="edd" type="date" generator="DateGenerator"/>
         <attribute name="enrolled_in_kilkari" type="boolean"/>
-        <attribute name="family_planning_type" type="string"/>
+        <attribute name="family_planning_type" type="string" maxLength="{string_length}"/>
         <attribute name="how_many_children" type="short"/>
         <attribute name="interest_in_kilkari" type="boolean"/>
         <attribute name="last_preg_tt" type="boolean"/>
         <attribute name="lmp" type="date" generator="DateGenerator"/>
-        <attribute name="mobile_number" type="string"/>
+        <attribute name="mobile_number" type="string" maxLength="{string_length}"/>
         <attribute name="num_boys" type="short"/>
         <attribute name="date_cf_1" type="date" generator="DateGenerator"/>
         <attribute name="date_cf_2" type="date" generator="DateGenerator"/>
@@ -142,7 +146,7 @@
         <attribute name="date_pnc_1" type="date" generator="DateGenerator"/>
         <attribute name="date_pnc_2" type="date" generator="DateGenerator"/>
         <attribute name="date_pnc_3" type="date" generator="DateGenerator"/>
-        <attribute name="first_pnc_time" type="string"/>
+        <attribute name="first_pnc_time" type="string" maxLength="{string_length}"/>
         <attribute name="pnc_1_days_late" type="int"/>
         <attribute name="pnc_2_days_late" type="int"/>
         <attribute name="pnc_3_days_late" type="int"/>
@@ -155,12 +159,12 @@
         <attribute name="anc_3_date" type="date" generator="DateGenerator"/>
         <attribute name="anc_4_date" type="date" generator="DateGenerator"/>
         <attribute name="clean_cloth" type="boolean"/>
-        <attribute name="couple_interested" type="string"/>
+        <attribute name="couple_interested" type="string" maxLength="{string_length}"/>
         <attribute name="date_bp_1" type="date" generator="DateGenerator"/>
         <attribute name="date_bp_2" type="date" generator="DateGenerator"/>
         <attribute name="date_bp_3" type="date" generator="DateGenerator"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
-        <attribute name="delivery_type" type="string"/>
+        <attribute name="delivery_type" type="string" maxLength="{string_length}"/>
         <attribute name="ifa_tablets" type="short"/>
         <attribute name="ifa_tablets_100" type="date" generator="DateGenerator"/>
         <attribute name="materials" type="boolean"/>
@@ -171,11 +175,11 @@
         <attribute name="tt_1_date" type="date" generator="DateGenerator"/>
         <attribute name="tt_2_date" type="date" generator="DateGenerator"/>
         <attribute name="vehicle" type="boolean"/>
-        <attribute name="birth_status" type="string"/>
+        <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="migrate_out_date" type="date" generator="DateGenerator"/>
-        <attribute name="migrated_status" type="string"/>
-        <attribute name="status" type="string"/>
-        <attribute name="term" type="string"/>
+        <attribute name="migrated_status" type="string" maxLength="{string_length}"/>
+        <attribute name="status" type="string" maxLength="{string_length}"/>
+        <attribute name="term" type="string" maxLength="{string_length}"/>
         <attribute name="date_cf_7" type="date" generator="DateGenerator"/>
         <attribute name="date_del_fu" type="date" generator="DateGenerator"/>
         <attribute name="date_next_reg" type="date" generator="DateGenerator"/>
@@ -190,21 +194,21 @@
         <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
         <attribute name="case_id" type="string" generator="UUIDGenerator"/>
         <reference name="mother_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
-        <attribute name="case_name" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
         <attribute name="date_modified" type="date" generator="DateTimeGenerator"/>
         <attribute name="server_date_modified" type="date" generator="DateTimeGenerator"/>
         <attribute name="server_date_opened" type="date" generator="DateTimeGenerator"/>
-        <attribute name="case_type" type="string"/>
+        <attribute name="case_type" type="string" maxLength="{string_length}"/>
         <reference name="owner_id" selector="select id from report.flw_group" source="db" distribution="random" />
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <attribute name="baby_measles" type="boolean"/>
         <attribute name="bcg_date" type="date" generator="DateGenerator"/>
-        <attribute name="birth_status" type="string"/>
+        <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="dpt_1_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_2_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_3_date" type="date" generator="DateGenerator"/>
-        <attribute name="gender" type="string"/>
+        <attribute name="gender" type="string" maxLength="{string_length}"/>
         <attribute name="hep_b_0_date" type="date" generator="DateGenerator"/>
         <attribute name="hep_b_1_date" type="date" generator="DateGenerator"/>
         <attribute name="hep_b_2_date" type="date" generator="DateGenerator"/>
@@ -221,8 +225,8 @@
         <attribute name="date_je" type="date" generator="DateGenerator"/>
         <attribute name="date_measles_booster" type="date" generator="DateGenerator"/>
         <attribute name="baby_weight" type="double"/>
-        <attribute name="name" type="string"/>
-        <attribute name="term" type="string"/>
+        <attribute name="name" type="string" maxLength="{string_length}"/>
+        <attribute name="term" type="string" maxLength="{string_length}"/>
         <attribute name="time_of_birth" type="date" generator="DateTimeGenerator"/>
         <attribute name="vit_a_2_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
@@ -235,21 +239,21 @@
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
         <attribute name="age_calc" type="short"/>
-        <attribute name="case_name" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
         <attribute name="case_type" type='string' values="'cc_bihar_pregnancy','cc_bihar_newborn'"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
         <attribute name="date_next_reg" type="date" generator="DateGenerator"/>
         <attribute name="family_number" type="int"/>
         <attribute name="hh_number" type="int"/>
-        <attribute name="husband_name" type="string"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="husband_name" type="string" maxLength="{string_length}"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="mother_alive" type="boolean"/>
         <attribute name="mother_dob" type="date" generator="DateGenerator"/>
-        <attribute name="mother_name" type="string"/>
-        <attribute name="caste" type="string"/>
+        <attribute name="mother_name" type="string" maxLength="{string_length}"/>
+        <attribute name="caste" type="string" maxLength="{string_length}"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="dob_known" type="boolean"/>
-        <attribute name="full_name" type="string"/>
+        <attribute name="full_name" type="string" maxLength="{string_length}"/>
         <reference name="manual_group"  selector="select id from report.flw_group" source="db" distribution="random"/>
     </generate>
 
@@ -262,11 +266,11 @@
         <attribute name="age_calc" type="short"/>
         <attribute name="age_calc_adj" type="short"/>
         <attribute name="age_est" type="short"/>
-        <attribute name="age_est_trigger" type="string"/>
-        <attribute name="close" type="string"/>
+        <attribute name="age_est_trigger" type="string" maxLength="{string_length}"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="add" type="date" generator="DateGenerator"/>
         <attribute name="age" type="short"/>
-        <attribute name="birth_place" type="string"/>
+        <attribute name="birth_place" type="string" maxLength="{string_length}"/>
         <attribute name="complications" type="boolean"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
         <attribute name="date_next_bp" type="date" generator="DateGenerator"/>
@@ -276,27 +280,27 @@
         <attribute name="eats_meat" type="boolean"/>
         <attribute name="edd" type="date" generator="DateGenerator"/>
         <attribute name="enrolled_in_kilkari" type="boolean"/>
-        <attribute name="family_planning_type" type="string"/>
+        <attribute name="family_planning_type" type="string" maxLength="{string_length}"/>
         <attribute name="how_many_children" type="short"/>
         <attribute name="interest_in_kilkari" type="boolean"/>
         <attribute name="last_preg_tt" type="boolean"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="lmp" type="date" generator="DateGenerator"/>
-        <attribute name="mobile_number" type="string"/>
+        <attribute name="mobile_number" type="string" maxLength="{string_length}"/>
         <attribute name="mother_dob" type="date" generator="DateGenerator"/>
         <attribute name="num_boys" type="short"/>
-        <attribute name="status" type="string"/>
+        <attribute name="status" type="string" maxLength="{string_length}"/>
         <attribute name="child_dob" type="date" generator="DateGenerator"/>
-        <attribute name="client_no_register" type="string"/>
-        <attribute name="client_not_pregnant" type="string"/>
+        <attribute name="client_no_register" type="string" maxLength="{string_length}"/>
+        <attribute name="client_not_pregnant" type="string" maxLength="{string_length}"/>
         <attribute name="clinical_exam" type="boolean"/>
         <attribute name="condoms" type="boolean"/>
         <attribute name="continue_preg" type="boolean"/>
-        <attribute name="delivery_nature" type="string"/>
-        <attribute name="dob_est" type="string"/>
+        <attribute name="delivery_nature" type="string" maxLength="{string_length}"/>
+        <attribute name="dob_est" type="string" maxLength="{string_length}"/>
         <attribute name="edd_calc" type="date" generator="DateGenerator"/>
         <attribute name="edd_known" type="boolean"/>
-        <attribute name="education" type="string"/>
+        <attribute name="education" type="string" maxLength="{string_length}"/>
         <attribute name="fever" type="boolean"/>
         <attribute name="first_pregnancy" type="boolean"/>
         <attribute name="gest_age" type="short"/>
@@ -313,30 +317,30 @@
         <attribute name="lmp_calc" type="date" generator="DateGenerator"/>
         <attribute name="lmp_known" type="boolean"/>
         <attribute name="missed_period" type="boolean"/>
-        <attribute name="mobile_number_whose" type="string"/>
-        <attribute name="nextvisit" type="string"/>
-        <attribute name="nextvisit_bp" type="string"/>
-        <attribute name="nextvisittype" type="string"/>
+        <attribute name="mobile_number_whose" type="string" maxLength="{string_length}"/>
+        <attribute name="nextvisit" type="string" maxLength="{string_length}"/>
+        <attribute name="nextvisit_bp" type="string" maxLength="{string_length}"/>
+        <attribute name="nextvisittype" type="string" maxLength="{string_length}"/>
         <attribute name="num_children" type="short"/>
         <attribute name="num_girls" type="short"/>
         <attribute name="ocp_used" type="boolean"/>
-        <attribute name="other_conditions" type="string"/>
-        <attribute name="other_district" type="string"/>
-        <attribute name="other_village" type="string"/>
+        <attribute name="other_conditions" type="string" maxLength="{string_length}"/>
+        <attribute name="other_district" type="string" maxLength="{string_length}"/>
+        <attribute name="other_village" type="string" maxLength="{string_length}"/>
         <attribute name="pain_urine" type="boolean"/>
         <attribute name="post_postpartum_fp" type="boolean"/>
         <attribute name="preg_desired" type="boolean"/>
         <attribute name="recently_delivered" type="boolean"/>
-        <attribute name="referral_prompt" type="string"/>
-        <attribute name="resident" type="string"/>
-        <attribute name="success" type="string"/>
+        <attribute name="referral_prompt" type="string" maxLength="{string_length}"/>
+        <attribute name="resident" type="string" maxLength="{string_length}"/>
+        <attribute name="success" type="string" maxLength="{string_length}"/>
         <attribute name="urine_test" type="boolean"/>
         <attribute name="used_fp" type="boolean"/>
         <attribute name="vaginal_discharge" type="boolean"/>
         <attribute name="vegetarian" type="boolean"/>
-        <attribute name="where_born" type="string"/>
-        <attribute name="which_hospital" type="string"/>
-        <attribute name="which_village" type="string"/>
+        <attribute name="where_born" type="string" maxLength="{string_length}"/>
+        <attribute name="which_hospital" type="string" maxLength="{string_length}"/>
+        <attribute name="which_village" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="registration_child_form" count="{forms_count}" consumer="db">
@@ -358,15 +362,15 @@
         <attribute name="baby_opv2" type="boolean"/>
         <attribute name="baby_opv3" type="boolean"/>
         <attribute name="baby_vita1" type="boolean"/>
-        <attribute name="case_name" type="string"/>
-        <attribute name="case_type" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
+        <attribute name="case_type" type="string" maxLength="{string_length}"/>
         <attribute name="bcg_date" type="date" generator="DateGenerator"/>
-        <attribute name="birth_status" type="string"/>
+        <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="dpt_1_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_2_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_3_date" type="date" generator="DateGenerator"/>
-        <attribute name="gender" type="string"/>
+        <attribute name="gender" type="string" maxLength="{string_length}"/>
         <attribute name="hep_b_0_date" type="date" generator="DateGenerator"/>
         <attribute name="hep_b_1_date" type="date" generator="DateGenerator"/>
         <attribute name="hep_b_2_date" type="date" generator="DateGenerator"/>
@@ -378,16 +382,16 @@
         <attribute name="opv_3_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_1_date" type="date" generator="DateGenerator"/>
         <attribute name="child_have_a_name" type="boolean"/>
-        <attribute name="child_name" type="string"/>
+        <attribute name="child_name" type="string" maxLength="{string_length}"/>
         <attribute name="weight" type="double" generator="new RandomDoubleGenerator(2,200)"/>
     </generate>
 
     <generate type="abort_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
-        <attribute name="abortion_type" type="string"/>
-        <attribute name="close" type="string"/>
-        <attribute name="birth_status" type="string"/>
+        <attribute name="abortion_type" type="string" maxLength="{string_length}"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
+        <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="date_aborted" type="date" generator="DateGenerator"/>
     </generate>
 
@@ -396,35 +400,35 @@
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
         <attribute name="anc_latest_date" type="date" generator="DateGenerator"/>
         <attribute name="anc_latest_num" type="int"/>
-        <attribute name="anc1_abdominal_exam" type="string"/>
+        <attribute name="anc1_abdominal_exam" type="string" maxLength="{string_length}"/>
         <attribute name="anc1_abnormalities" type="boolean"/>
-        <attribute name="anc1_blood_pressure" type="string"/>
+        <attribute name="anc1_blood_pressure" type="string" maxLength="{string_length}"/>
         <attribute name="anc1_date" type="date" generator="DateGenerator"/>
-        <attribute name="anc1_facility" type="string"/>
+        <attribute name="anc1_facility" type="string" maxLength="{string_length}"/>
         <attribute name="anc1_details" type="boolean"/>
-        <attribute name="anc2_abdominal_exam" type="string"/>
+        <attribute name="anc2_abdominal_exam" type="string" maxLength="{string_length}"/>
         <attribute name="anc2_abnormalities" type="boolean"/>
-        <attribute name="anc2_blood_pressure" type="string"/>
+        <attribute name="anc2_blood_pressure" type="string" maxLength="{string_length}"/>
         <attribute name="anc2_date" type="date" generator="DateGenerator"/>
-        <attribute name="anc2_facility" type="string"/>
+        <attribute name="anc2_facility" type="string" maxLength="{string_length}"/>
         <attribute name="anc2_details" type="boolean"/>
-        <attribute name="anc3_abdominal_exam" type="string"/>
+        <attribute name="anc3_abdominal_exam" type="string" maxLength="{string_length}"/>
         <attribute name="anc3_abnormalities" type="boolean"/>
-        <attribute name="anc3_blood_pressure" type="string"/>
+        <attribute name="anc3_blood_pressure" type="string" maxLength="{string_length}"/>
         <attribute name="anc3_date" type="date" generator="DateGenerator"/>
-        <attribute name="anc3_facility" type="string"/>
+        <attribute name="anc3_facility" type="string" maxLength="{string_length}"/>
         <attribute name="anc3_details" type="boolean"/>
-        <attribute name="anc4_abdominal_exam" type="string"/>
+        <attribute name="anc4_abdominal_exam" type="string" maxLength="{string_length}"/>
         <attribute name="anc4_abnormalities" type="boolean"/>
-        <attribute name="anc4_blood_pressure" type="string"/>
+        <attribute name="anc4_blood_pressure" type="string" maxLength="{string_length}"/>
         <attribute name="anc4_date" type="date" generator="DateGenerator"/>
-        <attribute name="anc4_facility" type="string"/>
+        <attribute name="anc4_facility" type="string" maxLength="{string_length}"/>
         <attribute name="anc4_details" type="boolean"/>
         <attribute name="counsel_ifa" type="boolean"/>
         <attribute name="counsel_tt" type="boolean"/>
         <attribute name="eating_extra" type="boolean"/>
         <attribute name="ifa_tablets_issued" type="short"/>
-        <attribute name="reason_no_ifa" type="string"/>
+        <attribute name="reason_no_ifa" type="string" maxLength="{string_length}"/>
         <attribute name="received_tt1" type="boolean"/>
         <attribute name="received_tt2" type="boolean"/>
         <attribute name="resting" type="boolean"/>
@@ -462,16 +466,16 @@
         <attribute name="anc_2_date" type="date" generator="DateGenerator"/>
         <attribute name="anc_3_date" type="date" generator="DateGenerator"/>
         <attribute name="anc_4_date" type="date" generator="DateGenerator"/>
-        <attribute name="couple_interested" type="string"/>
+        <attribute name="couple_interested" type="string" maxLength="{string_length}"/>
         <attribute name="date_bp_1" type="date" generator="DateGenerator"/>
         <attribute name="date_bp_2" type="date" generator="DateGenerator"/>
         <attribute name="date_bp_3" type="date" generator="DateGenerator"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
         <attribute name="date_next_bp" type="date" generator="DateGenerator"/>
-        <attribute name="delivery_type" type="string"/>
+        <attribute name="delivery_type" type="string" maxLength="{string_length}"/>
         <attribute name="ifa_tablets" type="short"/>
         <attribute name="ifa_tablets_100" type="date" generator="DateGenerator"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="maternal_emergency" type="boolean"/>
         <attribute name="maternal_emergency_number" type="boolean"/>
         <attribute name="tt_1_date" type="date" generator="DateGenerator"/>
@@ -492,11 +496,11 @@
         <attribute name="postpone_conception" type="boolean"/>
         <attribute name="risk_of_preg" type="boolean"/>
         <attribute name="spacing_methods" type="boolean"/>
-        <attribute name="stop_children" type="string"/>
+        <attribute name="stop_children" type="string" maxLength="{string_length}"/>
         <attribute name="ifa_tablets_total" type="short"/>
-        <attribute name="nextvisittype" type="string"/>
+        <attribute name="nextvisittype" type="string" maxLength="{string_length}"/>
         <attribute name="play_family_planning_vid" type="boolean"/>
-        <attribute name="postponing" type="string"/>
+        <attribute name="postponing" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="cf_mother_form" count="{forms_count}" consumer="db">
@@ -510,7 +514,7 @@
         <attribute name="date_cf_6" type="date" generator="DateGenerator"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
         <attribute name="date_next_cf" type="date" generator="DateGenerator"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="cf_visit_num" type="short"/>
         <attribute name="num_children" type="short"/>
         <attribute name="play_comp_feeding_vid" type="boolean"/>
@@ -540,7 +544,7 @@
         <attribute name="baby_opv3" type="boolean"/>
         <attribute name="baby_vita1" type="boolean"/>
         <attribute name="bcg_date" type="date" generator="DateGenerator"/>
-        <attribute name="case_name" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
         <attribute name="dpt_1_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_2_date" type="date" generator="DateGenerator"/>
         <attribute name="dpt_3_date" type="date" generator="DateGenerator"/>
@@ -562,7 +566,7 @@
         <attribute name="milk_curd" type="boolean"/>
         <attribute name="more_feeding_less_six" type="boolean"/>
         <attribute name="name_update" type="boolean"/>
-        <attribute name="new_name" type="string"/>
+        <attribute name="new_name" type="string" maxLength="{string_length}"/>
         <attribute name="number_good" type="boolean"/>
         <attribute name="oil_ghee" type="boolean"/>
         <attribute name="recent_fever" type="boolean"/>
@@ -579,21 +583,21 @@
         <attribute name="opv_booster_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_2_date" type="date" generator="DateGenerator"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="close_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="close_mother" type="boolean"/>
         <attribute name="confirm_close" type="boolean"/>
         <attribute name="death_village" type="boolean"/>
-        <attribute name="died_village" type="string"/>
+        <attribute name="died_village" type="string" maxLength="{string_length}"/>
         <attribute name="dupe_reg" type="boolean"/>
         <attribute name="finished_continuum" type="boolean"/>
         <attribute name="num_children" type="short"/>
-        <attribute name="mother_alive" type="string"/>
+        <attribute name="mother_alive" type="string" maxLength="{string_length}"/>
         <attribute name="moved" type="boolean"/>
         <attribute name="migrated" type="boolean"/>
         <attribute name="date_learned" type="date" generator="DateGenerator"/>
@@ -601,13 +605,13 @@
         <attribute name="migration_note" type="boolean"/>
         <attribute name="died" type="boolean"/>
         <attribute name="date_death" type="date" generator="DateGenerator"/>
-        <attribute name="site_death" type="string"/>
+        <attribute name="site_death" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="close_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="child_alive" type="boolean"/>
         <attribute name="close_child" type="boolean"/>
         <attribute name="confirm_close" type="boolean"/>
@@ -616,32 +620,32 @@
         <attribute name="died_village" type="boolean"/>
         <attribute name="dupe_reg" type="boolean"/>
         <attribute name="finished_continuum" type="boolean"/>
-        <attribute name="site_death" type="string"/>
-        <attribute name="place_death" type="string"/>
+        <attribute name="site_death" type="string" maxLength="{string_length}"/>
+        <attribute name="place_death" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="death_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="mother_alive" type="boolean"/>
-        <attribute name="status" type="string"/>
+        <attribute name="status" type="string" maxLength="{string_length}"/>
         <attribute name="cast_num_children" type="short"/>
         <attribute name="date_death" type="date" generator="DateGenerator"/>
         <attribute name="death_village" type="boolean"/>
         <attribute name="num_children" type="short"/>
-        <attribute name="place_death" type="string"/>
-        <attribute name="site_death" type="string"/>
+        <attribute name="place_death" type="string" maxLength="{string_length}"/>
+        <attribute name="site_death" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="death_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="child_alive" type="boolean"/>
         <attribute name="child_died_village" type="boolean"/>
-        <attribute name="child_place_death" type="string"/>
-        <attribute name="child_site_death" type="string"/>
+        <attribute name="child_place_death" type="string" maxLength="{string_length}"/>
+        <attribute name="child_site_death" type="string" maxLength="{string_length}"/>
         <attribute name="chld_date_death" type="date" generator="DateGenerator"/>
     </generate>
 
@@ -652,43 +656,43 @@
         <attribute name="pptl" type="boolean"/>
         <attribute name="abd_pain" type="boolean"/>
         <attribute name="add" type="date" generator="DateGenerator"/>
-        <attribute name="close" type="string"/>
-        <attribute name="birth_place" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
+        <attribute name="birth_place" type="string" maxLength="{string_length}"/>
         <attribute name="date_del_fu" type="date" generator="DateGenerator"/>
         <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
         <attribute name="date_next_cf" type="date" generator="DateGenerator"/>
         <attribute name="date_next_eb" type="date" generator="DateGenerator"/>
         <attribute name="date_next_pnc" type="date" generator="DateGenerator"/>
-        <attribute name="family_planning_type" type="string"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="family_planning_type" type="string" maxLength="{string_length}"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="mother_alive" type="boolean"/>
-        <attribute name="term" type="string"/>
+        <attribute name="term" type="string" maxLength="{string_length}"/>
         <attribute name="cast_num_children" type="short"/>
         <attribute name="complications" type="boolean"/>
         <attribute name="date_death" type="date" generator="DateGenerator"/>
         <attribute name="death_village" type="boolean"/>
-        <attribute name="delivery_nature" type="string"/>
+        <attribute name="delivery_nature" type="string" maxLength="{string_length}"/>
         <attribute name="fever" type="boolean"/>
         <attribute name="has_delivered" type="boolean"/>
         <attribute name="how_many_children" type="short"/>
         <attribute name="ifa_tablets_given" type="boolean"/>
         <attribute name="in_district" type="boolean"/>
         <attribute name="jsy_money" type="boolean"/>
-        <attribute name="nextvisittype" type="string"/>
+        <attribute name="nextvisittype" type="string" maxLength="{string_length}"/>
         <attribute name="notified" type="date" generator="DateGenerator"/>
         <attribute name="num_children" type="short"/>
         <attribute name="other_conditions" type="boolean"/>
-        <attribute name="other_district" type="string"/>
-        <attribute name="other_village" type="string"/>
+        <attribute name="other_district" type="string" maxLength="{string_length}"/>
+        <attribute name="other_village" type="string" maxLength="{string_length}"/>
         <attribute name="pain_urine" type="boolean"/>
-        <attribute name="place_death" type="string"/>
+        <attribute name="place_death" type="string" maxLength="{string_length}"/>
         <attribute name="post_postpartum_fp" type="boolean"/>
         <attribute name="safe" type="boolean"/>
-        <attribute name="site_death" type="string"/>
+        <attribute name="site_death" type="string" maxLength="{string_length}"/>
         <attribute name="vaginal_discharge" type="boolean"/>
-        <attribute name="where_born" type="string"/>
-        <attribute name="which_hospital" type="string"/>
-        <attribute name="which_village" type="string"/>
+        <attribute name="where_born" type="string" maxLength="{string_length}"/>
+        <attribute name="which_hospital" type="string" maxLength="{string_length}"/>
+        <attribute name="which_village" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="delivery_child_form" count="{forms_count}" consumer="db">
@@ -700,28 +704,28 @@
         <attribute name="baby_hep_b_0" type="boolean"/>
         <attribute name="baby_opv0" type="boolean"/>
         <attribute name="breastfed_hour" type="boolean"/>
-        <attribute name="close" type="string"/>
-        <attribute name="case_name" type="string"/>
-        <attribute name="case_type" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
+        <attribute name="case_type" type="string" maxLength="{string_length}"/>
         <attribute name="baby_weight" type="boolean"/>
         <attribute name="bcg_date" type="date" generator="DateGenerator"/>
-        <attribute name="birth_status" type="string"/>
+        <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
-        <attribute name="gender" type="string"/>
+        <attribute name="gender" type="string" maxLength="{string_length}"/>
         <attribute name="hep_b_0_date" type="date" generator="DateGenerator"/>
         <attribute name="opv_0_date" type="date" generator="DateGenerator"/>
-        <attribute name="term" type="string"/>
+        <attribute name="term" type="string" maxLength="{string_length}"/>
         <attribute name="time_of_birth" type="date" generator="DateTimeGenerator"/>
         <attribute name="child_alive" type="boolean"/>
-        <attribute name="child_breathing" type="string"/>
+        <attribute name="child_breathing" type="string" maxLength="{string_length}"/>
         <attribute name="child_cried" type="boolean"/>
         <attribute name="child_died_village" type="boolean"/>
         <attribute name="child_have_a_name" type="boolean"/>
-        <attribute name="child_heartbeats" type="string"/>
+        <attribute name="child_heartbeats" type="string" maxLength="{string_length}"/>
         <attribute name="child_movement" type="boolean"/>
-        <attribute name="child_name" type="string"/>
-        <attribute name="child_place_death" type="string"/>
-        <attribute name="child_site_death" type="string"/>
+        <attribute name="child_name" type="string" maxLength="{string_length}"/>
+        <attribute name="child_place_death" type="string" maxLength="{string_length}"/>
+        <attribute name="child_site_death" type="string" maxLength="{string_length}"/>
         <attribute name="chld_date_death" type="date" generator="DateGenerator"/>
         <attribute name="cord_applied" type="boolean"/>
         <attribute name="cord_cut" type="boolean"/>
@@ -730,7 +734,7 @@
         <attribute name="date_time_feed" type="date" generator="DateGenerator"/>
         <attribute name="first_weight" type="double"/>
         <attribute name="skin_care" type="boolean"/>
-        <attribute name="what_applied" type="string"/>
+        <attribute name="what_applied" type="string" maxLength="{string_length}"/>
         <attribute name="wrapped_dried" type="boolean"/>
     </generate>
 
@@ -764,7 +768,7 @@
         <attribute name="discharge" type="boolean"/>
         <attribute name="distension" type="boolean"/>
         <attribute name="eb_visit_num" type="short"/>
-        <attribute name="family_planning_type" type="string"/>
+        <attribute name="family_planning_type" type="string" maxLength="{string_length}"/>
         <attribute name="fever" type="boolean"/>
         <attribute name="have_condoms" type="boolean"/>
         <attribute name="headaches" type="boolean"/>
@@ -781,10 +785,10 @@
         <attribute name="iud_counsel_placement" type="boolean"/>
         <attribute name="iud_counsel_screening" type="boolean"/>
         <attribute name="iud_counsel_side_effects" type="boolean"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="menstrual_irregularity" type="boolean"/>
         <attribute name="next_inj_calc" type="date" generator="DateGenerator"/>
-        <attribute name="nextvisittype" type="string"/>
+        <attribute name="nextvisittype" type="string" maxLength="{string_length}"/>
         <attribute name="num_children" type="short"/>
         <attribute name="ocp" type="boolean"/>
         <attribute name="ocp_continue" type="boolean"/>
@@ -811,7 +815,7 @@
         <attribute name="understand_tablets" type="boolean"/>
         <attribute name="using_correctly" type="boolean"/>
         <attribute name="where_replace" type="boolean"/>
-        <attribute name="why_no_ppffp" type="string"/>
+        <attribute name="why_no_ppffp" type="string" maxLength="{string_length}"/>
         <attribute name="within_42" type="boolean"/>
         <attribute name="date_tl_adopted" type="date" generator="DateGenerator"/>
         <attribute name="abdominal_pain" type="boolean"/>
@@ -840,8 +844,8 @@
         <attribute name="baby_opv3" type="boolean"/>
         <attribute name="bcg_date" type="date" generator="DateGenerator"/>
         <attribute name="breastfeeding" type="boolean"/>
-        <attribute name="case_name" type="string"/>
-        <attribute name="child_name" type="string"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
+        <attribute name="child_name" type="string" maxLength="{string_length}"/>
         <attribute name="counsel_adequate_bf" type="boolean"/>
         <attribute name="counsel_only_milk" type="boolean"/>
         <attribute name="counsel_stop_bottle" type="boolean"/>
@@ -857,7 +861,7 @@
         <attribute name="hep_b_3_date" type="date" generator="DateGenerator"/>
         <attribute name="more_feeding_less_six" type="boolean"/>
         <attribute name="name_update" type="boolean"/>
-        <attribute name="not_breasfeeding" type="string"/>
+        <attribute name="not_breasfeeding" type="string" maxLength="{string_length}"/>
         <attribute name="on_demand" type="boolean"/>
         <attribute name="opv_0_date" type="date" generator="DateGenerator"/>
         <attribute name="opv_1_date" type="date" generator="DateGenerator"/>
@@ -901,9 +905,9 @@
         <attribute name="discharge" type="boolean"/>
         <attribute name="distension" type="boolean"/>
         <attribute name="eating_well" type="boolean"/>
-        <attribute name="family_planning_type" type="string"/>
+        <attribute name="family_planning_type" type="string" maxLength="{string_length}"/>
         <attribute name="fever" type="boolean"/>
-        <attribute name="first_pnc_time" type="string"/>
+        <attribute name="first_pnc_time" type="string" maxLength="{string_length}"/>
         <attribute name="interval_ppfp_interest" type="boolean"/>
         <attribute name="iud" type="boolean"/>
         <attribute name="iud_adopted" type="boolean"/>
@@ -913,15 +917,15 @@
         <attribute name="iud_counsel_placement" type="boolean"/>
         <attribute name="iud_counsel_screening" type="boolean"/>
         <attribute name="iud_counsel_side_effects" type="boolean"/>
-        <attribute name="last_visit_type" type="string"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="mother_alive" type="boolean"/>
         <attribute name="mother_child_alive" type="boolean"/>
-        <attribute name="nextvisittype" type="string"/>
+        <attribute name="nextvisittype" type="string" maxLength="{string_length}"/>
         <attribute name="num_children" type="short"/>
         <attribute name="other_issues" type="boolean"/>
         <attribute name="pain_urination" type="boolean"/>
         <attribute name="painful_nipples" type="boolean"/>
-        <attribute name="place_death" type="string"/>
+        <attribute name="place_death" type="string" maxLength="{string_length}"/>
         <attribute name="pnc_1_days_late" type="int"/>
         <attribute name="pnc_2_days_late" type="int"/>
         <attribute name="pnc_3_days_late" type="int"/>
@@ -938,7 +942,7 @@
         <attribute name="pptl_problems" type="boolean"/>
         <attribute name="problems_breast" type="boolean"/>
         <attribute name="safe" type="boolean"/>
-        <attribute name="site_death" type="string"/>
+        <attribute name="site_death" type="string" maxLength="{string_length}"/>
         <attribute name="tl" type="boolean"/>
         <attribute name="tl_adopted" type="boolean"/>
         <attribute name="tl_consel_incentives" type="boolean"/>
@@ -948,7 +952,7 @@
         <attribute name="tl_counsel_screening" type="boolean"/>
         <attribute name="tl_counsel_side_effects" type="boolean"/>
         <attribute name="tl_counsel_timing" type="boolean"/>
-        <attribute name="why_no_ppffp" type="string"/>
+        <attribute name="why_no_ppffp" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="pnc_child_form" count="{forms_count}" consumer="db">
@@ -961,10 +965,10 @@
         <attribute name="breastfeeding_well" type="boolean"/>
         <attribute name="child_alive" type="boolean"/>
         <attribute name="child_died_village" type="boolean"/>
-        <attribute name="child_place_death" type="string"/>
-        <attribute name="child_site_death" type="string"/>
+        <attribute name="child_place_death" type="string" maxLength="{string_length}"/>
+        <attribute name="child_site_death" type="string" maxLength="{string_length}"/>
         <attribute name="chld_date_death" type="date" generator="DateGenerator"/>
-        <attribute name="close" type="string"/>
+        <attribute name="close" type="string" maxLength="{string_length}"/>
         <attribute name="cord_fallen" type="boolean"/>
         <attribute name="correct_position" type="boolean"/>
         <attribute name="counsel_cord_care" type="boolean"/>
@@ -983,7 +987,7 @@
         <attribute name="second_observation" type="boolean"/>
         <attribute name="skin_to_skin" type="boolean"/>
         <attribute name="warm_to_touch" type="boolean"/>
-        <attribute name="what_applied" type="string"/>
+        <attribute name="what_applied" type="string" maxLength="{string_length}"/>
         <attribute name="wrapped" type="boolean"/>
     </generate>
 
@@ -1009,7 +1013,7 @@
         <attribute name="tt_booster_date" type="date" generator="DateGenerator"/>
         <attribute name="received_tt1" type="boolean"/>
         <attribute name="received_tt2" type="boolean"/>
-        <attribute name="up_to_date" type="string"/>
+        <attribute name="up_to_date" type="string" maxLength="{string_length}"/>
         <attribute name="num_children" type="short"/>
         <attribute name="update_mother" type="boolean"/>
         <attribute name="tt_booster" type="date" generator="DateGenerator"/>
@@ -1067,23 +1071,23 @@
         <attribute name="date_arrived" type="date" generator="DateGenerator"/>
         <attribute name="date_learned" type="date" generator="DateGenerator"/>
         <attribute name="date_of_delivery" type="date" generator="DateGenerator"/>
-        <attribute name="name" type="string"/>
-        <attribute name="preg_status" type="string"/>
-        <attribute name="referral_info" type="string"/>
-        <attribute name="abortion_type" type="string"/>
+        <attribute name="name" type="string" maxLength="{string_length}"/>
+        <attribute name="preg_status" type="string" maxLength="{string_length}"/>
+        <attribute name="referral_info" type="string" maxLength="{string_length}"/>
+        <attribute name="abortion_type" type="string" maxLength="{string_length}"/>
         <attribute name="date_aborted" type="date" generator="DateGenerator"/>
-        <attribute name="migrated_status" type="string"/>
+        <attribute name="migrated_status" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="mo_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
         <attribute name="migrate_out_date" type="date" generator="DateGenerator"/>
-        <attribute name="migrated_status" type="string"/>
-        <attribute name="status" type="string"/>
+        <attribute name="migrated_status" type="string" maxLength="{string_length}"/>
+        <attribute name="status" type="string" maxLength="{string_length}"/>
         <attribute name="date_learned" type="date" generator="DateGenerator"/>
         <attribute name="date_left" type="date" generator="DateGenerator"/>
-        <attribute name="name" type="string"/>
+        <attribute name="name" type="string" maxLength="{string_length}"/>
         <attribute name="note_given" type="boolean"/>
     </generate>
 </setup>
