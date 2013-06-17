@@ -2,7 +2,7 @@
     {
         "identifier": "*",
         "version": "*",
-        "segment": "META",
+        "segment": "METADATA",
         "parser": {
             "convertToCamelCase": "true",
             "restrictedElements": [],
