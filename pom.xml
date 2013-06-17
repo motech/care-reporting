@@ -7,6 +7,7 @@
     <modules>
         <module>care-reporting-migration</module>
         <module>care-reporting-bundle</module>
+        <module>care-reporting-functional-test</module>
     </modules>
     <packaging>pom</packaging>
 </project>
