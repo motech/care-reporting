@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<setup
+        xmlns="http://databene.org/benerator/0.7.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+        >
+
+    <import platforms="db"/>
+
+    <comment>Data for Forms</comment>
+
+    <setting name="stage" default="development"/>
+    <setting name="database" default="care_reporting"/>
+    <setting name="dbCatalog" default="care_reporting"/>
+    <setting name="dbSchema" default="report"/>
+    <setting name="dbPassword" default="password"/>
+    <setting name="dbBatch" default="false"/>
+    <setting name="flw_count" default="30"/>
+    <setting name="flw_group_count" default="30"/>
+    <setting name="flw_group_map_count" default="30"/>
+    <setting name="mother_count" default="30"/>
+    <setting name="child_count" default="30"/>
+    <setting name="forms_count" default="30"/>
+
+    <include uri="{ftl:postgres.ben.properties}"/>
+
+    <database id="db" url="{dbUrl}" driver="{dbDriver}" catalog="{dbCatalog}" schema="{dbSchema}" user="{dbUser}" password="{dbPassword}" batch="{dbBatch}"/>
+
+    <execute target="db" onError="warn">
+        Truncate table report.flw_group cascade;
+        Truncate table report.flw cascade;
+        Truncate table report.mother_case cascade;
+        Truncate table report.child_case cascade;
+    </execute>
+
+    <generate type="flw" count="{flw_count}" consumer="db">
+        <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
+        <attribute name="flw_id" type="string" generator="UUIDGenerator"/>
+    </generate>
+
+    <generate type="flw_group" count="{flw_group_count}" consumer="db">
+        <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
+        <attribute name="group_id" type="string" generator="UUIDGenerator"/>
+    </generate>
+
+    <generate type="flw_group_map" count="{flw_group_map_count}" consumer="db">
+        <reference name="flw_id"  selector="select id from report.flw" source="db" distribution="random"/>
+        <reference name="group_id" selector="select id from report.flw_group" source="db" distribution="random" />
+    </generate>
+
+    <generate type="mother_case" count="{mother_count}" consumer="db">
+        <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
+        <attribute name="case_id" type="string" generator="UUIDGenerator"/>
+    </generate>
+
+    <generate type="child_case" count="{child_count}" consumer="db">
+        <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
+        <attribute name="case_id" type="string" generator="UUIDGenerator"/>
+        <reference name="mother_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
+    </generate>
+
+    <generate type="new_form" count="{forms_count}" consumer="db">
+        <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
+        <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
+        <attribute name="instance_id" type="string" generator="UUIDGenerator"/>
+        <attribute name="time_start" type="date" generator="DateGenerator"/>
+        <attribute name="time_end" type="date" generator="DateGenerator"/>
+        <attribute name="date_modified" type="date" generator="CurrentDateGenerator"/>
+        <attribute name="age_calc" type="short"/>
+        <attribute name="case_name" type="string"/>
+        <attribute name="case_type" type='string' values="'cc_bihar_pregnancy','cc_bihar_newborn'"/>
+        <attribute name="date_last_visit" type="date" generator="DateGenerator"/>
+        <attribute name="date_next_reg" type="date" generator="DateGenerator"/>
+        <attribute name="family_number" type="int"/>
+        <attribute name="hh_number" type="int"/>
+        <attribute name="husband_name" type="string"/>
+        <attribute name="last_visit_type" type="string"/>
+        <attribute name="mother_alive" type="boolean"/>
+        <attribute name="mother_dob" type="date" generator="DateGenerator"/>
+        <attribute name="mother_name" type="string"/>
+        <attribute name="caste" type="string"/>
+        <attribute name="dob" type="date" generator="DateGenerator"/>
+        <attribute name="dob_known" type="boolean"/>
+        <attribute name="full_name" type="string"/>
+        <reference name="manual_group"  selector="select id from report.flw_group" source="db" distribution="random"/>
+        <attribute name="creation_time" type="date" generator="CurrentDateTimeGenerator"/>
+    </generate>
+
+</setup>
