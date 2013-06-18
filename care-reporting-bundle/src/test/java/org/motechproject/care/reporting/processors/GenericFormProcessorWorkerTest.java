@@ -18,6 +18,7 @@ import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 public class GenericFormProcessorWorkerTest {
     @Mock
     Service service;
-
     @Mock
     MapperService mapperService;
 
@@ -286,6 +286,16 @@ public class GenericFormProcessorWorkerTest {
 
         verify(service, times(3)).save(any(EbfChildForm.class));
 
+    }
+
+    @Test
+    public void shouldNotThrowExceptionIfMotherFormWithSameInstanceIdIsSaved(){
+        Serializable newFormObject = new NewForm();
+        GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service, mapperService);
+
+        doThrow(new DataIntegrityViolationException("Data integrity violation. Form with same instance id exists already.", new Exception())).when(service).save(newFormObject);
+
+        processor.saveForm(newFormObject, NewForm.class);
     }
 }
 

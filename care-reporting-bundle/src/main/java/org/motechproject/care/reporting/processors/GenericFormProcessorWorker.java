@@ -13,6 +13,7 @@ import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -90,7 +91,13 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
 
     void saveForm(Serializable form, Class<?> type) {
         logger.info(String.format("Started processing form %s", form));
-        service.save(type.cast(form));
+
+        try {
+            service.save(type.cast(form));
+        } catch (DataAccessException e) {
+            logger.warn(String.format("Cannot save Form: %s. %s", type.cast(form), e.getRootCause().getMessage()));
+        }
+
         logger.info(String.format("Finished processing form %s", form));
     }
 

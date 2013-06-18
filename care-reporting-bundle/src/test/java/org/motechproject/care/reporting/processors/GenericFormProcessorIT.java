@@ -9,13 +9,13 @@ import org.motechproject.care.reporting.domain.measure.EbfChildForm;
 import org.motechproject.care.reporting.domain.measure.EbfMotherForm;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.InfoParserImpl;
+import org.motechproject.care.reporting.repository.DbRepository;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,8 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionC
 public class GenericFormProcessorIT extends SpringIntegrationTest {
     @Autowired
     Service service;
+    @Autowired
+    DbRepository dbRepository;
     @Mock
     MapperService mapperService;
 
@@ -52,16 +54,6 @@ public class GenericFormProcessorIT extends SpringIntegrationTest {
         List<EbfChildForm> savedEbfChildForms = template.loadAll(EbfChildForm.class);
         assertEquals(1, savedEbfChildForms.size());
         assertEquals(instanceId, savedEbfChildForms.get(0).getInstanceId());
-    }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void shouldNotSaveAMotherFormWithExistingInstanceId() {
-        String instanceId = "202dfec6-55a6-45ce-8857-085b4b913864";
-        EbfMotherForm existingEbfMotherForm = new EbfMotherForm();
-        existingEbfMotherForm.setInstanceId(instanceId);
-        template.save(existingEbfMotherForm);
-
-        genericFormProcessor.process(setUpForm(instanceId));
     }
 
     @Test
