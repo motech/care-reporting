@@ -89,11 +89,6 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
     }
 
     void saveForm(Serializable form, Class<?> type) {
-        Serializable existingForm = service.findByExternalPrimaryKey(form);
-        if (existingForm != null) {
-            logger.warn(String.format("Cannot save Form: %s. Form with same instanceId already exists: %s", type.cast(form), type.cast(existingForm)));
-            return;
-        }
         logger.info(String.format("Started processing form %s", form));
         service.save(type.cast(form));
         logger.info(String.format("Finished processing form %s", form));

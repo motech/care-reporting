@@ -25,7 +25,6 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class GenericFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -62,29 +61,6 @@ public class GenericFormProcessorIT extends SpringIntegrationTest {
         List<EbfChildForm> savedEbfChildForms = template.loadAll(EbfChildForm.class);
         assertEquals(1, savedEbfChildForms.size());
         assertEquals(instanceId, savedEbfChildForms.get(0).getInstanceId());
-    }
-
-    @Test
-    public void shouldNotSaveAFormWithExistingInstanceId() {
-        String instanceId = "202dfec6-55a6-45ce-8857-085b4b913864";
-        EbfMotherForm existingEbfMotherForm = new EbfMotherForm();
-        existingEbfMotherForm.setInstanceId(instanceId);
-        existingEbfMotherForm.setNextvisittype("cf");
-        EbfChildForm existingEbfChildForm = new EbfChildForm();
-        existingEbfChildForm.setInstanceId(instanceId);
-        existingEbfChildForm.setAddVaccinations(false);
-        template.save(existingEbfChildForm);
-        template.save(existingEbfMotherForm);
-        CommcareForm ebfFormToSave = setUpForm(instanceId);
-
-        genericFormProcessor.process(ebfFormToSave);
-
-        List<EbfMotherForm> savedEbfMotherForms = template.loadAll(EbfMotherForm.class);
-        assertEquals(1, savedEbfMotherForms.size());
-        assertReflectionEqualsWithIgnore(existingEbfMotherForm, savedEbfMotherForms.get(0), "id");
-        List<EbfChildForm> savedEbfChildForms = template.loadAll(EbfChildForm.class);
-        assertEquals(1, savedEbfChildForms.size());
-        assertReflectionEqualsWithIgnore(existingEbfChildForm, savedEbfChildForms.get(0), "id");
     }
 
     private CommcareForm setUpForm(String instanceId) {

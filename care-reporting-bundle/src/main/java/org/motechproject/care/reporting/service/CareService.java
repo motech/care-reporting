@@ -40,18 +40,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
-        T persistedObject = findByExternalPrimaryKey(entity);
+        T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
         if(persistedObject == null)
             dbRepository.save(entity);
         else {
             persistedObject.updateToLatest(entity);
             dbRepository.save(persistedObject);
         }
-    }
-
-    @Override
-    public  <T> T findByExternalPrimaryKey(T entity) {
-        return dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
     }
 
     @Override

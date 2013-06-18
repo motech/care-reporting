@@ -267,7 +267,6 @@ public class GenericFormProcessorWorkerTest {
     public void shouldSaveForm(){
         Serializable newFormObject = new NewForm();
         GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service, mapperService);
-        when(service.findByExternalPrimaryKey(newFormObject)).thenReturn(null);
 
         processor.saveForm(newFormObject, NewForm.class);
 
@@ -287,16 +286,6 @@ public class GenericFormProcessorWorkerTest {
 
         verify(service, times(3)).save(any(EbfChildForm.class));
 
-    }
-
-    @Test
-    public void shouldNotSaveFormWithAnExistingInstanceId(){
-        NewForm newForm = new NewForm();
-        when(service.findByExternalPrimaryKey(newForm)).thenReturn(new NewForm());
-
-        new GenericFormProcessorWorker(service, mapperService).saveForm(newForm, NewForm.class);
-
-        verify(service, never()).save(anyObject());
     }
 }
 
