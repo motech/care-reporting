@@ -15,12 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "refer_mother_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class ReferMotherForm implements java.io.Serializable {
+public class ReferMotherForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private MotherCase motherCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -38,10 +37,10 @@ public class ReferMotherForm implements java.io.Serializable {
 	public ReferMotherForm(int id, Flw flw, MotherCase motherCase,
                            String instanceId, Date timeEnd, Date timeStart, Date dateModified,
                            Short numChildren, Boolean referMother, Date creationTime) {
-		this.id = id;
+        super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -81,15 +80,6 @@ public class ReferMotherForm implements java.io.Serializable {
 
 	public void setMotherCase(MotherCase motherCase) {
 		this.motherCase = motherCase;
-	}
-
-	@Column(name = "instance_id", unique = true, length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

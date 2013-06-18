@@ -2,15 +2,13 @@ package org.motechproject.care.reporting.domain.measure;
 
 // Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -18,13 +16,12 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "new_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class NewForm implements java.io.Serializable {
+public class NewForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private FlwGroup flwGroup;
 	private MotherCase motherCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -60,11 +57,11 @@ public class NewForm implements java.io.Serializable {
                    Integer hhNumber, String husbandName, String lastVisitType,
                    Boolean motherAlive, Date motherDob, String motherName,
                    String caste, Date dob, Boolean dobKnown, String fullName, Date creationTime) {
-		this.id = id;
+		super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.flwGroup = flwGroup;
 		this.motherCase = motherCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -128,15 +125,6 @@ public class NewForm implements java.io.Serializable {
 
 	public void setMotherCase(MotherCase motherCase) {
 		this.motherCase = motherCase;
-	}
-
-	@Column(name = "instance_id", unique = true, length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

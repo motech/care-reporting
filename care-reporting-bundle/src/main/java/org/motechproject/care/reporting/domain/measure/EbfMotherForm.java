@@ -15,12 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ebf_mother_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class EbfMotherForm implements java.io.Serializable {
+public class EbfMotherForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private MotherCase motherCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -151,10 +150,10 @@ public class EbfMotherForm implements java.io.Serializable {
                          Boolean whereReplace, String whyNoPpffp, Boolean within42,
                          Date dateTlAdopted, Boolean abdominalPain, Boolean painUrination,
                          Boolean ppiudBleeding, Boolean ppiudDischarge, Boolean ppiudFever, Date creationTime) {
-		this.id = id;
+        super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -274,15 +273,6 @@ public class EbfMotherForm implements java.io.Serializable {
 
 	public void setMotherCase(MotherCase motherCase) {
 		this.motherCase = motherCase;
-	}
-
-	@Column(name = "instance_id", unique = true, length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

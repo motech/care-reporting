@@ -15,12 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ui_child_form", uniqueConstraints = @UniqueConstraint(columnNames = {"instance_id","case_id"}))
-public class UiChildForm implements java.io.Serializable {
+public class UiChildForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private ChildCase childCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -89,10 +88,10 @@ public class UiChildForm implements java.io.Serializable {
                        Boolean babyMeaslesBooster, Boolean babyOpvBooster,
                        Boolean babyVita2, Boolean babyVita3, Date dateJe,
                        Date dateMeaslesBooster, Date vitA2Date, Date vitA3Date, Date creationTime) {
-		this.id = id;
+        super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.childCase = childCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -171,15 +170,6 @@ public class UiChildForm implements java.io.Serializable {
 
 	public void setChildCase(ChildCase childCase) {
 		this.childCase = childCase;
-	}
-
-	@Column(name = "instance_id", length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -15,12 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "cf_mother_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class CfMotherForm implements java.io.Serializable {
+public class CfMotherForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private MotherCase motherCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -56,10 +55,10 @@ public class CfMotherForm implements java.io.Serializable {
                         String lastVisitType, Short cfVisitNum,
                         Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
                         Date dateCf7, Boolean confirmClose, Boolean close, Date creationTime) {
-		this.id = id;
+        super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -113,15 +112,6 @@ public class CfMotherForm implements java.io.Serializable {
 
 	public void setMotherCase(MotherCase motherCase) {
 		this.motherCase = motherCase;
-	}
-
-	@Column(name = "instance_id", unique = true, length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

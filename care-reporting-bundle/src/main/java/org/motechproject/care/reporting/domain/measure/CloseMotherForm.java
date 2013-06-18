@@ -15,12 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "close_mother_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class CloseMotherForm implements java.io.Serializable {
+public class CloseMotherForm extends Form {
 
 	private int id;
 	private Flw flw;
 	private MotherCase motherCase;
-	private String instanceId;
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
@@ -58,10 +57,10 @@ public class CloseMotherForm implements java.io.Serializable {
                            String motherAlive, Boolean moved, Boolean migrated,
                            Date dateLearned, Date dateLeft, Boolean migrationNote,
                            Boolean died, Date dateDeath, String siteDeath, Date creationTime) {
-		this.id = id;
+        super(instanceId);
+        this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
-		this.instanceId = instanceId;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
@@ -116,15 +115,6 @@ public class CloseMotherForm implements java.io.Serializable {
 
 	public void setMotherCase(MotherCase motherCase) {
 		this.motherCase = motherCase;
-	}
-
-	@Column(name = "instance_id", unique = true, length = 36)
-	public String getInstanceId() {
-		return this.instanceId;
-	}
-
-	public void setInstanceId(String instanceId) {
-		this.instanceId = instanceId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
