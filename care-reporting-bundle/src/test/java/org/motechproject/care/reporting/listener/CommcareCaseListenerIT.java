@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.listener;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
@@ -21,6 +23,13 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionC
 public class CommcareCaseListenerIT extends SpringIntegrationTest {
     @Autowired
     private CommcareCaseListener commcareCaseListener;
+
+    @Before
+    @After
+    public void setUp() {
+        template.deleteAll(template.loadAll(MotherCase.class));
+        template.deleteAll(template.loadAll(FlwGroup.class));
+    }
 
     @Test
     public void shouldNotInsertDuplicateMotherCase() throws Exception {

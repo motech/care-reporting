@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.utils;
 
 import org.junit.Test;
+import org.motechproject.care.reporting.domain.measure.PncChildForm;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -11,6 +12,14 @@ public class ReflectionUtilsTest {
         ReflectionUtils.updateValue("field", new TestClass("newValue"), toBeUpdated);
 
         assertEquals("newValue", toBeUpdated.getField());
+    }
+
+    @Test
+    public void shouldTrySuperClassFieldsIfFieldIsNotFoundInSubClass(){
+        PncChildForm pncChildForm = new PncChildForm();
+        pncChildForm.setInstanceId("myInstanceId");
+
+        assertEquals("myInstanceId", ReflectionUtils.getValue(pncChildForm, "instanceId"));
     }
 
     private class TestClass {

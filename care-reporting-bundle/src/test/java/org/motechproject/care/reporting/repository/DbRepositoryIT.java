@@ -31,6 +31,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Before
     @After
     public void setUp() {
+        template.deleteAll(template.loadAll(NewForm.class));
         template.deleteAll(template.loadAll(ChildCase.class));
         template.deleteAll(template.loadAll(MotherCase.class));
         template.deleteAll(template.loadAll(Flw.class));

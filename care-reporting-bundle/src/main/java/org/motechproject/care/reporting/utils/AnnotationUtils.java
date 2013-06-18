@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.utils;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 
 import java.lang.annotation.Annotation;
@@ -21,10 +22,18 @@ public class AnnotationUtils {
     }
 
     private static Field findFieldWithAnnotation(Class clazz, Class<? extends Annotation> annotationClass) {
-        for (Field declaredField : clazz.getDeclaredFields()) {
+        Field[] allFields = getAllFields(clazz);
+
+        for (Field declaredField : allFields) {
             if (declaredField.isAnnotationPresent(annotationClass))
                 return declaredField;
         }
         return null;
+    }
+
+    private static Field[] getAllFields(Class clazz) {
+        Field[] classFields = clazz.getDeclaredFields();
+        Field[] superClassFields = clazz.getSuperclass().getDeclaredFields();
+        return (Field[]) ArrayUtils.addAll(classFields, superClassFields);
     }
 }

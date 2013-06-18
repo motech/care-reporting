@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.utils;
 
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.care.reporting.domain.measure.PncChildForm;
 
 import java.lang.reflect.Field;
 
@@ -18,6 +19,14 @@ public class AnnotationUtilsTest {
         Field expectedField = new TestClass().getClass().getDeclaredField("field");
 
         assertEquals(expectedField, AnnotationUtils.getExternalPrimaryKeyField(TestClass.class));
+    }
+
+    @Test
+    public void shouldConsiderSuperClassFieldsAlso(){
+        PncChildForm pncChildForm = new PncChildForm();
+        pncChildForm.setInstanceId("myInstanceId");
+
+        assertEquals("myInstanceId", AnnotationUtils.getExternalPrimaryKeyValue(pncChildForm));
     }
 
     private class TestClass {

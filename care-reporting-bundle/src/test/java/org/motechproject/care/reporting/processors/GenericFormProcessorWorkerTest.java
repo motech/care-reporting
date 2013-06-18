@@ -31,7 +31,6 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnorin
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class GenericFormProcessorWorkerTest {
-
     @Mock
     Service service;
 
@@ -39,7 +38,6 @@ public class GenericFormProcessorWorkerTest {
     MapperService mapperService;
 
     private GenericFormProcessorWorker processor;
-
 
     @Before
     public void setUp(){
@@ -265,11 +263,11 @@ public class GenericFormProcessorWorkerTest {
         return expectedChildForm;
     }
 
-
     @Test
     public void shouldSaveForm(){
         Serializable newFormObject = new NewForm();
         GenericFormProcessorWorker processor = new GenericFormProcessorWorker(service, mapperService);
+        when(service.findByExternalPrimaryKey(newFormObject)).thenReturn(null);
 
         processor.saveForm(newFormObject, NewForm.class);
 
@@ -289,6 +287,16 @@ public class GenericFormProcessorWorkerTest {
 
         verify(service, times(3)).save(any(EbfChildForm.class));
 
+    }
+
+    @Test
+    public void shouldNotSaveFormWithAnExistingInstanceId(){
+        NewForm newForm = new NewForm();
+        when(service.findByExternalPrimaryKey(newForm)).thenReturn(new NewForm());
+
+        new GenericFormProcessorWorker(service, mapperService).saveForm(newForm, NewForm.class);
+
+        verify(service, never()).save(anyObject());
     }
 }
 

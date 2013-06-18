@@ -24,4 +24,6 @@ public interface Service {
     FlwGroup getGroup(String groupId);
 
     <T> T get(Class<T> type, String fieldName, String value);
+
+    <T> T findByExternalPrimaryKey(T entity);
 }

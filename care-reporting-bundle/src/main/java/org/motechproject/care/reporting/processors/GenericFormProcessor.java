@@ -8,11 +8,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GenericFormProcessor implements FormProcessor {
-    @Autowired
     private Service service;
+    private MapperService mapperService;
 
     @Autowired
-    private MapperService mapperService;
+    public GenericFormProcessor(Service service, MapperService mapperService) {
+        this.service = service;
+        this.mapperService = mapperService;
+    }
 
     @Override
     public void process(CommcareForm commcareForm) {

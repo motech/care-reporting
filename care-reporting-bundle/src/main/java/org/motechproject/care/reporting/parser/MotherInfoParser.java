@@ -19,7 +19,6 @@ public class MotherInfoParser extends BaseInfoParser {
         Map<String, String> caseMap = parseCaseInfo(commcareForm);
         Map<String, String> motherInfo = new HashMap<>(caseMap);
 
-
         Map<String, String> motherMap = infoParser.parse(form, true);
 
         motherInfo.putAll(motherMap);

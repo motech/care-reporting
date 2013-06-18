@@ -24,7 +24,6 @@ public class MapperSettingsService {
         this.settings = settings;
         registerRawConfigFiles(getFileNames(getFormMappingPropertyValues()));
         registerRawConfigFiles(getFileNames(getCaseMappingPropertyValues()));
-
     }
 
     private void registerRawConfigFiles(String[] mappingFileNames) {

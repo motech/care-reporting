@@ -162,4 +162,16 @@ public class CareServiceTest {
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualMotherCase.getCaseId());
     }
+
+    @Test
+    public void shouldFindByExternalPrimaryKey(){
+        String instanceId = "myInstanceId";
+        NewForm expectedForm = new NewForm();
+        expectedForm.setInstanceId(instanceId);
+        when(dbRepository.findByExternalPrimaryKey(NewForm.class, instanceId)).thenReturn(expectedForm);
+
+        NewForm actualNewForm = service.findByExternalPrimaryKey(expectedForm);
+
+        assertEquals(actualNewForm, expectedForm);
+    }
 }

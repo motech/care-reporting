@@ -34,17 +34,20 @@ public class CommcareFormBuilder {
         return this;
     }
 
+    public CommcareFormBuilder withFormValueElementBuilder(FormValueElementBuilder formBuilder) {
+        this.formBuilder = formBuilder;
+        return this;
+    }
+
+    public CommcareFormBuilder addVersion(String versionAttributeName, String version) {
+        form.setVersion(version);
+        return this;
+    }
 
     public CommcareForm build() {
-
         form.setForm(formBuilder.build());
         form.setMetadata(metadata);
 
-        return form;
-    }
-
-    public CommcareForm setRootElement(FormValueElement valueElement) {
-        form.setForm(valueElement);
         return form;
     }
 }
