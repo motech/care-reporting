@@ -20,7 +20,6 @@ public class ChildInfoParser extends BaseInfoParser{
         List<Map<String, String>> childInfoList = new ArrayList<>();
         List<FormValueElement> child_infos = commcareForm.getForm().getAllElements("child_info");
 
-
         for(FormValueElement child_info : child_infos){
             Map<String, String> caseInfo = parseCaseInfo(child_info);
 

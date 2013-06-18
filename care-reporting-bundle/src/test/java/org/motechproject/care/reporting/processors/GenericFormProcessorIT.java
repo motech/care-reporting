@@ -1,13 +1,10 @@
 package org.motechproject.care.reporting.processors;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.EbfChildForm;
 import org.motechproject.care.reporting.domain.measure.EbfMotherForm;
 import org.motechproject.care.reporting.enums.FormSegment;
@@ -18,6 +15,7 @@ import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +23,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 
 public class GenericFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -38,14 +37,6 @@ public class GenericFormProcessorIT extends SpringIntegrationTest {
     public void setUp() {
         initMocks(this);
         genericFormProcessor = new GenericFormProcessor(service, mapperService);
-    }
-
-    @After
-    public void tearDown() {
-        template.deleteAll(template.loadAll(EbfChildForm.class));
-        template.deleteAll(template.loadAll(EbfMotherForm.class));
-        template.deleteAll(template.loadAll(MotherCase.class));
-        template.deleteAll(template.loadAll(ChildCase.class));
     }
 
     @Test
@@ -62,6 +53,37 @@ public class GenericFormProcessorIT extends SpringIntegrationTest {
         assertEquals(1, savedEbfChildForms.size());
         assertEquals(instanceId, savedEbfChildForms.get(0).getInstanceId());
     }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void shouldNotSaveAMotherFormWithExistingInstanceId() {
+        String instanceId = "202dfec6-55a6-45ce-8857-085b4b913864";
+        EbfMotherForm existingEbfMotherForm = new EbfMotherForm();
+        existingEbfMotherForm.setInstanceId(instanceId);
+        template.save(existingEbfMotherForm);
+
+        genericFormProcessor.process(setUpForm(instanceId));
+    }
+
+    @Test
+    public void multipleChildFormsCanExistWithSameInstanceId() {
+        String instanceId = "202dfec6-55a6-45ce-8857-085b4b913864";
+        EbfChildForm existingEbfChildForm = new EbfChildForm();
+        existingEbfChildForm.setInstanceId(instanceId);
+        existingEbfChildForm.setAddVaccinations(false);
+        template.save(existingEbfChildForm);
+        EbfChildForm expectedChildFormToBeSaved = new EbfChildForm();
+        expectedChildFormToBeSaved.setInstanceId(instanceId);
+        expectedChildFormToBeSaved.setAddVaccinations(true);
+        CommcareForm ebfFormToSave = setUpForm(instanceId);
+
+        genericFormProcessor.process(ebfFormToSave);
+
+        List<EbfChildForm> savedEbfChildForms = template.loadAll(EbfChildForm.class);
+        assertEquals(2, savedEbfChildForms.size());
+        assertReflectionContains(existingEbfChildForm, savedEbfChildForms, "id", "creationTime");
+        assertReflectionContains(expectedChildFormToBeSaved, savedEbfChildForms, "id", "creationTime");
+    }
+
 
     private CommcareForm setUpForm(String instanceId) {
         String namespace = "http://bihar.commcarehq.org/pregnancy/ebf";
@@ -81,13 +103,12 @@ public class GenericFormProcessorIT extends SpringIntegrationTest {
                 .build();
         FormValueElement childInfo = new FormValueElementBuilder()
                 .addSubElement("case", child)
+                .addSubElement("add_vaccinations", "true")
                 .build();
         FormValueElementBuilder formValueElementBuilder = new FormValueElementBuilder()
                 .addAttribute("xmlns", namespace)
                 .addSubElement("case", mother)
                 .addSubElement("child_info", childInfo)
-                .addSubElement("why_no_ppffp", "refused")
-                .addSubElement("add_vaccinations", "true")
                 .addSubElement("nextvisittype", "ebf");
 
         return new CommcareFormBuilder()
