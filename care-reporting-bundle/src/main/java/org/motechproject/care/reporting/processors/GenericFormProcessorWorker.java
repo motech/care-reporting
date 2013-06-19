@@ -95,7 +95,7 @@ public class GenericFormProcessorWorker extends ProcessorWorker {
         try {
             service.save(type.cast(form));
         } catch (DataAccessException e) {
-            logger.warn(String.format("Cannot save Form: %s. %s", type.cast(form), e.getRootCause().getMessage()));
+            logger.error(String.format("Cannot save Form: %s. %s", type.cast(form), e.getRootCause().getMessage()));
         }
 
         logger.info(String.format("Finished processing form %s", form));
