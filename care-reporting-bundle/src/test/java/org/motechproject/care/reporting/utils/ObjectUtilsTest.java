@@ -18,6 +18,7 @@ public class ObjectUtilsTest {
         ObjectUtils.set(testData, "aDateFormat1", "05/22/2013");
         ObjectUtils.set(testData, "aDateFormat2", "2012-07-21T12:02:59.923+05:30");
         ObjectUtils.set(testData, "aDateFormat3", "2012-07-15");
+        ObjectUtils.set(testData, "aDateFormat4", "2013-02-15T15:45:23");
 
         assertEquals(21, testData.getAnInt());
         assertEquals("hello", testData.getaString());
@@ -25,6 +26,7 @@ public class ObjectUtilsTest {
         assertEquals((new DateTime(2013, 5, 22, 0, 0, 0)).toDate(), testData.getaDateFormat1());
         assertEquals(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate(), testData.aDateFormat2);
         assertEquals((new DateTime(2012, 7, 15, 0, 0, 0)).toDate(), testData.getaDateFormat3());
+        assertEquals((new DateTime(2013, 2, 15, 15, 45, 23)).toDate(), testData.getaDateFormat4());
     }
 
     @Test

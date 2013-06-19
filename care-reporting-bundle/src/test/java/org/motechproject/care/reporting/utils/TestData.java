@@ -10,6 +10,16 @@ public class TestData {
     Date aDateFormat2;
     Date aDateFormat3;
 
+    public void setaDateFormat4(Date aDateFormat4) {
+        this.aDateFormat4 = aDateFormat4;
+    }
+
+    Date aDateFormat4;
+
+    public Date getaDateFormat4() {
+        return aDateFormat4;
+    }
+
     public boolean isaBoolean() {
         return aBoolean;
     }
