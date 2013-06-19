@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 @Component
@@ -24,28 +24,21 @@ public class CommCareAPIHttpClient {
     public CommCareAPIHttpClient(final HttpClient commonsHttpClient, @Qualifier("commcareProperties") Properties commcareProperties) {
         this.commonsHttpClient = commonsHttpClient;
         this.commcareProperties = commcareProperties;
+        authenticate();
     }
 
-    public String usersRequest() {
-        return this.getRequest(commcareUserUrl(), null);
+    public String fetchForm(String formId) {
+        String jsonResponse = getRequest(commcareFormUrl(formId), null);
+        return JsonUtils.toFormXml(jsonResponse);
     }
 
-    public String formRequest(String formId) {
-        return this.getRequest(commcareFormUrl(formId), null);
-    }
-
-    public String casesRequest(NameValuePair[] queryParams) {
-        return this.getRequest(commcaseCasesUrl(), queryParams);
-    }
-
-    public String singleCaseRequest(String caseId) {
-        return this.getRequest(commcareCaseUrl(caseId), null);
+    public String fetchCase(String caseId) {
+        String jsonResponse = getRequest(commcareCaseUrl(caseId), null);
+        return JsonUtils.toFormXml(jsonResponse);
     }
 
     private HttpMethod buildRequest(String url, NameValuePair[] queryParams) {
         HttpMethod requestMethod = new GetMethod(url);
-
-        authenticate();
 
         if (queryParams != null) {
             requestMethod.setQueryString(queryParams);
@@ -58,20 +51,23 @@ public class CommCareAPIHttpClient {
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
 
-        String response = null;
-
         try {
             commonsHttpClient.executeMethod(getMethod);
-            response = getMethod.getResponseBodyAsString();
+            InputStream responseStream = getMethod.getResponseBodyAsStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
+            StringBuffer sb = new StringBuffer();
+            String line;
+            while((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
         } catch (HttpException e) {
-            logger.warn("HttpException while sending request to CommCare: " + e.getMessage());
-            return null;
+            logger.error("HttpException while sending request to CommCare: " + e.getMessage());
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            logger.warn("IOException while sending request to CommCare: " + e.getMessage());
-            return null;
+            logger.error("IOException while sending request to CommCare: " + e.getMessage());
+            throw new RuntimeException(e);
         }
-
-        return response;
     }
 
     private void authenticate() {
@@ -82,21 +78,12 @@ public class CommCareAPIHttpClient {
                 new UsernamePasswordCredentials(getUsername(), getPassword()));
     }
 
-
-    private String commcareUserUrl() {
-        return String.format("%s/%s/api/v0.3/user/?format=json", getCommcareBaseUrl(), getCommcareDomain());
-    }
-
     private String commcareFormUrl(String formId) {
-        return String.format("%s/%s/api/v0.3/form/%s/?format=xml", getCommcareBaseUrl(), getCommcareDomain(), formId);
-    }
-
-    private String commcaseCasesUrl() {
-        return String.format("%s/%s/api/%s/case/", getCommcareBaseUrl(), getVersion(), getCommcareDomain());
+        return String.format("%s/%s/api/v0.3/form/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), formId);
     }
 
     private String commcareCaseUrl(String caseId) {
-        return String.format("%s/%s/api/%s/case/%s/", getCommcareBaseUrl(), getCommcareDomain(), getVersion(), caseId);
+        return String.format("%s/%s/api/%s/case/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), getVersion(), caseId);
     }
 
     private String getCommcareBaseUrl() {

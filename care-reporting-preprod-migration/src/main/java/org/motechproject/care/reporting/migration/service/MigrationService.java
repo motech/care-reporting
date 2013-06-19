@@ -15,10 +15,10 @@ public class MigrationService {
         this.migrationTaskFactory = migrationTaskFactory;
     }
 
-    public void migrate(MigratorArguments migratorArguments) {
+    public boolean migrate(MigratorArguments migratorArguments) {
         migratorArguments.validate();
         MigrationTask migrationTask = migrationTaskFactory.getFor(migratorArguments.getMigrationType());
-        migrationTask.migrate(migratorArguments.getIdFile());
+        return migrationTask.migrate(migratorArguments.getIdFile());
     }
 
 }

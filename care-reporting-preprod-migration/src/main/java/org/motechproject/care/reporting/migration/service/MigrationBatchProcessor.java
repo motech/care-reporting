@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.migration.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +14,16 @@ public class MigrationBatchProcessor {
 
     private final ExecutorServiceFactory executorServiceFactory;
 
+    private static final Logger logger = LoggerFactory.getLogger(MigrationBatchProcessor.class);
+
     @Autowired
     public MigrationBatchProcessor(ExecutorServiceFactory executorServiceFactory) {
         this.executorServiceFactory = executorServiceFactory;
     }
 
     public List<String> processInBatch(final MigrationTask migrationTask, List<String> idsToMigrate) {
+        logger.info(String.format("Migrating %s ids for task %s", idsToMigrate.size(), migrationTask.getClass().getCanonicalName()));
+
         MigrationFailedJobsCollector migrationFailedJobsCollector = new MigrationFailedJobsCollector();
 
         ExecutorService executorService = executorServiceFactory.create();
@@ -25,6 +31,7 @@ public class MigrationBatchProcessor {
             MigrationJob job = new MigrationJob(migrationTask, id, migrationFailedJobsCollector);
             executorService.execute(job);
         }
+        executorService.shutdown();
         try {
             executorService.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {

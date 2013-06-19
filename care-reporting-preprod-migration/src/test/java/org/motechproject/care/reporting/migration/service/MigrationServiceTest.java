@@ -10,6 +10,8 @@ import org.motechproject.care.reporting.migration.factory.MigrationTaskFactory;
 
 import java.io.File;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -40,9 +42,11 @@ public class MigrationServiceTest {
         when(migratorArguments.getIdFile()).thenReturn(idFile);
         when(migratorArguments.getMigrationType()).thenReturn(MigrationType.FORM);
         when(migrationTaskFactory.getFor(MigrationType.FORM)).thenReturn(migrationTask);
+        when(migrationTask.migrate(idFile)).thenReturn(true);
 
-        migrationService.migrate(migratorArguments);
+        boolean success = migrationService.migrate(migratorArguments);
 
+        assertTrue(success);
         verify(migratorArguments).validate();
         verify(migrationTask).migrate(idFile);
     }
@@ -55,5 +59,23 @@ public class MigrationServiceTest {
         doThrow(new IllegalArgumentException("Some exception")).when(migratorArguments).validate();
 
         migrationService.migrate(migratorArguments);
+    }
+
+    @Test
+    public void shouldReturnFalseIfMigrationIsUnsuccessfulForAnyId() {
+
+        MigrationTask migrationTask = mock(MigrationTask.class);
+        File idFile = new File("/temp");
+
+        when(migratorArguments.getIdFile()).thenReturn(idFile);
+        when(migratorArguments.getMigrationType()).thenReturn(MigrationType.FORM);
+        when(migrationTaskFactory.getFor(MigrationType.FORM)).thenReturn(migrationTask);
+        when(migrationTask.migrate(idFile)).thenReturn(false);
+
+        boolean success = migrationService.migrate(migratorArguments);
+
+        assertFalse(success);
+        verify(migratorArguments).validate();
+        verify(migrationTask).migrate(idFile);
     }
 }
