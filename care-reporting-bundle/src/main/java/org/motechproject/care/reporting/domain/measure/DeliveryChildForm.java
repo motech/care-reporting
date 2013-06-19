@@ -41,7 +41,7 @@ public class DeliveryChildForm extends Form {
 	private Date hepB0Date;
 	private Date opv0Date;
 	private String term;
-	private Date timeOfBirth;
+	private String timeOfBirth;
 	private Boolean childAlive;
 	private String childBreathing;
 	private Boolean childCried;
@@ -78,7 +78,7 @@ public class DeliveryChildForm extends Form {
                              String close, String caseName, String caseType,
                              Boolean babyWeight, Date bcgDate, String birthStatus, Date dob,
                              String gender, Date hepB0Date, Date opv0Date, String term,
-                             Date timeOfBirth, Boolean childAlive, String childBreathing,
+                             String timeOfBirth, Boolean childAlive, String childBreathing,
                              Boolean childCried, Boolean childDiedVillage,
                              Boolean childHaveAName, String childHeartbeats,
                              Boolean childMovement, String childName, String childPlaceDeath,
@@ -354,13 +354,12 @@ public class DeliveryChildForm extends Form {
 		this.term = term;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_of_birth", length = 35)
-	public Date getTimeOfBirth() {
+	@Column(name = "time_of_birth")
+	public String getTimeOfBirth() {
 		return this.timeOfBirth;
 	}
 
-	public void setTimeOfBirth(Date timeOfBirth) {
+	public void setTimeOfBirth(String timeOfBirth) {
 		this.timeOfBirth = timeOfBirth;
 	}
 
