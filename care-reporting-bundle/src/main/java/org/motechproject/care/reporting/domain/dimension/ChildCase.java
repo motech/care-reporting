@@ -58,7 +58,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private BigDecimal babyWeight;
 	private String name;
 	private String term;
-	private Date timeOfBirth;
+	private String timeOfBirth;
 	private Date vitA2Date;
 	private Date vitA3Date;
 	private Boolean closed;
@@ -83,7 +83,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 			Date opv3Date, Date vitA1Date, Boolean childAlive,
 			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
 			Date dateMeaslesBooster, BigDecimal babyWeight, String name,
-			String term, Date timeOfBirth, Date vitA2Date, Date vitA3Date,
+			String term, String timeOfBirth, Date vitA2Date, Date vitA3Date,
 			Boolean closed, Date dateClosed, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
@@ -484,13 +484,12 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.term = term;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_of_birth", length = 35)
-	public Date getTimeOfBirth() {
+	@Column(name = "time_of_birth")
+	public String getTimeOfBirth() {
 		return this.timeOfBirth;
 	}
 
-	public void setTimeOfBirth(Date timeOfBirth) {
+	public void setTimeOfBirth(String timeOfBirth) {
 		this.timeOfBirth = timeOfBirth;
 	}
 

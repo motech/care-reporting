@@ -183,7 +183,7 @@ CREATE TABLE report.child_case (
 	,baby_weight DECIMAL
 	,name VARCHAR(255)
 	,term VARCHAR(50)
-	,time_of_birth TIMESTAMP WITH TIME ZONE	
+	,time_of_birth VARCHAR(25)
 	,vit_a_2_date DATE
 	,vit_a_3_date DATE
 	,closed BOOLEAN
