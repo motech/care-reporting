@@ -58,10 +58,13 @@ public class BestMatchProcessor {
     }
 
     private int getWeight(String actualValue, String matchingValue, int wildCardWeight) {
-
         int weight = 0;
 
-        if (actualValue.equals(matchingValue))
+        if(actualValue == null && matchingValue == null)
+            weight = wildCardWeight;
+        else if (actualValue == null || matchingValue == null)
+            weight = 0;
+        else if (actualValue.equals(matchingValue))
             weight += (wildCardWeight * ACTUAL_MATCH_RATIO);
         else if (actualValue.equals(WILD_CARD))
             weight += wildCardWeight;
