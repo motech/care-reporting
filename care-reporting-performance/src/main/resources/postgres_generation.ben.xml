@@ -227,7 +227,7 @@
         <attribute name="baby_weight" type="double"/>
         <attribute name="name" type="string" maxLength="{string_length}"/>
         <attribute name="term" type="string" maxLength="{string_length}"/>
-        <attribute name="time_of_birth" type="date" generator="DateTimeGenerator"/>
+        <attribute name="time_of_birth" type="string" constant="08:08:08.123+05:30"/>
         <attribute name="vit_a_2_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
         <attribute name="closed" type="boolean"/>
@@ -715,7 +715,7 @@
         <attribute name="hep_b_0_date" type="date" generator="DateGenerator"/>
         <attribute name="opv_0_date" type="date" generator="DateGenerator"/>
         <attribute name="term" type="string" maxLength="{string_length}"/>
-        <attribute name="time_of_birth" type="date" generator="DateTimeGenerator"/>
+        <attribute name="time_of_birth" type="string" constant="08:08:08.123+05:30"/>
         <attribute name="child_alive" type="boolean"/>
         <attribute name="child_breathing" type="string" maxLength="{string_length}"/>
         <attribute name="child_cried" type="boolean"/>
