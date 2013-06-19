@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.migration.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ public class ExecutorServiceFactory {
 
     private ExecutorService executorService;
 
+    @Autowired
     public ExecutorServiceFactory(@Qualifier("migrationProperties") Properties migrationProperties) {
         int threadPoolSize = Integer.parseInt(migrationProperties.getProperty(MIGRATION_THREADPOOL_SIZE));
         executorService = Executors.newFixedThreadPool(threadPoolSize);

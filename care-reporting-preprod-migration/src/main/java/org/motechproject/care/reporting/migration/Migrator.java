@@ -3,7 +3,9 @@ package org.motechproject.care.reporting.migration;
 import org.motechproject.care.reporting.migration.service.MigrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Migrator {
 
     private MigrationService migrationService;
@@ -15,7 +17,7 @@ public class Migrator {
 
     public static void main(String[] args) {
         MigratorArguments migratorArguments = new MigratorArguments(args);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext-dataMigration.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext-migration.xml");
         Migrator migrator = applicationContext.getBean(Migrator.class);
         try {
             migrator.migrate(migratorArguments);
