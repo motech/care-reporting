@@ -87,10 +87,10 @@ public class BpForm extends Form {
 	private Boolean vehicle;
 	private Boolean wrapping;
 	private Short bpVisitNum;
-	private Date anc1Date_1;
-	private Date anc2Date_1;
-	private Date anc3Date_1;
-	private Date anc4Date_1;
+	private Date anc_1Date;
+	private Date anc_2Date;
+	private Date anc_3Date;
+	private Date anc_4Date;
 	private String coupleInterested;
 	private Date dateBp1;
 	private Date dateBp2;
@@ -103,8 +103,8 @@ public class BpForm extends Form {
 	private String lastVisitType;
 	private Boolean maternalEmergency;
 	private Boolean maternalEmergencyNumber;
-	private Date tt1Date_1;
-	private Date tt2Date_1;
+	private Date tt_1Date;
+	private Date tt_2Date;
 	private Boolean conceive;
 	private Integer delFup;
 	private Boolean availImmediate;
@@ -160,12 +160,12 @@ public class BpForm extends Form {
                   Boolean phoneVehicle, Boolean playBirthPreparednessVid,
                   Boolean playCordCareVid, Boolean savingMoney, Boolean skinToSkin,
                   Boolean vehicle, Boolean wrapping, Short bpVisitNum,
-                  Date anc1Date_1, Date anc2Date_1, Date anc3Date_1, Date anc4Date_1,
+                  Date anc_1Date, Date anc_2Date, Date anc_3Date, Date anc_4Date,
                   String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
                   Date dateLastVisit, Date dateNextBp, String deliveryType,
                   Short ifaTablets, Date ifaTablets100, String lastVisitType,
                   Boolean maternalEmergency, Boolean maternalEmergencyNumber,
-                  Date tt1Date_1, Date tt2Date_1, Boolean conceive, Integer delFup,
+                  Date tt_1Date, Date tt_2Date, Boolean conceive, Integer delFup,
                   Boolean availImmediate, Boolean counselAccessible,
                   Boolean counselBenefits, Boolean counselDisqualification,
                   Boolean counselInstitution, Boolean counselMethods,
@@ -246,10 +246,10 @@ public class BpForm extends Form {
 		this.vehicle = vehicle;
 		this.wrapping = wrapping;
 		this.bpVisitNum = bpVisitNum;
-		this.anc1Date_1 = anc1Date_1;
-		this.anc2Date_1 = anc2Date_1;
-		this.anc3Date_1 = anc3Date_1;
-		this.anc4Date_1 = anc4Date_1;
+		this.anc_1Date = anc_1Date;
+		this.anc_2Date = anc_2Date;
+		this.anc_3Date = anc_3Date;
+		this.anc_4Date = anc_4Date;
 		this.coupleInterested = coupleInterested;
 		this.dateBp1 = dateBp1;
 		this.dateBp2 = dateBp2;
@@ -262,8 +262,8 @@ public class BpForm extends Form {
 		this.lastVisitType = lastVisitType;
 		this.maternalEmergency = maternalEmergency;
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
-		this.tt1Date_1 = tt1Date_1;
-		this.tt2Date_1 = tt2Date_1;
+		this.tt_1Date = tt_1Date;
+		this.tt_2Date = tt_2Date;
 		this.conceive = conceive;
 		this.delFup = delFup;
 		this.availImmediate = availImmediate;
@@ -937,42 +937,42 @@ public class BpForm extends Form {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_1_date", length = 13)
-	public Date getAnc1Date_1() {
-		return this.anc1Date_1;
+	public Date getAnc_1Date() {
+		return this.anc_1Date;
 	}
 
-	public void setAnc1Date_1(Date anc1Date_1) {
-		this.anc1Date_1 = anc1Date_1;
+	public void setAnc_1Date(Date anc_1Date) {
+		this.anc_1Date = anc_1Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_2_date", length = 13)
-	public Date getAnc2Date_1() {
-		return this.anc2Date_1;
+	public Date getAnc_2Date() {
+		return this.anc_2Date;
 	}
 
-	public void setAnc2Date_1(Date anc2Date_1) {
-		this.anc2Date_1 = anc2Date_1;
+	public void setAnc_2Date(Date anc_2Date) {
+		this.anc_2Date = anc_2Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_3_date", length = 13)
-	public Date getAnc3Date_1() {
-		return this.anc3Date_1;
+	public Date getAnc_3Date() {
+		return this.anc_3Date;
 	}
 
-	public void setAnc3Date_1(Date anc3Date_1) {
-		this.anc3Date_1 = anc3Date_1;
+	public void setAnc_3Date(Date anc_3Date) {
+		this.anc_3Date = anc_3Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_4_date", length = 13)
-	public Date getAnc4Date_1() {
-		return this.anc4Date_1;
+	public Date getAnc_4Date() {
+		return this.anc_4Date;
 	}
 
-	public void setAnc4Date_1(Date anc4Date_1) {
-		this.anc4Date_1 = anc4Date_1;
+	public void setAnc_4Date(Date anc_4Date) {
+		this.anc_4Date = anc_4Date;
 	}
 
 	@Column(name = "couple_interested")
@@ -1091,22 +1091,22 @@ public class BpForm extends Form {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_1_date", length = 13)
-	public Date getTt1Date_1() {
-		return this.tt1Date_1;
+	public Date getTt_1Date() {
+		return this.tt_1Date;
 	}
 
-	public void setTt1Date_1(Date tt1Date_1) {
-		this.tt1Date_1 = tt1Date_1;
+	public void setTt_1Date(Date tt_1Date) {
+		this.tt_1Date = tt_1Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_2_date", length = 13)
-	public Date getTt2Date_1() {
-		return this.tt2Date_1;
+	public Date getTt_2Date() {
+		return this.tt_2Date;
 	}
 
-	public void setTt2Date_1(Date tt2Date_1) {
-		this.tt2Date_1 = tt2Date_1;
+	public void setTt_2Date(Date tt_2Date) {
+		this.tt_2Date = tt_2Date;
 	}
 
 	@Column(name = "conceive")

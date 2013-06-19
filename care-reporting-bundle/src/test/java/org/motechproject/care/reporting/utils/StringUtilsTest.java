@@ -6,6 +6,23 @@ import static junit.framework.Assert.assertEquals;
 
 public class StringUtilsTest {
     @Test
+    public void shouldConvertToCamelCaseWhereNumberIsSeparatedByUnderscores(){
+        String actual = StringUtils.toCamelCase("anc_1_date");
+        assertEquals("anc_1Date", actual);
+    }
+
+    @Test
+    public void shouldConvertToCamelCaseWhereNumberIsTheFirstLetterAfterUnderscore(){
+        String actual = StringUtils.toCamelCase("anc_1date");
+        assertEquals("anc_1date", actual);
+    }
+    @Test
+    public void shouldConvertToCamelCaseWithNumberInName(){
+        String actual = StringUtils.toCamelCase("anc1_date");
+        assertEquals("anc1Date", actual);
+    }
+
+    @Test
     public void testToCamelCase() throws Exception {
         String expected = "helloWorld";
         String actual = StringUtils.toCamelCase("hello_world");

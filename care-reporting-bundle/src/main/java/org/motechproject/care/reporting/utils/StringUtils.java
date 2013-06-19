@@ -6,7 +6,7 @@ public class StringUtils {
         return toCamelCase(underscoreSeparatedString, "_");
     }
 
-    public static String toCamelCase(String inputString, String delimiter) {
+    private static String toCamelCase(String inputString, String delimiter) {
         if (org.apache.commons.lang.StringUtils.isEmpty(inputString))
             return inputString;
 
@@ -16,7 +16,11 @@ public class StringUtils {
 
         buffer.append(org.apache.commons.lang.StringUtils.uncapitalize(tokens[0]));
         for (int i = 1; i < tokens.length; i++) {
-            buffer.append(org.apache.commons.lang.StringUtils.capitalize(tokens[i]));
+            String fieldName = tokens[i];
+            if(fieldName.matches("\\d+\\w*"))
+                buffer.append(delimiter).append(fieldName);
+            else
+                buffer.append(org.apache.commons.lang.StringUtils.capitalize(fieldName));
         }
         return buffer.toString();
     }
