@@ -25,30 +25,30 @@ public class BpForm extends Form {
 	private Date dateModified;
 	private Date ancLatestDate;
 	private Integer ancLatestNum;
-	private String anc1AbdominalExam;
-	private Boolean anc1Abnormalities;
-	private String anc1BloodPressure;
-	private Date anc1Date;
-	private String anc1Facility;
-	private Boolean anc1Details;
-	private String anc2AbdominalExam;
-	private Boolean anc2Abnormalities;
-	private String anc2BloodPressure;
-	private Date anc2Date;
-	private String anc2Facility;
-	private Boolean anc2Details;
-	private String anc3AbdominalExam;
-	private Boolean anc3Abnormalities;
-	private String anc3BloodPressure;
-	private Date anc3Date;
-	private String anc3Facility;
-	private Boolean anc3Details;
-	private String anc4AbdominalExam;
-	private Boolean anc4Abnormalities;
-	private String anc4BloodPressure;
-	private Date anc4Date;
-	private String anc4Facility;
-	private Boolean anc4Details;
+	private String anc1_AbdominalExam;
+	private Boolean anc1_Abnormalities;
+	private String anc1_BloodPressure;
+	private Date anc1_Date;
+	private String anc1_Facility;
+	private Boolean anc1_Details;
+	private String anc2_AbdominalExam;
+	private Boolean anc2_Abnormalities;
+	private String anc2_BloodPressure;
+	private Date anc2_Date;
+	private String anc2_Facility;
+	private Boolean anc2_Details;
+	private String anc3_AbdominalExam;
+	private Boolean anc3_Abnormalities;
+	private String anc3_BloodPressure;
+	private Date anc3_Date;
+	private String anc3_Facility;
+	private Boolean anc3_Details;
+	private String anc4_AbdominalExam;
+	private Boolean anc4_Abnormalities;
+	private String anc4_BloodPressure;
+	private Date anc4_Date;
+	private String anc4_Facility;
+	private Boolean anc4_Details;
 	private Boolean counselIfa;
 	private Boolean counselTt;
 	private Boolean eatingExtra;
@@ -57,8 +57,8 @@ public class BpForm extends Form {
 	private Boolean receivedTt1;
 	private Boolean receivedTt2;
 	private Boolean resting;
-	private Date tt1Date;
-	private Date tt2Date;
+	private Date tt1_Date;
+	private Date tt2_Date;
 	private Boolean ttBooster;
 	private Date ttBoosterDate;
 	private Boolean usingIfa;
@@ -87,10 +87,10 @@ public class BpForm extends Form {
 	private Boolean vehicle;
 	private Boolean wrapping;
 	private Short bpVisitNum;
-	private Date anc_1Date;
-	private Date anc_2Date;
-	private Date anc_3Date;
-	private Date anc_4Date;
+	private Date anc1Date;
+	private Date anc2Date;
+	private Date anc3Date;
+	private Date anc4Date;
 	private String coupleInterested;
 	private Date dateBp1;
 	private Date dateBp2;
@@ -103,8 +103,8 @@ public class BpForm extends Form {
 	private String lastVisitType;
 	private Boolean maternalEmergency;
 	private Boolean maternalEmergencyNumber;
-	private Date tt_1Date;
-	private Date tt_2Date;
+	private Date tt1Date;
+	private Date tt2Date;
 	private Boolean conceive;
 	private Integer delFup;
 	private Boolean availImmediate;
@@ -137,18 +137,18 @@ public class BpForm extends Form {
 
 	public BpForm(int id, Flw flw, MotherCase motherCase, String instanceId,
                   Date timeEnd, Date timeStart, Date dateModified,
-                  Date ancLatestDate, Integer ancLatestNum, String anc1AbdominalExam,
-                  Boolean anc1Abnormalities, String anc1BloodPressure, Date anc1Date,
-                  String anc1Facility, Boolean anc1Details, String anc2AbdominalExam,
-                  Boolean anc2Abnormalities, String anc2BloodPressure, Date anc2Date,
-                  String anc2Facility, Boolean anc2Details, String anc3AbdominalExam,
-                  Boolean anc3Abnormalities, String anc3BloodPressure, Date anc3Date,
-                  String anc3Facility, Boolean anc3Details, String anc4AbdominalExam,
-                  Boolean anc4Abnormalities, String anc4BloodPressure, Date anc4Date,
-                  String anc4Facility, Boolean anc4Details, Boolean counselIfa,
+                  Date ancLatestDate, Integer ancLatestNum, String anc1_AbdominalExam,
+                  Boolean anc1_Abnormalities, String anc1_BloodPressure, Date anc1_Date,
+                  String anc1_Facility, Boolean anc1_Details, String anc2_AbdominalExam,
+                  Boolean anc2_Abnormalities, String anc2_BloodPressure, Date anc2_Date,
+                  String anc2_Facility, Boolean anc2_Details, String anc3_AbdominalExam,
+                  Boolean anc3_Abnormalities, String anc3_BloodPressure, Date anc3_Date,
+                  String anc3_Facility, Boolean anc3_Details, String anc4_AbdominalExam,
+                  Boolean anc4_Abnormalities, String anc4_BloodPressure, Date anc4_Date,
+                  String anc4_Facility, Boolean anc4_Details, Boolean counselIfa,
                   Boolean counselTt, Boolean eatingExtra, Short ifaTabletsIssued,
                   String reasonNoIfa, Boolean receivedTt1, Boolean receivedTt2,
-                  Boolean resting, Date tt1Date, Date tt2Date, Boolean ttBooster,
+                  Boolean resting, Date tt1_Date, Date tt2_Date, Boolean ttBooster,
                   Date ttBoosterDate, Boolean usingIfa, Boolean sba,
                   Boolean sbaPhone, Boolean accompany, Boolean careOfHome,
                   Boolean cleanCloth, Boolean cordCare, Boolean counselHomeDelivery,
@@ -160,12 +160,12 @@ public class BpForm extends Form {
                   Boolean phoneVehicle, Boolean playBirthPreparednessVid,
                   Boolean playCordCareVid, Boolean savingMoney, Boolean skinToSkin,
                   Boolean vehicle, Boolean wrapping, Short bpVisitNum,
-                  Date anc_1Date, Date anc_2Date, Date anc_3Date, Date anc_4Date,
+                  Date anc1Date, Date anc2Date, Date anc3Date, Date anc4Date,
                   String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
                   Date dateLastVisit, Date dateNextBp, String deliveryType,
                   Short ifaTablets, Date ifaTablets100, String lastVisitType,
                   Boolean maternalEmergency, Boolean maternalEmergencyNumber,
-                  Date tt_1Date, Date tt_2Date, Boolean conceive, Integer delFup,
+                  Date tt1Date, Date tt2Date, Boolean conceive, Integer delFup,
                   Boolean availImmediate, Boolean counselAccessible,
                   Boolean counselBenefits, Boolean counselDisqualification,
                   Boolean counselInstitution, Boolean counselMethods,
@@ -184,30 +184,30 @@ public class BpForm extends Form {
 		this.dateModified = dateModified;
 		this.ancLatestDate = ancLatestDate;
 		this.ancLatestNum = ancLatestNum;
-		this.anc1AbdominalExam = anc1AbdominalExam;
-		this.anc1Abnormalities = anc1Abnormalities;
-		this.anc1BloodPressure = anc1BloodPressure;
-		this.anc1Date = anc1Date;
-		this.anc1Facility = anc1Facility;
-		this.anc1Details = anc1Details;
-		this.anc2AbdominalExam = anc2AbdominalExam;
-		this.anc2Abnormalities = anc2Abnormalities;
-		this.anc2BloodPressure = anc2BloodPressure;
-		this.anc2Date = anc2Date;
-		this.anc2Facility = anc2Facility;
-		this.anc2Details = anc2Details;
-		this.anc3AbdominalExam = anc3AbdominalExam;
-		this.anc3Abnormalities = anc3Abnormalities;
-		this.anc3BloodPressure = anc3BloodPressure;
-		this.anc3Date = anc3Date;
-		this.anc3Facility = anc3Facility;
-		this.anc3Details = anc3Details;
-		this.anc4AbdominalExam = anc4AbdominalExam;
-		this.anc4Abnormalities = anc4Abnormalities;
-		this.anc4BloodPressure = anc4BloodPressure;
-		this.anc4Date = anc4Date;
-		this.anc4Facility = anc4Facility;
-		this.anc4Details = anc4Details;
+		this.anc1_AbdominalExam = anc1_AbdominalExam;
+		this.anc1_Abnormalities = anc1_Abnormalities;
+		this.anc1_BloodPressure = anc1_BloodPressure;
+		this.anc1_Date = anc1_Date;
+		this.anc1_Facility = anc1_Facility;
+		this.anc1_Details = anc1_Details;
+		this.anc2_AbdominalExam = anc2_AbdominalExam;
+		this.anc2_Abnormalities = anc2_Abnormalities;
+		this.anc2_BloodPressure = anc2_BloodPressure;
+		this.anc2_Date = anc2_Date;
+		this.anc2_Facility = anc2_Facility;
+		this.anc2_Details = anc2_Details;
+		this.anc3_AbdominalExam = anc3_AbdominalExam;
+		this.anc3_Abnormalities = anc3_Abnormalities;
+		this.anc3_BloodPressure = anc3_BloodPressure;
+		this.anc3_Date = anc3_Date;
+		this.anc3_Facility = anc3_Facility;
+		this.anc3_Details = anc3_Details;
+		this.anc4_AbdominalExam = anc4_AbdominalExam;
+		this.anc4_Abnormalities = anc4_Abnormalities;
+		this.anc4_BloodPressure = anc4_BloodPressure;
+		this.anc4_Date = anc4_Date;
+		this.anc4_Facility = anc4_Facility;
+		this.anc4_Details = anc4_Details;
 		this.counselIfa = counselIfa;
 		this.counselTt = counselTt;
 		this.eatingExtra = eatingExtra;
@@ -216,8 +216,8 @@ public class BpForm extends Form {
 		this.receivedTt1 = receivedTt1;
 		this.receivedTt2 = receivedTt2;
 		this.resting = resting;
-		this.tt1Date = tt1Date;
-		this.tt2Date = tt2Date;
+		this.tt1_Date = tt1_Date;
+		this.tt2_Date = tt2_Date;
 		this.ttBooster = ttBooster;
 		this.ttBoosterDate = ttBoosterDate;
 		this.usingIfa = usingIfa;
@@ -246,10 +246,10 @@ public class BpForm extends Form {
 		this.vehicle = vehicle;
 		this.wrapping = wrapping;
 		this.bpVisitNum = bpVisitNum;
-		this.anc_1Date = anc_1Date;
-		this.anc_2Date = anc_2Date;
-		this.anc_3Date = anc_3Date;
-		this.anc_4Date = anc_4Date;
+		this.anc1Date = anc1Date;
+		this.anc2Date = anc2Date;
+		this.anc3Date = anc3Date;
+		this.anc4Date = anc4Date;
 		this.coupleInterested = coupleInterested;
 		this.dateBp1 = dateBp1;
 		this.dateBp2 = dateBp2;
@@ -262,8 +262,8 @@ public class BpForm extends Form {
 		this.lastVisitType = lastVisitType;
 		this.maternalEmergency = maternalEmergency;
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
-		this.tt_1Date = tt_1Date;
-		this.tt_2Date = tt_2Date;
+		this.tt1Date = tt1Date;
+		this.tt2Date = tt2Date;
 		this.conceive = conceive;
 		this.delFup = delFup;
 		this.availImmediate = availImmediate;
@@ -371,223 +371,223 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc1_abdominal_exam")
-	public String getAnc1AbdominalExam() {
-		return this.anc1AbdominalExam;
+	public String getAnc1_AbdominalExam() {
+		return this.anc1_AbdominalExam;
 	}
 
-	public void setAnc1AbdominalExam(String anc1AbdominalExam) {
-		this.anc1AbdominalExam = anc1AbdominalExam;
+	public void setAnc1_AbdominalExam(String anc1_AbdominalExam) {
+		this.anc1_AbdominalExam = anc1_AbdominalExam;
 	}
 
 	@Column(name = "anc1_abnormalities")
-	public Boolean getAnc1Abnormalities() {
-		return this.anc1Abnormalities;
+	public Boolean getAnc1_Abnormalities() {
+		return this.anc1_Abnormalities;
 	}
 
-	public void setAnc1Abnormalities(Boolean anc1Abnormalities) {
-		this.anc1Abnormalities = anc1Abnormalities;
+	public void setAnc1_Abnormalities(Boolean anc1_Abnormalities) {
+		this.anc1_Abnormalities = anc1_Abnormalities;
 	}
 
 	@Column(name = "anc1_blood_pressure")
-	public String getAnc1BloodPressure() {
-		return this.anc1BloodPressure;
+	public String getAnc1_BloodPressure() {
+		return this.anc1_BloodPressure;
 	}
 
-	public void setAnc1BloodPressure(String anc1BloodPressure) {
-		this.anc1BloodPressure = anc1BloodPressure;
+	public void setAnc1_BloodPressure(String anc1_BloodPressure) {
+		this.anc1_BloodPressure = anc1_BloodPressure;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc1_date", length = 13)
-	public Date getAnc1Date() {
-		return this.anc1Date;
+	public Date getAnc1_Date() {
+		return this.anc1_Date;
 	}
 
-	public void setAnc1Date(Date anc1Date) {
-		this.anc1Date = anc1Date;
+	public void setAnc1_Date(Date anc1_Date) {
+		this.anc1_Date = anc1_Date;
 	}
 
 	@Column(name = "anc1_facility")
-	public String getAnc1Facility() {
-		return this.anc1Facility;
+	public String getAnc1_Facility() {
+		return this.anc1_Facility;
 	}
 
-	public void setAnc1Facility(String anc1Facility) {
-		this.anc1Facility = anc1Facility;
+	public void setAnc1_Facility(String anc1_Facility) {
+		this.anc1_Facility = anc1_Facility;
 	}
 
 	@Column(name = "anc1_details")
-	public Boolean getAnc1Details() {
-		return this.anc1Details;
+	public Boolean getAnc1_Details() {
+		return this.anc1_Details;
 	}
 
-	public void setAnc1Details(Boolean anc1Details) {
-		this.anc1Details = anc1Details;
+	public void setAnc1_Details(Boolean anc1_Details) {
+		this.anc1_Details = anc1_Details;
 	}
 
 	@Column(name = "anc2_abdominal_exam")
-	public String getAnc2AbdominalExam() {
-		return this.anc2AbdominalExam;
+	public String getAnc2_AbdominalExam() {
+		return this.anc2_AbdominalExam;
 	}
 
-	public void setAnc2AbdominalExam(String anc2AbdominalExam) {
-		this.anc2AbdominalExam = anc2AbdominalExam;
+	public void setAnc2_AbdominalExam(String anc2_AbdominalExam) {
+		this.anc2_AbdominalExam = anc2_AbdominalExam;
 	}
 
 	@Column(name = "anc2_abnormalities")
-	public Boolean getAnc2Abnormalities() {
-		return this.anc2Abnormalities;
+	public Boolean getAnc2_Abnormalities() {
+		return this.anc2_Abnormalities;
 	}
 
-	public void setAnc2Abnormalities(Boolean anc2Abnormalities) {
-		this.anc2Abnormalities = anc2Abnormalities;
+	public void setAnc2_Abnormalities(Boolean anc2_Abnormalities) {
+		this.anc2_Abnormalities = anc2_Abnormalities;
 	}
 
 	@Column(name = "anc2_blood_pressure")
-	public String getAnc2BloodPressure() {
-		return this.anc2BloodPressure;
+	public String getAnc2_BloodPressure() {
+		return this.anc2_BloodPressure;
 	}
 
-	public void setAnc2BloodPressure(String anc2BloodPressure) {
-		this.anc2BloodPressure = anc2BloodPressure;
+	public void setAnc2_BloodPressure(String anc2_BloodPressure) {
+		this.anc2_BloodPressure = anc2_BloodPressure;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc2_date", length = 13)
-	public Date getAnc2Date() {
-		return this.anc2Date;
+	public Date getAnc2_Date() {
+		return this.anc2_Date;
 	}
 
-	public void setAnc2Date(Date anc2Date) {
-		this.anc2Date = anc2Date;
+	public void setAnc2_Date(Date anc2_Date) {
+		this.anc2_Date = anc2_Date;
 	}
 
 	@Column(name = "anc2_facility")
-	public String getAnc2Facility() {
-		return this.anc2Facility;
+	public String getAnc2_Facility() {
+		return this.anc2_Facility;
 	}
 
-	public void setAnc2Facility(String anc2Facility) {
-		this.anc2Facility = anc2Facility;
+	public void setAnc2_Facility(String anc2_Facility) {
+		this.anc2_Facility = anc2_Facility;
 	}
 
 	@Column(name = "anc2_details")
-	public Boolean getAnc2Details() {
-		return this.anc2Details;
+	public Boolean getAnc2_Details() {
+		return this.anc2_Details;
 	}
 
-	public void setAnc2Details(Boolean anc2Details) {
-		this.anc2Details = anc2Details;
+	public void setAnc2_Details(Boolean anc2_Details) {
+		this.anc2_Details = anc2_Details;
 	}
 
 	@Column(name = "anc3_abdominal_exam")
-	public String getAnc3AbdominalExam() {
-		return this.anc3AbdominalExam;
+	public String getAnc3_AbdominalExam() {
+		return this.anc3_AbdominalExam;
 	}
 
-	public void setAnc3AbdominalExam(String anc3AbdominalExam) {
-		this.anc3AbdominalExam = anc3AbdominalExam;
+	public void setAnc3_AbdominalExam(String anc3_AbdominalExam) {
+		this.anc3_AbdominalExam = anc3_AbdominalExam;
 	}
 
 	@Column(name = "anc3_abnormalities")
-	public Boolean getAnc3Abnormalities() {
-		return this.anc3Abnormalities;
+	public Boolean getAnc3_Abnormalities() {
+		return this.anc3_Abnormalities;
 	}
 
-	public void setAnc3Abnormalities(Boolean anc3Abnormalities) {
-		this.anc3Abnormalities = anc3Abnormalities;
+	public void setAnc3_Abnormalities(Boolean anc3_Abnormalities) {
+		this.anc3_Abnormalities = anc3_Abnormalities;
 	}
 
 	@Column(name = "anc3_blood_pressure")
-	public String getAnc3BloodPressure() {
-		return this.anc3BloodPressure;
+	public String getAnc3_BloodPressure() {
+		return this.anc3_BloodPressure;
 	}
 
-	public void setAnc3BloodPressure(String anc3BloodPressure) {
-		this.anc3BloodPressure = anc3BloodPressure;
+	public void setAnc3_BloodPressure(String anc3_BloodPressure) {
+		this.anc3_BloodPressure = anc3_BloodPressure;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc3_date", length = 13)
-	public Date getAnc3Date() {
-		return this.anc3Date;
+	public Date getAnc3_Date() {
+		return this.anc3_Date;
 	}
 
-	public void setAnc3Date(Date anc3Date) {
-		this.anc3Date = anc3Date;
+	public void setAnc3_Date(Date anc3_Date) {
+		this.anc3_Date = anc3_Date;
 	}
 
 	@Column(name = "anc3_facility")
-	public String getAnc3Facility() {
-		return this.anc3Facility;
+	public String getAnc3_Facility() {
+		return this.anc3_Facility;
 	}
 
-	public void setAnc3Facility(String anc3Facility) {
-		this.anc3Facility = anc3Facility;
+	public void setAnc3_Facility(String anc3_Facility) {
+		this.anc3_Facility = anc3_Facility;
 	}
 
 	@Column(name = "anc3_details")
-	public Boolean getAnc3Details() {
-		return this.anc3Details;
+	public Boolean getAnc3_Details() {
+		return this.anc3_Details;
 	}
 
-	public void setAnc3Details(Boolean anc3Details) {
-		this.anc3Details = anc3Details;
+	public void setAnc3_Details(Boolean anc3_Details) {
+		this.anc3_Details = anc3_Details;
 	}
 
 	@Column(name = "anc4_abdominal_exam")
-	public String getAnc4AbdominalExam() {
-		return this.anc4AbdominalExam;
+	public String getAnc4_AbdominalExam() {
+		return this.anc4_AbdominalExam;
 	}
 
-	public void setAnc4AbdominalExam(String anc4AbdominalExam) {
-		this.anc4AbdominalExam = anc4AbdominalExam;
+	public void setAnc4_AbdominalExam(String anc4_AbdominalExam) {
+		this.anc4_AbdominalExam = anc4_AbdominalExam;
 	}
 
 	@Column(name = "anc4_abnormalities")
-	public Boolean getAnc4Abnormalities() {
-		return this.anc4Abnormalities;
+	public Boolean getAnc4_Abnormalities() {
+		return this.anc4_Abnormalities;
 	}
 
-	public void setAnc4Abnormalities(Boolean anc4Abnormalities) {
-		this.anc4Abnormalities = anc4Abnormalities;
+	public void setAnc4_Abnormalities(Boolean anc4_Abnormalities) {
+		this.anc4_Abnormalities = anc4_Abnormalities;
 	}
 
 	@Column(name = "anc4_blood_pressure")
-	public String getAnc4BloodPressure() {
-		return this.anc4BloodPressure;
+	public String getAnc4_BloodPressure() {
+		return this.anc4_BloodPressure;
 	}
 
-	public void setAnc4BloodPressure(String anc4BloodPressure) {
-		this.anc4BloodPressure = anc4BloodPressure;
+	public void setAnc4_BloodPressure(String anc4_BloodPressure) {
+		this.anc4_BloodPressure = anc4_BloodPressure;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc4_date", length = 13)
-	public Date getAnc4Date() {
-		return this.anc4Date;
+	public Date getAnc4_Date() {
+		return this.anc4_Date;
 	}
 
-	public void setAnc4Date(Date anc4Date) {
-		this.anc4Date = anc4Date;
+	public void setAnc4_Date(Date anc4_Date) {
+		this.anc4_Date = anc4_Date;
 	}
 
 	@Column(name = "anc4_facility")
-	public String getAnc4Facility() {
-		return this.anc4Facility;
+	public String getAnc4_Facility() {
+		return this.anc4_Facility;
 	}
 
-	public void setAnc4Facility(String anc4Facility) {
-		this.anc4Facility = anc4Facility;
+	public void setAnc4_Facility(String anc4_Facility) {
+		this.anc4_Facility = anc4_Facility;
 	}
 
 	@Column(name = "anc4_details")
-	public Boolean getAnc4Details() {
-		return this.anc4Details;
+	public Boolean getAnc4_Details() {
+		return this.anc4_Details;
 	}
 
-	public void setAnc4Details(Boolean anc4Details) {
-		this.anc4Details = anc4Details;
+	public void setAnc4_Details(Boolean anc4_Details) {
+		this.anc4_Details = anc4_Details;
 	}
 
 	@Column(name = "counsel_ifa")
@@ -664,22 +664,22 @@ public class BpForm extends Form {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt1_date", length = 13)
-	public Date getTt1Date() {
-		return this.tt1Date;
+	public Date getTt1_Date() {
+		return this.tt1_Date;
 	}
 
-	public void setTt1Date(Date tt1Date) {
-		this.tt1Date = tt1Date;
+	public void setTt1_Date(Date tt1_Date) {
+		this.tt1_Date = tt1_Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt2_date", length = 13)
-	public Date getTt2Date() {
-		return this.tt2Date;
+	public Date getTt2_Date() {
+		return this.tt2_Date;
 	}
 
-	public void setTt2Date(Date tt2Date) {
-		this.tt2Date = tt2Date;
+	public void setTt2_Date(Date tt2_Date) {
+		this.tt2_Date = tt2_Date;
 	}
 
 	@Column(name = "tt_booster")
@@ -937,42 +937,42 @@ public class BpForm extends Form {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_1_date", length = 13)
-	public Date getAnc_1Date() {
-		return this.anc_1Date;
+	public Date getAnc1Date() {
+		return this.anc1Date;
 	}
 
-	public void setAnc_1Date(Date anc_1Date) {
-		this.anc_1Date = anc_1Date;
+	public void setAnc1Date(Date anc1Date) {
+		this.anc1Date = anc1Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_2_date", length = 13)
-	public Date getAnc_2Date() {
-		return this.anc_2Date;
+	public Date getAnc2Date() {
+		return this.anc2Date;
 	}
 
-	public void setAnc_2Date(Date anc_2Date) {
-		this.anc_2Date = anc_2Date;
+	public void setAnc2Date(Date anc2Date) {
+		this.anc2Date = anc2Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_3_date", length = 13)
-	public Date getAnc_3Date() {
-		return this.anc_3Date;
+	public Date getAnc3Date() {
+		return this.anc3Date;
 	}
 
-	public void setAnc_3Date(Date anc_3Date) {
-		this.anc_3Date = anc_3Date;
+	public void setAnc3Date(Date anc3Date) {
+		this.anc3Date = anc3Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "anc_4_date", length = 13)
-	public Date getAnc_4Date() {
-		return this.anc_4Date;
+	public Date getAnc4Date() {
+		return this.anc4Date;
 	}
 
-	public void setAnc_4Date(Date anc_4Date) {
-		this.anc_4Date = anc_4Date;
+	public void setAnc4Date(Date anc4Date) {
+		this.anc4Date = anc4Date;
 	}
 
 	@Column(name = "couple_interested")
@@ -1091,22 +1091,22 @@ public class BpForm extends Form {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_1_date", length = 13)
-	public Date getTt_1Date() {
-		return this.tt_1Date;
+	public Date getTt1Date() {
+		return this.tt1Date;
 	}
 
-	public void setTt_1Date(Date tt_1Date) {
-		this.tt_1Date = tt_1Date;
+	public void setTt1Date(Date tt1Date) {
+		this.tt1Date = tt1Date;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_2_date", length = 13)
-	public Date getTt_2Date() {
-		return this.tt_2Date;
+	public Date getTt2Date() {
+		return this.tt2Date;
 	}
 
-	public void setTt_2Date(Date tt_2Date) {
-		this.tt_2Date = tt_2Date;
+	public void setTt2Date(Date tt2Date) {
+		this.tt2Date = tt2Date;
 	}
 
 	@Column(name = "conceive")

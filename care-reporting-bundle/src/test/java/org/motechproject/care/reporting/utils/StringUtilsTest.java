@@ -16,19 +16,11 @@ public class StringUtilsTest {
 
     @Test
     public void shouldConvertToCamelCaseWhereNumberIsSeparatedByUnderscores(){
-        String actual = toCamelCase("anc_1_date");
-        assertEquals("anc_1Date", actual);
-    }
-
-    @Test
-    public void shouldConvertToCamelCaseWhereNumberIsTheFirstLetterAfterUnderscore(){
-        String actual = toCamelCase("anc_1date");
-        assertEquals("anc_1date", actual);
-    }
-    @Test
-    public void shouldConvertToCamelCaseWithNumberInName(){
-        String actual = toCamelCase("anc1_date");
-        assertEquals("anc1Date", actual);
+        assertEquals("anc1Date", toCamelCase("anc_1_date"));
+        assertEquals("ifaTablets100", toCamelCase("ifa_tablets_100"));
+        assertEquals("anc1_Date", toCamelCase("anc1_date"));
+        assertEquals("motherAnc1_Date", toCamelCase("mother_anc1_date"));
+        assertEquals("field1", toCamelCase("field1"));
     }
 
     @Test

@@ -17,20 +17,24 @@ public class StringUtils {
 
         String[] tokens = inputString.split(delimiter);
 
-        buffer.append(uncapitalize(convertAllCaps(tokens[0])));
-
-        for (int i = 1; i < tokens.length; i++) {
+        for (int i = 0; i < tokens.length; i++) {
             String fieldName = convertAllCaps(tokens[i]);
-            if(fieldName.matches("\\d+\\w*"))
-                buffer.append(delimiter).append(fieldName);
-            else
-                buffer.append(capitalize(fieldName));
+            fieldName = i == 0 ? uncapitalize(fieldName) : capitalize(fieldName);
+
+            buffer.append(fieldName);
+            if (isNotLastToken(tokens, i) && tokens[i].matches("[a-z]+\\d+$"))
+                buffer.append("_");
         }
+
         return buffer.toString();
     }
 
+    private static boolean isNotLastToken(String[] tokens, int i) {
+        return i != tokens.length - 1;
+    }
+
     private static String convertAllCaps(String token) {
-        if(token.matches("^[A-Z0-9]+$"))
+        if (token.matches("^[A-Z0-9]+$"))
             return token.toLowerCase();
         return token;
     }
