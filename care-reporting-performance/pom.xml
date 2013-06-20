@@ -14,6 +14,10 @@
 
     <repositories>
         <repository>
+            <id>vmnaik-releases</id>
+            <url>https://github.com/vishalmanohar/mvn-repo/raw/master/releases</url>
+        </repository>
+        <repository>
             <id>motech-repo</id>
             <name>MoTeCH Maven Repository</name>
             <url>http://nexus.motechproject.org/content/repositories/public</url>

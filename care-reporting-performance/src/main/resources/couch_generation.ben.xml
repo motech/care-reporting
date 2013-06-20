@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<setup>
+    <import platforms='couchdb'/>
+    <couchdb database='persondb' name='motech_motech-person-repository' environment='localcouchdb'/>
+    <couchdb database='providerdb' name='motech_motech-provider-repository' environment='localcouchdb'/>
+    <couchdb database='patientdb' name='motech_motech-patient-repository' environment='localcouchdb'/>
+    <couchdb database='observationdb' name='motech_motech-observation-repository' environment='localcouchdb'/>
+    <couchdb database='encounterdb' name='motech_motech-encounter-repository' environment='localcouchdb'/>
+
+    <setting name="person_count" default="10"/>
+    <setting name="patient_count" default="5"/>
+    <setting name="provider_count" default="5"/>
+    <setting name="observation_count" default="50"/>
+    <setting name="encounter_count" default="5"/>
+    <setting name="observation_per_encounter_count" default="10"/>
+    <setting name="string_length" default="10"/>
+
+    <memstore id="personStore"/>
+    <memstore id="providerStore"/>
+    <memstore id="patientStore"/>
+    <memstore id="observationStore"/>
+
+    <generate type="personEntityStore" count="{person_count}" consumer="personStore">
+        <id name="id" type="string" generator="UUIDGenerator"/>
+        <attribute name="type" type="string" values="'Provider','Patient'"/>
+    </generate>
+
+    <generate type="providerEntityStore" count="{provider_count}" consumer="providerStore">
+        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Provider')" distribution="random" />
+        <id name="id" type="string" generator="UUIDGenerator"/>
+        <attribute name="personId"  script="personEntity.id"/>
+    </generate>
+
+    <generate type="patientEntityStore" count="{patient_count}" consumer="patientStore">
+        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Patient')" distribution="random" />
+        <id name="id" type="string" generator="UUIDGenerator"/>
+        <attribute name="personId"  script="personEntity.id"/>
+    </generate>
+
+    <generate type="observationEntityStore" count="{observation_count}" consumer="observationStore">
+        <variable name="patientEntity" source="patientStore" type="patientEntityStore" distribution="random" />
+        <id name="id" type="string" generator="UUIDGenerator"/>
+        <attribute name="patientId"  script="patientEntity.id"/>
+    </generate>
+
+
+    <generate type='person' count='{person_count}' consumer='persondb'>
+        <variable name="personDetail" source="personStore" type="personEntityStore" />
+        <attribute name="age" type="int" generator="new RandomIntegerGenerator(0,100)"/>
+        <attribute name="birthDateEstimated" type="boolean"/>
+        <attribute name="dateOfBirth" type="DateTimeGenerator"/>
+        <attribute name="dead" type="boolean"/>
+        <attribute name="firstName" type="string" maxLength="{string_length}"/>
+        <attribute name="gender" type="string"  values="'male','female'"/>
+        <attribute name="personId"  script="personDetail.id"/>
+    </generate>
+
+    <generate type='provider' count='{provider_count}' consumer='providerdb'>
+        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
+        <attribute name="personId"  script="providerDetail.personId"/>
+        <attribute name="providerId" script="providerDetail.id"/>
+    </generate>
+
+    <generate type='patient' count='{patient_count}' consumer='patientdb'>
+        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
+        <attribute name="personId"  script="patientDetail.personId"/>
+        <attribute name="patientId" script="patientDetail.id"/>
+    </generate>
+
+    <generate type='observation' count='{observation_count}' consumer='observationdb'>
+        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
+        <attribute name="patientId" script="observationDetail.patientId"/>
+        <attribute name="observationId" script="observationDetail.id"/>
+        <attribute name="conceptName"  type="string" maxLength="{string_length}"/>
+        <attribute name="value" type="string" maxLength="{string_length}"/>
+    </generate>
+
+    <generate type='encounter' count='{encounter_count}' consumer='encounterdb'>
+        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
+        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
+        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
+
+        <attribute name="encounterId" type="string" generator="UUIDGenerator"/>
+        <attribute name="providerId" script="providerDetail.id"/>
+        <attribute name="patientId" script="patientDetail.id"/>
+        <part name="observationIds" container="list" count="{observation_per_encounter_count}">
+            <attribute name="observationId" script="observationDetail.id" />
+        </part>
+    </generate>
+
+</setup>
