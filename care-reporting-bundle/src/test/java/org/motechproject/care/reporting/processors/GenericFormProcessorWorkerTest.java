@@ -96,7 +96,7 @@ public class GenericFormProcessorWorkerTest {
         expectedForm.setFamilyNumber(5);
         expectedForm.setDobKnown(false);
         expectedForm.setCaste("other");
-        expectedForm.setAgeCalc((short) 0);
+        expectedForm.setAgeCalc(null);
         expectedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
         expectedForm.setMotherCase(expectedMotherCase);
         expectedForm.setFlw(expectedFlw);

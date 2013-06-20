@@ -5,7 +5,10 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 public class ObjectUtilsTest {
     @Test
@@ -42,5 +45,24 @@ public class ObjectUtilsTest {
         assertEquals("world", ObjectUtils.get(testData, "aString"));
         assertEquals(aDate, ObjectUtils.get(testData, "aDateFormat1"));
         assertEquals(true, ObjectUtils.get(testData, "aBoolean"));
+    }
+
+    @Test
+    public void shouldSetPrimitiveValueObjectsAsNull(){
+        TestData testData = new TestData();
+        testData.integerObject = new Integer(1);
+        testData.shortObject = new Short("1");
+        testData.booleanObject = Boolean.TRUE;
+        testData.decimalObject = new BigDecimal("1.1");
+
+        ObjectUtils.set(testData, "integerObject", null);
+        ObjectUtils.set(testData, "shortObject", null);
+        ObjectUtils.set(testData, "booleanObject", null);
+        ObjectUtils.set(testData, "decimalObject", null);
+
+        assertNull(testData.integerObject);
+        assertNull(testData.shortObject);
+        assertNull(testData.booleanObject);
+        assertNull(testData.decimalObject);
     }
 }

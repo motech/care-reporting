@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.utils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class TestData {
@@ -9,6 +10,10 @@ public class TestData {
     Date aDateFormat1;
     Date aDateFormat2;
     Date aDateFormat3;
+    Integer integerObject;
+    Short shortObject;
+    Boolean booleanObject;
+    BigDecimal decimalObject;
 
     public void setaDateFormat4(Date aDateFormat4) {
         this.aDateFormat4 = aDateFormat4;
@@ -68,4 +73,19 @@ public class TestData {
         this.aDateFormat3 = aDateFormat3;
     }
 
+    public void setIntegerObject(Integer integerObject) {
+        this.integerObject = integerObject;
+    }
+
+    public void setShortObject(Short shortObject) {
+        this.shortObject = shortObject;
+    }
+
+    public void setBooleanObject(Boolean booleanObject) {
+        this.booleanObject = booleanObject;
+    }
+
+    public void setDecimalObject(BigDecimal decimalObject) {
+        this.decimalObject = decimalObject;
+    }
 }

@@ -2,12 +2,12 @@ package org.motechproject.care.reporting.utils;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.beanutils.converters.DateTimeConverter;
+import org.apache.commons.beanutils.converters.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -17,6 +17,10 @@ public class ObjectUtils {
         DateTimeConverter dtConverter = new DateConverter();
         dtConverter.setPatterns(new String[]{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss", "MM/dd/yyyy", "yyyy-MM-dd"});
         ConvertUtils.register(dtConverter, Date.class);
+        ConvertUtils.register(new IntegerConverter(null), Integer.class);
+        ConvertUtils.register(new ShortConverter(null),Short.class);
+        ConvertUtils.register(new BooleanConverter(null),Boolean.class);
+        ConvertUtils.register(new BigDecimalConverter(null),BigDecimal.class);
     }
 
     protected static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
