@@ -31,18 +31,18 @@ public class JsonUtilsTest {
                 "        ]\n" +
                 "    }\n" +
                 "}";
-        String expectedXml = "<data attr=\"attrValue\">formValue<element1>element1Value</element1>\n" +
-                "<booleanElement>false</booleanElement>\n" +
-                "<intElement>42</intElement>\n" +
-                "<childElement attr=\"childElement1AttrValue\">childElement1Value<childChild attr=\"childChildAttrValue\"/>\n" +
-                "</childElement>\n" +
-                "<childElement attr=\"childElement2AttrValue\">childElement2Value</childElement>\n" +
-                "<childElement>childElement3Value</childElement>\n" +
-                "<childElement>true</childElement>\n" +
-                "<childElement>5</childElement>\n" +
-                "</data>\n";
+        String expectedXml = "<data attr=\"attrValue\">formValue<element1>element1Value</element1>%n" +
+                "<booleanElement>false</booleanElement>%n" +
+                "<intElement>42</intElement>%n" +
+                "<childElement attr=\"childElement1AttrValue\">childElement1Value<childChild attr=\"childChildAttrValue\"/>%n" +
+                "</childElement>%n" +
+                "<childElement attr=\"childElement2AttrValue\">childElement2Value</childElement>%n" +
+                "<childElement>childElement3Value</childElement>%n" +
+                "<childElement>true</childElement>%n" +
+                "<childElement>5</childElement>%n" +
+                "</data>%n";
 
         String actualXml = JsonUtils.toFormXml(json);
-        assertEquals(expectedXml, actualXml);
+        assertEquals(String.format(expectedXml), actualXml);
     }
 }
