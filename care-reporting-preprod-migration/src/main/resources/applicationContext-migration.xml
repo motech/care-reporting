@@ -8,10 +8,30 @@
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="multiThreadedHttpConnectionManager"
+    <bean id="commcareHttpConnectionManager"
           class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager"/>
-    <bean id="commonsHttpClient" class="org.apache.commons.httpclient.HttpClient">
-        <constructor-arg ref="multiThreadedHttpConnectionManager"/>
+    <bean id="commcareHttpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="commcareHttpConnectionManager"/>
+    </bean>
+    <bean id="motechHttpConnectionManager"
+          class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+        <property name="params">
+            <bean class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
+                <property name="maxTotalConnections" value="${migration.threadpool.size}" />
+            </bean>
+        </property>
+    </bean>
+    <bean id="motechHttpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="motechHttpConnectionManager"/>
+    </bean>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>migration.properties</value>
+            </list>
+        </property>
     </bean>
     <util:properties id="migrationProperties" location="classpath:migration.properties"/>
     <util:properties id="commcareProperties" location="classpath:commcareAPI.properties"/>

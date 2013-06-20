@@ -9,32 +9,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Properties;
 
 @Component
-public class CommCareAPIHttpClient {
+public class CommcareAPIHttpClient {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private HttpClient commonsHttpClient;
+    private HttpClient httpClient;
     private final Properties commcareProperties;
 
     @Autowired
-    public CommCareAPIHttpClient(final HttpClient commonsHttpClient, @Qualifier("commcareProperties") Properties commcareProperties) {
-        this.commonsHttpClient = commonsHttpClient;
+    public CommcareAPIHttpClient(@Qualifier("commcareHttpClient") HttpClient httpClient, @Qualifier("commcareProperties") Properties commcareProperties) {
+        this.httpClient = httpClient;
         this.commcareProperties = commcareProperties;
         authenticate();
     }
 
     public String fetchForm(String formId) {
         String jsonResponse = getRequest(commcareFormUrl(formId), null);
-        return JsonUtils.toFormXml(jsonResponse);
+        return CommcareDataConverter.toFormXml(jsonResponse);
     }
 
-    public String fetchCase(String caseId) {
+    public List<String> fetchCase(String caseId) {
         String jsonResponse = getRequest(commcareCaseUrl(caseId), null);
-        return JsonUtils.toFormXml(jsonResponse);
+        return CommcareDataConverter.toCaseXml(jsonResponse);
     }
 
     private HttpMethod buildRequest(String url, NameValuePair[] queryParams) {
@@ -52,12 +56,12 @@ public class CommCareAPIHttpClient {
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
 
         try {
-            commonsHttpClient.executeMethod(getMethod);
+            httpClient.executeMethod(getMethod);
             InputStream responseStream = getMethod.getResponseBodyAsStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
             StringBuffer sb = new StringBuffer();
             String line;
-            while((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
             }
             return sb.toString();
@@ -71,9 +75,9 @@ public class CommCareAPIHttpClient {
     }
 
     private void authenticate() {
-        commonsHttpClient.getParams().setAuthenticationPreemptive(true);
+        httpClient.getParams().setAuthenticationPreemptive(true);
 
-        commonsHttpClient.getState().setCredentials(
+        httpClient.getState().setCredentials(
                 new AuthScope(null, -1, null, null),
                 new UsernamePasswordCredentials(getUsername(), getPassword()));
     }
@@ -96,7 +100,7 @@ public class CommCareAPIHttpClient {
         return commcareBaseUrl;
     }
 
-    private String getBaseUrl(){
+    private String getBaseUrl() {
         return commcareProperties.getProperty("commcareBaseUrl");
     }
 

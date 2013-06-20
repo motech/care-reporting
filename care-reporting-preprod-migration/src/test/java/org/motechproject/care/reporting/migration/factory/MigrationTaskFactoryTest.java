@@ -5,9 +5,8 @@ import org.motechproject.care.reporting.migration.service.CaseMigrationTask;
 import org.motechproject.care.reporting.migration.service.FormMigrationTask;
 import org.motechproject.care.reporting.migration.service.MigrationBatchProcessor;
 import org.motechproject.care.reporting.migration.service.MigrationType;
-import org.motechproject.care.reporting.migration.util.CommCareAPIHttpClient;
-
-import java.util.Properties;
+import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
+import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -19,11 +18,11 @@ public class MigrationTaskFactoryTest {
     @Test
     public void shouldGetMigrationTaskFromMigrationType() {
         MigrationBatchProcessor migrationBatchProcessor = mock(MigrationBatchProcessor.class);
-        CommCareAPIHttpClient httpClient = mock(CommCareAPIHttpClient.class);
-        Properties platformProperties = mock(Properties.class);
+        CommcareAPIHttpClient httpClient = mock(CommcareAPIHttpClient.class);
+        MotechAPIHttpClient motechAPIHttpClient = mock(MotechAPIHttpClient.class);
 
-        FormMigrationTask formMigrationTask = new FormMigrationTask(migrationBatchProcessor, httpClient, platformProperties);
-        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor);
+        FormMigrationTask formMigrationTask = new FormMigrationTask(migrationBatchProcessor, httpClient, motechAPIHttpClient);
+        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor,httpClient,motechAPIHttpClient);
 
         MigrationTaskFactory migrationTaskFactory = new MigrationTaskFactory(formMigrationTask, caseMigrationTask);
 
