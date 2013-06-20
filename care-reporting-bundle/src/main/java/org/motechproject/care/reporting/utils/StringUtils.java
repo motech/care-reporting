@@ -1,5 +1,8 @@
 package org.motechproject.care.reporting.utils;
 
+import static org.apache.commons.lang.StringUtils.capitalize;
+import static org.apache.commons.lang.StringUtils.uncapitalize;
+
 public class StringUtils {
 
     public static String toCamelCase(String underscoreSeparatedString) {
@@ -14,14 +17,21 @@ public class StringUtils {
 
         String[] tokens = inputString.split(delimiter);
 
-        buffer.append(org.apache.commons.lang.StringUtils.uncapitalize(tokens[0]));
+        buffer.append(uncapitalize(convertAllCaps(tokens[0])));
+
         for (int i = 1; i < tokens.length; i++) {
-            String fieldName = tokens[i];
+            String fieldName = convertAllCaps(tokens[i]);
             if(fieldName.matches("\\d+\\w*"))
                 buffer.append(delimiter).append(fieldName);
             else
-                buffer.append(org.apache.commons.lang.StringUtils.capitalize(fieldName));
+                buffer.append(capitalize(fieldName));
         }
         return buffer.toString();
+    }
+
+    private static String convertAllCaps(String token) {
+        if(token.matches("^[A-Z0-9]+$"))
+            return token.toLowerCase();
+        return token;
     }
 }
