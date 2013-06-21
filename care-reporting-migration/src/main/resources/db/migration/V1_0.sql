@@ -232,7 +232,6 @@ CREATE TABLE report.registration_mother_form (
 	,age_calc_adj	SMALLINT
 	,age_est	SMALLINT
 	,age_est_trigger	VARCHAR(10)
-	,close	VARCHAR(10)
 	,add	DATE
 	,age	SMALLINT
 	,birth_place	VARCHAR(255)
@@ -305,6 +304,9 @@ CREATE TABLE report.registration_mother_form (
 	,where_born	VARCHAR(255)
   ,which_hospital	VARCHAR(255)
   ,which_village	VARCHAR(255)
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
   ,creation_time TIMESTAMP WITH TIME ZONE
   ,children	BOOLEAN
 );
@@ -559,8 +561,11 @@ CREATE TABLE report.pnc_mother_form(
 	,tl_counsel_screening	BOOLEAN
 	,tl_counsel_side_effects	BOOLEAN
 	,tl_counsel_timing	BOOLEAN
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
 	,why_no_ppffp	VARCHAR(255)
-    ,creation_time TIMESTAMP WITH TIME ZONE
+  ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.pnc_child_form(
@@ -775,10 +780,10 @@ CREATE TABLE report.cf_mother_form(
 	,num_children	SMALLINT
 	,play_comp_feeding_vid	BOOLEAN
 	,lastvisit BOOLEAN
-    ,date_cf_7 DATE
+  ,date_cf_7 DATE
 	,confirm_close BOOLEAN
 	,close	BOOLEAN
-    ,creation_time TIMESTAMP WITH TIME ZONE
+  ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE report.cf_child_form(
@@ -845,7 +850,9 @@ CREATE TABLE report.cf_child_form(
     ,opv_booster_date DATE
     ,vit_a_3_date DATE
     ,vit_a_2_date DATE
-	,close	VARCHAR(255)
+	  ,close	BOOLEAN
+    ,closed_on TIMESTAMP WITH TIME ZONE
+    ,closed_by INTEGER REFERENCES report.flw(id)
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );

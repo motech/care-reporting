@@ -81,7 +81,9 @@ public class CfChildForm extends Form {
 	private Date opvBoosterDate;
 	private Date vitA3Date;
 	private Date vitA2Date;
-	private String close;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
 
     public CfChildForm() {
@@ -109,7 +111,7 @@ public class CfChildForm extends Form {
                        Boolean babyDptBooster, Boolean babyJe, Boolean babyMeaslesBooster,
                        Boolean babyOpvBooster, Boolean babyVita2, Boolean babyVita3,
                        Date dateJe, Date dateMeaslesBooster, Date dptBoosterDate,
-                       Date opvBoosterDate, Date vitA3Date, Date vitA2Date, String close, Date creationTime) {
+                       Date opvBoosterDate, Date vitA3Date, Date vitA2Date, Boolean close, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -174,6 +176,8 @@ public class CfChildForm extends Form {
 		this.vitA3Date = vitA3Date;
 		this.vitA2Date = vitA2Date;
 		this.close = close;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
     }
 
@@ -764,14 +768,35 @@ public class CfChildForm extends Form {
 		this.vitA2Date = vitA2Date;
 	}
 
-	@Column(name = "close")
-	public String getClose() {
-		return this.close;
-	}
+    @Column(name = "close")
+    public Boolean getClose() {
+        return close;
+    }
 
-	public void setClose(String close) {
-		this.close = close;
-	}
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")

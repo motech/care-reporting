@@ -30,7 +30,6 @@ public class RegistrationMotherForm extends Form {
 	private Short ageCalcAdj;
 	private Short ageEst;
 	private String ageEstTrigger;
-	private String close;
 	private Date add;
 	private Short age;
 	private String birthPlace;
@@ -104,6 +103,10 @@ public class RegistrationMotherForm extends Form {
 	private String whichHospital;
 	private String whichVillage;
 	private Boolean children;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
+
     private Date creationTime = new Date();
 
     public RegistrationMotherForm() {
@@ -116,7 +119,7 @@ public class RegistrationMotherForm extends Form {
 	public RegistrationMotherForm(int id, Flw flw, MotherCase motherCase,
                                   String instanceId, Date timeEnd, Date timeStart, Date dateModified,
                                   Boolean ppiud, Boolean pptl, Boolean abdPain, Short ageCalc,
-                                  Short ageCalcAdj, Short ageEst, String ageEstTrigger, String close,
+                                  Short ageCalcAdj, Short ageEst, String ageEstTrigger, Boolean close,
                                   Date add, Short age, String birthPlace, Boolean complications,
                                   Date dateLastVisit, Date dateNextBp, Date dateNextCf,
                                   Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
@@ -141,7 +144,7 @@ public class RegistrationMotherForm extends Form {
                                   Boolean recentlyDelivered, String referralPrompt, String resident,
                                   Boolean urineTest, Boolean usedFp,
                                   Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
-                                  String whichHospital, String whichVillage, Boolean children, Date creationTime) {
+                                  String whichHospital, String whichVillage, Boolean children, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -230,6 +233,8 @@ public class RegistrationMotherForm extends Form {
 		this.whichHospital = whichHospital;
 		this.whichVillage = whichVillage;
         this.children = children;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
     }
 
@@ -359,16 +364,7 @@ public class RegistrationMotherForm extends Form {
 		this.ageEstTrigger = ageEstTrigger;
 	}
 
-	@Column(name = "close", length = 10)
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
-	}
-
-	@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
 	@Column(name = "add", length = 13)
 	public Date getAdd() {
 		return this.add;
@@ -1050,5 +1046,35 @@ public class RegistrationMotherForm extends Form {
 
     public void setChildren(Boolean children) {
         this.children = children;
+    }
+
+    @Column(name = "close")
+    public Boolean getClose() {
+        return close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_time")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
     }
 }
