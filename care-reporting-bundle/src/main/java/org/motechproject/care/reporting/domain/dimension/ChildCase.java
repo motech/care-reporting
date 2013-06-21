@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -62,7 +61,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private Date vitA2Date;
 	private Date vitA3Date;
 	private Boolean closed;
-	private Date dateClosed;
+	private Date closedOn;
     private Date creationTime = new Date();
     private Date lastModifiedTime;
 
@@ -84,7 +83,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
 			Date dateMeaslesBooster, Boolean babyWeight, String name,
 			String term, String timeOfBirth, Date vitA2Date, Date vitA3Date,
-			Boolean closed, Date dateClosed, Date creationTime, Date lastModifiedTime) {
+			Boolean closed, Date closedOn, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -125,7 +124,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.vitA2Date = vitA2Date;
 		this.vitA3Date = vitA3Date;
 		this.closed = closed;
-		this.dateClosed = dateClosed;
+		this.closedOn = closedOn;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
     }
@@ -523,13 +522,13 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_closed", length = 13)
-	public Date getDateClosed() {
-		return this.dateClosed;
+	@Column(name = "closed_on", length = 13)
+	public Date getClosedOn() {
+		return this.closedOn;
 	}
 
-	public void setDateClosed(Date dateClosed) {
-		this.dateClosed = dateClosed;
+	public void setClosedOn(Date closedOn) {
+		this.closedOn = closedOn;
 	}
 
     @Temporal(TemporalType.TIMESTAMP)

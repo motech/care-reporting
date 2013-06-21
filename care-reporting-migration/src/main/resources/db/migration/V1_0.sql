@@ -184,7 +184,7 @@ CREATE TABLE report.child_case (
 	,vit_a_2_date DATE
 	,vit_a_3_date DATE
 	,closed BOOLEAN
-	,date_closed DATE
+	,closed_on DATE
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
