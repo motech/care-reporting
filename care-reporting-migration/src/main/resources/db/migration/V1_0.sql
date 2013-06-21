@@ -1046,7 +1046,6 @@ CREATE TABLE report.close_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,close	VARCHAR(20)
 	,child_alive	BOOLEAN
 	,close_child	BOOLEAN
 	,confirm_close	BOOLEAN
@@ -1059,6 +1058,9 @@ CREATE TABLE report.close_child_form(
 	,place_death VARCHAR(255)
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -1171,9 +1173,11 @@ CREATE TABLE report.abort_form(
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,abortion_type	VARCHAR(255)
-	,close	 VARCHAR(20)
 	,birth_status	VARCHAR(255)
 	,date_aborted	DATE
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 

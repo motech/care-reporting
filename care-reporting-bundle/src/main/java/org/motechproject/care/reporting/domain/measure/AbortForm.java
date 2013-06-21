@@ -25,9 +25,11 @@ public class AbortForm extends Form {
 	private Date timeStart;
 	private Date dateModified;
 	private String abortionType;
-	private String close;
 	private String birthStatus;
-	private Date dateAborted;
+    private Date dateAborted;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
 
     public AbortForm() {
@@ -39,8 +41,8 @@ public class AbortForm extends Form {
 
 	public AbortForm(int id, Flw flw, MotherCase motherCase, String instanceId,
                      Date timeEnd, Date timeStart, Date dateModified,
-                     String abortionType, String close, String birthStatus,
-                     Date dateAborted, Date creationTime) {
+                     String abortionType, Boolean close, String birthStatus,
+                     Date dateAborted, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -49,9 +51,11 @@ public class AbortForm extends Form {
 		this.timeStart = timeStart;
 		this.dateModified = dateModified;
 		this.abortionType = abortionType;
-		this.close = close;
 		this.birthStatus = birthStatus;
-		this.dateAborted = dateAborted;
+        this.dateAborted = dateAborted;
+        this.close = close;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
     }
 
@@ -127,15 +131,6 @@ public class AbortForm extends Form {
 		this.abortionType = abortionType;
 	}
 
-	@Column(name = "close", length = 20)
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
-	}
-
 	@Column(name = "birth_status")
 	public String getBirthStatus() {
 		return this.birthStatus;
@@ -165,6 +160,35 @@ public class AbortForm extends Form {
         this.creationTime = creationTime;
     }
 
+    @Column(name = "close")
+    public Boolean getClose() {
+        return close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
 
     @Override
     public String toString() {
