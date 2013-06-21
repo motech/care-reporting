@@ -65,4 +65,12 @@ public class ObjectUtilsTest {
         assertNull(testData.booleanObject);
         assertNull(testData.decimalObject);
     }
+
+    @Test
+    public void shouldParseDatesWithIncompleteTimezoneInformation() throws Exception {
+        TestData testData = new TestData();
+        ObjectUtils.set(testData, "aDateFormat1", "2012-09-25T20:17:19.189+05");
+
+        assertEquals(DateTime.parse("2012-09-25T20:17:19.189+0500").toDate(), testData.aDateFormat1);
+    }
 }

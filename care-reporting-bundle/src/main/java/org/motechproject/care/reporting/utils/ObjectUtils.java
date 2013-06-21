@@ -14,9 +14,7 @@ import java.util.Date;
 public class ObjectUtils {
 
     static {
-        DateTimeConverter dtConverter = new DateConverter();
-        dtConverter.setPatterns(new String[]{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss", "MM/dd/yyyy", "yyyy-MM-dd"});
-        ConvertUtils.register(dtConverter, Date.class);
+        ConvertUtils.register(new CareDateConverter(), Date.class);
         ConvertUtils.register(new IntegerConverter(null), Integer.class);
         ConvertUtils.register(new ShortConverter(null),Short.class);
         ConvertUtils.register(new BooleanConverter(null),Boolean.class);
