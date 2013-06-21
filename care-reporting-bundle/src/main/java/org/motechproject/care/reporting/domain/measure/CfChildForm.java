@@ -778,7 +778,7 @@ public class CfChildForm extends Form {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
+    @Column(name = "closed_on")
     public Date getClosedOn() {
         return closedOn;
     }
@@ -788,7 +788,7 @@ public class CfChildForm extends Form {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "closed_by")
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     public Flw getClosedBy() {
         return closedBy;

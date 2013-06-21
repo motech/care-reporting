@@ -2,12 +2,14 @@ package org.motechproject.care.reporting.domain.measure;
 
 // Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -1058,7 +1060,7 @@ public class RegistrationMotherForm extends Form {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
+    @Column(name = "closed_on")
     public Date getClosedOn() {
         return closedOn;
     }
@@ -1068,8 +1070,8 @@ public class RegistrationMotherForm extends Form {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     public Flw getClosedBy() {
         return closedBy;
     }
