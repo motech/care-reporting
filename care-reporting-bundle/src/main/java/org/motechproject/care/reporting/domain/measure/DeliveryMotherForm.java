@@ -27,7 +27,6 @@ public class DeliveryMotherForm extends Form {
 	private Boolean pptl;
 	private Boolean abdPain;
 	private Date add;
-	private String close;
 	private String birthPlace;
 	private Date dateDelFu;
 	private Date dateLastVisit;
@@ -64,6 +63,9 @@ public class DeliveryMotherForm extends Form {
 	private String whereBorn;
 	private String whichHospital;
 	private String whichVillage;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
 
     public DeliveryMotherForm() {
@@ -76,7 +78,7 @@ public class DeliveryMotherForm extends Form {
 	public DeliveryMotherForm(int id, Flw flw, MotherCase motherCase,
                               String instanceId, Date timeEnd, Date timeStart, Date dateModified,
                               Boolean ppiud, Boolean pptl, Boolean abdPain, Date add,
-                              String close, String birthPlace, Date dateDelFu,
+                              Boolean close, String birthPlace, Date dateDelFu,
                               Date dateLastVisit, Date dateNextCf, Date dateNextEb,
                               Date dateNextPnc, String familyPlanningType, String lastVisitType,
                               Boolean motherAlive, String term, Short castNumChildren,
@@ -88,7 +90,7 @@ public class DeliveryMotherForm extends Form {
                               String otherVillage, Boolean painUrine, String placeDeath,
                               Boolean postPostpartumFp, Boolean safe, String siteDeath,
                               Boolean vaginalDischarge, String whereBorn, String whichHospital,
-                              String whichVillage, Date creationTime) {
+                              String whichVillage, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -137,6 +139,8 @@ public class DeliveryMotherForm extends Form {
 		this.whereBorn = whereBorn;
 		this.whichHospital = whichHospital;
 		this.whichVillage = whichVillage;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
     }
 
@@ -238,15 +242,6 @@ public class DeliveryMotherForm extends Form {
 
 	public void setAdd(Date add) {
 		this.add = add;
-	}
-
-	@Column(name = "close")
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
 	}
 
 	@Column(name = "birth_place", length = 25)
@@ -588,6 +583,36 @@ public class DeliveryMotherForm extends Form {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    @Column(name = "close")
+    public Boolean getClose() {
+        return this.close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
     }
 
     @Override

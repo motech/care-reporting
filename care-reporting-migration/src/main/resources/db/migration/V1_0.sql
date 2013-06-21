@@ -872,7 +872,6 @@ CREATE TABLE report.delivery_mother_form(
 	,PPTL	BOOLEAN
 	,abd_pain	BOOLEAN
 	,add	DATE
-	,close	VARCHAR(255)
 	,birth_place	VARCHAR(25)
 	,date_del_fu	DATE
 	,date_last_visit	DATE
@@ -909,6 +908,9 @@ CREATE TABLE report.delivery_mother_form(
 	,where_born	VARCHAR(50)
 	,which_hospital	VARCHAR(255)
 	,which_village	VARCHAR(255)
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
