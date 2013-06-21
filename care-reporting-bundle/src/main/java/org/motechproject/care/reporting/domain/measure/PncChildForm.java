@@ -33,7 +33,6 @@ public class PncChildForm extends Form {
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
-	private String close;
 	private Boolean cordFallen;
 	private Boolean correctPosition;
 	private Boolean counselCordCare;
@@ -54,6 +53,9 @@ public class PncChildForm extends Form {
 	private Boolean warmToTouch;
 	private String whatApplied;
 	private Boolean wrapped;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
 
     public PncChildForm() {
@@ -69,7 +71,7 @@ public class PncChildForm extends Form {
                         Boolean appliedToStump, Boolean babyActive,
                         Boolean breastfeedingWell, Boolean childAlive,
                         Boolean childDiedVillage, String childPlaceDeath,
-                        String childSiteDeath, Date chldDateDeath, String close,
+                        String childSiteDeath, Date chldDateDeath, Boolean close,
                         Boolean cordFallen, Boolean correctPosition,
                         Boolean counselCordCare, Boolean counselExclusiveBf,
                         Boolean counselExpressMilk, Boolean counselSkin,
@@ -78,7 +80,7 @@ public class PncChildForm extends Form {
                         Boolean goodLatch, Boolean improvementsBf, Boolean observedBf,
                         Boolean otherMilkToChild, Boolean secondObservation,
                         Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
-                        Boolean wrapped, Date creationTime) {
+                        Boolean wrapped, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -96,7 +98,6 @@ public class PncChildForm extends Form {
 		this.childPlaceDeath = childPlaceDeath;
 		this.childSiteDeath = childSiteDeath;
 		this.chldDateDeath = chldDateDeath;
-		this.close = close;
 		this.cordFallen = cordFallen;
 		this.correctPosition = correctPosition;
 		this.counselCordCare = counselCordCare;
@@ -117,7 +118,10 @@ public class PncChildForm extends Form {
 		this.warmToTouch = warmToTouch;
 		this.whatApplied = whatApplied;
 		this.wrapped = wrapped;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
+        this.close = close;
     }
 
 	@Id
@@ -272,15 +276,6 @@ public class PncChildForm extends Form {
 
 	public void setChldDateDeath(Date chldDateDeath) {
 		this.chldDateDeath = chldDateDeath;
-	}
-
-	@Column(name = "close")
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
 	}
 
 	@Column(name = "cord_fallen")
@@ -471,6 +466,36 @@ public class PncChildForm extends Form {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    @Column(name = "close")
+    public Boolean getClose() {
+        return close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
     }
 
     @Override

@@ -604,6 +604,9 @@ CREATE TABLE report.pnc_child_form(
 	,warm_to_touch	BOOLEAN
 	,what_applied	VARCHAR(255)
 	,wrapped	BOOLEAN
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
