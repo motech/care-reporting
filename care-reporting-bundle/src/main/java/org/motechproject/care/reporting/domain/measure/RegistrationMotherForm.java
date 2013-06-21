@@ -96,7 +96,6 @@ public class RegistrationMotherForm extends Form {
 	private Boolean recentlyDelivered;
 	private String referralPrompt;
 	private String resident;
-	private String success;
 	private Boolean urineTest;
 	private Boolean usedFp;
 	private Boolean vaginalDischarge;
@@ -140,7 +139,7 @@ public class RegistrationMotherForm extends Form {
                                   String otherDistrict, String otherVillage, Boolean painUrine,
                                   Boolean postPostpartumFp, Boolean pregDesired,
                                   Boolean recentlyDelivered, String referralPrompt, String resident,
-                                  String success, Boolean urineTest, Boolean usedFp,
+                                  Boolean urineTest, Boolean usedFp,
                                   Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
                                   String whichHospital, String whichVillage, Boolean children, Date creationTime) {
         super(instanceId);
@@ -223,7 +222,6 @@ public class RegistrationMotherForm extends Form {
 		this.recentlyDelivered = recentlyDelivered;
 		this.referralPrompt = referralPrompt;
 		this.resident = resident;
-		this.success = success;
 		this.urineTest = urineTest;
 		this.usedFp = usedFp;
 		this.vaginalDischarge = vaginalDischarge;
@@ -965,15 +963,6 @@ public class RegistrationMotherForm extends Form {
 
 	public void setResident(String resident) {
 		this.resident = resident;
-	}
-
-	@Column(name = "success", length = 10)
-	public String getSuccess() {
-		return this.success;
-	}
-
-	public void setSuccess(String success) {
-		this.success = success;
 	}
 
 	@Column(name = "urine_test")

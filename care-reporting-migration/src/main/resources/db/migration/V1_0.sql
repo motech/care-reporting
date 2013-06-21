@@ -301,7 +301,6 @@ CREATE TABLE report.registration_mother_form (
 	,recently_delivered	BOOLEAN
 	,referral_prompt	VARCHAR(255)
 	,resident	VARCHAR(255)
-	,success	VARCHAR(10)
 	,urine_test	BOOLEAN
 	,used_fp	BOOLEAN
 	,vaginal_discharge	BOOLEAN
