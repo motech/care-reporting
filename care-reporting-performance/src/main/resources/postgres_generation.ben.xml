@@ -3,7 +3,7 @@
         xmlns="http://databene.org/benerator/0.7.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
-        defaultPageSize="10000"
+        defaultPageSize="50000"
         >
 
     <import platforms="db"/>
@@ -21,10 +21,10 @@
     
     <setting name="flw_count" default="5000"/>
     <setting name="flw_group_count" default="1000"/>
-    <setting name="flw_group_map_count" default="50000"/>
-    <setting name="mother_count" default="70000"/>
-    <setting name="child_count" default="100000"/>
-    <setting name="forms_count" default="200000"/>
+    <setting name="flw_group_map_count" default="10000"/>
+    <setting name="mother_count" default="100000"/>
+    <setting name="child_count" default="80000"/>
+    <setting name="forms_count" default="100000"/>
 
 
     <include uri="{ftl:postgres.ben.properties}"/>
