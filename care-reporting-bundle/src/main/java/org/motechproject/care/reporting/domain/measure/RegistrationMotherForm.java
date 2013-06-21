@@ -104,6 +104,7 @@ public class RegistrationMotherForm extends Form {
 	private String whereBorn;
 	private String whichHospital;
 	private String whichVillage;
+	private Boolean children;
     private Date creationTime = new Date();
 
     public RegistrationMotherForm() {
@@ -141,7 +142,7 @@ public class RegistrationMotherForm extends Form {
                                   Boolean recentlyDelivered, String referralPrompt, String resident,
                                   String success, Boolean urineTest, Boolean usedFp,
                                   Boolean vaginalDischarge, Boolean vegetarian, String whereBorn,
-                                  String whichHospital, String whichVillage, Date creationTime) {
+                                  String whichHospital, String whichVillage, Boolean children, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -230,6 +231,7 @@ public class RegistrationMotherForm extends Form {
 		this.whereBorn = whereBorn;
 		this.whichHospital = whichHospital;
 		this.whichVillage = whichVillage;
+        this.children = children;
         this.creationTime = creationTime;
     }
 
@@ -1050,5 +1052,14 @@ public class RegistrationMotherForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "children")
+    public Boolean getChildren() {
+        return children;
+    }
+
+    public void setChildren(Boolean children) {
+        this.children = children;
     }
 }

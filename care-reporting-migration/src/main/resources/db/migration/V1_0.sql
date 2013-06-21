@@ -307,9 +307,10 @@ CREATE TABLE report.registration_mother_form (
 	,vaginal_discharge	BOOLEAN
 	,vegetarian	BOOLEAN
 	,where_born	VARCHAR(255)
-	,which_hospital	VARCHAR(255)
-	,which_village	VARCHAR(255)
-    ,creation_time TIMESTAMP WITH TIME ZONE
+  ,which_hospital	VARCHAR(255)
+  ,which_village	VARCHAR(255)
+  ,creation_time TIMESTAMP WITH TIME ZONE
+  ,children	BOOLEAN
 );
 
 CREATE TABLE report.registration_child_form (
