@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <setup>
     <import platforms='couchdb'/>
-    <couchdb database='persondb' name='motech_motech-person-repository' environment='localcouchdb'/>
-    <couchdb database='providerdb' name='motech_motech-provider-repository' environment='localcouchdb'/>
-    <couchdb database='patientdb' name='motech_motech-patient-repository' environment='localcouchdb'/>
-    <couchdb database='observationdb' name='motech_motech-observation-repository' environment='localcouchdb'/>
-    <couchdb database='encounterdb' name='motech_motech-encounter-repository' environment='localcouchdb'/>
+    <couchdb database='persondb' name='motech_motech-person-repository' environment='perfcouchdb'/>
+    <couchdb database='providerdb' name='motech_motech-provider-repository'  environment='perfcouchdb'/>
+    <couchdb database='patientdb' name='motech_motech-patient-repository' environment='perfcouchdb'/>
+    <couchdb database='observationdb' name='motech_motech-observation-repository'  environment='perfcouchdb'/>
+    <couchdb database='encounterdb' name='motech_motech-encounter-repository'  environment='perfcouchdb'/>
 
-    <setting name="person_count" default="10"/>
-    <setting name="patient_count" default="5"/>
-    <setting name="provider_count" default="5"/>
-    <setting name="observation_count" default="50"/>
-    <setting name="encounter_count" default="5"/>
-    <setting name="observation_per_encounter_count" default="10"/>
+    <setting name="person_count" default="2"/>
+    <setting name="patient_count" default="1"/>
+    <setting name="provider_count" default="1"/>
+    <setting name="observation_count" default="20"/>
+    <setting name="encounter_count" default="1"/>
+    <setting name="observation_per_encounter_count" default="1"/>
+    <setting name="attributes_per_patient_count" default="3"/>
     <setting name="string_length" default="10"/>
 
     <memstore id="personStore"/>
@@ -44,38 +45,45 @@
     </generate>
 
 
-    <generate type='person' count='{person_count}' consumer='persondb'>
+    <generate type='Person' count='{person_count}' consumer='persondb'>
         <variable name="personDetail" source="personStore" type="personEntityStore" />
         <attribute name="age" type="int" generator="new RandomIntegerGenerator(0,100)"/>
         <attribute name="birthDateEstimated" type="boolean"/>
-        <attribute name="dateOfBirth" type="DateTimeGenerator"/>
+        <attribute name="dateOfBirth" type="date" generator="DayGenerator"/>
         <attribute name="dead" type="boolean"/>
         <attribute name="firstName" type="string" maxLength="{string_length}"/>
         <attribute name="gender" type="string"  values="'male','female'"/>
         <attribute name="personId"  script="personDetail.id"/>
+        <part name="attributes" container="list" count="{attributes_per_patient_count}">
+            <attribute name="name" type="string" maxLength="{string_length}"/>
+            <attribute name="value" type="string" maxLength="{string_length}"/>
+        </part>
     </generate>
 
-    <generate type='provider' count='{provider_count}' consumer='providerdb'>
+    <generate type='Provider' count='{provider_count}' consumer='providerdb'>
         <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
         <attribute name="personId"  script="providerDetail.personId"/>
         <attribute name="providerId" script="providerDetail.id"/>
     </generate>
 
-    <generate type='patient' count='{patient_count}' consumer='patientdb'>
+    <generate type='Patient' count='{patient_count}' consumer='patientdb'>
         <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
         <attribute name="personId"  script="patientDetail.personId"/>
         <attribute name="patientId" script="patientDetail.id"/>
+        <attribute name="motechId" type="string" generator="UUIDGenerator"/>
     </generate>
 
-    <generate type='observation' count='{observation_count}' consumer='observationdb'>
+    <generate type='Observation' count='{observation_count}' consumer='observationdb'>
         <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
+
         <attribute name="patientId" script="observationDetail.patientId"/>
         <attribute name="observationId" script="observationDetail.id"/>
+        <attribute name="date" type="date" generator="CurrentDateTimeGenerator"/>
         <attribute name="conceptName"  type="string" maxLength="{string_length}"/>
         <attribute name="value" type="string" maxLength="{string_length}"/>
     </generate>
 
-    <generate type='encounter' count='{encounter_count}' consumer='encounterdb'>
+    <generate type='Encounter' count='{encounter_count}' consumer='encounterdb'>
         <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
         <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
         <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
@@ -83,9 +91,10 @@
         <attribute name="encounterId" type="string" generator="UUIDGenerator"/>
         <attribute name="providerId" script="providerDetail.id"/>
         <attribute name="patientId" script="patientDetail.id"/>
-        <part name="observationIds" container="list" count="{observation_per_encounter_count}">
-            <attribute name="observationId" script="observationDetail.id" />
+        <attribute name="date" type="date" generator="CurrentDateTimeGenerator"/>
+        <attribute name="encounterType" type="string" values="'MTP ABORT [Mother]','BP [Mother]','CP [Mother]','Close [Mother]','Death Registration [Mother]','Delivery Update [Mother]','EBF [Mother]','Migrate In [Mother]','Migrate Out [Mother]','New [Mother]','PNC [Mother]','Referral [Mother]','Registration [Mother]','Update Vaccinations [Mother]'"/>
+        <part name="observationIds" container="array" count="{observation_per_encounter_count}">
+            <id type="string" script="observationDetail.id" />
         </part>
     </generate>
-
 </setup>
