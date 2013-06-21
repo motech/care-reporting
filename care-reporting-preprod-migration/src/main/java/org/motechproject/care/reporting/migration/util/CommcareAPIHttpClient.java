@@ -19,7 +19,7 @@ import java.util.Properties;
 @Component
 public class CommcareAPIHttpClient {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(CommcareAPIHttpClient.class);
 
     private HttpClient httpClient;
     private final Properties commcareProperties;
@@ -57,6 +57,8 @@ public class CommcareAPIHttpClient {
 
         try {
             httpClient.executeMethod(getMethod);
+            int statusCode = getMethod.getStatusCode();
+
             InputStream responseStream = getMethod.getResponseBodyAsStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
             StringBuffer sb = new StringBuffer();
@@ -64,12 +66,17 @@ public class CommcareAPIHttpClient {
             while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
             }
-            return sb.toString();
-        } catch (HttpException e) {
-            logger.error("HttpException while sending request to CommCare: " + e.getMessage());
-            throw new RuntimeException(e);
+            String response = sb.toString();
+
+            if(statusCode != HttpStatus.SC_OK) {
+                RuntimeException e = new RuntimeException(String.format("Request to Commcare failed with status code %s and response %s", statusCode, response));
+                logger.error("Request to commcare failed", e);
+                throw e;
+            }
+            return response;
+
         } catch (IOException e) {
-            logger.error("IOException while sending request to CommCare: " + e.getMessage());
+            logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
         }
     }

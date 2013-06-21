@@ -21,7 +21,7 @@ public class ObjectUtils {
         ConvertUtils.register(new BigDecimalConverter(null),BigDecimal.class);
     }
 
-    protected static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public static boolean set(Object object, String fieldName, Object fieldValue) {
         try {
