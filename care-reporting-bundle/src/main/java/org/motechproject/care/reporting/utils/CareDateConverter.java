@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.utils;
 import org.apache.commons.beanutils.converters.AbstractConverter;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.DateTimeConverter;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public final class CareDateConverter extends AbstractConverter {
         DEFAULT_CONVERTER.setPatterns(new String[]{
                 "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
                 "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                "yyyy-MM-dd'T'HH:mm:ssX",
                 "yyyy-MM-dd'T'HH:mm:ss",
                 "MM/dd/yyyy",
                 "yyyy-MM-dd"});
