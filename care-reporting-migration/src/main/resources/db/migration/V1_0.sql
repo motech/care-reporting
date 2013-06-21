@@ -216,7 +216,7 @@ CREATE TABLE report.new_form (
 	,dob	DATE
 	,dob_known	BOOLEAN
 	,full_name	VARCHAR(255)
-	,manual_group	INTEGER REFERENCES report.flw_group(id)
+	,manual_group	VARCHAR(255)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 

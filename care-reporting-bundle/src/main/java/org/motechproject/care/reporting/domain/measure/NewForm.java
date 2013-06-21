@@ -20,7 +20,6 @@ public class NewForm extends Form {
 
 	private int id;
 	private Flw flw;
-	private FlwGroup flwGroup;
 	private MotherCase motherCase;
 	private Date timeEnd;
 	private Date timeStart;
@@ -41,6 +40,7 @@ public class NewForm extends Form {
 	private Date dob;
 	private Boolean dobKnown;
 	private String fullName;
+    private String manualGroup;
     private Date creationTime = new Date();
 
     public NewForm() {
@@ -50,17 +50,11 @@ public class NewForm extends Form {
 		this.id = id;
 	}
 
-	public NewForm(int id, Flw flw, FlwGroup flwGroup, MotherCase motherCase,
-                   String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                   Short ageCalc, String caseName, String caseType,
-                   Date dateLastVisit, Date dateNextReg, Integer familyNumber,
-                   Integer hhNumber, String husbandName, String lastVisitType,
-                   Boolean motherAlive, Date motherDob, String motherName,
-                   String caste, Date dob, Boolean dobKnown, String fullName, Date creationTime) {
+	public NewForm(int id, Flw flw, MotherCase motherCase, String instanceId, Date timeEnd, Date timeStart, Date dateModified, Short ageCalc, String caseName, String caseType, Date dateLastVisit, Date dateNextReg, Integer familyNumber, Integer hhNumber, String husbandName, String lastVisitType, Boolean motherAlive, Date motherDob, String motherName, String caste, Date dob, Boolean dobKnown, String manualGroup,
+                   String fullName, Date creationTime) {
 		super(instanceId);
         this.id = id;
 		this.flw = flw;
-		this.flwGroup = flwGroup;
 		this.motherCase = motherCase;
 		this.timeEnd = timeEnd;
 		this.timeStart = timeStart;
@@ -81,6 +75,7 @@ public class NewForm extends Form {
 		this.dob = dob;
 		this.dobKnown = dobKnown;
 		this.fullName = fullName;
+        this.manualGroup = manualGroup;
         this.creationTime = creationTime;
     }
 
@@ -106,14 +101,13 @@ public class NewForm extends Form {
 		this.flw = flw;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "manual_group")
-	public FlwGroup getFlwGroup() {
-		return this.flwGroup;
+	@Column(name = "manual_group")
+	public String getManualGroup() {
+		return this.manualGroup;
 	}
 
-	public void setFlwGroup(FlwGroup flwGroup) {
-		this.flwGroup = flwGroup;
+	public void setManualGroup(String manualGroup) {
+		this.manualGroup = manualGroup;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
