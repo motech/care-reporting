@@ -37,8 +37,6 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Boolean motherAlive;
 	private Date motherDob;
 	private String motherName;
-	private Boolean close;
-	private Boolean caseClosed;
 	private Date closedOn;
 	private Date add;
 	private Short age;
@@ -109,12 +107,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private String status;
 	private String term;
 	private Date dateCf7;
-	private Date dateDelFu;
-	private Date dateNextReg;
-	private Boolean institutional;
-	private Date dob;
-	private Boolean closed;
-	private Date dateClosed;
+    private Date dateDelFu;
+    private Date dateNextReg;
+    private Boolean institutional;
+    private Date dob;
+    private Boolean closed;
     private Date creationTime = new Date();
     private Date lastModifiedTime;
 
@@ -131,7 +128,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
                       Date serverDateModified, Date serverDateOpened,
                       Integer familyNumber, Integer hhNumber, String husbandName,
                       String lastVisitType, Boolean motherAlive, Date motherDob,
-                      String motherName, Boolean close, Boolean caseClosed,
+                      String motherName,
                       Date closedOn, Date add, Short age, String birthPlace,
                       Boolean complications, Date dateNextBp, Date dateNextCf,
                       Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
@@ -154,7 +151,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
                       String birthStatus, Date migrateOutDate, String migratedStatus,
                       String status, String term, Date dateCf7, Date dateDelFu,
                       Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
-                      Date dateClosed, Date creationTime, Date lastModifiedTime) {
+                      Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
 		this.flwGroup = flwGroup;
@@ -171,8 +168,6 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.motherAlive = motherAlive;
 		this.motherDob = motherDob;
 		this.motherName = motherName;
-		this.close = close;
-		this.caseClosed = caseClosed;
 		this.closedOn = closedOn;
 		this.add = add;
 		this.age = age;
@@ -248,7 +243,6 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.institutional = institutional;
 		this.dob = dob;
 		this.closed = closed;
-		this.dateClosed = dateClosed;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
     }
@@ -405,24 +399,6 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 
 	public void setMotherName(String motherName) {
 		this.motherName = motherName;
-	}
-
-	@Column(name = "close")
-	public Boolean getClose() {
-		return this.close;
-	}
-
-	public void setClose(Boolean close) {
-		this.close = close;
-	}
-
-	@Column(name = "case_closed")
-	public Boolean getCaseClosed() {
-		return this.caseClosed;
-	}
-
-	public void setCaseClosed(Boolean caseClosed) {
-		this.caseClosed = caseClosed;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -1138,16 +1114,6 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 
 	public void setClosed(Boolean closed) {
 		this.closed = closed;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_closed", length = 13)
-	public Date getDateClosed() {
-		return this.dateClosed;
-	}
-
-	public void setDateClosed(Date dateClosed) {
-		this.dateClosed = dateClosed;
 	}
 
     @Temporal(TemporalType.TIMESTAMP)

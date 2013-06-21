@@ -64,8 +64,6 @@ CREATE TABLE report.mother_case (
 	,mother_alive	BOOLEAN
 	,mother_dob	DATE
 	,mother_name	VARCHAR(255)
-	,close	 BOOLEAN
-	,case_closed	BOOLEAN
 	,closed_on	DATE
 	,add	DATE
 	,age	SMALLINT
@@ -141,7 +139,6 @@ CREATE TABLE report.mother_case (
 	,institutional BOOLEAN
 	,dob DATE
 	,closed BOOLEAN
-	,date_closed DATE
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
