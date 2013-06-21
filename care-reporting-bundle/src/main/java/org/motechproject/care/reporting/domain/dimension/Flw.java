@@ -142,7 +142,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 		this.id = id;
 	}
 
-    @Column(name = "flw_id", unique = true, length = 36)
+    @Column(name = "flw_id", unique = true)
 	public String getFlwId() {
 		return this.flwId;
 	}

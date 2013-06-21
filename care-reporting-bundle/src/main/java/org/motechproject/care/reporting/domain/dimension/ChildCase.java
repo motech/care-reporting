@@ -174,7 +174,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.flwGroup = flwGroup;
 	}
 
-	@Column(name = "case_id", length = 36)
+	@Column(name = "case_id")
 	public String getCaseId() {
 		return this.caseId;
 	}

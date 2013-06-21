@@ -63,7 +63,7 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
 		this.id = id;
 	}
 
-	@Column(name = "group_id", unique = true, length = 36)
+	@Column(name = "group_id", unique = true)
 	public String getGroupId() {
 		return this.groupId;
 	}

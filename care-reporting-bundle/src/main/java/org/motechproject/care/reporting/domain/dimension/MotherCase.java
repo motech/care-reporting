@@ -286,7 +286,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.flwGroup = flwGroup;
 	}
 
-	@Column(name = "case_id", unique = true, length = 36)
+	@Column(name = "case_id", unique = true)
 	public String getCaseId() {
 		return this.caseId;
 	}

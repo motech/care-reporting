@@ -17,7 +17,7 @@ public class Form implements java.io.Serializable {
         this.instanceId = instanceId;
     }
 
-    @Column(name = "instance_id", unique = true, length = 36)
+    @Column(name = "instance_id", unique = true)
     public String getInstanceId() {
         return this.instanceId;
     }
