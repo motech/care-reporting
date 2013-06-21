@@ -23,24 +23,27 @@ public class CloseMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private String close;
     private Boolean closeMother;
-	private Boolean confirmClose;
-	private Boolean deathVillage;
-	private String diedVillage;
-	private Boolean dupeReg;
-	private Boolean finishedContinuum;
-	private Short numChildren;
-	private String motherAlive;
-	private Boolean moved;
-	private Boolean migrated;
-	private Date dateLearned;
-	private Date dateLeft;
-	private Boolean migrationNote;
-	private Boolean died;
-	private Date dateDeath;
-	private String siteDeath;
+    private Boolean confirmClose;
+    private Boolean deathVillage;
+    private String diedVillage;
+    private Boolean dupeReg;
+    private Boolean finishedContinuum;
+    private Short numChildren;
+    private String motherAlive;
+    private Boolean moved;
+    private Boolean migrated;
+    private Date dateLearned;
+    private Date dateLeft;
+    private Boolean migrationNote;
+    private Boolean died;
+    private Date dateDeath;
+    private String siteDeath;
     private Date creationTime = new Date();
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
+
 
     public CloseMotherForm() {
 	}
@@ -51,12 +54,12 @@ public class CloseMotherForm extends Form {
 
 	public CloseMotherForm(int id, Flw flw, MotherCase motherCase,
                            String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                           String close, Boolean closeMother,
+                           Boolean close, Boolean closeMother,
                            Boolean confirmClose, Boolean deathVillage, String diedVillage,
                            Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
                            String motherAlive, Boolean moved, Boolean migrated,
                            Date dateLearned, Date dateLeft, Boolean migrationNote,
-                           Boolean died, Date dateDeath, String siteDeath, Date creationTime) {
+                           Boolean died, Date dateDeath, String siteDeath, Date creationTime, Date closedOn, Flw closedBy) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -82,6 +85,8 @@ public class CloseMotherForm extends Form {
 		this.dateDeath = dateDeath;
 		this.siteDeath = siteDeath;
         this.creationTime = creationTime;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
     }
 
 	@Id
@@ -147,14 +152,6 @@ public class CloseMotherForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Column(name = "close", length = 20)
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
-	}
 
     @Column(name = "close_mother")
 	public Boolean getCloseMother() {
@@ -303,6 +300,36 @@ public class CloseMotherForm extends Form {
 		this.siteDeath = siteDeath;
 	}
 
+    @Column(name = "close")
+    public Boolean getClose() {
+        return this.close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")
     public Date getCreationTime() {
@@ -317,4 +344,6 @@ public class CloseMotherForm extends Form {
     public String toString() {
         return FormToString.toString(this);
     }
+
+
 }
