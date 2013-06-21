@@ -782,7 +782,9 @@ CREATE TABLE report.cf_mother_form(
 	,lastvisit BOOLEAN
   ,date_cf_7 DATE
 	,confirm_close BOOLEAN
-	,close	BOOLEAN
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
