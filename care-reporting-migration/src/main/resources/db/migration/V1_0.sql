@@ -180,7 +180,7 @@ CREATE TABLE report.child_case (
 	,opv_booster_date	DATE
 	,date_je DATE
 	,date_measles_booster DATE
-	,baby_weight DECIMAL
+	,baby_weight BOOLEAN
 	,name VARCHAR(255)
 	,term VARCHAR(50)
 	,time_of_birth VARCHAR(25)

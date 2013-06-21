@@ -55,7 +55,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private Date opvBoosterDate;
 	private Date dateJe;
 	private Date dateMeaslesBooster;
-	private BigDecimal babyWeight;
+	private Boolean babyWeight;
 	private String name;
 	private String term;
 	private String timeOfBirth;
@@ -82,7 +82,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 			Date measlesDate, Date opv0Date, Date opv1Date, Date opv2Date,
 			Date opv3Date, Date vitA1Date, Boolean childAlive,
 			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
-			Date dateMeaslesBooster, BigDecimal babyWeight, String name,
+			Date dateMeaslesBooster, Boolean babyWeight, String name,
 			String term, String timeOfBirth, Date vitA2Date, Date vitA3Date,
 			Boolean closed, Date dateClosed, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
@@ -457,16 +457,16 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.dateMeaslesBooster = dateMeaslesBooster;
 	}
 
-	@Column(name = "baby_weight", precision = 131089, scale = 0)
-	public BigDecimal getBabyWeight() {
-		return this.babyWeight;
-	}
+    @Column(name = "baby_weight")
+    public Boolean getBabyWeight() {
+        return babyWeight;
+    }
 
-	public void setBabyWeight(BigDecimal babyWeight) {
-		this.babyWeight = babyWeight;
-	}
+    public void setBabyWeight(Boolean babyWeight) {
+        this.babyWeight = babyWeight;
+    }
 
-	@Column(name = "name")
+    @Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
