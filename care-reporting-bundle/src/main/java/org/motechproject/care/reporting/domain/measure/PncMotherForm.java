@@ -101,9 +101,6 @@ public class PncMotherForm extends Form {
 	private Boolean tlCounselScreening;
 	private Boolean tlCounselSideEffects;
 	private Boolean tlCounselTiming;
-    private Boolean close;
-    private Date closedOn;
-    private Flw closedBy;
 	private String whyNoPpffp;
     private Date creationTime = new Date();
 
@@ -146,7 +143,7 @@ public class PncMotherForm extends Form {
                          Boolean tlCounselFollowUp, Boolean tlCounselHospital,
                          Boolean tlCounselIrreversible, Boolean tlCounselScreening,
                          Boolean tlCounselSideEffects, Boolean tlCounselTiming,
-                         Boolean close, Date closedOn, Flw closedBy, String whyNoPpffp, Date creationTime) {
+                         String whyNoPpffp, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -230,9 +227,6 @@ public class PncMotherForm extends Form {
 		this.tlCounselScreening = tlCounselScreening;
 		this.tlCounselSideEffects = tlCounselSideEffects;
 		this.tlCounselTiming = tlCounselTiming;
-        this.close = close;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
         this.whyNoPpffp = whyNoPpffp;
         this.creationTime = creationTime;
     }
@@ -1011,36 +1005,6 @@ public class PncMotherForm extends Form {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
-    }
-
-    @Column(name = "close")
-    public Boolean getClose() {
-        return close;
-    }
-
-    public void setClose(Boolean close) {
-        this.close = close;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "closed_on")
-    public Date getClosedOn() {
-        return closedOn;
-    }
-
-    public void setClosedOn(Date closedOn) {
-        this.closedOn = closedOn;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    public Flw getClosedBy() {
-        return closedBy;
-    }
-
-    public void setClosedBy(Flw closedBy) {
-        this.closedBy = closedBy;
     }
 
     @Override

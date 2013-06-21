@@ -561,9 +561,6 @@ CREATE TABLE report.pnc_mother_form(
 	,tl_counsel_screening	BOOLEAN
 	,tl_counsel_side_effects	BOOLEAN
 	,tl_counsel_timing	BOOLEAN
-  ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
 	,why_no_ppffp	VARCHAR(255)
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
