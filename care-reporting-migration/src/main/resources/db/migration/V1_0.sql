@@ -583,7 +583,6 @@ CREATE TABLE report.pnc_child_form(
 	,child_place_death	VARCHAR(255)
 	,child_site_death	VARCHAR(255)
 	,chld_date_death	DATE	
-	,close	VARCHAR(255)
 	,cord_fallen	BOOLEAN
 	,correct_position	BOOLEAN
 	,counsel_cord_care	BOOLEAN
@@ -974,7 +973,6 @@ CREATE TABLE report.death_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
-	,close	 VARCHAR(20)
 	,mother_alive	BOOLEAN
 	,status	VARCHAR(255)
 	,cast_num_children	SMALLINT
@@ -983,6 +981,9 @@ CREATE TABLE report.death_mother_form(
 	,num_children	SMALLINT
 	,place_death	VARCHAR(255)
 	,site_death	VARCHAR(255)
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
