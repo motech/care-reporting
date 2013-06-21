@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -35,10 +36,11 @@ public class MotherInfoParserTest {
                                             .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
                                             .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                                             .build();
+
         FormValueElement childCase = new FormValueElementBuilder()
-                                            .addSubElement("hh_number", "555")
-                                            .addSubElement("age", "1")
-                                            .build();
+                .addSubElement("hh_number", "555")
+                .addSubElement("age", "1")
+                .build();
 
         CommcareForm commcareForm = new CommcareFormBuilder()
                                             .addSubElement("hh_number", "165")
@@ -61,6 +63,43 @@ public class MotherInfoParserTest {
         verify(infoParser, never()).parse(childCase, true);
 
         ReflectionAssert.assertReflectionEquals(expected, motherInfo);
+    }
+
+    @Test
+    public void shouldOverrideCaseFieldsWithFormLevelFields() throws Exception {
+        FormValueElement motherCaseChildElement = new FormValueElementBuilder()
+                .addSubElement("element1", "element1ValueCase")
+                .addSubElement("element2", "element2ValueCase")
+                .addSubElement("element3", "element3ValueCase")
+                .addSubElement("element5", (String) null)
+                .build();
+
+        FormValueElement motherCase = new FormValueElementBuilder()
+                .addSubElement("motherCaseChild", motherCaseChildElement)
+                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .build();
+
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("case", motherCase)
+                .addSubElement("element1", "element1ValueForm")
+                .addSubElement("element2", (String) null)
+                .addSubElement("element4", "element4ValueForm")
+                .addSubElement("element5", "element5ValueForm")
+                .build();
+
+        Map<String,String> motherInfo = new MotherInfoParser(new InfoParserImpl()).parse(commcareForm);
+
+        assertEquals(8, motherInfo.size());
+        assertEquals("2012-07-21T12:02:59.923+05:30", motherInfo.get("dateModified"));
+        assertEquals("94d5374f-290e-409f-bc57-86c2e4bcc43f", motherInfo.get("caseId"));
+        assertEquals("element1ValueForm", motherInfo.get("element1"));
+        assertNull(motherInfo.get("element2"));
+        assertEquals("element3ValueCase", motherInfo.get("element3"));
+        assertEquals("element4ValueForm", motherInfo.get("element4"));
+        assertEquals("element5ValueForm", motherInfo.get("element5"));
+        assertNull(motherInfo.get("motherCaseChild"));
     }
 }
 
