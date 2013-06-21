@@ -7,7 +7,7 @@
     <couchdb database='observationdb' name='motech_motech-observation-repository'  environment='perfcouchdb'/>
     <couchdb database='encounterdb' name='motech_motech-encounter-repository'  environment='perfcouchdb'/>
 
-    <setting name="person_count" default="2"/>
+    <setting name="person_count" default="3"/>
     <setting name="patient_count" default="1"/>
     <setting name="provider_count" default="1"/>
     <setting name="observation_count" default="20"/>
@@ -21,30 +21,35 @@
     <memstore id="patientStore"/>
     <memstore id="observationStore"/>
 
+    <echo>Populate Person Entity Store</echo>
     <generate type="personEntityStore" count="{person_count}" consumer="personStore">
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="type" type="string" values="'Provider','Patient'"/>
     </generate>
 
+    <echo>Populate Provider Entity Store</echo>
     <generate type="providerEntityStore" count="{provider_count}" consumer="providerStore">
-        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Provider')" distribution="random" />
+        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Provider')" distribution="random" cyclic="true" />
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="personId"  script="personEntity.id"/>
     </generate>
 
+    <echo>Populate Person Entity Store</echo>
     <generate type="patientEntityStore" count="{patient_count}" consumer="patientStore">
-        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Patient')" distribution="random" />
+        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Patient')" distribution="random" cyclic="true"/>
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="personId"  script="personEntity.id"/>
     </generate>
 
+    <echo>Populate Observation Entity Store</echo>
     <generate type="observationEntityStore" count="{observation_count}" consumer="observationStore">
-        <variable name="patientEntity" source="patientStore" type="patientEntityStore" distribution="random" />
+        <variable name="patientEntity" source="patientStore" type="patientEntityStore" distribution="random" cyclic="true" />
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="patientId"  script="patientEntity.id"/>
     </generate>
 
 
+    <echo>Generate Person Entities</echo>
     <generate type='Person' count='{person_count}' consumer='persondb'>
         <variable name="personDetail" source="personStore" type="personEntityStore" />
         <attribute name="age" type="int" generator="new RandomIntegerGenerator(0,100)"/>
@@ -60,21 +65,24 @@
         </part>
     </generate>
 
+    <echo>Generate Provider Entities</echo>
     <generate type='Provider' count='{provider_count}' consumer='providerdb'>
-        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
+        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" cyclic="true"/>
         <attribute name="personId"  script="providerDetail.personId"/>
         <attribute name="providerId" script="providerDetail.id"/>
     </generate>
 
+    <echo>Generate Patient Entities</echo>
     <generate type='Patient' count='{patient_count}' consumer='patientdb'>
-        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
+        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" cyclic="true"/>
         <attribute name="personId"  script="patientDetail.personId"/>
         <attribute name="patientId" script="patientDetail.id"/>
         <attribute name="motechId" type="string" generator="UUIDGenerator"/>
     </generate>
 
+    <echo>Generate Observation Entities</echo>
     <generate type='Observation' count='{observation_count}' consumer='observationdb'>
-        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
+        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" cyclic="true"/>
 
         <attribute name="patientId" script="observationDetail.patientId"/>
         <attribute name="observationId" script="observationDetail.id"/>
@@ -83,10 +91,11 @@
         <attribute name="value" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo>Generate Encounter Entities</echo>
     <generate type='Encounter' count='{encounter_count}' consumer='encounterdb'>
-        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" />
-        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" />
-        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" />
+        <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" cyclic="true"/>
+        <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" cyclic="true"/>
+        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" cyclic="true"/>
 
         <attribute name="encounterId" type="string" generator="UUIDGenerator"/>
         <attribute name="providerId" script="providerDetail.id"/>
