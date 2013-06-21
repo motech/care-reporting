@@ -105,12 +105,10 @@
         <attribute name="family_number" type="int"/>
         <attribute name="hh_number" type="int"/>
         <attribute name="husband_name" type="string" maxLength="{string_length}"/>
-        <attribute name="last_visit_type" type="int"/>
+        <attribute name="last_visit_type" type="string" maxLength="{string_length}"/>
         <attribute name="mother_alive" type="boolean"/>
         <attribute name="mother_dob" type="date" generator="DateGenerator"/>
         <attribute name="mother_name" type="string" maxLength="{string_length}"/>
-        <attribute name="close" type="boolean"/>
-        <attribute name="case_closed" type="boolean"/>
         <attribute name="closed_on" type="date" generator="DateGenerator"/>
         <attribute name="add" type="date" generator="DateGenerator"/>
         <attribute name="age" type="short"/>
@@ -186,7 +184,6 @@
         <attribute name="institutional" type="boolean"/>
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="closed" type="boolean"/>
-        <attribute name="date_closed" type="date" generator="DateGenerator"/>
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
@@ -224,14 +221,14 @@
         <attribute name="opv_booster_date" type="date" generator="DateGenerator"/>
         <attribute name="date_je" type="date" generator="DateGenerator"/>
         <attribute name="date_measles_booster" type="date" generator="DateGenerator"/>
-        <attribute name="baby_weight" type="double"/>
+        <attribute name="baby_weight" type="boolean"/>
         <attribute name="name" type="string" maxLength="{string_length}"/>
         <attribute name="term" type="string" maxLength="{string_length}"/>
         <attribute name="time_of_birth" type="string" constant="08:08:08.123+05:30"/>
         <attribute name="vit_a_2_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
         <attribute name="closed" type="boolean"/>
-        <attribute name="date_closed" type="date" generator="DateGenerator"/>
+        <attribute name="closed_on" type="date" generator="DateGenerator"/>
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
@@ -254,7 +251,7 @@
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="dob_known" type="boolean"/>
         <attribute name="full_name" type="string" maxLength="{string_length}"/>
-        <reference name="manual_group"  selector="select id from report.flw_group" source="db" distribution="random"/>
+        <reference name="manual_group" type="string" maxLength="{string_length}"/>
     </generate>
 
     <generate type="registration_mother_form" count="{forms_count}" consumer="db">
@@ -333,7 +330,6 @@
         <attribute name="recently_delivered" type="boolean"/>
         <attribute name="referral_prompt" type="string" maxLength="{string_length}"/>
         <attribute name="resident" type="string" maxLength="{string_length}"/>
-        <attribute name="success" type="string" maxLength="{string_length}"/>
         <attribute name="urine_test" type="boolean"/>
         <attribute name="used_fp" type="boolean"/>
         <attribute name="vaginal_discharge" type="boolean"/>
@@ -341,6 +337,7 @@
         <attribute name="where_born" type="string" maxLength="{string_length}"/>
         <attribute name="which_hospital" type="string" maxLength="{string_length}"/>
         <attribute name="which_village" type="string" maxLength="{string_length}"/>
+        <attribute name="children" type="boolean"/>
     </generate>
 
     <generate type="registration_child_form" count="{forms_count}" consumer="db">
