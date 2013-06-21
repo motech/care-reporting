@@ -2,12 +2,14 @@ package org.motechproject.care.reporting.domain.measure;
 
 // Generated Jun 4, 2013 4:50:32 PM by Hibernate Tools 3.4.0.CR1
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -30,7 +32,6 @@ public class DeliveryChildForm extends Form {
 	private Boolean babyHepB0;
 	private Boolean babyOpv0;
 	private Boolean breastfedHour;
-	private String close;
 	private String caseName;
 	private String caseType;
 	private Boolean babyWeight;
@@ -62,6 +63,9 @@ public class DeliveryChildForm extends Form {
 	private Boolean skinCare;
 	private String whatApplied;
 	private Boolean wrappedDried;
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
 
     public DeliveryChildForm() {
@@ -75,7 +79,7 @@ public class DeliveryChildForm extends Form {
                              String instanceId, Date timeEnd, Date timeStart, Date dateModified,
                              Boolean abnormalities, Boolean addVaccinations, Boolean babyBcg,
                              Boolean babyHepB0, Boolean babyOpv0, Boolean breastfedHour,
-                             String close, String caseName, String caseType,
+                             Boolean close, String caseName, String caseType,
                              Boolean babyWeight, Date bcgDate, String birthStatus, Date dob,
                              String gender, Date hepB0Date, Date opv0Date, String term,
                              String timeOfBirth, Boolean childAlive, String childBreathing,
@@ -85,7 +89,7 @@ public class DeliveryChildForm extends Form {
                              String childSiteDeath, Date chldDateDeath, Boolean cordApplied,
                              Boolean cordCut, Boolean cordTied, Date dateFirstWeight,
                              Date dateTimeFeed, BigDecimal firstWeight, Boolean skinCare,
-                             String whatApplied, Boolean wrappedDried, Date creationTime) {
+                             String whatApplied, Boolean wrappedDried, Date closedOn, Flw closedBy, Date creationTime) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -99,7 +103,6 @@ public class DeliveryChildForm extends Form {
 		this.babyHepB0 = babyHepB0;
 		this.babyOpv0 = babyOpv0;
 		this.breastfedHour = breastfedHour;
-		this.close = close;
 		this.caseName = caseName;
 		this.caseType = caseType;
 		this.babyWeight = babyWeight;
@@ -131,7 +134,10 @@ public class DeliveryChildForm extends Form {
 		this.skinCare = skinCare;
 		this.whatApplied = whatApplied;
 		this.wrappedDried = wrappedDried;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
+        this.close = close;
     }
 
 	@Id
@@ -249,15 +255,6 @@ public class DeliveryChildForm extends Form {
 
 	public void setBreastfedHour(Boolean breastfedHour) {
 		this.breastfedHour = breastfedHour;
-	}
-
-	@Column(name = "close")
-	public String getClose() {
-		return this.close;
-	}
-
-	public void setClose(String close) {
-		this.close = close;
 	}
 
 	@Column(name = "case_name")
@@ -554,6 +551,36 @@ public class DeliveryChildForm extends Form {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    @Column(name = "close")
+    public Boolean getClose() {
+        return this.close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
     }
 
     @Override

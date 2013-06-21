@@ -928,7 +928,6 @@ CREATE TABLE report.delivery_child_form(
 	,baby_hep_b_0 	BOOLEAN
 	,baby_opv0 	BOOLEAN
 	,breastfed_hour 	BOOLEAN
-	,close 	VARCHAR(255)
 	,case_name 	VARCHAR(255)
 	,case_type 	VARCHAR(255)
 	,baby_weight 	BOOLEAN
@@ -960,6 +959,9 @@ CREATE TABLE report.delivery_child_form(
 	,skin_care 	BOOLEAN
 	,what_applied 	VARCHAR(255)
 	,wrapped_dried 	BOOLEAN
+  ,close	BOOLEAN
+  ,closed_on TIMESTAMP WITH TIME ZONE
+  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 	,UNIQUE(instance_id, case_id)
 );
