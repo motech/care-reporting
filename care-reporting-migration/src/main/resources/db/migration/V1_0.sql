@@ -194,7 +194,7 @@ CREATE TABLE report.child_case (
 
 CREATE TABLE report.new_form (
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -222,7 +222,7 @@ CREATE TABLE report.new_form (
 
 CREATE TABLE report.registration_mother_form (
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -314,7 +314,7 @@ CREATE TABLE report.registration_mother_form (
 
 CREATE TABLE report.registration_child_form (
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -365,7 +365,7 @@ CREATE TABLE report.registration_child_form (
 
 CREATE TABLE report.bp_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -480,7 +480,7 @@ CREATE TABLE report.bp_form(
 
 CREATE TABLE report.pnc_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -568,7 +568,7 @@ CREATE TABLE report.pnc_mother_form(
 
 CREATE TABLE report.pnc_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -611,7 +611,7 @@ CREATE TABLE report.pnc_child_form(
 
 CREATE TABLE report.ebf_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -704,7 +704,7 @@ CREATE TABLE report.ebf_mother_form(
 
 CREATE TABLE report.ebf_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -759,7 +759,7 @@ CREATE TABLE report.ebf_child_form(
 
 CREATE TABLE report.cf_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -786,7 +786,7 @@ CREATE TABLE report.cf_mother_form(
 
 CREATE TABLE report.cf_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -856,7 +856,7 @@ CREATE TABLE report.cf_child_form(
 
 CREATE TABLE report.delivery_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -908,7 +908,7 @@ CREATE TABLE report.delivery_mother_form(
 
 CREATE TABLE report.delivery_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -958,7 +958,7 @@ CREATE TABLE report.delivery_child_form(
 
 CREATE TABLE report.death_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -978,7 +978,7 @@ CREATE TABLE report.death_mother_form(
 
 CREATE TABLE report.death_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -996,7 +996,7 @@ CREATE TABLE report.death_child_form(
 
 CREATE TABLE report.close_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1024,7 +1024,7 @@ CREATE TABLE report.close_mother_form(
 
 CREATE TABLE report.close_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1047,7 +1047,7 @@ CREATE TABLE report.close_child_form(
 
 CREATE TABLE report.refer_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1060,7 +1060,7 @@ CREATE TABLE report.refer_mother_form(
 
 CREATE TABLE report.refer_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1074,7 +1074,7 @@ CREATE TABLE report.refer_child_form(
 
 CREATE TABLE report.ui_mother_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1095,7 +1095,7 @@ CREATE TABLE report.ui_mother_form(
 
 CREATE TABLE report.ui_child_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36)
+	,instance_id VARCHAR(50)
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1148,7 +1148,7 @@ CREATE TABLE report.ui_child_form(
 
 CREATE TABLE report.abort_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1163,7 +1163,7 @@ CREATE TABLE report.abort_form(
 
 CREATE TABLE report.mo_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
@@ -1181,7 +1181,7 @@ CREATE TABLE report.mo_form(
 
 CREATE TABLE report.mi_form(
 	id SERIAL PRIMARY KEY
-	,instance_id VARCHAR(36) UNIQUE
+	,instance_id VARCHAR(50) UNIQUE
 	,time_end	TIMESTAMP WITH TIME ZONE
 	,time_start	TIMESTAMP WITH TIME ZONE
 	,user_id	INTEGER REFERENCES report.flw(id)
