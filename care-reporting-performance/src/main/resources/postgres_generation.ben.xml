@@ -5,11 +5,13 @@
         xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
         defaultPageSize="50000"
         >
+    <echo> Importing Platform... </echo>
 
     <import platforms="db"/>
 
     <comment>Data for Forms</comment>
 
+    <echo> Initializing settings... </echo>
     <setting name="stage" default="development"/>
     <setting name="database" default="care_reporting"/>
     <setting name="dbCatalog" default="care_reporting"/>
@@ -29,8 +31,10 @@
 
     <include uri="{ftl:postgres.ben.properties}"/>
 
+    <echo> Initializing database configuration... </echo>
     <database id="db" url="{dbUrl}" driver="{dbDriver}" catalog="{dbCatalog}" schema="{dbSchema}" user="{dbUser}" password="{dbPassword}" batch="{dbBatch}"/>
 
+    <echo> Cleans database... </echo>
     <execute target="db" onError="warn">
         Truncate table report.flw_group cascade;
         Truncate table report.flw cascade;
@@ -38,6 +42,7 @@
         Truncate table report.child_case cascade;
     </execute>
 
+    <echo> Setting up default components... </echo>
     <defaultComponents>
         <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
         <attribute name="time_end" type="date" generator="DateTimeGenerator"/>
@@ -48,6 +53,7 @@
     </defaultComponents>
 
 
+    <echo> Generating flw... </echo>
     <generate type="flw" count="{flw_count}" consumer="db">
         <attribute name="flw_id" type="string" generator="UUIDGenerator"/>
         <attribute name="default_phone_number" type="string" maxLength="{string_length}"/>
@@ -77,6 +83,7 @@
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
+    <echo> Generating flw group... </echo>
     <generate type="flw_group" count="{flw_group_count}" consumer="db">
         <attribute name="group_id" type="string" generator="UUIDGenerator"/>
         <attribute name="case_sharing" type="boolean"/>
@@ -87,11 +94,13 @@
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
+    <echo> Generating flw group map... </echo>
     <generate type="flw_group_map" count="{flw_group_map_count}" consumer="db">
         <reference name="flw_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="group_id" selector="select id from report.flw_group" source="db" distribution="random" />
     </generate>
 
+    <echo> Generating Mother case... </echo>
     <generate type="mother_case" count="{mother_count}" consumer="db">
         <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
         <attribute name="case_id" type="string" generator="UUIDGenerator"/>
@@ -187,6 +196,7 @@
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
+    <echo> Generating Child case... </echo>
     <generate type="child_case" count="{child_count}" consumer="db">
         <attribute name="id" generator="new IncrementalIdGenerator()" type="long" />
         <attribute name="case_id" type="string" generator="UUIDGenerator"/>
@@ -232,6 +242,7 @@
         <attribute name="last_modified_time" type="date" generator="DateTimeGenerator"/>
     </generate>
 
+    <echo> Generating New form... </echo>
     <generate type="new_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -251,9 +262,10 @@
         <attribute name="dob" type="date" generator="DateGenerator"/>
         <attribute name="dob_known" type="boolean"/>
         <attribute name="full_name" type="string" maxLength="{string_length}"/>
-        <reference name="manual_group" type="string" maxLength="{string_length}"/>
+        <attribute name="manual_group" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Registration Mother form... </echo>
     <generate type="registration_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -340,6 +352,7 @@
         <attribute name="children" type="boolean"/>
     </generate>
 
+    <echo> Generating Registration child form... </echo>
     <generate type="registration_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -383,6 +396,7 @@
         <attribute name="weight" type="double" generator="new RandomDoubleGenerator(2,200)"/>
     </generate>
 
+    <echo> Generating Abort form... </echo>
     <generate type="abort_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -392,6 +406,7 @@
         <attribute name="date_aborted" type="date" generator="DateGenerator"/>
     </generate>
 
+    <echo> Generating Bp form... </echo>
     <generate type="bp_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -500,6 +515,7 @@
         <attribute name="postponing" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Cf Mother form... </echo>
     <generate type="cf_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -521,6 +537,7 @@
         <attribute name="close" type="boolean"/>
     </generate>
 
+    <echo> Generating Cf Child form... </echo>
     <generate type="cf_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -583,6 +600,7 @@
         <attribute name="close" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Close Mother form... </echo>
     <generate type="close_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -605,6 +623,7 @@
         <attribute name="site_death" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Close Child form... </echo>
     <generate type="close_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -621,6 +640,7 @@
         <attribute name="place_death" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Death Mother form... </echo>
     <generate type="death_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -635,6 +655,7 @@
         <attribute name="site_death" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Death Child form... </echo>
     <generate type="death_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -646,6 +667,7 @@
         <attribute name="chld_date_death" type="date" generator="DateGenerator"/>
     </generate>
 
+    <echo> Generating Delivery Mother form... </echo>
     <generate type="delivery_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -692,6 +714,7 @@
         <attribute name="which_village" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Delivery Child form... </echo>
     <generate type="delivery_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -735,6 +758,7 @@
         <attribute name="wrapped_dried" type="boolean"/>
     </generate>
 
+    <echo> Generating Ebf Mother form... </echo>
     <generate type="ebf_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -822,6 +846,7 @@
         <attribute name="ppiud_fever" type="boolean"/>
     </generate>
 
+    <echo> Generating Ebf Child form... </echo>
     <generate type="ebf_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -870,6 +895,7 @@
         <attribute name="water_or_milk" type="boolean"/>
     </generate>
 
+    <echo> Generating Pnc Mother form... </echo>
     <generate type="pnc_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -952,6 +978,7 @@
         <attribute name="why_no_ppffp" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Pnc Child form... </echo>
     <generate type="pnc_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -988,6 +1015,7 @@
         <attribute name="wrapped" type="boolean"/>
     </generate>
 
+    <echo> Generating Refer Mother form... </echo>
     <generate type="refer_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -995,12 +1023,14 @@
         <attribute name="refer_mother" type="boolean"/>
     </generate>
 
+    <echo> Generating Refer Child form... </echo>
     <generate type="refer_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
         <attribute name="refer_child" type="boolean"/>
     </generate>
 
+    <echo> Generating Ui Mother form... </echo>
     <generate type="ui_mother_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -1016,6 +1046,7 @@
         <attribute name="tt_booster" type="date" generator="DateGenerator"/>
     </generate>
 
+    <echo> Generating Ui Child form... </echo>
     <generate type="ui_child_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
@@ -1062,6 +1093,7 @@
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
     </generate>
 
+    <echo> Generating Mi form... </echo>
     <generate type="mi_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
@@ -1076,6 +1108,7 @@
         <attribute name="migrated_status" type="string" maxLength="{string_length}"/>
     </generate>
 
+    <echo> Generating Mo form... </echo>
     <generate type="mo_form" count="{forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
