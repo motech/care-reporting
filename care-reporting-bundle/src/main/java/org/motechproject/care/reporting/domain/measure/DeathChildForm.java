@@ -23,13 +23,15 @@ public class DeathChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private String close;
 	private Boolean childAlive;
 	private Boolean childDiedVillage;
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
     private Date creationTime = new Date();
+    private Boolean close;
+    private Date closedOn;
+    private Flw closedBy;
 
     public DeathChildForm() {
 	}
@@ -40,8 +42,8 @@ public class DeathChildForm extends Form {
 
 	public DeathChildForm(int id, Flw flw, ChildCase childCase,
                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                          String close, Boolean childAlive, Boolean childDiedVillage,
-                          String childPlaceDeath, String childSiteDeath, Date chldDateDeath, Date creationTime) {
+                          Boolean close, Boolean childAlive, Boolean childDiedVillage,
+                          String childPlaceDeath, String childSiteDeath, Date chldDateDeath, Date creationTime, Date closedOn, Flw closedBy) {
         super(instanceId);
         this.id = id;
 		this.flw = flw;
@@ -56,6 +58,8 @@ public class DeathChildForm extends Form {
 		this.childSiteDeath = childSiteDeath;
 		this.chldDateDeath = chldDateDeath;
         this.creationTime = creationTime;
+        this.closedOn = closedOn;
+        this.closedBy = closedBy;
     }
 
 	@Id
@@ -121,16 +125,37 @@ public class DeathChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Column(name = "close", length = 20)
-	public String getClose() {
-		return this.close;
-	}
+    @Column(name = "close")
+    public Boolean getClose() {
+        return this.close;
+    }
 
-	public void setClose(String close) {
-		this.close = close;
-	}
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
 
-	@Column(name = "child_alive")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_on")
+    public Date getClosedOn() {
+        return closedOn;
+    }
+
+    public void setClosedOn(Date closedOn) {
+        this.closedOn = closedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
+
+    @Column(name = "child_alive")
 	public Boolean getChildAlive() {
 		return this.childAlive;
 	}
