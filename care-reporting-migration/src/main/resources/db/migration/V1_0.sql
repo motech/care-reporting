@@ -60,7 +60,7 @@ CREATE TABLE report.mother_case (
 	,family_number	INTEGER
 	,hh_number	INTEGER
 	,husband_name	VARCHAR(255)
-	,last_visit_type	INTEGER
+  ,last_visit_type	VARCHAR(20)
 	,mother_alive	BOOLEAN
 	,mother_dob	DATE
 	,mother_name	VARCHAR(255)

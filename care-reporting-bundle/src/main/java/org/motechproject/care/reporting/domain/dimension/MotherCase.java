@@ -33,7 +33,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Integer familyNumber;
 	private Integer hhNumber;
 	private String husbandName;
-	private Integer lastVisitType;
+	private String lastVisitType;
 	private Boolean motherAlive;
 	private Date motherDob;
 	private String motherName;
@@ -130,7 +130,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
                       String caseName, String caseType, Date dateModified,
                       Date serverDateModified, Date serverDateOpened,
                       Integer familyNumber, Integer hhNumber, String husbandName,
-                      Integer lastVisitType, Boolean motherAlive, Date motherDob,
+                      String lastVisitType, Boolean motherAlive, Date motherDob,
                       String motherName, Boolean close, Boolean caseClosed,
                       Date closedOn, Date add, Short age, String birthPlace,
                       Boolean complications, Date dateNextBp, Date dateNextCf,
@@ -370,16 +370,16 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.husbandName = husbandName;
 	}
 
-	@Column(name = "last_visit_type")
-	public Integer getLastVisitType() {
-		return this.lastVisitType;
-	}
+    @Column(name = "last_visit_type")
+    public String getLastVisitType() {
+        return lastVisitType;
+    }
 
-	public void setLastVisitType(Integer lastVisitType) {
-		this.lastVisitType = lastVisitType;
-	}
+    public void setLastVisitType(String lastVisitType) {
+        this.lastVisitType = lastVisitType;
+    }
 
-	@Column(name = "mother_alive")
+    @Column(name = "mother_alive")
 	public Boolean getMotherAlive() {
 		return this.motherAlive;
 	}
