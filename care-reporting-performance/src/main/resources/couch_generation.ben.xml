@@ -19,7 +19,6 @@
     <memstore id="patientStore"/>
     <memstore id="observationStore"/>
 
-
     <echo>Populate Provider Entity Store</echo>
     <generate type="providerEntityStore" count="{provider_count}" consumer="providerStore">
         <id name="id" type="string" generator="UUIDGenerator"/>
@@ -31,14 +30,6 @@
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="personId" type="string" generator="UUIDGenerator"/>
     </generate>
-
-    <echo>Populate Observation Entity Store</echo>
-    <generate type="observationEntityStore" count="{observation_count}" consumer="observationStore">
-        <variable name="patientEntity" source="patientStore" type="patientEntityStore" cyclic="true" />
-        <id name="id" type="string" generator="UUIDGenerator"/>
-        <attribute name="patientId"  script="patientEntity.id"/>
-    </generate>
-
 
     <echo>Generate Provider Person Entities</echo>
     <generate type='Person' count='{provider_count}' consumer='persondb'>
@@ -89,10 +80,10 @@
 
     <echo>Generate Observation Entities</echo>
     <generate type='Observation' count='{observation_count}' consumer='observationdb'>
-        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" cyclic="true"/>
+        <variable name="patientEntity" source="patientStore" type="patientEntityStore" cyclic="true" />
 
-        <attribute name="patientId" script="observationDetail.patientId"/>
-        <attribute name="observationId" script="observationDetail.id"/>
+        <attribute name="patientId" script="patientEntity.id"/>
+        <attribute name="observationId" type="string" generator="UUIDGenerator"/>
         <attribute name="date" type="date" generator="CurrentDateTimeGenerator"/>
         <attribute name="conceptName"  type="string" maxLength="{string_length}"/>
         <attribute name="value" type="string" maxLength="{string_length}"/>
@@ -102,7 +93,6 @@
     <generate type='Encounter' count='{encounter_count}' consumer='encounterdb'>
         <variable name="providerDetail" source="providerStore" type="providerEntityStore" distribution="random" cyclic="true"/>
         <variable name="patientDetail" source="patientStore" type="patientEntityStore" distribution="random" cyclic="true"/>
-        <variable name="observationDetail" source="observationStore" type="observationEntityStore" distribution="random" cyclic="true"/>
 
         <attribute name="encounterId" type="string" generator="UUIDGenerator"/>
         <attribute name="providerId" script="providerDetail.id"/>
@@ -110,7 +100,7 @@
         <attribute name="date" type="date" generator="CurrentDateTimeGenerator"/>
         <attribute name="encounterType" type="string" values="'MTP ABORT [Mother]','BP [Mother]','CP [Mother]','Close [Mother]','Death Registration [Mother]','Delivery Update [Mother]','EBF [Mother]','Migrate In [Mother]','Migrate Out [Mother]','New [Mother]','PNC [Mother]','Referral [Mother]','Registration [Mother]','Update Vaccinations [Mother]'"/>
         <part name="observationIds" container="array" count="{observation_per_encounter_count}">
-            <id type="string" script="observationDetail.id" />
+            <id type="string" script="Observation.observationId" />
         </part>
     </generate>
 </setup>
