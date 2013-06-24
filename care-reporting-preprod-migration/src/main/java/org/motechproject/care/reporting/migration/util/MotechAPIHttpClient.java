@@ -38,7 +38,7 @@ public class MotechAPIHttpClient {
         postContet(aCase, new PostMethod(getCaseUpdateUrl()));
     }
 
-    private void postContet(String form, PostMethod postMethod) {
+    void postContet(String form, PostMethod postMethod) {
         try {
             postMethod.setRequestEntity(new StringRequestEntity(form, "text/xml; charset=UTF-8", "UTF-8"));
             httpClient.executeMethod(postMethod);
