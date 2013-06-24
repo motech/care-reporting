@@ -7,7 +7,6 @@
     <couchdb database='observationdb' name='motech_motech-observation-repository'  environment='perfcouchdb'/>
     <couchdb database='encounterdb' name='motech_motech-encounter-repository'  environment='perfcouchdb'/>
 
-    <setting name="person_count" default="3"/>
     <setting name="patient_count" default="1"/>
     <setting name="provider_count" default="1"/>
     <setting name="observation_count" default="20"/>
@@ -16,49 +15,57 @@
     <setting name="attributes_per_patient_count" default="3"/>
     <setting name="string_length" default="10"/>
 
-    <memstore id="personStore"/>
     <memstore id="providerStore"/>
     <memstore id="patientStore"/>
     <memstore id="observationStore"/>
 
-    <echo>Populate Person Entity Store</echo>
-    <generate type="personEntityStore" count="{person_count}" consumer="personStore">
-        <id name="id" type="string" generator="UUIDGenerator"/>
-        <attribute name="type" type="string" values="'Provider','Patient'"/>
-    </generate>
 
     <echo>Populate Provider Entity Store</echo>
     <generate type="providerEntityStore" count="{provider_count}" consumer="providerStore">
-        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Provider')" distribution="random" cyclic="true" />
         <id name="id" type="string" generator="UUIDGenerator"/>
-        <attribute name="personId"  script="personEntity.id"/>
+        <attribute name="personId"  type="string" generator="UUIDGenerator"/>
     </generate>
 
-    <echo>Populate Person Entity Store</echo>
+    <echo>Populate Patient Entity Store</echo>
     <generate type="patientEntityStore" count="{patient_count}" consumer="patientStore">
-        <variable name="personEntity" source="personStore" type="personEntityStore" selector="_candidate.type.equals('Patient')" distribution="random" cyclic="true"/>
         <id name="id" type="string" generator="UUIDGenerator"/>
-        <attribute name="personId"  script="personEntity.id"/>
+        <attribute name="personId" type="string" generator="UUIDGenerator"/>
     </generate>
 
     <echo>Populate Observation Entity Store</echo>
     <generate type="observationEntityStore" count="{observation_count}" consumer="observationStore">
-        <variable name="patientEntity" source="patientStore" type="patientEntityStore" distribution="random" cyclic="true" />
+        <variable name="patientEntity" source="patientStore" type="patientEntityStore" cyclic="true" />
         <id name="id" type="string" generator="UUIDGenerator"/>
         <attribute name="patientId"  script="patientEntity.id"/>
     </generate>
 
 
-    <echo>Generate Person Entities</echo>
-    <generate type='Person' count='{person_count}' consumer='persondb'>
-        <variable name="personDetail" source="personStore" type="personEntityStore" />
+    <echo>Generate Provider Person Entities</echo>
+    <generate type='Person' count='{provider_count}' consumer='persondb'>
+        <variable name="providerDetail" source="providerStore" type="providerEntityStore" />
         <attribute name="age" type="int" generator="new RandomIntegerGenerator(0,100)"/>
         <attribute name="birthDateEstimated" type="boolean"/>
         <attribute name="dateOfBirth" type="date" generator="DayGenerator"/>
         <attribute name="dead" type="boolean"/>
         <attribute name="firstName" type="string" maxLength="{string_length}"/>
         <attribute name="gender" type="string"  values="'male','female'"/>
-        <attribute name="personId"  script="personDetail.id"/>
+        <attribute name="personId"  script="providerDetail.personId"/>
+        <part name="attributes" container="list" count="{attributes_per_patient_count}">
+            <attribute name="name" type="string" maxLength="{string_length}"/>
+            <attribute name="value" type="string" maxLength="{string_length}"/>
+        </part>
+    </generate>
+
+    <echo>Generate Patient Person Entities</echo>
+    <generate type='Person' count='{patient_count}' consumer='persondb'>
+        <variable name="patientDetail" source="patientStore" type="patientEntityStore" />
+        <attribute name="age" type="int" generator="new RandomIntegerGenerator(0,100)"/>
+        <attribute name="birthDateEstimated" type="boolean"/>
+        <attribute name="dateOfBirth" type="date" generator="DayGenerator"/>
+        <attribute name="dead" type="boolean"/>
+        <attribute name="firstName" type="string" maxLength="{string_length}"/>
+        <attribute name="gender" type="string"  values="'male','female'"/>
+        <attribute name="personId"  script="patientDetail.personId"/>
         <part name="attributes" container="list" count="{attributes_per_patient_count}">
             <attribute name="name" type="string" maxLength="{string_length}"/>
             <attribute name="value" type="string" maxLength="{string_length}"/>
