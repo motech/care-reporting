@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.converter;
 
 import org.apache.commons.beanutils.ConvertUtils;
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.springframework.beans.BeansException;
@@ -20,6 +21,8 @@ public class ConverterBeanPostProcessor implements BeanPostProcessor {
             ConvertUtils.register((FlwConverter) bean, Flw.class);
         if (MotherCaseConverter.class.equals(bean.getClass()))
             ConvertUtils.register((MotherCaseConverter) bean, MotherCase.class);
+        if (ChildCaseConverter.class.equals(bean.getClass()))
+            ConvertUtils.register((ChildCaseConverter) bean, ChildCase.class);
         return bean;
     }
 }

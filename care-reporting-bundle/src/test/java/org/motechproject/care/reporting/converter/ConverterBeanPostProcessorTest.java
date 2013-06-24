@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.converter;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
@@ -33,8 +34,21 @@ public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
         assertReflectionEqualsWithIgnore(motherCase, object.motherCase);
     }
 
+    @Test
+    public void shouldAutoConvertToChildCase() throws Exception {
+        ChildCase childCase= new ChildCase();
+        childCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
+        template.save(childCase);
+        ConverterDemoObject object = new ConverterDemoObject();
+
+        BeanUtils.setProperty(object, "childCase", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+
+        assertReflectionEqualsWithIgnore(childCase, object.childCase);
+    }
+
     static class ConverterDemoObject {
         Flw flw;
         MotherCase motherCase;
+        ChildCase childCase;
     }
 }
