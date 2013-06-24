@@ -7,8 +7,6 @@ public class ClosedFormPostProcessor implements PostProcessor {
     public void transform(Map<String, String> map) {
         if(map.containsKey("close")) {
             map.put("close", "true");
-            map.put("closedBy", map.get("userID"));
-            map.put("closedOn", map.get("dateModified"));
         }
     }
 }

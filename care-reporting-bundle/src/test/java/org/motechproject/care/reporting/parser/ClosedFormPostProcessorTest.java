@@ -22,15 +22,11 @@ public class ClosedFormPostProcessorTest {
     public void shouldAddCloseFields() throws Exception {
         Map<String, String> input = new HashMap<String, String>() {{
             put("close", null);
-            put("userID", "myuserid");
-            put("dateModified", "mydatemodified");
         }};
 
         closedFormPostProcessor.transform(input);
 
         assertEquals("true", input.get("close"));
-        assertEquals("myuserid",input.get("closedBy"));
-        assertEquals("mydatemodified",input.get("closedOn"));
     }
 
     @Test
@@ -43,8 +39,5 @@ public class ClosedFormPostProcessorTest {
         closedFormPostProcessor.transform(input);
 
         assertFalse(input.containsKey("close"));
-        assertFalse(input.containsKey("closedBy"));
-        assertFalse(input.containsKey("closedOn"));
     }
-
 }

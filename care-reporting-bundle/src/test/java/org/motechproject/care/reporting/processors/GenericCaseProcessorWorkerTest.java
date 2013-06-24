@@ -21,8 +21,6 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class GenericCaseProcessorWorkerTest {
-
-
     @Mock
     private Service service;
 

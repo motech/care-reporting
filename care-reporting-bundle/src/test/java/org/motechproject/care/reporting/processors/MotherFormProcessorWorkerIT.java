@@ -8,11 +8,13 @@ import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
+import org.motechproject.care.reporting.domain.measure.RegistrationMotherForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.junit.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -79,5 +81,47 @@ public class MotherFormProcessorWorkerIT extends SpringIntegrationTest {
 
         assertReflectionEqualsWithIgnore(expectedForm, savedForm, new String[]{"id", "creationTime"});
         assertDateIgnoringSeconds(expectedForm.getCreationTime(), savedForm.getCreationTime());
+    }
+
+    @Test
+    public void shouldNotThrowExceptionIfMotherFormWithSameInstanceIdIsSaved(){
+        NewForm persistedForm = new NewForm();
+        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        template.save(persistedForm);
+
+        FormValueElement motherCaseData = new FormValueElementBuilder()
+                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .build();
+        CommcareForm newFormData = new CommcareFormBuilder()
+                .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+                .addSubElement("case", motherCaseData)
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/new")
+                .build();
+
+        motherFormProcessorWorker.parseMotherForm(newFormData);
+    }
+
+    @Test
+    public void shouldMarkClosedForm() throws Exception {
+        FormValueElement motherCaseData = new FormValueElementBuilder()
+                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .addSubElement("close", new FormValueElement())
+                .build();
+
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/registration")
+                .addSubElement("meta", new FormValueElementBuilder()
+                        .addSubElement("userID", "89fda0284e008d2e0c980fb13f96c45a")
+                        .build())
+                .addSubElement("case", motherCaseData)
+                .build();
+        RegistrationMotherForm output = (RegistrationMotherForm) motherFormProcessorWorker.parseMotherForm(commcareForm);
+
+        assertTrue(output.getClose());
     }
 }
