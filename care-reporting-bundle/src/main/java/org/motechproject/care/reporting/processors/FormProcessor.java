@@ -7,17 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class FormProcessor {
 
-    private MotherFormProcessorWorker motherFormProcessorWorker;
-    private ChildFormProcessorWorker childFormProcessorWorker;
+    private MotherFormProcessor motherFormProcessor;
+    private ChildFormProcessor childFormProcessor;
 
     @Autowired
-    public FormProcessor(MotherFormProcessorWorker motherFormProcessorWorker, ChildFormProcessorWorker childFormProcessorWorker) {
-        this.motherFormProcessorWorker = motherFormProcessorWorker;
-        this.childFormProcessorWorker = childFormProcessorWorker;
+    public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor) {
+        this.motherFormProcessor = motherFormProcessor;
+        this.childFormProcessor = childFormProcessor;
     }
 
     public void process(CommcareForm commcareForm) {
-        motherFormProcessorWorker.parseMotherForm(commcareForm);
-        childFormProcessorWorker.parseChildForms(commcareForm);
+        motherFormProcessor.parseMotherForm(commcareForm);
+        childFormProcessor.parseChildForms(commcareForm);
     }
 }

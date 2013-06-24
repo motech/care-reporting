@@ -18,9 +18,9 @@ import static org.junit.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
-public class MotherFormProcessorWorkerIT extends SpringIntegrationTest {
+public class MotherFormProcessorIT extends SpringIntegrationTest {
     @Autowired
-    private MotherFormProcessorWorker motherFormProcessorWorker;
+    private MotherFormProcessor motherFormProcessor;
 
     @Test
     public void shouldParseMotherNewForm() {
@@ -77,7 +77,7 @@ public class MotherFormProcessorWorkerIT extends SpringIntegrationTest {
         expectedForm.setTimeStart(new DateTime(2012, 7, 21, 11, 59, 31, 76, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
         expectedForm.setTimeEnd(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
 
-        NewForm savedForm = (NewForm) motherFormProcessorWorker.parseMotherForm(newFormData);
+        NewForm savedForm = (NewForm) motherFormProcessor.parseMotherForm(newFormData);
 
         assertReflectionEqualsWithIgnore(expectedForm, savedForm, new String[]{"id", "creationTime"});
         assertDateIgnoringSeconds(expectedForm.getCreationTime(), savedForm.getCreationTime());
@@ -101,7 +101,7 @@ public class MotherFormProcessorWorkerIT extends SpringIntegrationTest {
                 .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/new")
                 .build();
 
-        motherFormProcessorWorker.parseMotherForm(newFormData);
+        motherFormProcessor.parseMotherForm(newFormData);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class MotherFormProcessorWorkerIT extends SpringIntegrationTest {
                         .build())
                 .addSubElement("case", motherCaseData)
                 .build();
-        RegistrationMotherForm output = (RegistrationMotherForm) motherFormProcessorWorker.parseMotherForm(commcareForm);
+        RegistrationMotherForm output = (RegistrationMotherForm) motherFormProcessor.parseMotherForm(commcareForm);
 
         assertTrue(output.getClose());
     }

@@ -13,7 +13,6 @@ import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,10 +22,9 @@ import static org.junit.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
-public class ChildFormProcessorWorkerIT extends SpringIntegrationTest {
-
+public class ChildFormProcessorIT extends SpringIntegrationTest {
     @Autowired
-    private ChildFormProcessorWorker childFormProcessorWorker;
+    private ChildFormProcessor childFormProcessor;
 
     @Test
     public void shouldParseChildEbfForm() {
@@ -116,7 +114,7 @@ public class ChildFormProcessorWorkerIT extends SpringIntegrationTest {
         persistedChildCase2.setCaseId("59ab28e0-2d2d-4bc7-933f-09dcacf70d61");
         template.save(persistedChildCase2);
 
-        List<Serializable> serializables = childFormProcessorWorker.parseChildForms(ebfForm);
+        List<Serializable> serializables = childFormProcessor.parseChildForms(ebfForm);
         assertEquals(2, serializables.size());
 
         final EbfChildForm expectedForm1 = getExpectedForm(((EbfChildForm) serializables.get(0)).getChildCase().getCaseId());
@@ -130,7 +128,7 @@ public class ChildFormProcessorWorkerIT extends SpringIntegrationTest {
     public void shouldReturnEmptyListIfChildInfoNotExistsInForm(){
         CommcareForm form = new CommcareFormBuilder().build();
 
-        List<Serializable> serializables = childFormProcessorWorker.parseChildForms(form);
+        List<Serializable> serializables = childFormProcessor.parseChildForms(form);
 
         assertEquals(0, serializables.size());
     }
@@ -161,7 +159,7 @@ public class ChildFormProcessorWorkerIT extends SpringIntegrationTest {
                 .addSubElement("num_children", "1")
                 .addSubElement("child_info", childCase1Details)
                 .build();
-        List<Serializable> output = childFormProcessorWorker.parseChildForms(ebfForm);
+        List<Serializable> output = childFormProcessor.parseChildForms(ebfForm);
 
         assertTrue(((DeathChildForm) output.get(0)).getClose());
     }

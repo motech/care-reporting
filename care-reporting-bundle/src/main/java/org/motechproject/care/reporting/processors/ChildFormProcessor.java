@@ -22,42 +22,57 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR;
+import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_CHILD_CASE_POST_PROCESSOR;
 import static org.motechproject.care.reporting.parser.PostProcessor.COPY_USER_ID_AS_FLW_ID_POST_PROCESSOR;
 
 @Component
-public class MotherFormProcessorWorker {
+public class ChildFormProcessor {
+
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-    public static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
+    public static final List<PostProcessor> CHILD_CASE_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
         add(new ClosedFormPostProcessor());
-        add(COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR);
+        add(COPY_CASE_ID_AS_CHILD_CASE_POST_PROCESSOR);
         add(COPY_USER_ID_AS_FLW_ID_POST_PROCESSOR);
     }};
-
     protected Service service;
     protected MapperService mapperService;
 
     @Autowired
-    public MotherFormProcessorWorker(Service service, MapperService mapperService) {
+    public ChildFormProcessor(Service service, MapperService mapperService) {
         this.service = service;
         this.mapperService = mapperService;
     }
 
-    public Serializable parseMotherForm(CommcareForm commcareForm) {
+    List<Serializable> parseChildForms(CommcareForm commcareForm) {
+        Class<?> childForm = FormFactory.getForm(namespace(commcareForm), CaseType.CHILD);
+        if (null == childForm)
+            return new ArrayList<>();
+
+        List<Serializable> childForms = new ArrayList<>();
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.CHILD);
+        List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
+
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
-        Map<String, String> motherInfo = new HashMap<>(metadata);
-        InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.MOTHER);
-        motherInfo.putAll(new MotherInfoParser(motherInfoParser).parse(commcareForm));
+        for (Map<String, String> childDetail : childDetails) {
 
-        applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
+            Map<String, String> childInfo = new HashMap<>(metadata);
+            childInfo.putAll(childDetail);
 
-        Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
-        Object formObject = new GenericMapper().map(motherInfo, motherForm);
+            applyPostProcessors(childInfo);
 
-        saveForm((Serializable) formObject, motherForm);
-        return (Serializable) formObject;
+            Serializable formObject = (Serializable) new GenericMapper().map(childInfo, childForm);
+            childForms.add(formObject);
+        }
+        saveForm(childForms, childForm);
+        return childForms;
+    }
+
+    private void saveForm(List<Serializable> forms, Class<?> type) {
+        for (Serializable form : forms) {
+            saveForm(form, type);
+        }
     }
 
     private void saveForm(Serializable form, Class<?> type) {
@@ -72,8 +87,8 @@ public class MotherFormProcessorWorker {
         logger.info(String.format("Finished processing form %s", form));
     }
 
-    private void applyPostProcessors(List<PostProcessor> processors, final Map<String, String> map) {
-        CollectionUtils.forAllDo(processors, new Closure() {
+    private void applyPostProcessors(final Map<String, String> map) {
+        CollectionUtils.forAllDo(CHILD_CASE_POST_PROCESSORS, new Closure() {
             @Override
             public void execute(Object input) {
                 ((PostProcessor) input).transform(map);
