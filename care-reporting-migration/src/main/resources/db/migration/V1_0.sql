@@ -307,8 +307,6 @@ CREATE TABLE report.registration_mother_form (
   ,which_hospital	VARCHAR(255)
   ,which_village	VARCHAR(255)
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
   ,creation_time TIMESTAMP WITH TIME ZONE
   ,children	BOOLEAN
 );
@@ -610,8 +608,6 @@ CREATE TABLE report.pnc_child_form(
 	,what_applied	VARCHAR(255)
 	,wrapped	BOOLEAN
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
@@ -791,8 +787,6 @@ CREATE TABLE report.cf_mother_form(
   ,date_cf_7 DATE
 	,confirm_close BOOLEAN
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -862,9 +856,7 @@ CREATE TABLE report.cf_child_form(
     ,vit_a_3_date DATE
     ,vit_a_2_date DATE
 	  ,close	BOOLEAN
-    ,closed_on TIMESTAMP WITH TIME ZONE
-    ,closed_by INTEGER REFERENCES report.flw(id)
-	,UNIQUE(instance_id, case_id)
+    	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -919,8 +911,6 @@ CREATE TABLE report.delivery_mother_form(
 	,which_hospital	VARCHAR(255)
 	,which_village	VARCHAR(255)
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -971,8 +961,6 @@ CREATE TABLE report.delivery_child_form(
 	,what_applied 	VARCHAR(255)
 	,wrapped_dried 	BOOLEAN
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 	,UNIQUE(instance_id, case_id)
 );
@@ -995,8 +983,6 @@ CREATE TABLE report.death_mother_form(
 	,place_death	VARCHAR(255)
 	,site_death	VARCHAR(255)
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1017,8 +1003,6 @@ CREATE TABLE report.death_child_form(
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
 
 );
 
@@ -1048,8 +1032,6 @@ CREATE TABLE report.close_mother_form(
     ,date_death DATE
     ,site_death VARCHAR(255)
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1075,8 +1057,6 @@ CREATE TABLE report.close_child_form(
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -1197,8 +1177,6 @@ CREATE TABLE report.abort_form(
 	,birth_status	VARCHAR(255)
 	,date_aborted	DATE
   ,close	BOOLEAN
-  ,closed_on TIMESTAMP WITH TIME ZONE
-  ,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 

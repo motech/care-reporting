@@ -35,8 +35,6 @@ public class CloseChildForm extends Form {
     private String placeDeath;
     private Date creationTime = new Date();
     private Boolean close;
-    private Date closedOn;
-    private Flw closedBy;
 
 
     public CloseChildForm() {
@@ -113,28 +111,6 @@ public class CloseChildForm extends Form {
     public void setClose(Boolean close) {
         this.close = close;
     }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "closed_on")
-    public Date getClosedOn() {
-        return closedOn;
-    }
-
-    public void setClosedOn(Date closedOn) {
-        this.closedOn = closedOn;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    public Flw getClosedBy() {
-        return closedBy;
-    }
-
-    public void setClosedBy(Flw closedBy) {
-        this.closedBy = closedBy;
-    }
-
 
 
     @Column(name = "child_alive")

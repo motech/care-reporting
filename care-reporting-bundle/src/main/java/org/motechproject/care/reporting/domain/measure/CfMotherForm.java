@@ -41,8 +41,6 @@ public class CfMotherForm extends Form {
 	private Date dateCf7;
 	private Boolean confirmClose;
     private Boolean close;
-    private Date closedOn;
-    private Flw closedBy;
     private Date creationTime = new Date();
 
     public CfMotherForm() {
@@ -262,27 +260,6 @@ public class CfMotherForm extends Form {
 
     public void setClose(Boolean close) {
         this.close = close;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "closed_on")
-    public Date getClosedOn() {
-        return closedOn;
-    }
-
-    public void setClosedOn(Date closedOn) {
-        this.closedOn = closedOn;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    public Flw getClosedBy() {
-        return closedBy;
-    }
-
-    public void setClosedBy(Flw closedBy) {
-        this.closedBy = closedBy;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
