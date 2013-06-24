@@ -10,6 +10,8 @@ public class Form implements java.io.Serializable {
     @ExternalPrimaryKey
     private String instanceId;
 
+    private String appVersion;
+
     public Form() {
     }
 
@@ -24,5 +26,14 @@ public class Form implements java.io.Serializable {
 
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
+    }
+
+    @Column(name = "app_version")
+    public String getAppVersion() {
+        return this.appVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
     }
 }

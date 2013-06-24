@@ -197,6 +197,7 @@ CREATE TABLE report.new_form (
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,age_calc	SMALLINT
 	,case_name	VARCHAR(255)
 	,case_type	VARCHAR(255)
@@ -225,6 +226,7 @@ CREATE TABLE report.registration_mother_form (
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,ppiud	BOOLEAN
 	,pptl	BOOLEAN
 	,abd_pain	BOOLEAN
@@ -319,6 +321,7 @@ CREATE TABLE report.registration_child_form (
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,abnormalities	BOOLEAN
 	,add_vaccinations	BOOLEAN
 	,baby_bcg	BOOLEAN
@@ -370,6 +373,7 @@ CREATE TABLE report.bp_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,anc_latest_date	DATE
 	,anc_latest_num	INTEGER
 	,anc1_abdominal_exam	VARCHAR(255)
@@ -485,6 +489,7 @@ CREATE TABLE report.pnc_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,abdominal_pain	BOOLEAN
 	,addval	DATE
 	,adopt_immediately	BOOLEAN
@@ -573,6 +578,7 @@ CREATE TABLE report.pnc_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,able_expressed_milk	BOOLEAN
 	,adequate_support	BOOLEAN
 	,applied_to_stump	BOOLEAN
@@ -618,6 +624,7 @@ CREATE TABLE report.ebf_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,addval	DATE
 	,adopt_immediately	BOOLEAN
 	,ask_ppiud	BOOLEAN
@@ -711,6 +718,7 @@ CREATE TABLE report.ebf_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,add_vaccinations	BOOLEAN
 	,at_night	BOOLEAN
 	,baby_bcg	BOOLEAN
@@ -766,6 +774,7 @@ CREATE TABLE report.cf_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,date_cf_1	DATE
 	,date_cf_2	DATE
 	,date_cf_3	DATE
@@ -795,6 +804,7 @@ CREATE TABLE report.cf_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,add_vaccinations	BOOLEAN
 	,amount_good	BOOLEAN
 	,baby_bcg	BOOLEAN
@@ -867,6 +877,7 @@ CREATE TABLE report.delivery_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,PPIUD	BOOLEAN
 	,PPTL	BOOLEAN
 	,abd_pain	BOOLEAN
@@ -921,6 +932,7 @@ CREATE TABLE report.delivery_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,abnormalities 	BOOLEAN
 	,add_vaccinations 	BOOLEAN
 	,baby_bcg 	BOOLEAN
@@ -973,6 +985,7 @@ CREATE TABLE report.death_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,mother_alive	BOOLEAN
 	,status	VARCHAR(255)
 	,cast_num_children	SMALLINT
@@ -995,6 +1008,7 @@ CREATE TABLE report.death_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,child_alive	BOOLEAN
 	,child_died_village	BOOLEAN
 	,child_place_death	VARCHAR(255)
@@ -1016,6 +1030,7 @@ CREATE TABLE report.close_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,close_mother	BOOLEAN
 	,confirm_close	BOOLEAN
 	,death_village	BOOLEAN
@@ -1046,6 +1061,7 @@ CREATE TABLE report.close_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,child_alive	BOOLEAN
 	,close_child	BOOLEAN
 	,confirm_close	BOOLEAN
@@ -1071,6 +1087,7 @@ CREATE TABLE report.refer_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,num_children	SMALLINT
 	,refer_mother	BOOLEAN
     ,creation_time TIMESTAMP WITH TIME ZONE
@@ -1084,6 +1101,7 @@ CREATE TABLE report.refer_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,refer_child	BOOLEAN
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
@@ -1098,6 +1116,7 @@ CREATE TABLE report.ui_mother_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,details_available	BOOLEAN
 	,tt_1_date	DATE
 	,tt_2_date	DATE
@@ -1119,6 +1138,7 @@ CREATE TABLE report.ui_child_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.child_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,add_vaccinations	BOOLEAN
 	,baby_bcg	BOOLEAN
 	,baby_dpt1	BOOLEAN
@@ -1172,6 +1192,7 @@ CREATE TABLE report.abort_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,abortion_type	VARCHAR(255)
 	,birth_status	VARCHAR(255)
 	,date_aborted	DATE
@@ -1189,6 +1210,7 @@ CREATE TABLE report.mo_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,migrate_out_date	DATE
 	,migrated_status	VARCHAR(255)
 	,status	VARCHAR(255)
@@ -1207,6 +1229,7 @@ CREATE TABLE report.mi_form(
 	,user_id INTEGER REFERENCES report.flw(id)
 	,case_id	INTEGER REFERENCES report.mother_case(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
+	,app_version VARCHAR(255)
 	,date_arrived	DATE
 	,date_learned	DATE
 	,date_of_delivery	DATE
