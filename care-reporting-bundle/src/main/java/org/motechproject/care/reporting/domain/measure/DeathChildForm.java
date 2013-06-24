@@ -36,32 +36,6 @@ public class DeathChildForm extends Form {
     public DeathChildForm() {
 	}
 
-	public DeathChildForm(int id) {
-		this.id = id;
-	}
-
-	public DeathChildForm(int id, Flw flw, ChildCase childCase,
-                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                          Boolean close, Boolean childAlive, Boolean childDiedVillage,
-                          String childPlaceDeath, String childSiteDeath, Date chldDateDeath, Date creationTime, Date closedOn, Flw closedBy) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.childCase = childCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.close = close;
-		this.childAlive = childAlive;
-		this.childDiedVillage = childDiedVillage;
-		this.childPlaceDeath = childPlaceDeath;
-		this.childSiteDeath = childSiteDeath;
-		this.chldDateDeath = chldDateDeath;
-        this.creationTime = creationTime;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

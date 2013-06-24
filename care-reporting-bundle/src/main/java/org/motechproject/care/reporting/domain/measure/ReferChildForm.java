@@ -29,24 +29,6 @@ public class ReferChildForm extends Form {
     public ReferChildForm() {
 	}
 
-	public ReferChildForm(int id) {
-		this.id = id;
-	}
-
-	public ReferChildForm(int id, Flw flw, ChildCase childCase,
-                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                          Boolean referChild, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.childCase = childCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.referChild = referChild;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

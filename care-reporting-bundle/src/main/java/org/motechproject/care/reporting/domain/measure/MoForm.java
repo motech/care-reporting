@@ -35,31 +35,6 @@ public class MoForm extends Form {
     public MoForm() {
 	}
 
-	public MoForm(int id) {
-		this.id = id;
-	}
-
-	public MoForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-                  Date timeEnd, Date timeStart, Date dateModified,
-                  Date migrateOutDate, String migratedStatus, String status,
-                  Date dateLearned, Date dateLeft, String name, Boolean noteGiven, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.migrateOutDate = migrateOutDate;
-		this.migratedStatus = migratedStatus;
-		this.status = status;
-		this.dateLearned = dateLearned;
-		this.dateLeft = dateLeft;
-		this.name = name;
-		this.noteGiven = noteGiven;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

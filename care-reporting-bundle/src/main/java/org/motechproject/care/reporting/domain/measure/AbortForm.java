@@ -35,30 +35,6 @@ public class AbortForm extends Form {
     public AbortForm() {
 	}
 
-	public AbortForm(int id) {
-		this.id = id;
-	}
-
-	public AbortForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-                     Date timeEnd, Date timeStart, Date dateModified,
-                     String abortionType, Boolean close, String birthStatus,
-                     Date dateAborted, Date closedOn, Flw closedBy, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.abortionType = abortionType;
-		this.birthStatus = birthStatus;
-        this.dateAborted = dateAborted;
-        this.close = close;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

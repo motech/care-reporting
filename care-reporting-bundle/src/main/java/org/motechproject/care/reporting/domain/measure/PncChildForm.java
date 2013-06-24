@@ -61,69 +61,6 @@ public class PncChildForm extends Form {
     public PncChildForm() {
 	}
 
-	public PncChildForm(int id) {
-		this.id = id;
-	}
-
-	public PncChildForm(int id, Flw flw, ChildCase childCase,
-                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                        Boolean ableExpressedMilk, Boolean adequateSupport,
-                        Boolean appliedToStump, Boolean babyActive,
-                        Boolean breastfeedingWell, Boolean childAlive,
-                        Boolean childDiedVillage, String childPlaceDeath,
-                        String childSiteDeath, Date chldDateDeath, Boolean close,
-                        Boolean cordFallen, Boolean correctPosition,
-                        Boolean counselCordCare, Boolean counselExclusiveBf,
-                        Boolean counselExpressMilk, Boolean counselSkin,
-                        Boolean couselBfCorrect, Boolean demonstrateExpressed,
-                        Boolean demonstrateSkin, Boolean easyAwake, Boolean feedVigour,
-                        Boolean goodLatch, Boolean improvementsBf, Boolean observedBf,
-                        Boolean otherMilkToChild, Boolean secondObservation,
-                        Boolean skinToSkin, Boolean warmToTouch, String whatApplied,
-                        Boolean wrapped, Date closedOn, Flw closedBy, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.childCase = childCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.ableExpressedMilk = ableExpressedMilk;
-		this.adequateSupport = adequateSupport;
-		this.appliedToStump = appliedToStump;
-		this.babyActive = babyActive;
-		this.breastfeedingWell = breastfeedingWell;
-		this.childAlive = childAlive;
-		this.childDiedVillage = childDiedVillage;
-		this.childPlaceDeath = childPlaceDeath;
-		this.childSiteDeath = childSiteDeath;
-		this.chldDateDeath = chldDateDeath;
-		this.cordFallen = cordFallen;
-		this.correctPosition = correctPosition;
-		this.counselCordCare = counselCordCare;
-		this.counselExclusiveBf = counselExclusiveBf;
-		this.counselExpressMilk = counselExpressMilk;
-		this.counselSkin = counselSkin;
-		this.couselBfCorrect = couselBfCorrect;
-		this.demonstrateExpressed = demonstrateExpressed;
-		this.demonstrateSkin = demonstrateSkin;
-		this.easyAwake = easyAwake;
-		this.feedVigour = feedVigour;
-		this.goodLatch = goodLatch;
-		this.improvementsBf = improvementsBf;
-		this.observedBf = observedBf;
-		this.otherMilkToChild = otherMilkToChild;
-		this.secondObservation = secondObservation;
-		this.skinToSkin = skinToSkin;
-		this.warmToTouch = warmToTouch;
-		this.whatApplied = whatApplied;
-		this.wrapped = wrapped;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-        this.creationTime = creationTime;
-        this.close = close;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

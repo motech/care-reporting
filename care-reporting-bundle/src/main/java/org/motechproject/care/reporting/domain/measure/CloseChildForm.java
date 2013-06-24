@@ -42,39 +42,6 @@ public class CloseChildForm extends Form {
     public CloseChildForm() {
 	}
 
-	public CloseChildForm(int id) {
-		this.id = id;
-	}
-
-	public CloseChildForm(int id, Flw flw, ChildCase childCase,
-                          String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                          Boolean close, Boolean childAlive, Boolean closeChild,
-                          Boolean confirmClose, Date dateDeath, Boolean died,
-                          Boolean diedVillage, Boolean dupeReg, Boolean finishedContinuum,
-                          String siteDeath, String placeDeath, Date creationTime, Date closedOn, Flw closedBy) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.childCase = childCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.close = close;
-		this.childAlive = childAlive;
-		this.closeChild = closeChild;
-		this.confirmClose = confirmClose;
-		this.dateDeath = dateDeath;
-		this.died = died;
-		this.diedVillage = diedVillage;
-		this.dupeReg = dupeReg;
-		this.finishedContinuum = finishedContinuum;
-		this.siteDeath = siteDeath;
-		this.placeDeath = placeDeath;
-        this.creationTime = creationTime;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

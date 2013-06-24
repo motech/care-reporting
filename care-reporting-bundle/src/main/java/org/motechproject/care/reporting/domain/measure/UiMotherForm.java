@@ -38,36 +38,6 @@ public class UiMotherForm extends Form {
     public UiMotherForm() {
 	}
 
-	public UiMotherForm(int id) {
-		this.id = id;
-	}
-
-	public UiMotherForm(int id, Flw flw, MotherCase motherCase,
-                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                        Boolean detailsAvailable, Date tt1Date, Date tt2Date,
-                        Date ttBoosterDate, Boolean receivedTt1, Boolean receivedTt2,
-                        String upToDate, Short numChildren, Boolean updateMother,
-                        Date ttBooster, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.detailsAvailable = detailsAvailable;
-		this.tt1Date = tt1Date;
-		this.tt2Date = tt2Date;
-		this.ttBoosterDate = ttBoosterDate;
-		this.receivedTt1 = receivedTt1;
-		this.receivedTt2 = receivedTt2;
-		this.upToDate = upToDate;
-		this.numChildren = numChildren;
-		this.updateMother = updateMother;
-		this.ttBooster = ttBooster;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

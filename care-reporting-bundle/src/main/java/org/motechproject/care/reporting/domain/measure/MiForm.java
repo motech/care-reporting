@@ -37,34 +37,6 @@ public class MiForm extends Form {
     public MiForm() {
 	}
 
-	public MiForm(int id) {
-		this.id = id;
-	}
-
-	public MiForm(int id, Flw flw, MotherCase motherCase, String instanceId,
-                  Date timeEnd, Date timeStart, Date dateModified, Date dateArrived,
-                  Date dateLearned, Date dateOfDelivery, String name,
-                  String pregStatus, String referralInfo, String abortionType,
-                  Date dateAborted, String migratedStatus, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.dateArrived = dateArrived;
-		this.dateLearned = dateLearned;
-		this.dateOfDelivery = dateOfDelivery;
-		this.name = name;
-		this.pregStatus = pregStatus;
-		this.referralInfo = referralInfo;
-		this.abortionType = abortionType;
-		this.dateAborted = dateAborted;
-		this.migratedStatus = migratedStatus;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

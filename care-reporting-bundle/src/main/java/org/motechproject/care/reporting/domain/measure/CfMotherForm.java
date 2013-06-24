@@ -48,45 +48,6 @@ public class CfMotherForm extends Form {
     public CfMotherForm() {
 	}
 
-	public CfMotherForm(int id) {
-		this.id = id;
-	}
-
-	public CfMotherForm(int id, Flw flw, MotherCase motherCase,
-                        String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                        Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
-                        Date dateCf5, Date dateCf6, Date dateLastVisit, Date dateNextCf,
-                        String lastVisitType, Short cfVisitNum,
-                        Short numChildren, Boolean playCompFeedingVid, Boolean lastvisit,
-                        Date dateCf7, Boolean confirmClose, Boolean close, Date closedOn, Flw closedBy, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.dateCf1 = dateCf1;
-		this.dateCf2 = dateCf2;
-		this.dateCf3 = dateCf3;
-		this.dateCf4 = dateCf4;
-		this.dateCf5 = dateCf5;
-		this.dateCf6 = dateCf6;
-		this.dateLastVisit = dateLastVisit;
-		this.dateNextCf = dateNextCf;
-		this.lastVisitType = lastVisitType;
-		this.cfVisitNum = cfVisitNum;
-        this.numChildren = numChildren;
-		this.playCompFeedingVid = playCompFeedingVid;
-		this.lastvisit = lastvisit;
-		this.dateCf7 = dateCf7;
-		this.confirmClose = confirmClose;
-		this.close = close;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

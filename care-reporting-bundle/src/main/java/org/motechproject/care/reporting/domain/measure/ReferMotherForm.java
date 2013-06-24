@@ -30,26 +30,7 @@ public class ReferMotherForm extends Form {
     public ReferMotherForm() {
 	}
 
-	public ReferMotherForm(int id) {
-		this.id = id;
-	}
-
-	public ReferMotherForm(int id, Flw flw, MotherCase motherCase,
-                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                           Short numChildren, Boolean referMother, Date creationTime) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-        this.numChildren = numChildren;
-		this.referMother = referMother;
-        this.creationTime = creationTime;
-    }
-
-	@Id
+    @Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {

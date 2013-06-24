@@ -46,39 +46,6 @@ public class NewForm extends Form {
     public NewForm() {
 	}
 
-	public NewForm(int id) {
-		this.id = id;
-	}
-
-	public NewForm(int id, Flw flw, MotherCase motherCase, String instanceId, Date timeEnd, Date timeStart, Date dateModified, Short ageCalc, String caseName, String caseType, Date dateLastVisit, Date dateNextReg, Integer familyNumber, Integer hhNumber, String husbandName, String lastVisitType, Boolean motherAlive, Date motherDob, String motherName, String caste, Date dob, Boolean dobKnown, String manualGroup,
-                   String fullName, Date creationTime) {
-		super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.ageCalc = ageCalc;
-		this.caseName = caseName;
-		this.caseType = caseType;
-		this.dateLastVisit = dateLastVisit;
-		this.dateNextReg = dateNextReg;
-		this.familyNumber = familyNumber;
-		this.hhNumber = hhNumber;
-		this.husbandName = husbandName;
-		this.lastVisitType = lastVisitType;
-		this.motherAlive = motherAlive;
-		this.motherDob = motherDob;
-		this.motherName = motherName;
-		this.caste = caste;
-		this.dob = dob;
-		this.dobKnown = dobKnown;
-		this.fullName = fullName;
-        this.manualGroup = manualGroup;
-        this.creationTime = creationTime;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -48,47 +48,6 @@ public class CloseMotherForm extends Form {
     public CloseMotherForm() {
 	}
 
-	public CloseMotherForm(int id) {
-		this.id = id;
-	}
-
-	public CloseMotherForm(int id, Flw flw, MotherCase motherCase,
-                           String instanceId, Date timeEnd, Date timeStart, Date dateModified,
-                           Boolean close, Boolean closeMother,
-                           Boolean confirmClose, Boolean deathVillage, String diedVillage,
-                           Boolean dupeReg, Boolean finishedContinuum, Short numChildren,
-                           String motherAlive, Boolean moved, Boolean migrated,
-                           Date dateLearned, Date dateLeft, Boolean migrationNote,
-                           Boolean died, Date dateDeath, String siteDeath, Date creationTime, Date closedOn, Flw closedBy) {
-        super(instanceId);
-        this.id = id;
-		this.flw = flw;
-		this.motherCase = motherCase;
-		this.timeEnd = timeEnd;
-		this.timeStart = timeStart;
-		this.dateModified = dateModified;
-		this.close = close;
-        this.closeMother = closeMother;
-		this.confirmClose = confirmClose;
-		this.deathVillage = deathVillage;
-		this.diedVillage = diedVillage;
-		this.dupeReg = dupeReg;
-		this.finishedContinuum = finishedContinuum;
-		this.numChildren = numChildren;
-		this.motherAlive = motherAlive;
-		this.moved = moved;
-		this.migrated = migrated;
-		this.dateLearned = dateLearned;
-		this.dateLeft = dateLeft;
-		this.migrationNote = migrationNote;
-		this.died = died;
-		this.dateDeath = dateDeath;
-		this.siteDeath = siteDeath;
-        this.creationTime = creationTime;
-        this.closedOn = closedOn;
-        this.closedBy = closedBy;
-    }
-
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
