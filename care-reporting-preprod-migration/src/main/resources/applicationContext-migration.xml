@@ -22,7 +22,7 @@
             </bean>
         </property>
     </bean>
-    <bean id="motechHttpClient" class="org.apache.commons.httpclient.HttpClient">
+    <bean id="motechHttpClient" class="org.apache.http.impl.client.DefaultHttpClient">
         <constructor-arg ref="motechHttpConnectionManager"/>
     </bean>
 
