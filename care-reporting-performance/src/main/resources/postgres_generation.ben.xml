@@ -348,8 +348,6 @@
         <attribute name="which_hospital" type="string" maxLength="{string_length}"/>
         <attribute name="which_village" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
         <attribute name="children" type="boolean"/>
     </generate>
 
@@ -405,8 +403,6 @@
         <attribute name="birth_status" type="string" maxLength="{string_length}"/>
         <attribute name="date_aborted" type="date" generator="DateGenerator"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Bp form... </echo>
@@ -538,8 +534,6 @@
         <attribute name="date_cf_7" type="date" generator="DateGenerator"/>
         <attribute name="confirm_close" type="boolean"/>
         <attribute name="close" type="boolean"/>
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Cf Child form... </echo>
@@ -603,8 +597,6 @@
         <attribute name="vit_a_3_date" type="date" generator="DateGenerator"/>
         <attribute name="vit_a_2_date" type="date" generator="DateGenerator"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Close Mother form... </echo>
@@ -628,8 +620,6 @@
         <attribute name="date_death" type="date" generator="DateGenerator"/>
         <attribute name="site_death" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Close Child form... </echo>
@@ -647,8 +637,6 @@
         <attribute name="site_death" type="string" maxLength="{string_length}"/>
         <attribute name="place_death" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Death Mother form... </echo>
@@ -664,8 +652,6 @@
         <attribute name="place_death" type="string" maxLength="{string_length}"/>
         <attribute name="site_death" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Death Child form... </echo>
@@ -678,8 +664,6 @@
         <attribute name="child_site_death" type="string" maxLength="{string_length}"/>
         <attribute name="chld_date_death" type="date" generator="DateGenerator"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Delivery Mother form... </echo>
@@ -727,8 +711,6 @@
         <attribute name="which_hospital" type="string" maxLength="{string_length}"/>
         <attribute name="which_village" type="string" maxLength="{string_length}"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Delivery Child form... </echo>
@@ -773,8 +755,6 @@
         <attribute name="what_applied" type="string" maxLength="{string_length}"/>
         <attribute name="wrapped_dried" type="boolean"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Ebf Mother form... </echo>
@@ -1032,8 +1012,6 @@
         <attribute name="what_applied" type="string" maxLength="{string_length}"/>
         <attribute name="wrapped" type="boolean"/>
         <attribute name="close" type="boolean" />
-        <attribute name="closed_on" type="date" generator="DateTimeGenerator"/>
-        <reference name="closed_by"  selector="select id from report.flw" source="db" distribution="random"/>
     </generate>
 
     <echo> Generating Refer Mother form... </echo>
