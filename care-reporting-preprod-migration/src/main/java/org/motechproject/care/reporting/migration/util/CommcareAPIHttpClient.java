@@ -59,14 +59,7 @@ public class CommcareAPIHttpClient {
             httpClient.executeMethod(getMethod);
             int statusCode = getMethod.getStatusCode();
 
-            InputStream responseStream = getMethod.getResponseBodyAsStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
-            StringBuffer sb = new StringBuffer();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            String response = sb.toString();
+            String response = readResponse(getMethod);
 
             if(statusCode != HttpStatus.SC_OK) {
                 RuntimeException e = new RuntimeException(String.format("Request to Commcare failed with status code %s and response %s", statusCode, response));
@@ -79,6 +72,17 @@ public class CommcareAPIHttpClient {
             logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private String readResponse(HttpMethod getMethod) throws IOException {
+        InputStream responseStream = getMethod.getResponseBodyAsStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
     }
 
     private void authenticate() {

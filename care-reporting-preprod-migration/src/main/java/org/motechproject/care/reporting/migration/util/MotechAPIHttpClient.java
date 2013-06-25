@@ -45,14 +45,7 @@ public class MotechAPIHttpClient {
 
             int statusCode = postMethod.getStatusCode();
 
-            InputStream responseStream = postMethod.getResponseBodyAsStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
-            StringBuffer sb = new StringBuffer();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            String response = sb.toString();
+            String response = readResponse(postMethod);
 
             if(statusCode != HttpStatus.SC_OK) {
                 RuntimeException e = new RuntimeException(String.format("Request to motech failed with status code %s and response %s", statusCode, response));
@@ -63,6 +56,17 @@ public class MotechAPIHttpClient {
             logger.error("IO exception while sending request to motech", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private String readResponse(PostMethod postMethod) throws IOException {
+        InputStream responseStream = postMethod.getResponseBodyAsStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
     }
 
     private String getFormUpdateUrl() {
