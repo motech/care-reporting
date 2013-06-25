@@ -47,6 +47,28 @@ public class CaseProcessor {
     }
 
     public void process(CaseEvent caseEvent) {
+        if ("CLOSE".equals(caseEvent.getAction())) {
+            String caseId = caseEvent.getCaseId();
+            MotherCase motherCase = service.getMotherCase(caseId);
+            if (motherCase == null) {
+                ChildCase childCase = service.getChildCase(caseId);
+                if (childCase == null) {
+                    logger.warn(String.format("Cannot find case %s to close", caseId));
+                    throw new CaseNotFoundException(caseId);
+                }
+                childCase.setClosed(true);
+                careReportingMapper.set(childCase, "closedOn", caseEvent.getDateModified());
+                careReportingMapper.set(childCase, "closedBy", caseEvent.getUserId());
+                service.update(childCase);
+            } else {
+                motherCase.setClosed(true);
+                careReportingMapper.set(motherCase, "closedOn", caseEvent.getDateModified());
+                careReportingMapper.set(motherCase, "closedBy", caseEvent.getUserId());
+                service.update(motherCase);
+            }
+            return;
+        }
+
         final String caseType = caseEvent.getCaseType();
         final Class<?> caseTypeClass = CaseFactory.getCase(caseType);
         final InfoParser infoParser = mapperService.getCaseInfoParser(CaseFactory.getCaseType(caseType), null);

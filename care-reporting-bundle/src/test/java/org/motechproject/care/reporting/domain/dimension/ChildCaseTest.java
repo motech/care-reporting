@@ -1,10 +1,15 @@
 package org.motechproject.care.reporting.domain.dimension;
 
+import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.motechproject.care.reporting.builder.ChildCaseBuilder;
+import org.motechproject.care.reporting.builder.FlwBuilder;
+import org.motechproject.care.reporting.builder.MotherCaseBuilder;
 
 import java.util.Date;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
@@ -121,6 +126,29 @@ public class ChildCaseTest {
         childCase.updateToLatest(updatedChildCase);
 
         assertNotNull(childCase.getCreationTime());
+    }
+
+    @Test
+    public void shouldNotUpdateTheCloseCaseFields() {
+        Flw oldFlw = new FlwBuilder().flwId("flw id1").build();
+        Flw newFlw = new FlwBuilder().flwId("flw id2").build();
+        ChildCase oldChild = new ChildCaseBuilder()
+                .flw(oldFlw)
+                .dateModified(JAN_09)
+                .caseName("old Name").close().build();
+        ChildCase newChild = new ChildCaseBuilder()
+                .closedBy(newFlw)
+                .dateModified(JAN_10)
+                .closedDate(JAN_10)
+                .closed(false)
+                .caseName("new Name").build();
+
+        oldChild.updateToLatest(newChild);
+
+        assertEquals("new Name",oldChild.getCaseName());
+        assertEquals(JAN_09, oldChild.getClosedOn());
+        assertEquals(oldFlw, oldChild.getClosedBy());
+        assertTrue(oldChild.getClosed());
     }
 
     private ChildCase childCaseWithDateModified(Date date, String name) {

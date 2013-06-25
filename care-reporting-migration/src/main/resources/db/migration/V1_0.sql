@@ -64,7 +64,6 @@ CREATE TABLE report.mother_case (
 	,mother_alive	BOOLEAN
 	,mother_dob	DATE
 	,mother_name	VARCHAR(255)
-	,closed_on	DATE
 	,add	DATE
 	,age	SMALLINT
 	,birth_place	VARCHAR(255)
@@ -139,6 +138,8 @@ CREATE TABLE report.mother_case (
 	,institutional BOOLEAN
 	,dob DATE
 	,closed BOOLEAN
+	,closed_by INTEGER REFERENCES report.flw(id)
+	,closed_on	DATE
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
@@ -185,6 +186,7 @@ CREATE TABLE report.child_case (
 	,vit_a_3_date DATE
 	,closed BOOLEAN
 	,closed_on DATE
+	,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
 );

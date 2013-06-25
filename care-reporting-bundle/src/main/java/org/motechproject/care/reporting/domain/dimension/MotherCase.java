@@ -114,6 +114,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     private Boolean closed;
     private Date creationTime = new Date();
     private Date lastModifiedTime;
+    private Flw closedBy;
 
 
     public MotherCase() {
@@ -1136,6 +1137,17 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
         this.lastModifiedTime = lastModifiedTime;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
+
     @Override
     public void updateToLatest(MotherCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
@@ -1144,7 +1156,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
             logger.warn(String.format("Ignoring mother case update with case id: %s since current date modified is %s and given date modified is %s", this.caseId, this.dateModified, updated.dateModified));
             return;
         }
-        updateFields(updated, Arrays.asList("id", "caseId", "creationTime"));
+        updateFields(updated, Arrays.asList("id", "caseId", "creationTime", "closedOn", "closedBy", "closed"));
     }
 
     @Override

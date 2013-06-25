@@ -58,6 +58,11 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
     }
 
+    @Override
+    public <T> void update(T entity) {
+        dbRepository.update(entity);
+    }
+
     private boolean isUniqueConstraintViolation(String exceptionMessage) {
         return StringUtils.contains(exceptionMessage, "duplicate key value violates unique constraint") && StringUtils.contains(exceptionMessage, "instance_id");
     }
@@ -111,8 +116,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public FlwGroup getGroup(String groupId) {
-        return get(FlwGroup.class, "groupId", groupId);
+    public FlwGroup getOrCreateGroup(String groupId) {
+        return getOrCreateNew(FlwGroup.class, "groupId", groupId);
+    }
+
+    @Override
+    public MotherCase getOrCreateMotherCase(String caseId) {
+        return getOrCreateNew(MotherCase.class, "caseId", caseId);
     }
 
     @Override
@@ -126,12 +136,17 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public Flw getFlw(String flwId) {
-        return get(Flw.class, "flwId", flwId);
+    public ChildCase getOrCreateChildCase(String caseId) {
+        return getOrCreateNew(ChildCase.class, "caseId", caseId);
     }
 
     @Override
-    public <T> T get(Class<T> type, String fieldName, String value) {
+    public Flw getOrCreateFlw(String flwId) {
+        return getOrCreateNew(Flw.class, "flwId", flwId);
+    }
+
+    @Override
+    public <T> T getOrCreateNew(Class<T> type, String fieldName, String value) {
         T instance = dbRepository.get(type, fieldName, value);
         if (null != instance)
             return instance;
@@ -147,4 +162,10 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
         return newInstance;
     }
+
+    @Override
+    public <T> T get(Class<T> type, String fieldName, String value) {
+        return dbRepository.get(type, fieldName, value);
+    }
+
 }

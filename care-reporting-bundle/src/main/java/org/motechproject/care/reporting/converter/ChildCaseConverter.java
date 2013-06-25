@@ -30,7 +30,7 @@ public class ChildCaseConverter extends AbstractConverter {
             return null;
         }
 
-        return careService.getChildCase((String) value);
+        return careService.getOrCreateChildCase((String) value);
     }
 
     @Override

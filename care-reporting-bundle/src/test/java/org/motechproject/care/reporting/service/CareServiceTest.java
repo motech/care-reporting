@@ -38,7 +38,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(expectedMotherCase);
 
-        MotherCase actualMotherCase = service.getMotherCase("1");
+        MotherCase actualMotherCase = service.getOrCreateMotherCase("1");
 
         assertEquals(expectedMotherCase, actualMotherCase);
     }
@@ -50,7 +50,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(null);
 
-        MotherCase actualMotherCase = service.getMotherCase("1");
+        MotherCase actualMotherCase = service.getOrCreateMotherCase("1");
 
         assertReflectionEqualsWithIgnore(expectedMotherCase, actualMotherCase, new String[]{"creationTime"});
     }
@@ -62,7 +62,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(ChildCase.class, "caseId", "1")).thenReturn(expectedChildCase);
 
-        ChildCase actualChildCase = service.getChildCase("1");
+        ChildCase actualChildCase = service.getOrCreateChildCase("1");
 
         assertEquals(expectedChildCase, actualChildCase);
     }
@@ -74,7 +74,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(null);
 
-        ChildCase actualChildCase = service.getChildCase("1");
+        ChildCase actualChildCase = service.getOrCreateChildCase("1");
 
         assertReflectionEqualsWithIgnore(expectedChildCase, actualChildCase, new String[]{"creationTime"});
     }
@@ -86,7 +86,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(expectedFlw);
 
-        Flw actualFlw = service.getFlw("1");
+        Flw actualFlw = service.getOrCreateFlw("1");
 
         assertEquals(expectedFlw, actualFlw);
     }
@@ -98,7 +98,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(null);
 
-        Flw actualFlw = service.getFlw("1");
+        Flw actualFlw = service.getOrCreateFlw("1");
 
         assertReflectionEqualsWithIgnore(expectedFlw, actualFlw, new String[]{"creationTime"});
     }
@@ -121,7 +121,7 @@ public class CareServiceTest {
         FlwGroup flwGroup = new FlwGroup();
         when(dbRepository.get(FlwGroup.class, fieldName, fieldValue)).thenReturn(flwGroup);
 
-        FlwGroup actualGroup = service.getGroup(fieldValue);
+        FlwGroup actualGroup = service.getOrCreateGroup(fieldValue);
 
         verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(flwGroup, actualGroup);
@@ -133,7 +133,7 @@ public class CareServiceTest {
         String fieldValue = "groupId";
         when(dbRepository.get(FlwGroup.class, fieldName, fieldValue)).thenReturn(null);
 
-        FlwGroup actualGroup = service.getGroup(fieldValue);
+        FlwGroup actualGroup = service.getOrCreateGroup(fieldValue);
 
         verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualGroup.getGroupId());
@@ -147,7 +147,7 @@ public class CareServiceTest {
         MotherCase motherCase = new MotherCase();
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(motherCase);
 
-        MotherCase actualMotherCase = service.get(MotherCase.class, fieldName, fieldValue);
+        MotherCase actualMotherCase = service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(motherCase, actualMotherCase);
@@ -159,7 +159,7 @@ public class CareServiceTest {
         String fieldValue = "fieldValue";
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(null);
 
-        MotherCase actualMotherCase = service.get(MotherCase.class, fieldName, fieldValue);
+        MotherCase actualMotherCase = service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualMotherCase.getCaseId());

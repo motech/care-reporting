@@ -63,4 +63,26 @@ public class ChildCaseBuilder {
         childCase.setFlwGroup(flwGroup);
         return this;
     }
+
+    public ChildCaseBuilder close() {
+        childCase.setClosed(true);
+        childCase.setClosedBy(childCase.getFlw());
+        childCase.setClosedOn(childCase.getDateModified());
+        return this;
+    }
+
+    public ChildCaseBuilder closedBy(Flw flw) {
+        childCase.setClosedBy(flw);
+        return this;
+    }
+
+    public ChildCaseBuilder closedDate(Date closedOn) {
+        childCase.setClosedOn(closedOn);
+        return this;
+    }
+
+    public ChildCaseBuilder closed(boolean isClosed) {
+        childCase.setClosed(isClosed);
+        return this;
+    }
 }

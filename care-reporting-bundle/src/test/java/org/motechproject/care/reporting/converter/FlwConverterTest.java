@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.converter;
 
-import org.apache.commons.beanutils.ConversionException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -26,7 +25,7 @@ public class FlwConverterTest {
     @Test
     public void shouldQueryCareServiceForFlw() throws Exception {
         Flw flw = new Flw();
-        when(careService.getFlw("89fda0284e008d2e0c980fb13f96c45a")).thenReturn(flw);
+        when(careService.getOrCreateFlw("89fda0284e008d2e0c980fb13f96c45a")).thenReturn(flw);
         Object output = flwConverter.convert(Flw.class, "89fda0284e008d2e0c980fb13f96c45a");
         assertSame(flw, output);
     }

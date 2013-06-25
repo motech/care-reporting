@@ -69,8 +69,35 @@ public class MotherCaseBuilder {
         return this;
     }
 
+    public MotherCaseBuilder flw(String flwId) {
+        motherCase.setFlw(new FlwBuilder().flwId(flwId).build());
+        return this;
+    }
+
     public MotherCaseBuilder flwGroup(FlwGroup flwGroup) {
         motherCase.setFlwGroup(flwGroup);
+        return this;
+    }
+
+    public MotherCaseBuilder close() {
+        motherCase.setClosed(true);
+        motherCase.setClosedBy(motherCase.getFlw());
+        motherCase.setClosedOn(motherCase.getDateModified());
+        return this;
+    }
+
+    public MotherCaseBuilder closedBy(Flw flw) {
+        motherCase.setClosedBy(flw);
+        return this;
+    }
+
+    public MotherCaseBuilder closedDate(Date closedOn) {
+        motherCase.setClosedOn(closedOn);
+        return this;
+    }
+
+    public MotherCaseBuilder closed(boolean isClosed) {
+        motherCase.setClosed(isClosed);
         return this;
     }
 }

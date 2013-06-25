@@ -63,7 +63,7 @@ public class ProviderSyncProcessor {
             if (existingFlwGroups.containsKey(groupId)) {
                 group = existingFlwGroups.get(groupId);
             } else {
-                group = service.getGroup(groupId);
+                group = service.getOrCreateGroup(groupId);
                 existingFlwGroups.put(groupId, group);
             }
             flwGroups.add(group);

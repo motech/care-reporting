@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
-import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
 import org.motechproject.care.reporting.service.CareService;
@@ -117,16 +116,16 @@ public class ProviderSyncProcessorTest {
         FlwGroup expectedFlwGroup1 = new FlwGroup();
         FlwGroup expectedFlwGroup2 = new FlwGroup();
         when(providerParser.parse(provider)).thenReturn(new HashMap<String, Object>());
-        when(careService.getGroup(groupId1)).thenReturn(expectedFlwGroup1);
-        when(careService.getGroup(groupId2)).thenReturn(expectedFlwGroup2);
+        when(careService.getOrCreateGroup(groupId1)).thenReturn(expectedFlwGroup1);
+        when(careService.getOrCreateGroup(groupId2)).thenReturn(expectedFlwGroup2);
 
         providerSyncProcessor.processProviderSync(new ArrayList<Provider>() {{
             add(provider);
         }});
 
-        verify(careService).getGroup(groupId1);
-        verify(careService).getGroup(groupId2);
-        verify(careService, times(2)).getGroup(anyString());
+        verify(careService).getOrCreateGroup(groupId1);
+        verify(careService).getOrCreateGroup(groupId2);
+        verify(careService, times(2)).getOrCreateGroup(anyString());
         verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
         Set<FlwGroup> actualFlwGroups = flwArgumentCaptor.getValue().get(0).getFlwGroups();
         assertEquals(2, actualFlwGroups.size());
@@ -148,17 +147,17 @@ public class ProviderSyncProcessorTest {
         FlwGroup expectedFlwGroup1 = new FlwGroup();
         FlwGroup expectedFlwGroup2 = new FlwGroup();
         when(providerParser.parse(provider1)).thenReturn(new HashMap<String, Object>());
-        when(careService.getGroup(groupId1)).thenReturn(expectedFlwGroup1);
-        when(careService.getGroup(groupId2)).thenReturn(expectedFlwGroup2);
+        when(careService.getOrCreateGroup(groupId1)).thenReturn(expectedFlwGroup1);
+        when(careService.getOrCreateGroup(groupId2)).thenReturn(expectedFlwGroup2);
 
         providerSyncProcessor.processProviderSync(new ArrayList<Provider>() {{
             add(provider1);
             add(provider2);
         }});
 
-        verify(careService).getGroup(groupId1);
-        verify(careService).getGroup(groupId2);
-        verify(careService, times(2)).getGroup(anyString());
+        verify(careService).getOrCreateGroup(groupId1);
+        verify(careService).getOrCreateGroup(groupId2);
+        verify(careService, times(2)).getOrCreateGroup(anyString());
 
         verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
         Set<FlwGroup> actualFlwGroupsForProvider1 = flwArgumentCaptor.getValue().get(0).getFlwGroups();

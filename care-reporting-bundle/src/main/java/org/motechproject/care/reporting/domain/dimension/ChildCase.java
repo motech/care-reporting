@@ -62,6 +62,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private Date vitA3Date;
 	private Boolean closed;
 	private Date closedOn;
+    private Flw closedBy;
     private Date creationTime = new Date();
     private Date lastModifiedTime;
 
@@ -73,17 +74,17 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	public ChildCase(int id, Flw flw, MotherCase motherCase, FlwGroup flwGroup,
-			String caseId, String caseName, Date dateModified,
-			Date serverDateModified, Date serverDateOpened, String caseType,
-			Boolean babyMeasles, Date bcgDate, String birthStatus, Date dob,
-			Date dpt1Date, Date dpt2Date, Date dpt3Date, String gender,
-			Date hepB0Date, Date hepB1Date, Date hepB2Date, Date hepB3Date,
-			Date measlesDate, Date opv0Date, Date opv1Date, Date opv2Date,
-			Date opv3Date, Date vitA1Date, Boolean childAlive,
-			Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
-			Date dateMeaslesBooster, Boolean babyWeight, String name,
-			String term, String timeOfBirth, Date vitA2Date, Date vitA3Date,
-			Boolean closed, Date closedOn, Date creationTime, Date lastModifiedTime) {
+                     String caseId, String caseName, Date dateModified,
+                     Date serverDateModified, Date serverDateOpened, String caseType,
+                     Boolean babyMeasles, Date bcgDate, String birthStatus, Date dob,
+                     Date dpt1Date, Date dpt2Date, Date dpt3Date, String gender,
+                     Date hepB0Date, Date hepB1Date, Date hepB2Date, Date hepB3Date,
+                     Date measlesDate, Date opv0Date, Date opv1Date, Date opv2Date,
+                     Date opv3Date, Date vitA1Date, Boolean childAlive,
+                     Date dptBoosterDate, Date opvBoosterDate, Date dateJe,
+                     Date dateMeaslesBooster, Boolean babyWeight, String name,
+                     String term, String timeOfBirth, Date vitA2Date, Date vitA3Date,
+                     Boolean closed, Date closedOn, Flw closedBy, Date creationTime, Date lastModifiedTime) {
 		this.id = id;
 		this.flw = flw;
 		this.motherCase = motherCase;
@@ -125,6 +126,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.vitA3Date = vitA3Date;
 		this.closed = closed;
 		this.closedOn = closedOn;
+        this.closedBy = closedBy;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
     }
@@ -531,6 +533,17 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.closedOn = closedOn;
 	}
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "closed_by")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    public Flw getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Flw closedBy) {
+        this.closedBy = closedBy;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")
     public Date getCreationTime() {
@@ -560,7 +573,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
             return;
         }
 
-        updateFields(updated, Arrays.asList("id", "caseId", "creationTime"));
+        updateFields(updated, Arrays.asList("id", "caseId", "creationTime", "closedOn", "closedBy", "closed"));
     }
 
     @Override

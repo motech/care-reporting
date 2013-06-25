@@ -30,7 +30,7 @@ public class FlwConverter extends AbstractConverter {
             logger.warn(format("Cannot convert FLW with value passed as %s of type %s", value, value.getClass()));
             return null;
         }
-        return careService.getFlw((String) value);
+        return careService.getOrCreateFlw((String) value);
     }
 
     @Override

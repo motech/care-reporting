@@ -70,13 +70,11 @@ public class CareReportingMapper {
         return typeInstance;
     }
 
-    private boolean set(Object object, String fieldName, Object fieldValue) {
+    public void set(Object object, String fieldName, Object fieldValue) {
         try {
             beanUtilsBean.setProperty(object, fieldName, fieldValue);
-            return true;
         } catch (Exception ex) {
             logger.warn("Exception when setting " + fieldValue + " to " + fieldName + " Exception Details: " + ex);
-            return false;
         }
     }
 }
