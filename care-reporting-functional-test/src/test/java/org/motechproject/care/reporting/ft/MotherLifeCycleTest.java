@@ -47,7 +47,7 @@ public class MotherLifeCycleTest extends FormTestCase {
     }
 
     private String postNewFormAndAssert() {
-        Map<String, String> placeholderMap = new HashMap<String, String>();
+        Map<String, String> placeholderMap = new HashMap<>();
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
@@ -75,7 +75,12 @@ public class MotherLifeCycleTest extends FormTestCase {
         assertNull(reportingDatabase().flwGroup.find(groupId));
         assertNull(reportingDatabase().flwGroupMap.find(actualFlw.get("id")));
 
-        Patient patient = mrsDatabase().patients().waitAndFindByMotechId(caseId);
+        Patient patient = mrsDatabase().patients().waitAndFindByMotechId(caseId, new TimedRunnerBreakCondition() {
+            @Override
+            public boolean test(Object obj) {
+                return obj != null && ((Patient) obj).getEncounters().size() == 1;
+            }
+        });
         PropertyFile expectedCouchValues = new PropertyFile(constructExpectedUrl("couch/mother_after_new"), placeholderMap);
         PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(patient, "patient"));
         assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
@@ -83,7 +88,7 @@ public class MotherLifeCycleTest extends FormTestCase {
     }
 
     private void postRegistrationFormAndAssert(String newFormInstanceId) {
-        Map<String, String> placeholderMap = new HashMap<String, String>();
+        Map<String, String> placeholderMap = new HashMap<>();
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);

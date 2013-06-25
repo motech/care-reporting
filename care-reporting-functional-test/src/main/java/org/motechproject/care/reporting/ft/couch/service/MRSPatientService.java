@@ -29,7 +29,7 @@ public class MRSPatientService {
 
 
     public Patient waitAndFindByMotechId(final String motechId)  {
-        TimedRunner<Patient> timedRunner = new TimedRunner<Patient>(5, 1000) {
+        TimedRunner<Patient> timedRunner = new TimedRunner<Patient>(10, 1000) {
             @Override
             protected Patient run() throws Exception {
                 return findByMotechId(motechId);
@@ -44,7 +44,7 @@ public class MRSPatientService {
     }
 
     public Patient waitAndFindByMotechId(final String motechId, TimedRunnerBreakCondition breakCondition)  {
-        TimedRunner<Patient> timedRunner = new TimedRunner<Patient>(5, 1000, breakCondition) {
+        TimedRunner<Patient> timedRunner = new TimedRunner<Patient>(10, 1000, breakCondition) {
             @Override
             protected Patient run() throws Exception {
                 return findByMotechId(motechId);
