@@ -577,7 +577,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
     }
 
     @Override
-    protected void updateLastModifiedTime() {
+    public void updateLastModifiedTime() {
         this.lastModifiedTime = new Date();
     }
 

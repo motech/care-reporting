@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class CloseCaseProcessorIT extends SpringIntegrationTest {
@@ -47,6 +48,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         MotherCase actualMother = motherCases.get(0);
         assertEquals(Boolean.TRUE, actualMother.getClosed());
         assertEquals((new DateTime(2013, 6, 13, 0, 0, 0)).toDate(), actualMother.getClosedOn());
+        assertNotNull(actualMother.getLastModifiedTime());
         assertReflectionEqualsWithIgnore(flw, actualMother.getClosedBy());
 
     }
@@ -73,6 +75,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         ChildCase actualChild = childCases.get(0);
         assertEquals(Boolean.TRUE, actualChild.getClosed());
         assertEquals((new DateTime(2013, 6, 13, 0, 0, 0)).toDate(), actualChild.getClosedOn());
+        assertNotNull(actualChild.getLastModifiedTime());
         assertReflectionEqualsWithIgnore(flw, actualChild.getClosedBy());
 
     }

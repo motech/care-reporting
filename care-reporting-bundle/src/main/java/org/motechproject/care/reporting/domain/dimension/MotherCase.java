@@ -1160,7 +1160,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     }
 
     @Override
-    protected void updateLastModifiedTime() {
+    public void updateLastModifiedTime() {
         this.lastModifiedTime = new Date();
     }
 
