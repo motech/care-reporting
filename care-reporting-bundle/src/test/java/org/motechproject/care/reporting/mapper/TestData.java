@@ -1,4 +1,4 @@
-package org.motechproject.care.reporting.utils;
+package org.motechproject.care.reporting.mapper;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,8 +7,8 @@ public class TestData {
     int anInt;
     String aString;
     boolean aBoolean;
-    Date aDateFormat1;
-    Date aDateFormat2;
+    public Date aDateFormat1;
+    public Date aDateFormat2;
     Date aDateFormat3;
     Integer integerObject;
     Short shortObject;

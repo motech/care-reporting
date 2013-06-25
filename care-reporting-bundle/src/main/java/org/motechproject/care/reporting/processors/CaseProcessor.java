@@ -3,7 +3,7 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.factory.CaseFactory;
-import org.motechproject.care.reporting.mapper.GenericMapper;
+import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
@@ -37,9 +37,11 @@ public class CaseProcessor {
 
     private Service service;
     private MapperService mapperService;
+    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public CaseProcessor(Service service, MapperService mapperService) {
+    public CaseProcessor(CareReportingMapper careReportingMapper, Service service, MapperService mapperService) {
+        this.careReportingMapper = careReportingMapper;
         this.service = service;
         this.mapperService = mapperService;
     }
@@ -59,7 +61,7 @@ public class CaseProcessor {
     private void processMother(Map<String, String> caseMap) {
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
-        MotherCase motherCase = new GenericMapper().map(caseMap, MotherCase.class);
+        MotherCase motherCase = careReportingMapper.map(caseMap, MotherCase.class);
         logger.info(String.format("Started processing mother case with case ID %s", motherCase.getCaseId()));
         service.saveOrUpdateByExternalPrimaryKey(motherCase);
         logger.info(String.format("Finished processing mother case with case ID %s", motherCase.getCaseId()));
@@ -68,7 +70,7 @@ public class CaseProcessor {
     private void processChild(Map<String, String> caseMap) {
         applyPostProcessors(CHILD_CASE_POSTPROCESSOR, caseMap);
 
-        ChildCase childCase = new GenericMapper().map(caseMap, ChildCase.class);
+        ChildCase childCase = careReportingMapper.map(caseMap, ChildCase.class);
         logger.info(String.format("Started processing child case with case ID %s", childCase.getCaseId()));
         service.saveOrUpdateByExternalPrimaryKey(childCase);
         logger.info(String.format("Finished processing child case with case ID %s", childCase.getCaseId()));

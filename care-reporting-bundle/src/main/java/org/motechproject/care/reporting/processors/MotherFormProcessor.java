@@ -3,7 +3,7 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.factory.FormFactory;
-import org.motechproject.care.reporting.mapper.GenericMapper;
+import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
@@ -32,13 +32,15 @@ public class MotherFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
-    protected Service service;
-    protected MapperService mapperService;
+    private Service service;
+    private MapperService mapperService;
+    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public MotherFormProcessor(Service service, MapperService mapperService) {
+    public MotherFormProcessor(Service service, MapperService mapperService, CareReportingMapper careReportingMapper) {
         this.service = service;
         this.mapperService = mapperService;
+        this.careReportingMapper = careReportingMapper;
     }
 
     public Serializable parseMotherForm(CommcareForm commcareForm) {
@@ -52,7 +54,7 @@ public class MotherFormProcessor {
         applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
 
         Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
-        Object formObject = new GenericMapper().map(motherInfo, motherForm);
+        Object formObject = careReportingMapper.map(motherInfo, motherForm);
 
         saveForm((Serializable) formObject, motherForm);
         return (Serializable) formObject;

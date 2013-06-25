@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.mapper.CareReportingMapper;
+import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
 import org.motechproject.care.reporting.service.CareService;
@@ -40,6 +42,9 @@ public class ProviderSyncProcessorTest {
     private ArgumentCaptor<List<Flw>> flwArgumentCaptor;
 
     ProviderSyncProcessor providerSyncProcessor;
+
+    @Mock
+    private CareReportingMapper genericMapper;
 
     @Before
     public void setUp() {

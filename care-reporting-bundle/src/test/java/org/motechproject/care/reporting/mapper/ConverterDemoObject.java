@@ -1,4 +1,4 @@
-package org.motechproject.care.reporting.converter;
+package org.motechproject.care.reporting.mapper;
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
