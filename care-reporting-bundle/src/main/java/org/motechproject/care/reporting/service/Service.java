@@ -15,6 +15,8 @@ public interface Service {
 
     <T> Integer save(T instance);
 
+    <T> Integer save(T instance, boolean ignoreUniqueConstraint);
+
     ChildCase getChildCase(String caseId);
 
     <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity);

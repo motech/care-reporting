@@ -9,10 +9,12 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.Repository;
+import org.postgresql.util.PSQLException;
+import org.postgresql.util.PSQLState;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -161,5 +163,25 @@ public class CareServiceTest {
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualMotherCase.getCaseId());
+    }
+
+    @Test
+    public void shouldIgnoreUniqueConstraintViolationAndCheckMessageAndNotThrowException(){
+        NewForm form = new NewForm();
+        DataIntegrityViolationException mockedException = mock(DataIntegrityViolationException.class);
+        when(mockedException.getRootCause()).thenReturn(new PSQLException("ERROR: duplicate key value violates unique constraint \"cf_mother_form_instance_id_key.Detail: Key (instance_id)=(b9d23464-d5fe-4d6a-8bc8-c646ddc81003) already exists.", PSQLState.UNKNOWN_STATE));
+        doThrow(mockedException).when(dbRepository).save(form);
+
+        service.save(form, true);
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void shouldThrowExceptionIfUniqueConstraintShouldNotBeIgnored(){
+        NewForm form = new NewForm();
+        DataIntegrityViolationException mockedException = mock(DataIntegrityViolationException.class);
+        when(mockedException.getRootCause()).thenReturn(new PSQLException("ERROR: duplicate key value violates unique constraint \"cf_mother_form_instance_id_key.Detail: Key (instance_id)=(b9d23464-d5fe-4d6a-8bc8-c646ddc81003) already exists.", PSQLState.UNKNOWN_STATE));
+        doThrow(mockedException).when(dbRepository).save(form);
+
+        service.save(form, false);
     }
 }

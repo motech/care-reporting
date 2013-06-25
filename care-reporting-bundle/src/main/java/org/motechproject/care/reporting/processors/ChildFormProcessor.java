@@ -13,7 +13,6 @@ import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -77,13 +76,7 @@ public class ChildFormProcessor {
 
     private void saveForm(Serializable form, Class<?> type) {
         logger.info(String.format("Started processing form %s", form));
-
-        try {
-            service.save(type.cast(form));
-        } catch (DataAccessException e) {
-            logger.error(String.format("Cannot save Form: %s. %s", type.cast(form), e.getRootCause().getMessage()));
-        }
-
+        service.save(type.cast(form), true);
         logger.info(String.format("Finished processing form %s", form));
     }
 
