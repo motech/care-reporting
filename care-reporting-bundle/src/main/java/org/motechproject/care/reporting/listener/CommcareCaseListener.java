@@ -1,9 +1,6 @@
 package org.motechproject.care.reporting.listener;
 
 import org.motechproject.care.reporting.processors.CaseProcessor;
-import org.motechproject.care.reporting.processors.FormProcessor;
-import org.motechproject.commcare.builder.CommcareFormBuilder;
-import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.commcare.events.constants.EventSubjects;
 import org.motechproject.event.MotechEvent;

@@ -1,6 +1,8 @@
 package org.motechproject.care.reporting.builder;
 
 import org.joda.time.DateTime;
+import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 
 import java.util.Date;
@@ -49,6 +51,26 @@ public class MotherCaseBuilder {
 
     public MotherCaseBuilder creationTime(Date creationTime) {
         motherCase.setCreationTime(creationTime);
+        return this;
+    }
+
+    public MotherCaseBuilder clear() {
+        motherCase.setFlw(null);
+        motherCase.setFlwGroup(null);
+        motherCase.setCaseName(null);
+        motherCase.setDateLastVisit(null);
+        motherCase.setHhNumber(null);
+        motherCase.setHusbandName(null);
+        return this;
+    }
+
+    public MotherCaseBuilder flw(Flw flw) {
+        motherCase.setFlw(flw);
+        return this;
+    }
+
+    public MotherCaseBuilder flwGroup(FlwGroup flwGroup) {
+        motherCase.setFlwGroup(flwGroup);
         return this;
     }
 }
