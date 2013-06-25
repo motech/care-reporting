@@ -43,6 +43,9 @@ public class TestUtils {
         if (isReferenceSame(lhs, rhs)) {
             return;
         }
+        if(lhs == null || rhs == null)
+            throw new AssertionFailedError(String.format("Comparing null and non-null values value1=%s, value2=%s", lhs, rhs));
+
         if (!isOfSameClass(lhs, rhs)) {
             throw new AssertionFailedError("Classes of the two objects are different.");
         }
@@ -82,7 +85,7 @@ public class TestUtils {
     }
 
     private static boolean isReferenceSame(Object lhs, Object rhs) {
-        return lhs == rhs || lhs == null || rhs == null;
+        return lhs == rhs;
     }
 
     private static class Difference {

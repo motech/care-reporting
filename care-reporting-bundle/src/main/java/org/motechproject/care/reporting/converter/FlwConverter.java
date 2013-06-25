@@ -12,8 +12,9 @@ import static java.lang.String.format;
 
 @Component
 public class FlwConverter extends AbstractConverter {
-    private Service careService;
     private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+
+    private Service careService;
 
     @Autowired
     public FlwConverter(Service careService) {

@@ -1,8 +1,11 @@
 package org.motechproject.care.reporting.processors;
 
+import org.apache.commons.beanutils.ConvertUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.*;
+import org.motechproject.care.reporting.converter.FlwConverter;
+import org.motechproject.care.reporting.converter.FlwGroupConverter;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -22,7 +25,6 @@ public class CaseProcessorIT extends SpringIntegrationTest {
     private CaseProcessor caseProcessor;
     private FlwGroup flwGroup;
     private Flw flw;
-
 
     @Before
     @Override

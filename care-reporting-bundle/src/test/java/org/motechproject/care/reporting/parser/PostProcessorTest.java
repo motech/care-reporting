@@ -19,7 +19,7 @@ public class PostProcessorTest {
     public void shouldCopyUserIDAsFlwIdPostProcessor() throws Exception {
         HashMap<String, String> input = new HashMap<String, String>();
         input.put("userID", "89fda0284e008d2e0c980fb13fa0e5bb");
-        PostProcessor.COPY_USER_ID_AS_FLW_ID_POST_PROCESSOR.transform(input);
+        PostProcessor.FORM_COPY_USER_ID_AS_FLW.transform(input);
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", input.get("flw"));
     }
 }

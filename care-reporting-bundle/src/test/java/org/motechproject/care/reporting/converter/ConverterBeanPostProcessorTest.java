@@ -4,9 +4,14 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 
+import java.util.HashMap;
+
+import static junit.framework.Assert.assertEquals;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
@@ -20,6 +25,18 @@ public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
         BeanUtils.setProperty(target, "flw", "89fda0284e008d2e0c980fb13f96c45a");
 
         assertReflectionEqualsWithIgnore(flw, target.flw);
+    }
+
+    @Test
+    public void shouldAutoConvertToFlwGroup() throws Exception {
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId("89fda0284e008d2e0c980fb13f96c45a");
+        template.save(flwGroup);
+        ConverterDemoObject target = new ConverterDemoObject();
+
+        BeanUtils.setProperty(target, "flwGroup", "89fda0284e008d2e0c980fb13f96c45a");
+
+        assertReflectionEqualsWithIgnore(flwGroup, target.flwGroup);
     }
 
     @Test
@@ -46,9 +63,4 @@ public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
         assertReflectionEqualsWithIgnore(childCase, object.childCase);
     }
 
-    static class ConverterDemoObject {
-        Flw flw;
-        MotherCase motherCase;
-        ChildCase childCase;
-    }
 }

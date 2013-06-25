@@ -1,7 +1,5 @@
 package org.motechproject.care.reporting.processors;
 
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.factory.FormFactory;
@@ -22,15 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR;
-import static org.motechproject.care.reporting.parser.PostProcessor.COPY_USER_ID_AS_FLW_ID_POST_PROCESSOR;
+import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_USER_ID_AS_FLW;
+import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
 @Component
 public class MotherFormProcessor {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-    public static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
+    private static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
         add(new ClosedFormPostProcessor());
         add(COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR);
-        add(COPY_USER_ID_AS_FLW_ID_POST_PROCESSOR);
+        add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
     protected Service service;
@@ -63,15 +62,6 @@ public class MotherFormProcessor {
         logger.info(String.format("Started processing form %s", form));
         service.save(type.cast(form), true);
         logger.info(String.format("Finished processing form %s", form));
-    }
-
-    private void applyPostProcessors(List<PostProcessor> processors, final Map<String, String> map) {
-        CollectionUtils.forAllDo(processors, new Closure() {
-            @Override
-            public void execute(Object input) {
-                ((PostProcessor) input).transform(map);
-            }
-        });
     }
 
     private String namespace(CommcareForm commcareForm) {
