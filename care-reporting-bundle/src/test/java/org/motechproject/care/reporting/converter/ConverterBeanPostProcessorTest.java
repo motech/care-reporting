@@ -6,12 +6,8 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.mapper.GenericMapper;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 
-import java.util.HashMap;
-
-import static junit.framework.Assert.assertEquals;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
@@ -53,7 +49,7 @@ public class ConverterBeanPostProcessorTest extends SpringIntegrationTest {
 
     @Test
     public void shouldAutoConvertToChildCase() throws Exception {
-        ChildCase childCase= new ChildCase();
+        ChildCase childCase = new ChildCase();
         childCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
         template.save(childCase);
         ConverterDemoObject object = new ConverterDemoObject();

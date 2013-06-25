@@ -11,35 +11,35 @@ public class ConverterDemoObject {
     MotherCase motherCase;
     ChildCase childCase;
 
-    void setFlw(Flw flw) {
-        this.flw = flw;
-    }
-
-    void setFlwGroup(FlwGroup flwGroup) {
-        this.flwGroup = flwGroup;
-    }
-
-    void setMotherCase(MotherCase motherCase) {
-        this.motherCase = motherCase;
-    }
-
-    void setChildCase(ChildCase childCase) {
-        this.childCase = childCase;
-    }
-
-    Flw getFlw() {
+    public Flw getFlw() {
         return flw;
     }
 
-    FlwGroup getFlwGroup() {
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
+
+    public FlwGroup getFlwGroup() {
         return flwGroup;
     }
 
-    MotherCase getMotherCase() {
+    public void setFlwGroup(FlwGroup flwGroup) {
+        this.flwGroup = flwGroup;
+    }
+
+    public MotherCase getMotherCase() {
         return motherCase;
     }
 
-    ChildCase getChildCase() {
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
+    }
+
+    public ChildCase getChildCase() {
         return childCase;
+    }
+
+    public void setChildCase(ChildCase childCase) {
+        this.childCase = childCase;
     }
 }
