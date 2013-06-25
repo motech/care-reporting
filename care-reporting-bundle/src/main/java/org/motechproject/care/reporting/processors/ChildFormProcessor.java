@@ -50,10 +50,10 @@ public class ChildFormProcessor {
             return new ArrayList<>();
 
         List<Serializable> childForms = new ArrayList<>();
-        InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.CHILD);
+        InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
         List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
 
-        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.METADATA);
+        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
         for (Map<String, String> childDetail : childDetails) {
@@ -86,8 +86,8 @@ public class ChildFormProcessor {
         return attribute(commcareForm, "xmlns");
     }
 
-    private String version(CommcareForm commcareForm) {
-        return commcareForm.getVersion();
+    private String appVersion(CommcareForm commcareForm) {
+        return commcareForm.getMetadata().get("appVersion");
     }
 
     private String attribute(CommcareForm commcareForm, String name) {

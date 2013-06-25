@@ -44,11 +44,11 @@ public class MotherFormProcessor {
     }
 
     public Serializable parseMotherForm(CommcareForm commcareForm) {
-        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.METADATA);
+        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
         Map<String, String> motherInfo = new HashMap<>(metadata);
-        InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), version(commcareForm), FormSegment.MOTHER);
+        InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);
         motherInfo.putAll(new MotherInfoParser(motherInfoParser).parse(commcareForm));
 
         applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
@@ -70,8 +70,8 @@ public class MotherFormProcessor {
         return attribute(commcareForm, "xmlns");
     }
 
-    private String version(CommcareForm commcareForm) {
-        return commcareForm.getVersion();
+    private String appVersion(CommcareForm commcareForm) {
+        return commcareForm.getMetadata().get("appVersion");
     }
 
     private String attribute(CommcareForm commcareForm, String name) {
