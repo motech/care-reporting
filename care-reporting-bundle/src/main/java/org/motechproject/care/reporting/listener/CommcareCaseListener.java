@@ -30,13 +30,15 @@ public class CommcareCaseListener {
     @MotechListener(subjects = EventSubjects.CASE_EVENT)
     public void handleEvent(MotechEvent event) {
         CaseEvent caseEvent = new CaseEvent(event);
-        Class<?> caseTypeClass = CaseFactory.getCase(caseEvent.getCaseType());
         if ("CLOSE".equals(caseEvent.getAction())) {
             closeCaseProcessor.process(caseEvent);
-        } else if (caseTypeClass.equals(MotherCase.class)) {
-            motherCaseProcessor.process(caseEvent);
-        } else if (caseTypeClass.equals(ChildCase.class)) {
-            childCaseProcessor.process(caseEvent);
+        } else {
+            Class<?> caseTypeClass = CaseFactory.getCase(caseEvent.getCaseType());
+            if (caseTypeClass.equals(MotherCase.class)) {
+                motherCaseProcessor.process(caseEvent);
+            } else if (caseTypeClass.equals(ChildCase.class)) {
+                childCaseProcessor.process(caseEvent);
+            }
         }
     }
 }
