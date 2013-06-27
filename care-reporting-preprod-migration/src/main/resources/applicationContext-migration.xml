@@ -17,8 +17,9 @@
           class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
         <property name="params">
             <bean class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
-                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
-                <property name="maxTotalConnections" value="${migration.threadpool.size}" />
+                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}"/>
+                <property name="maxTotalConnections" value="${migration.threadpool.size}"/>
+                <property name="connectionTimeout" value="${httpclient.timeout}"/>
             </bean>
         </property>
     </bean>
