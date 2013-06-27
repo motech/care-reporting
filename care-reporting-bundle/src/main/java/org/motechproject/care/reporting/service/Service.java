@@ -7,6 +7,7 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Service {
     MotherCase getOrCreateMotherCase(String caseId);
@@ -29,7 +30,9 @@ public interface Service {
 
     <T> T getOrCreateNew(Class<T> type, String fieldName, String value);
 
-    <T> T get(Class<T> type, String fieldName, String value);
-
     <T> void update(T entity);
+
+    <T> T get(Class<T> type, String fieldName, Object value);
+
+    <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping);
 }

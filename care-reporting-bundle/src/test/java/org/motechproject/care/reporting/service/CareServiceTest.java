@@ -8,7 +8,11 @@ import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
+import org.motechproject.care.reporting.domain.measure.PncChildForm;
 import org.motechproject.care.reporting.repository.Repository;
+import org.unitils.reflectionassert.ReflectionAssert;
+
+import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -17,20 +21,19 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class CareServiceTest {
-
     @Mock
     Repository dbRepository;
 
     CareService service;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         service = new CareService(dbRepository);
     }
 
     @Test
-    public void shouldReturnMotherIfExistsInRepository(){
+    public void shouldReturnMotherIfExistsInRepository() {
         MotherCase expectedMotherCase = new MotherCase();
         expectedMotherCase.setCaseId("1");
 
@@ -42,7 +45,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldReturnNewMotherIfNotExistsInRepository(){
+    public void shouldReturnNewMotherIfNotExistsInRepository() {
         MotherCase expectedMotherCase = new MotherCase();
         expectedMotherCase.setCaseId("1");
 
@@ -54,7 +57,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldReturnChildIfExistsInRepository(){
+    public void shouldReturnChildIfExistsInRepository() {
         ChildCase expectedChildCase = new ChildCase();
         expectedChildCase.setCaseId("1");
 
@@ -66,7 +69,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldReturnNewChildIfNotExistsInRepository(){
+    public void shouldReturnNewChildIfNotExistsInRepository() {
         ChildCase expectedChildCase = new ChildCase();
         expectedChildCase.setCaseId("1");
 
@@ -78,7 +81,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldReturnFlwIfExistsInRepository(){
+    public void shouldReturnFlwIfExistsInRepository() {
         Flw expectedFlw = new Flw();
         expectedFlw.setFlwId("1");
 
@@ -90,7 +93,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldReturnNewFlwIfNotExistsInRepository(){
+    public void shouldReturnNewFlwIfNotExistsInRepository() {
         Flw expectedFlw = new Flw();
         expectedFlw.setFlwId("1");
 
@@ -102,18 +105,17 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldSaveInstance(){
+    public void shouldSaveInstance() {
         NewForm newForm = new NewForm();
         newForm.setFullName("fullName");
 
         service.save(newForm);
 
         verify(dbRepository).save(newForm);
-
     }
 
     @Test
-    public void shouldGetGroupIfExists(){
+    public void shouldGetGroupIfExists() {
         String fieldName = "groupId";
         String fieldValue = "groupId";
         FlwGroup flwGroup = new FlwGroup();
@@ -126,7 +128,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldGetNewGroupIfItDoesNotExist(){
+    public void shouldGetNewGroupIfItDoesNotExist() {
         String fieldName = "groupId";
         String fieldValue = "groupId";
         when(dbRepository.get(FlwGroup.class, fieldName, fieldValue)).thenReturn(null);
@@ -139,7 +141,7 @@ public class CareServiceTest {
 
 
     @Test
-    public void shouldGetACaseIfExists(){
+    public void shouldGetACaseIfExists() {
         String fieldName = "fieldName";
         String fieldValue = "fieldValue";
         MotherCase motherCase = new MotherCase();
@@ -152,7 +154,7 @@ public class CareServiceTest {
     }
 
     @Test
-    public void shouldGetANewCaseIfItDoesNotExist(){
+    public void shouldGetANewCaseIfItDoesNotExist() {
         String fieldName = "caseId";
         String fieldValue = "fieldValue";
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(null);
@@ -161,5 +163,25 @@ public class CareServiceTest {
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualMotherCase.getCaseId());
+    }
+
+    @Test
+    public void shouldFetchEntityGivenMultipleFieldsAndHibernateCriteriaAliases() {
+        final PncChildForm pncChildForm = new PncChildForm();
+        pncChildForm.setInstanceId("myInstanceId");
+        ChildCase childCase = new ChildCase();
+        childCase.setCaseId("myCaseId");
+        pncChildForm.setChildCase(childCase);
+        HashMap<String, Object> fieldMap = new HashMap<String, Object>() {{
+            put("instanceId", pncChildForm.getInstanceId());
+            put("cc.caseId", pncChildForm.getChildCase());
+        }};
+        HashMap<String, String> aliasMapping = new HashMap<>();
+        aliasMapping.put("childCase", "cc");
+        when(dbRepository.get(PncChildForm.class, fieldMap, aliasMapping)).thenReturn(pncChildForm);
+
+        PncChildForm actualPncChildForm = service.get(PncChildForm.class, fieldMap, aliasMapping);
+
+        ReflectionAssert.assertReflectionEquals(pncChildForm, actualPncChildForm);
     }
 }

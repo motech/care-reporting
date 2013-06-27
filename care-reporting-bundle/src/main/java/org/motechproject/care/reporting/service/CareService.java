@@ -16,19 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
 @Service
 @Transactional
 public class CareService implements org.motechproject.care.reporting.service.Service {
-    @Autowired
     private Repository dbRepository;
 
-    public CareService() {
-    }
-
+    @Autowired
     public CareService(Repository dbRepository) {
         this.dbRepository = dbRepository;
     }
@@ -46,7 +44,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
         T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
-        if(persistedObject == null)
+        if (persistedObject == null)
             dbRepository.save(entity);
         else {
             persistedObject.updateToLatest(entity);
@@ -140,8 +138,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T> T get(Class<T> type, String fieldName, String value) {
+    public <T> T get(Class<T> type, String fieldName, Object value) {
         return dbRepository.get(type, fieldName, value);
+    }
+
+    @Override
+    public <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
+        return dbRepository.get(type, fieldMap, aliasMapping);
     }
 
 }

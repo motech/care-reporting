@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.repository;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
@@ -13,15 +12,10 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.Assert.*;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionDoesNotContains;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import static org.motechproject.care.reporting.utils.TestUtils.*;
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -39,35 +33,10 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     }
 
     @Test
-    @Ignore
-    public void shouldSaveNewForm() {
-        NewForm form = new NewForm();
-        form.setCaseName("mother");
-        form.setInstanceId("abcd");
-
-        int savedFormId = repository.save(form);
-
-        NewForm otherForm = new NewForm();
-        otherForm.setCaseName("other mother");
-        otherForm.setInstanceId("abcd");
-        Integer otherFormId = repository.save(otherForm);
-
-        System.out.println(savedFormId);
-        System.out.println(otherFormId);
-
-        NewForm savedForm = repository.get(NewForm.class, savedFormId);
-        assertEquals("mother", savedForm.getCaseName());
-        assertEquals("abcd", savedForm.getInstanceId());
-        assertEquals(savedFormId, savedForm.getId());
-    }
-
-    @Test
     public void shouldGetByMatchingCriteria() {
-
         NewForm form = new NewForm();
         form.setCaseName("mother");
         form.setInstanceId("abcd");
-
         repository.save(form);
 
         NewForm newForm = repository.get(NewForm.class, "caseName", "mother");
@@ -145,6 +114,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         return new FlwGroupBuilder().groupId(groupId).build();
     }
 
+    @Test
     public void shouldSaveCase() {
         String flwId = "flwId";
         String groupId = "groupId";
@@ -181,5 +151,29 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Test
     public void shouldReturnNullIfCannotFindByExternalPrimaryKey() throws Exception {
         assertNull(repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad00"));
+    }
+
+    @Test
+    public void shouldFetchFromDbGivenBasedOnMultipleNestedFields(){
+        final String caseId = "myCaseId";
+        final String instanceId = "myInstanceId";
+        NewForm form = new NewForm();
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(caseId);
+        form.setMotherCase(motherCase);
+        form.setInstanceId(instanceId);
+        template.save(form);
+        Map<String, Object> fieldMap = new HashMap<String, Object>() {{
+            put("mc.caseId", caseId);
+            put("instanceId", instanceId);
+        }};
+        Map<String, String> aliasMapping = new HashMap<String, String>() {{
+            put("motherCase", "mc");
+        }};
+
+        NewForm actualFormFromDb = repository.get(NewForm.class, fieldMap, aliasMapping);
+
+        assertEquals(instanceId, actualFormFromDb.getInstanceId());
+        assertEquals(caseId, actualFormFromDb.getMotherCase().getCaseId());
     }
 }

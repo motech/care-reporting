@@ -7,7 +7,9 @@ import org.motechproject.care.reporting.utils.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 
@@ -47,21 +49,27 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public <T> T get(Class<T> entityClass, int id) {
-        return template.get(entityClass, id);
+    public <T> T get(Class<T> entityClass, String fieldName, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(fieldName, value);
+
+        return get(entityClass, map, new HashMap<String, String>());
     }
 
     @Override
-    public <T> T get(Class<T> entityClass, String fieldName, Object value) {
+    public <T> T get(Class<T> entityClass, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
         DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
-        criteria.add(Restrictions.eq(fieldName, value));
+        for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
+            criteria.createAlias(alias.getKey(), alias.getValue());
+        }
+
+        for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
+            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+        }
 
         @SuppressWarnings("unchecked")
-        List<T> byCriteria = template.findByCriteria(criteria);
-        if (CollectionUtils.isEmpty(byCriteria))
-            return null;
-        else
-            return byCriteria.get(0);
+        List<T> resultFromDb = template.findByCriteria(criteria);
+        return CollectionUtils.isEmpty(resultFromDb) ? null : resultFromDb.get(0);
     }
 }
 

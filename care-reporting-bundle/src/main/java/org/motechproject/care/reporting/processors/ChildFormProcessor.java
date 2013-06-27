@@ -11,7 +11,6 @@ import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -47,6 +46,8 @@ public class ChildFormProcessor {
 
     List<Serializable> parseChildForms(CommcareForm commcareForm) {
         Class<?> childForm = FormFactory.getForm(namespace(commcareForm), CaseType.CHILD);
+        logger.info(String.format("Processing Form %s", childForm));
+
         if (null == childForm)
             return new ArrayList<>();
 
@@ -55,9 +56,12 @@ public class ChildFormProcessor {
         List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
 
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
-        Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
+        final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
+        String instanceId = metadata.get("instanceId");
 
-        for (Map<String, String> childDetail : childDetails) {
+        for (final Map<String, String> childDetail : childDetails) {
+            if (formExists(childForm, instanceId, childDetail.get("caseId")))
+                continue;
 
             Map<String, String> childInfo = new HashMap<>(metadata);
             childInfo.putAll(childDetail);
@@ -71,6 +75,22 @@ public class ChildFormProcessor {
         return childForms;
     }
 
+    private boolean formExists(Class<?> type, String instanceId, String caseId) {
+        Map<String, Object> fieldMap = new HashMap<>();
+        fieldMap.put("instanceId", instanceId);
+        fieldMap.put("cc.caseId", caseId);
+
+        Map<String, String> aliasMap = new HashMap<>();
+        aliasMap.put("childCase", "cc");
+
+        Object existingForm = service.get(type, fieldMap, aliasMap);
+        if (existingForm != null) {
+            logger.warn(String.format("Cannot save Form: %s. Form with same instanceId (%s) and caseId %s already exists: %s", type, instanceId, caseId, existingForm));
+            return true;
+        }
+        return false;
+    }
+
     private void saveForm(List<Serializable> forms, Class<?> type) {
         for (Serializable form : forms) {
             saveForm(form, type);
@@ -78,15 +98,7 @@ public class ChildFormProcessor {
     }
 
     private void saveForm(Serializable form, Class<?> type) {
-        logger.info(String.format("Started processing form %s", form));
-
-        try {
-            service.save(type.cast(form));
-        } catch (DataAccessException e) {
-            logger.error(String.format("Cannot save Form: %s. %s", type.cast(form), e.getRootCause().getMessage()));
-        }
-
-        logger.info(String.format("Finished processing form %s", form));
+        service.save(type.cast(form));
     }
 
     private String namespace(CommcareForm commcareForm) {

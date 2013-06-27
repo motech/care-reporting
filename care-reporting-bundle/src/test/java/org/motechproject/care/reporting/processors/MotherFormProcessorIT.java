@@ -14,6 +14,9 @@ import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
@@ -84,7 +87,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldNotThrowExceptionIfMotherFormWithSameInstanceIdIsSaved(){
+    public void shouldNotSaveIfMotherFormWithSameInstanceIdExist() {
         NewForm persistedForm = new NewForm();
         persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
         template.save(persistedForm);
@@ -102,6 +105,10 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .build();
 
         motherFormProcessor.parseMotherForm(newFormData);
+
+        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
+        assertEquals(1, newFormsFromDb.size());
+        assertEquals(persistedForm, newFormsFromDb.get(0));
     }
 
     @Test

@@ -8,7 +8,8 @@ import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.*;
+import org.motechproject.care.reporting.domain.measure.DeathChildForm;
+import org.motechproject.care.reporting.domain.measure.EbfChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
@@ -162,6 +163,50 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         List<Serializable> output = childFormProcessor.parseChildForms(ebfForm);
 
         assertTrue(((DeathChildForm) output.get(0)).getClose());
+    }
+
+    @Test
+    public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready(){
+        String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
+        String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
+
+        ChildCase persistedChildCase = new ChildCase();
+        persistedChildCase.setCaseId(caseId);
+
+        DeathChildForm persistedForm = new DeathChildForm();
+        persistedForm.setInstanceId(instanceId);
+        persistedForm.setChildCase(persistedChildCase);
+        template.save(persistedForm);
+
+        FormValueElement childCase1Data = new FormValueElementBuilder()
+                .addAttribute("case_id", caseId)
+                .addAttribute("date_modified", "2013-03-03T10:38:52.804+05:30")
+                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .build();
+
+        FormValueElement childCase1Details = new FormValueElementBuilder()
+                .addSubElement("cid", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
+                .addSubElement("index", "0")
+                .addSubElement("case", childCase1Data)
+                .addSubElement("close", new FormValueElement())
+                .build();
+
+        CommcareForm deathForm = new CommcareFormBuilder().addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
+                .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .addMetadata("instance_id", instanceId)
+                .addAttribute("uiVersion", "1")
+                .addAttribute("version", "1")
+                .addAttribute("name", "EBF")
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/death")
+                .addSubElement("num_children", "1")
+                .addSubElement("child_info", childCase1Details)
+                .build();
+
+        childFormProcessor.parseChildForms(deathForm);
+
+        List<DeathChildForm> deathChildForms = template.loadAll(DeathChildForm.class);
+        assertEquals(1, deathChildForms.size());
+        assertEquals(persistedForm, deathChildForms.get(0));
     }
 
     private void assertChildEbfForm(EbfChildForm expectedForm, EbfChildForm actualForm) {
