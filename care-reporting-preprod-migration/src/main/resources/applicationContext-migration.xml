@@ -9,7 +9,16 @@
             http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="commcareHttpConnectionManager"
-          class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager"/>
+          class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+        <property name="params">
+            <bean class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}"/>
+                <property name="maxTotalConnections" value="${migration.threadpool.size}"/>
+                <property name="connectionTimeout" value="${httpclient.timeout}"/>
+                <property name="soTimeout" value="${httpclient.timeout}"/>
+            </bean>
+        </property>
+    </bean>
     <bean id="commcareHttpClient" class="org.apache.commons.httpclient.HttpClient">
         <constructor-arg ref="commcareHttpConnectionManager"/>
     </bean>
@@ -20,6 +29,7 @@
                 <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}"/>
                 <property name="maxTotalConnections" value="${migration.threadpool.size}"/>
                 <property name="connectionTimeout" value="${httpclient.timeout}"/>
+                <property name="soTimeout" value="${httpclient.timeout}"/>
             </bean>
         </property>
     </bean>
