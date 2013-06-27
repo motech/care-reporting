@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -11,26 +10,21 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 
 @Service
 @Transactional
 public class CareService implements org.motechproject.care.reporting.service.Service {
     @Autowired
     private Repository dbRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public CareService() {
     }
@@ -45,32 +39,14 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T> Integer save(T instance, boolean ignoreUniqueConstraint) {
-        try {
-            return save(instance);
-        } catch (DataAccessException e) {
-            String exceptionMessage = e.getRootCause().getMessage();
-            if (ignoreUniqueConstraint && isUniqueConstraintViolation(exceptionMessage)) {
-                logger.error(String.format("Cannot save Form: %s. %s", instance, exceptionMessage));
-                return null;
-            }
-            throw e;
-        }
-    }
-
-    @Override
     public <T> void update(T entity) {
         dbRepository.update(entity);
-    }
-
-    private boolean isUniqueConstraintViolation(String exceptionMessage) {
-        return StringUtils.contains(exceptionMessage, "duplicate key value violates unique constraint") && StringUtils.contains(exceptionMessage, "instance_id");
     }
 
     @Override
     public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
         T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
-        if (persistedObject == null)
+        if(persistedObject == null)
             dbRepository.save(entity);
         else {
             persistedObject.updateToLatest(entity);

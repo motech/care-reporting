@@ -23,8 +23,6 @@ public interface Service {
 
     <T> Integer save(T instance);
 
-    <T> Integer save(T instance, boolean ignoreUniqueConstraint);
-
     <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity);
 
     <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> instances);
