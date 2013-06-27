@@ -110,7 +110,7 @@ public class CommcareAPIHttpClient {
     }
 
     private String commcareFormUrl(String formId) {
-        return String.format("%s/%s/api/v0.3/form/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), formId);
+        return String.format("%s/%s/api/%s/form/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), getVersion(), formId);
     }
 
     private String commcareCaseUrl(String caseId) {
