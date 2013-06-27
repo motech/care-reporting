@@ -29,7 +29,13 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldUpdateCloseCaseWhenMotherCaseAlreadyExists() {
-        MotherCase mother = new MotherCaseBuilder().caseId(caseId).build();
+        Flw oldFlw = new FlwBuilder()
+                .flwId("oldda0284e008d2e0c980fb13f989136")
+                .build();
+        MotherCase mother = new MotherCaseBuilder()
+                .caseId(caseId)
+                .flw(oldFlw)
+                .build();
         template.save(mother);
         Flw flw = new FlwBuilder().flwId(userId).build();
         template.save(flw);
@@ -49,6 +55,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         assertEquals(Boolean.TRUE, actualMother.getClosed());
         assertEquals((new DateTime(2013, 6, 13, 0, 0, 0)).toDate(), actualMother.getClosedOn());
         assertNotNull(actualMother.getLastModifiedTime());
+        assertReflectionEqualsWithIgnore(flw, actualMother.getFlw());
         assertReflectionEqualsWithIgnore(flw, actualMother.getClosedBy());
 
     }
@@ -58,7 +65,10 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         Flw flw = new FlwBuilder().flwId(userId).build();
         template.save(flw);
 
-        ChildCase childCase = new ChildCaseBuilder().caseId(caseId).build();
+        ChildCase childCase = new ChildCaseBuilder()
+                .caseId(caseId)
+                .flw(new FlwBuilder().flwId("oldda0284e008d2e0c980fb13f989136").build())
+                .build();
         template.save(childCase);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
@@ -76,6 +86,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         assertEquals(Boolean.TRUE, actualChild.getClosed());
         assertEquals((new DateTime(2013, 6, 13, 0, 0, 0)).toDate(), actualChild.getClosedOn());
         assertNotNull(actualChild.getLastModifiedTime());
+        assertReflectionEqualsWithIgnore(flw, actualChild.getFlw());
         assertReflectionEqualsWithIgnore(flw, actualChild.getClosedBy());
 
     }

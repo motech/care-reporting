@@ -36,12 +36,14 @@ public class CloseCaseProcessor {
             childCase.updateLastModifiedTime();
             careReportingMapper.set(childCase, "closedOn", caseEvent.getDateModified());
             careReportingMapper.set(childCase, "closedBy", caseEvent.getUserId());
+            careReportingMapper.set(childCase, "flw", caseEvent.getUserId());
             service.update(childCase);
         } else {
             motherCase.setClosed(true);
             motherCase.updateLastModifiedTime();
             careReportingMapper.set(motherCase, "closedOn", caseEvent.getDateModified());
             careReportingMapper.set(motherCase, "closedBy", caseEvent.getUserId());
+            careReportingMapper.set(motherCase, "flw", caseEvent.getUserId());
             service.update(motherCase);
         }
     }
