@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.migration.util;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,17 @@ public class CommcareAPIHttpClient {
     private String getRequest(String requestUrl, NameValuePair[] queryParams) {
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
+        getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
+            @Override
+            public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ignored) {
+
+                }
+                return executionCount < getRetryCount();
+            }
+        });
 
         try {
             httpClient.executeMethod(getMethod);
@@ -61,7 +73,7 @@ public class CommcareAPIHttpClient {
 
             String response = readResponse(getMethod);
 
-            if(statusCode != HttpStatus.SC_OK) {
+            if (statusCode != HttpStatus.SC_OK) {
                 RuntimeException e = new RuntimeException(String.format("Request to Commcare failed with status code %s and response %s", statusCode, response));
                 logger.error("Request to commcare failed", e);
                 throw e;
@@ -72,6 +84,10 @@ public class CommcareAPIHttpClient {
             logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private int getRetryCount() {
+        return Integer.parseInt(commcareProperties.getProperty("retry.count"));
     }
 
     private String readResponse(HttpMethod getMethod) throws IOException {
