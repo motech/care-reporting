@@ -3,7 +3,9 @@ package org.motechproject.care.reporting.ft.utils;
 import org.joda.time.DateTime;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -41,5 +43,21 @@ public class ReflectionUtils {
             }
         }
         return result.toString();
+    }
+    public static Map<String, String> serializeMap(Map<String, Object> map) {
+        if(map == null) {
+            return null;
+        }
+
+        Map<String, String> retMap = new HashMap<>();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            if(value == null) {
+               retMap.put(entry.getKey(), "<null>");
+                continue;
+            }
+            retMap.put(entry.getKey(), value.toString());
+        }
+        return retMap;
     }
 }

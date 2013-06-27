@@ -11,7 +11,7 @@ public enum CaseType {
     }
 
     public static CaseType getType(String type){
-        for(CaseType caseType: CaseType.values()){
+          for(CaseType caseType: CaseType.values()){
             if(caseType.type.equals(type))
                 return caseType;
         }

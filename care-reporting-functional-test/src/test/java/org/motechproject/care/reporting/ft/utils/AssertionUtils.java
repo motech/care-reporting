@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class AssertionUtils {
 
-    public static void assertContainsAll(Map<String, Object> expected, Map<String, Object> actual) {
+    public static void assertContainsAll(Map<String, String> expected, Map<String, String> actual) {
         LinkedHashMap<String, Object[]> differences = new LinkedHashMap<String, Object[]>();
         for (String key : expected.keySet()) {
             Object value = expected.get(key);
@@ -22,10 +22,10 @@ public class AssertionUtils {
             }
         }
         if (!differences.isEmpty())
-            processDifferenceComparison(expected, actual);
+                processDifferenceComparison(expected, actual);
     }
 
-    private static void processDifferenceComparison(Map<String, Object> expected, Map<String, Object> actual) {
+    private static void processDifferenceComparison(Map<String, ?> expected, Map<String, ?> actual) {
         StringBuilder expectedValue = new StringBuilder();
         StringBuilder actualValue = new StringBuilder();
         for (String expectedKey : expected.keySet()) {

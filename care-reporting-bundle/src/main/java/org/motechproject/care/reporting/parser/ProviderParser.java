@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.parser;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.motechproject.commcare.provider.sync.response.Provider;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;

@@ -1,8 +1,13 @@
 package org.motechproject.care.reporting.ft.reporting;
 
 import org.motechproject.care.reporting.ft.utils.TimedRunner;
+import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -51,40 +56,44 @@ public class Table {
 
     public Map<String, Object> find(Object businessId) {
         return findBy(businessIdColumn, businessId);
-
     }
 
     public Map<String, Object> findBy(String columnName, Object columnValue) {
-        return fetch(columnName, columnValue, false);
+        return fetch(columnName, columnValue);
     }
 
     public Map<String, Object> waitAndGet(Object businessId) {
-        return waitAndGetBy(businessIdColumn, businessId);
+        return waitAndGetBy(businessIdColumn, businessId, null);
+    }
 
+    public Map<String, Object> waitAndGet(Object businessId, TimedRunnerBreakCondition<Map<String, Object>> timedRunnerBreakCondition) {
+        return waitAndGetBy(businessIdColumn, businessId, timedRunnerBreakCondition);
     }
 
     public Map<String, Object> waitAndGetBy(String columnName, Object columnValue) {
-        Map<String, Object> map = fetch(columnName, columnValue, true);
+        return waitAndGetBy(columnName, columnValue, null);
+    }
+
+    public Map<String, Object> waitAndGetBy(final String columnName, final Object columnValue, TimedRunnerBreakCondition<Map<String, Object>> timedRunnerBreakCondition) {
+        Map<String, Object> map = new TimedRunner<Map<String, Object>>(100, 100, timedRunnerBreakCondition) {
+            @Override
+            protected Map<String, Object> run() {
+                return fetch(columnName, columnValue);
+            }
+        }.executeWithTimeout();
 
         if(map == null) {
-            throw new RuntimeException(format("Did not find record in table: %s; id column: %s; id: %s", tableName, columnName, columnValue));
+                throw new RecordNotFoundException(format("Did not find record in table: %s; id column: %s; id: %s", tableName, columnName, columnValue));
         }
-
         return map;
     }
 
-    private Map<String, Object> fetch(String columnName, Object columnValue, boolean retry) {
+    private Map<String, Object> fetch(String columnName, Object columnValue) {
         try {
             final PreparedStatement stmt = connection.prepareStatement(format("SELECT * FROM %s WHERE %s = ? LIMIT 1", tableName, columnName));
             setParameter(stmt, columnValue, 1);
 
-            ResultSet resultSet;
-
-            if(retry) {
-                resultSet = fetchWithRetry(stmt);
-            } else {
-                resultSet = execute(stmt);
-            }
+            ResultSet resultSet = execute(stmt);
 
             if(resultSet == null) {
                 return null;
@@ -104,22 +113,11 @@ public class Table {
         }
     }
 
-    private static ResultSet execute(PreparedStatement preparedStatement) throws SQLException {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        return resultSet.next() ? resultSet : null;
-    }
-
-    private ResultSet fetchWithRetry(final PreparedStatement preparedStatement) {
-        TimedRunner<ResultSet> timedRunner = new TimedRunner<ResultSet>(5, 100) {
-            @Override
-            protected ResultSet run() throws Exception {
-                return execute(preparedStatement);
-            }
-        };
-
+    private static ResultSet execute(PreparedStatement preparedStatement) {
         try {
-            return timedRunner.executeWithTimeout();
-        } catch (Exception e) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.next() ? resultSet : null;
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

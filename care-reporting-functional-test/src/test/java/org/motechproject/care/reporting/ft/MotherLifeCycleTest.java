@@ -4,8 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.ft.couch.domain.Patient;
-import org.motechproject.care.reporting.ft.pages.FormPage;
+import org.motechproject.care.reporting.ft.pages.MotechEndpoint;
 import org.motechproject.care.reporting.ft.utils.PropertyFile;
+import org.motechproject.care.reporting.ft.utils.ReflectionUtils;
 import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 
 import java.util.HashMap;
@@ -55,21 +56,21 @@ public class MotherLifeCycleTest extends FormTestCase {
         String instanceId = UUID.randomUUID().toString();
         placeholderMap.put("instanceId", instanceId);
 
-        FormPage newFormPage = new FormPage();
-        int response = newFormPage.post(constructRequestTemplateUrl("new_form"), placeholderMap);
+        MotechEndpoint motechEndpoint = new MotechEndpoint();
+        int response = motechEndpoint.postForm(constructRequestTemplateUrl("new_form"), placeholderMap);
         assertEquals(200, response);
 
         Map<String, Object> actualForm = reportingDatabase().newForm.waitAndGet(instanceId);
         PropertyFile expectedFormValues = new PropertyFile(constructExpectedUrl("reporting/new_form"), placeholderMap);
-        assertContainsAll(expectedFormValues.asPrimitiveMap(), actualForm);
+        assertContainsAll(expectedFormValues.properties(), ReflectionUtils.serializeMap(actualForm));
 
         Map<String, Object> actualMotherCase = reportingDatabase().motherCase.waitAndGet(caseId);
         PropertyFile expectedCaseValues = new PropertyFile(constructExpectedUrl("reporting/mother_case"), placeholderMap);
-        assertContainsAll(expectedCaseValues.asPrimitiveMap(), actualMotherCase);
+        assertContainsAll(expectedCaseValues.properties(), ReflectionUtils.serializeMap(actualMotherCase));
 
         Map<String, Object> actualFlw = reportingDatabase().flw.waitAndGet(flwId);
         PropertyFile expectedFLWValues = new PropertyFile(constructExpectedUrl("reporting/flw"), placeholderMap);
-        assertContainsAll(expectedFLWValues.asPrimitiveMap(), actualFlw);
+        assertContainsAll(expectedFLWValues.properties(), ReflectionUtils.serializeMap(actualFlw));
 
 
         assertNull(reportingDatabase().flwGroup.find(groupId));
@@ -97,21 +98,21 @@ public class MotherLifeCycleTest extends FormTestCase {
         placeholderMap.put("instanceId", instanceId);
         placeholderMap.put("newFormInstanceId", newFormInstanceId);
 
-        FormPage newFormPage = new FormPage();
-        int response = newFormPage.post(constructRequestTemplateUrl("registration_form"), placeholderMap);
+        MotechEndpoint motechEndpoint = new MotechEndpoint();
+        int response = motechEndpoint.postForm(constructRequestTemplateUrl("registration_form"), placeholderMap);
         assertEquals(200, response);
 
         Map<String, Object> actualForm = reportingDatabase().registrationMotherForm.waitAndGet(instanceId);
         PropertyFile expectedFormValues = new PropertyFile(constructExpectedUrl("reporting/registration_form"), placeholderMap);
-        assertContainsAll(expectedFormValues.asPrimitiveMap(), actualForm);
+        assertContainsAll(expectedFormValues.properties(), ReflectionUtils.serializeMap(actualForm));
 
         Map<String, Object> actualMotherCase = reportingDatabase().motherCase.waitAndGet(caseId);
         PropertyFile expectedCaseValues = new PropertyFile(constructExpectedUrl("reporting/mother_case"), placeholderMap);
-        assertContainsAll(expectedCaseValues.asPrimitiveMap(), actualMotherCase);
+        assertContainsAll(expectedCaseValues.properties(), ReflectionUtils.serializeMap(actualMotherCase));
 
         Map<String, Object> actualFlw = reportingDatabase().flw.waitAndGet(flwId);
         PropertyFile expectedFLWValues = new PropertyFile(constructExpectedUrl("reporting/flw"), placeholderMap);
-        assertContainsAll(expectedFLWValues.asPrimitiveMap(), actualFlw);
+        assertContainsAll(expectedFLWValues.properties(), ReflectionUtils.serializeMap(actualFlw));
 
         assertNull(reportingDatabase().flwGroup.find(groupId));
         assertNull(reportingDatabase().flwGroupMap.find(actualFlw.get("id")));

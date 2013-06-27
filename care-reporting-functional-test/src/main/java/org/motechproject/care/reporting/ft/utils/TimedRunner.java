@@ -9,15 +9,19 @@ public abstract class TimedRunner<T> {
     private final TimedRunnerBreakCondition<T> breakCondition;
 
     public TimedRunner(int tries, int intervalSleep) {
-        this(tries, intervalSleep, new TimedRunnerBreakCondition<T>() {
-            @Override
-            public boolean test(T obj) {
-                return obj != null;
-            }
-        });
+        this(tries, intervalSleep, null);
     }
 
     public TimedRunner(int tries, int intervalSleep, TimedRunnerBreakCondition<T> breakCondition) {
+        if(breakCondition == null) {
+            breakCondition = new TimedRunnerBreakCondition<T>() {
+                @Override
+                public boolean test(T obj) {
+                    return obj != null;
+                }
+            };
+        }
+
         this.tries = tries;
         this.intervalSleep = intervalSleep;
         this.breakCondition = breakCondition;
@@ -27,16 +31,16 @@ public abstract class TimedRunner<T> {
      * Function to run within the timeout. It returns a boolean. If the value is true, the code
      * will break out of the loop immediately else try again within the timeout period.
      */
-    protected abstract T run() throws Exception;
+    protected abstract T run();
 
-    public T executeWithTimeout() throws Exception {
+    public T executeWithTimeout() {
         T result;
         for (int i = 0; i < tries; i++) {
             result = null;
             try {
                 result = run();
             } catch (SaveOperationStillInProgressException ex) {
-                //Catch it so that we can continue retrying.
+
             }
             if (breakCondition.test(result)) return result;
 

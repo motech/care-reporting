@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.ft.utils;
 
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

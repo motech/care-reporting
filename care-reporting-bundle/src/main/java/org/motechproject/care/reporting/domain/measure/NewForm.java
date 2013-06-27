@@ -4,7 +4,6 @@ package org.motechproject.care.reporting.domain.measure;
 
 import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 
