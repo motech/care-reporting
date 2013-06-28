@@ -17,14 +17,16 @@
         </layout>
     </appender>
 
+    <logger name="org.motechproject.care.reporting.migration">
+        <level value="DEBUG" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
     <root>
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
-
-    <logger name="org.apache.commons.httpclient.auth.AuthChallengeProcessor">
-        <level value="ERROR" />
-    </logger>
 
 </log4j:configuration>

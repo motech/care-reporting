@@ -19,7 +19,15 @@
 
     <logger name="commcare-reporting-mapper">
         <level value="DEBUG" />
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>
+
+    <root>
+        <level value="ERROR" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
 
 </log4j:configuration>
