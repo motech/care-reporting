@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.migration.service;
 
+import org.motechproject.care.reporting.migration.util.BadResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,8 @@ public class MigrationJob implements Runnable {
             migrationTask.migrate(entityId);
         } catch (RuntimeException ex) {
             logger.error(String.format("Failed to execute migration for id:%s; migrationType: %s", entityId, migrationTask.getClass().getCanonicalName()), ex);
-            migrationFailedJobsCollector.recordFailedEntityId(entityId);
+            String errorType = ex instanceof  BadResponseException ? Integer.toString(((BadResponseException)ex).getStatusCode()) : "error";
+            migrationFailedJobsCollector.recordFailedEntityId(entityId, errorType);
         }
     }
 

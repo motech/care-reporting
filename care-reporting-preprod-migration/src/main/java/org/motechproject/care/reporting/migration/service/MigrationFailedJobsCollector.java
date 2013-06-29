@@ -1,18 +1,18 @@
 package org.motechproject.care.reporting.migration.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 public class MigrationFailedJobsCollector {
 
-    private List<String> failedIds = Collections.synchronizedList(new ArrayList<String>());
+    Multimap<String, String> failedIds = Multimaps.synchronizedMultimap(LinkedHashMultimap.<String, String>create());
 
-    public void recordFailedEntityId(String enityId) {
-        failedIds.add(enityId);
+    public void recordFailedEntityId(String enityId, String errorType) {
+        failedIds.put(errorType, enityId);
     }
 
-    public List<String> getFailedIds() {
+    public Multimap<String, String> getFailedIds() {
         return failedIds;
     }
 }

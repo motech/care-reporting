@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.migration.service;
 
+import com.google.common.collect.Multimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class MigrationBatchProcessor {
         this.executorServiceFactory = executorServiceFactory;
     }
 
-    public List<String> processInBatch(final MigrationTask migrationTask, List<String> idsToMigrate) {
+    public Multimap<String, String> processInBatch(final MigrationTask migrationTask, List<String> idsToMigrate) {
         logger.info(String.format("Migrating %s ids for task %s", idsToMigrate.size(), migrationTask.getClass().getCanonicalName()));
 
         MigrationFailedJobsCollector migrationFailedJobsCollector = new MigrationFailedJobsCollector();

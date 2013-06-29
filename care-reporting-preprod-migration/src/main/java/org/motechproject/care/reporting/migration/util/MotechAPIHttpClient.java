@@ -47,9 +47,9 @@ public class MotechAPIHttpClient {
 
             String response = readResponse(postMethod);
 
-            if(statusCode != HttpStatus.SC_OK) {
-                RuntimeException e = new RuntimeException(String.format("Request to motech failed with status code %s and response %s", statusCode, response));
-                logger.error("Request to motech failed", e);
+            if (statusCode != HttpStatus.SC_OK) {
+                BadResponseException e = new BadResponseException(postMethod.getURI().toString(), statusCode, response);
+                logger.error(e.getMessage(), e);
                 throw e;
             }
         } catch (IOException e) {

@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.migration.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.care.reporting.migration.util.BadResponseException;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -37,6 +38,17 @@ public class MigrationJobTest {
         new MigrationJob(migrationTask, entityId, resultCollector).run();
 
         verify(migrationTask).migrate(entityId);
-        verify(resultCollector).recordFailedEntityId(entityId);
+        verify(resultCollector).recordFailedEntityId(entityId, "error");
+    }
+
+    @Test
+    public void shouldRunTaskAndRecordFailedResultIfTaskIsHasFailedWithBadResponse() {
+        String entityId = "myEntityId";
+        doThrow(new BadResponseException("url", 404, "failed")).when(migrationTask).migrate(entityId);
+
+        new MigrationJob(migrationTask, entityId, resultCollector).run();
+
+        verify(migrationTask).migrate(entityId);
+        verify(resultCollector).recordFailedEntityId(entityId, "404");
     }
 }

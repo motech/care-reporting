@@ -74,8 +74,8 @@ public class CommcareAPIHttpClient {
             String response = readResponse(getMethod);
 
             if (statusCode != HttpStatus.SC_OK) {
-                RuntimeException e = new RuntimeException(String.format("Request to Commcare failed with status code %s and response %s", statusCode, response));
-                logger.error("Request to commcare failed", e);
+                BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
+                logger.error(e.getMessage(), e);
                 throw e;
             }
             return response;

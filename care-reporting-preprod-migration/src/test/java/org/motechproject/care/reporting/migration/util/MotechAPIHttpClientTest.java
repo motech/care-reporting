@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.migration.util;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.URI;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.io.IOUtils;
@@ -50,8 +51,8 @@ public class MotechAPIHttpClientTest {
 
     @Test
     public void shouldThrowExceptionIfStatusIsNotSuccess() throws IOException {
-        expectedException.expect(RuntimeException.class);
-        expectedException.expectMessage("Request to motech failed with status code 500 and response ");
+        expectedException.expect(BadResponseException.class);
+        expectedException.expectMessage("Request to url motech/cases failed with status code 500 and response ");
         String aCase = "case";
         PostMethod postMethod = mock(PostMethod.class);
         when(platformProperties.getProperty("app.url")).thenReturn("localhost");
@@ -59,6 +60,7 @@ public class MotechAPIHttpClientTest {
         MotechAPIHttpClient motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties);
         when(postMethod.getStatusCode()).thenReturn(500);
         when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
+        when(postMethod.getURI()).thenReturn(new URI("motech/cases",true));
         motechAPIHttpClient.postContet(aCase, postMethod);
 
         verify(httpClient).executeMethod(postMethod);
