@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.parser;
 
 import org.motechproject.commcare.domain.FormValueElement;
 
-import java.util.List;
 import java.util.Map;
 
 public interface InfoParser {
@@ -14,9 +13,10 @@ public interface InfoParser {
 
     Map<String, Object> parse(Map map);
 
-    void setConvertToCamelCase(boolean convertToCamelCase);
-
-    void setRestrictedElements(List<String> restrictedElements);
-
     void setKeyConversionMap(Map<String, String> keyConversionMap);
+
+    FormValueElement getCaseElement(FormValueElement startElement);
+
+
+    boolean isSkipMappingIfCaseNotFound();
 }

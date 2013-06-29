@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.utils;
 
 import org.junit.Test;
 import org.motechproject.care.reporting.model.MappingEntity;
-import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.InfoParserImpl;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -20,7 +19,7 @@ public class JsonUtilsTest {
     @Test
     public void shouldParseGivenInputStreamsToMappingEntities() {
         InputStream stream = new ByteArrayInputStream(getSampleJson().getBytes());
-        InfoParser expectedInfoParser = new InfoParserImpl();
+        InfoParserImpl expectedInfoParser = new InfoParserImpl();
         expectedInfoParser.setConvertToCamelCase(false);
         expectedInfoParser.setRestrictedElements(asList("case", "child_info"));
         final HashMap<String, String> keyConversionMap = new HashMap<String, String>() {{

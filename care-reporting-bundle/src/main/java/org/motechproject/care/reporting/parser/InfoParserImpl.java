@@ -8,21 +8,33 @@ import org.motechproject.care.reporting.utils.ListUtils;
 import org.motechproject.care.reporting.utils.StringUtils;
 import org.motechproject.commcare.domain.FormValueElement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InfoParserImpl implements InfoParser {
 
     @JsonProperty("convertToCamelCase")
     private boolean convertToCamelCase = true;
+
     @JsonProperty("keyConversionMap")
-    private Map<String, String> keyConversionMap;
+    private Map<String, String> keyConversionMap = new HashMap<>();
+
+
+    @JsonProperty("caseElementPath")
+    private String caseElementPath = "//case";
+
+    @JsonProperty("skipMappingIfCaseNotFound")
+    private boolean skipMappingIfCaseNotFound = false;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @JsonProperty("restrictedElements")
     private List<String> restrictedElements = new ArrayList<>();
 
     public InfoParserImpl() {
-        this(new HashMap<String, String>());
     }
 
     public InfoParserImpl(Map<String, String> keyConversionMap) {
@@ -32,6 +44,11 @@ public class InfoParserImpl implements InfoParser {
     @Override
     public Map<String, String> parse(FormValueElement element) {
         return parse(element, false);
+    }
+
+    @Override
+    public FormValueElement getCaseElement(FormValueElement startElement) {
+        return (FormValueElement) startElement.searchFirst(caseElementPath);
     }
 
     @Override
@@ -82,12 +99,10 @@ public class InfoParserImpl implements InfoParser {
         return mapper;
     }
 
-    @Override
     public void setConvertToCamelCase(boolean convertToCamelCase) {
         this.convertToCamelCase = convertToCamelCase;
     }
 
-    @Override
     public void setRestrictedElements(List<String> restrictedElements) {
         this.restrictedElements = restrictedElements;
     }
@@ -95,6 +110,15 @@ public class InfoParserImpl implements InfoParser {
     @Override
     public void setKeyConversionMap(Map<String, String> keyConversionMap){
         this.keyConversionMap = keyConversionMap;
+    }
+
+    @Override
+    public boolean isSkipMappingIfCaseNotFound() {
+        return skipMappingIfCaseNotFound;
+    }
+
+    public void setCaseElementPath(String caseElementPath) {
+        this.caseElementPath = caseElementPath;
     }
 
     private boolean empty(Multimap<?, ?> subElements) {

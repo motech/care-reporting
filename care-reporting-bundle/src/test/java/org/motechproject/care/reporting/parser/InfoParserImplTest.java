@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.parser;
 
+import junit.framework.Assert;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
@@ -14,11 +15,29 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
-public class InfoParserTest {
+public class InfoParserImplTest {
+
+    @Test
+    public void shouldSearchForCaseElementWithinStartElement() {
+        String caseElementPath = "caseElementPath";
+
+        InfoParserImpl infoParser = new InfoParserImpl();
+        infoParser.setCaseElementPath(caseElementPath);
+
+        FormValueElement formValueElement = mock(FormValueElement.class);
+        FormValueElement caseFormValueElement = mock(FormValueElement.class);
+
+        when(formValueElement.searchFirst(caseElementPath)).thenReturn(caseFormValueElement);
+
+        assertEquals(caseFormValueElement, infoParser.getCaseElement(formValueElement));
+    }
+
     @Test
     public void testPopulatesTheMapWithoutCamelCaseConversion() {
 
@@ -27,11 +46,11 @@ public class InfoParserTest {
                 .addSubElement("family_number", "5")
                 .build();
 
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
         infoParser.setConvertToCamelCase(false);
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
-        assertEquals(2, info.size());
+        Assert.assertEquals(2, info.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("hh_number", "165");
@@ -51,7 +70,7 @@ public class InfoParserTest {
 
         Map<String, String> info = new InfoParserImpl().parse(commcareForm.getForm());
 
-        assertEquals(2, info.size());
+        Assert.assertEquals(2, info.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("hhNumber", "165");
@@ -74,11 +93,11 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParserImpl(keyMap);
+        InfoParserImpl infoParser = new InfoParserImpl(keyMap);
 
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
-        assertEquals(2, info.size());
+        Assert.assertEquals(2, info.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("modifiedHhNumber", "165");
@@ -97,12 +116,12 @@ public class InfoParserTest {
                 .build();
 
         List<String> restrictedElements = asList("hh_number");
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(restrictedElements);
 
         Map<String, String> info = infoParser.parse(commcareForm.getForm());
 
-        assertEquals(1, info.size());
+        Assert.assertEquals(1, info.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("familyNumber", "5");
@@ -144,7 +163,7 @@ public class InfoParserTest {
             put("hh_number", "modifiedHhNumber");
         }};
 
-        InfoParser infoParser = new InfoParserImpl(keyMap);
+        InfoParserImpl infoParser = new InfoParserImpl(keyMap);
         Map<String, Object> actual = infoParser.parse(input);
 
         ReflectionAssert.assertReflectionEquals(expected, actual);
@@ -164,7 +183,7 @@ public class InfoParserTest {
 
         List<String> restrictedElements = asList("hh_number");
 
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(restrictedElements);
 
         Map<String, Object> actual = infoParser.parse(input);
@@ -189,7 +208,7 @@ public class InfoParserTest {
 
     @Test
     public void shouldGetTheFirstValueIfAFieldHasListOfValues() {
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
 
         Map<String, Object> parsedFieldValueMap = infoParser.parse(new HashMap<String, Object>() {{
             put("field1", "value1");
@@ -199,35 +218,35 @@ public class InfoParserTest {
             put("field5", 5);
         }});
 
-        assertEquals("value1", parsedFieldValueMap.get("field1"));
-        assertEquals("value2", parsedFieldValueMap.get("field2"));
+        Assert.assertEquals("value1", parsedFieldValueMap.get("field1"));
+        Assert.assertEquals("value2", parsedFieldValueMap.get("field2"));
         assertNull(parsedFieldValueMap.get("field3"));
         assertNull(parsedFieldValueMap.get("field4"));
-        assertEquals(5, parsedFieldValueMap.get("field5"));
+        Assert.assertEquals(5, parsedFieldValueMap.get("field5"));
     }
 
     @Test
     public void shouldRecursivelyParseSubElements() throws Exception {
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
         FormValueElement root = new FormValueElementBuilder().addSubElement("case", getFVE("update", getFVE("age", "1")))
                 .build();
 
         Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
 
-        assertEquals("1", parsedFieldValueMap.get("age"));
+        Assert.assertEquals("1", parsedFieldValueMap.get("age"));
     }
 
     @Test
     public void shouldRecursivelyParseWithRestrictedElements() throws Exception{
-        InfoParser infoParser = new InfoParserImpl();
+        InfoParserImpl infoParser = new InfoParserImpl();
         infoParser.setRestrictedElements(asList("restricted"));
         FormValueElement root = new FormValueElementBuilder()
-                                    .addSubElement("case", getFVE("update", getFVE("age", "1")))
-                                    .addSubElement("restricted",getFVE("age","2"))
-                                    .build();
+                .addSubElement("case", getFVE("update", getFVE("age", "1")))
+                .addSubElement("restricted",getFVE("age","2"))
+                .build();
 
         Map<String, String> parsedFieldValueMap = infoParser.parse(root, true);
 
-        assertEquals("1", parsedFieldValueMap.get("age"));
+        Assert.assertEquals("1", parsedFieldValueMap.get("age"));
     }
 }

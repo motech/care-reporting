@@ -47,14 +47,22 @@ public class MotherFormProcessor {
         Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
         logger.info(String.format("Processing Form %s", motherForm));
 
+        Map<String, String> motherInfo = new HashMap<>();
+
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
-        if (formExists(motherForm, metadata.get("instanceId")))
+        if (formExists(motherForm, metadata.get("instanceId"))) {
             return null;
+        }
+        motherInfo.putAll(metadata);
 
-        Map<String, String> motherInfo = new HashMap<>(metadata);
         InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);
-        motherInfo.putAll(new MotherInfoParser(motherInfoParser).parse(commcareForm));
+        Map<String, String> formFields = new MotherInfoParser(motherInfoParser).parse(commcareForm);
+        if(formFields == null) {
+            return null;
+        }
+
+        motherInfo.putAll(formFields);
 
         applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
 

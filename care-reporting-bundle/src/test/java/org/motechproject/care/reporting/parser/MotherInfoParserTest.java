@@ -13,8 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MotherInfoParserTest {
@@ -35,6 +39,7 @@ public class MotherInfoParserTest {
                                             .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
                                             .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                                             .build();
+
         FormValueElement childCase = new FormValueElementBuilder()
                                             .addSubElement("hh_number", "555")
                                             .addSubElement("age", "1")
@@ -43,9 +48,10 @@ public class MotherInfoParserTest {
         CommcareForm commcareForm = new CommcareFormBuilder()
                                             .addSubElement("hh_number", "165")
                                             .addSubElement("family_number", "5")
-                                            .addSubElement("case", motherCase)
                                             .addSubElement("child_info", childCase)
                                             .build();
+
+        when(infoParser.getCaseElement(commcareForm.getForm())).thenReturn(motherCase);
 
         Map<String,String> motherInfo = new MotherInfoParser(infoParser).parse(commcareForm);
 
@@ -61,6 +67,21 @@ public class MotherInfoParserTest {
         verify(infoParser, never()).parse(childCase, true);
 
         ReflectionAssert.assertReflectionEquals(expected, motherInfo);
+    }
+    
+    
+    @Test
+    public void shouldReturnNullIfMotherCaseIsNotFound() {
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("hh_number", "165")
+                .addSubElement("family_number", "5")
+                .build();
+
+        Map<String,String> motherInfo = new MotherInfoParser(infoParser).parse(commcareForm);
+
+        assertNull(motherInfo);
+
+        verify(infoParser, never()).parse(any(FormValueElement.class), eq(true));
     }
 }
 
