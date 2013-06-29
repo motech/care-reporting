@@ -19,8 +19,6 @@
 
     <logger name="org.motechproject.care.reporting.migration">
         <level value="DEBUG" />
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
     </logger>
 
     <root>
