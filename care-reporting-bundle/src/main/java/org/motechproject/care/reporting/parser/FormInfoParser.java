@@ -13,6 +13,7 @@ import java.util.Map;
 public class FormInfoParser extends CaseInfoParser {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+
     private FormSegment formSegment;
 
     public FormInfoParser(InfoParser infoParser, FormSegment formSegment){
@@ -32,12 +33,12 @@ public class FormInfoParser extends CaseInfoParser {
     }
 
     protected void logCaseNotFoundEvent(CommcareForm commcareForm) {
-        String ignoreMessage = String.format("%s case element not found for form(%s). Ignoring this form.", formSegment, commcareForm.getId());
-        if(infoParser.isSkipMappingIfCaseNotFound()) {
-            logger.info(ignoreMessage);
+        String missingElementMessage = String.format("%s case element not found for form(%s). Ignoring this form.", formSegment, commcareForm.getId());
+        if(infoParser.shouldReportMissingCaseElement()) {
+            logger.error(missingElementMessage);
             return;
         }
-        logger.error(ignoreMessage);
+        logger.info(missingElementMessage);
     }
 
     protected Map<String, String> parseCaseInfo(FormValueElement caseElement, CommcareForm commcareForm) {

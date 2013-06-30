@@ -26,8 +26,8 @@ public class InfoParserImpl implements InfoParser {
     @JsonProperty("caseElementPath")
     private String caseElementPath = "//case";
 
-    @JsonProperty("skipMappingIfCaseNotFound")
-    private boolean skipMappingIfCaseNotFound = false;
+    @JsonProperty("reportMissingCaseElement")
+    private boolean reportMissingCaseElement = true;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -113,8 +113,8 @@ public class InfoParserImpl implements InfoParser {
     }
 
     @Override
-    public boolean isSkipMappingIfCaseNotFound() {
-        return skipMappingIfCaseNotFound;
+    public boolean shouldReportMissingCaseElement() {
+        return reportMissingCaseElement;
     }
 
     public void setCaseElementPath(String caseElementPath) {

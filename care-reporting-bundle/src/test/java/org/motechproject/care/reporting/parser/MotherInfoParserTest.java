@@ -1,5 +1,9 @@
 package org.motechproject.care.reporting.parser;
 
+import org.apache.log4j.Level;
+import org.hamcrest.core.IsAnything;
+import org.hamcrest.core.IsEqual;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -7,6 +11,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
+import org.motechproject.care.reporting.utils.TestAppender;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.unitils.reflectionassert.ReflectionAssert;
@@ -15,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -37,6 +43,11 @@ public class MotherInfoParserTest {
     public void setUp(){
         initMocks(this);
         motherInfoParser = new MotherInfoParser(infoParser);
+    }
+
+    @After
+    public void tearDown() {
+        TestAppender.clear();
     }
 
     @Test
@@ -76,19 +87,36 @@ public class MotherInfoParserTest {
 
         ReflectionAssert.assertReflectionEquals(expected, motherInfo);
     }
-    
-    
+
     @Test
-    public void shouldReturnNullIfMotherCaseIsNotFound() {
+    public void shouldReturnNullIfMotherCaseIsNotFoundAndLogError() {
+        String instanceId = "myInstanceId";
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addSubElement("hh_number", "165")
                 .addSubElement("family_number", "5")
                 .build();
-
+        commcareForm.setId(instanceId);
+        when(infoParser.shouldReportMissingCaseElement()).thenReturn(true);
         Map<String,String> motherInfo = motherInfoParser.parse(commcareForm);
 
         assertNull(motherInfo);
+        assertNotNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsEqual<>(String.format("MOTHER case element not found for form(%s). Ignoring this form.", instanceId))));
+        verify(infoParser, never()).parse(any(FormValueElement.class), eq(true));
+    }
 
+    @Test
+    public void shouldReturnNullIfMotherCaseIsNotFoundAndDoNotLogErrorIfReportMissingCaseElementIsSetToFalse() {
+        String instanceId = "myInstanceId";
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("hh_number", "165")
+                .addSubElement("family_number", "5")
+                .build();
+        commcareForm.setId(instanceId);
+        when(infoParser.shouldReportMissingCaseElement()).thenReturn(false);
+        Map<String,String> motherInfo = motherInfoParser.parse(commcareForm);
+
+        assertNull(motherInfo);
+        assertNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsAnything<String>()));
         verify(infoParser, never()).parse(any(FormValueElement.class), eq(true));
     }
 

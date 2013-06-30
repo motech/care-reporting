@@ -18,5 +18,5 @@ public interface InfoParser {
     FormValueElement getCaseElement(FormValueElement startElement);
 
 
-    boolean isSkipMappingIfCaseNotFound();
+    boolean shouldReportMissingCaseElement();
 }

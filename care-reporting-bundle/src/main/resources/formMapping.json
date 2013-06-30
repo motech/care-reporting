@@ -37,7 +37,7 @@
         "segment": "MOTHER",
         "parser": {
             "caseElementPath": "//mother/case",
-            "skipMappingIfCaseNotFound": true,
+            "reportMissingCaseElement": false,
             "convertToCamelCase": "true",
             "restrictedElements": ["case"],
             "keyConversionMap": {}
