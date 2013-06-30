@@ -26,7 +26,7 @@ public class FormProcessor {
     public void process(CommcareForm commcareForm) {
         String formName = commcareForm.getForm().getAttributes().get(FORM_NAME_ATTRIBUTE);
         String xmlns = commcareForm.getForm().getAttributes().get(FORM_XMLNS_ATTRIBUTE);
-        logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s; version: %s", commcareForm.getId(), formName, xmlns));
+        logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s;", commcareForm.getId(), formName, xmlns));
 
         motherFormProcessor.parseMotherForm(commcareForm);
         childFormProcessor.parseChildForms(commcareForm);
