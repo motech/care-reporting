@@ -16,6 +16,12 @@
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-server-config</artifactId>
             <version>${motech.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.springframework.context.support</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- to send/receive motech events -->
         <dependency>
