@@ -30,5 +30,17 @@
             "restrictedElements": ["case"],
             "keyConversionMap": {}
         }
+    },
+    {
+        "identifier": "http://bihar.commcarehq.org/pregnancy/update_vaccinations",
+        "version": "*",
+        "segment": "MOTHER",
+        "parser": {
+            "caseElementPath": "//mother/case",
+            "skipMappingIfCaseNotFound": true,
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case"],
+            "keyConversionMap": {}
+        }
     }
 ]

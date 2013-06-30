@@ -2,7 +2,9 @@ package org.motechproject.care.reporting.parser;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
@@ -25,12 +27,19 @@ import static org.motechproject.care.reporting.builder.FormValueElementBuilder.g
 
 public class ChildInfoParserTest {
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Mock
-    InfoParser infoParser;
+    private InfoParser infoParser;
+
+    private ChildInfoParser childInfoParser;
+
 
     @Before
     public void setUp(){
         initMocks(this);
+        childInfoParser = new ChildInfoParser(infoParser);
     }
 
     @Test
@@ -63,7 +72,7 @@ public class ChildInfoParserTest {
         when(infoParser.getCaseElement(childInfoElement1)).thenReturn(childCaseElement1);
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
 
-        List<Map<String, String>> childrenMapList = new ChildInfoParser(infoParser).parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
 
         assertEquals(2, childrenMapList.size());
 
@@ -112,7 +121,7 @@ public class ChildInfoParserTest {
 
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
 
-        List<Map<String, String>> childrenMapList = new ChildInfoParser(infoParser).parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
 
         assertEquals(1, childrenMapList.size());
 
@@ -168,7 +177,7 @@ public class ChildInfoParserTest {
         }});
         when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
 
-        List<Map<String, String>> childrenList = new ChildInfoParser(infoParser).parse(commcareForm);
+        List<Map<String, String>> childrenList = childInfoParser.parse(commcareForm);
 
         assertEquals(1, childrenList.size());
 
@@ -176,6 +185,32 @@ public class ChildInfoParserTest {
         verify(infoParser).parse(childCaseElement, true);
 
         ReflectionAssert.assertReflectionEquals(expected, childrenList.get(0));
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCaseIdIsEmpty() {
+        String instanceId = "myInstanceId";
+
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage(String.format("Empty case id found in form(%s)", instanceId));
+
+        FormValueElement childCaseElement = new FormValueElementBuilder()
+                .addAttribute("case_id", "")
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .build();
+
+        FormValueElement childInfoElement = getFVE("case", childCaseElement);
+
+        CommcareForm commcareForm = new CommcareFormBuilder()
+                .addSubElement("child_info", childInfoElement)
+                .build();
+        commcareForm.setId(instanceId);
+
+        when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
+
+        childInfoParser.parse(commcareForm);
+        verify(infoParser, never()).parse(childCaseElement, true);
+        verify(infoParser, never()).parse(childInfoElement, true);
     }
 }
 

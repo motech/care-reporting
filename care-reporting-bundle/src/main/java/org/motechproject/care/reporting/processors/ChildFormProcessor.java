@@ -46,10 +46,11 @@ public class ChildFormProcessor {
 
     List<Serializable> parseChildForms(CommcareForm commcareForm) {
         Class<?> childForm = FormFactory.getForm(namespace(commcareForm), CaseType.CHILD);
-        logger.info(String.format("Processing Form %s", childForm));
-
-        if (null == childForm)
+        if (null == childForm) {
             return new ArrayList<>();
+        }
+
+        logger.info(String.format("Processing form %s", childForm));
 
         List<Serializable> childForms = new ArrayList<>();
         InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);

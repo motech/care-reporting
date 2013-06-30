@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class ObjectUtils {
-    private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public static boolean set(Object object, String fieldName, Object fieldValue) {
         try {

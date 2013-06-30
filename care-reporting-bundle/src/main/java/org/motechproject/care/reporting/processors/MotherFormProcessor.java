@@ -26,6 +26,7 @@ import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyP
 @Component
 public class MotherFormProcessor {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+
     private static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
         add(new ClosedFormPostProcessor());
         add(COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR);
@@ -45,7 +46,7 @@ public class MotherFormProcessor {
 
     public Serializable parseMotherForm(CommcareForm commcareForm) {
         Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
-        logger.info(String.format("Processing Form %s", motherForm));
+        logger.info(String.format("Processing form %s", motherForm));
 
         Map<String, String> motherInfo = new HashMap<>();
 

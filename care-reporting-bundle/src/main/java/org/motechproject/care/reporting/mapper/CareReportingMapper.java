@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.mapper;
 
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
 import org.apache.commons.beanutils.converters.BooleanConverter;
@@ -28,7 +27,7 @@ import java.util.Map;
 
 @Component
 public class CareReportingMapper {
-    private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
     private BeanUtilsBean beanUtilsBean;
 
     @Autowired

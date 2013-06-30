@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 public class GenericMapper {
-    private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
         T newInstance;

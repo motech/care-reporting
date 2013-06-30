@@ -12,7 +12,7 @@ import static java.lang.String.format;
 
 @Component
 public class FlwGroupConverter extends AbstractConverter {
-    private static Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     private Service careService;
 

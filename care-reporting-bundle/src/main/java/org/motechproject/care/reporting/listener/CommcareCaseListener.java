@@ -10,11 +10,15 @@ import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.commcare.events.constants.EventSubjects;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.event.listener.annotations.MotechListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommcareCaseListener {
+
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     private ChildCaseProcessor childCaseProcessor;
     private CloseCaseProcessor closeCaseProcessor;
@@ -30,7 +34,14 @@ public class CommcareCaseListener {
     @MotechListener(subjects = EventSubjects.CASE_EVENT)
     public void handleEvent(MotechEvent event) {
         CaseEvent caseEvent = new CaseEvent(event);
-        if ("CLOSE".equals(caseEvent.getAction())) {
+
+        String caseId = caseEvent.getCaseId();
+        String action = caseEvent.getAction();
+        String caseName = caseEvent.getCaseName();
+
+        logger.info(String.format("Received case. id: %s, case name: %s; action: %s;", caseId, action, caseName));
+
+        if ("CLOSE".equals(action)) {
             closeCaseProcessor.process(caseEvent);
         } else {
             Class<?> caseTypeClass = CaseFactory.getCase(caseEvent.getCaseType());
