@@ -46,20 +46,20 @@ public class MotherFormProcessor {
 
     public Serializable parseMotherForm(CommcareForm commcareForm) {
         Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
-        logger.info(String.format("Processing form %s", motherForm));
-
-        Map<String, String> motherInfo = new HashMap<>();
-
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
-        if (formExists(motherForm, metadata.get("instanceId"))) {
+
+        String instanceId = metadata.get("instanceId");
+        logger.info(String.format("Processing Form %s: %s", motherForm, instanceId));
+        if (formExists(motherForm, instanceId)) {
             return null;
         }
-        motherInfo.putAll(metadata);
 
+        Map<String, String> motherInfo = new HashMap<>();
+        motherInfo.putAll(metadata);
         InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);
         Map<String, String> formFields = new MotherInfoParser(motherInfoParser).parse(commcareForm);
-        if(formFields == null) {
+        if (formFields == null) {
             return null;
         }
 

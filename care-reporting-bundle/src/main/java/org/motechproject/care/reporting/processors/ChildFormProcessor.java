@@ -50,8 +50,6 @@ public class ChildFormProcessor {
             return new ArrayList<>();
         }
 
-        logger.info(String.format("Processing form %s", childForm));
-
         List<Serializable> childForms = new ArrayList<>();
         InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
         List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
@@ -59,6 +57,7 @@ public class ChildFormProcessor {
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
         String instanceId = metadata.get("instanceId");
+        logger.info(String.format("Processing Form %s: %s", childForm, instanceId));
 
         for (final Map<String, String> childDetail : childDetails) {
             if (formExists(childForm, instanceId, childDetail.get("caseId")))
