@@ -23,7 +23,7 @@
     
     <setting name="flw_count" value="5000"/>
     <setting name="flw_group_count" value="1000"/>
-    <setting name="flw_group_map_count" value="{(int)flw_count * (int)flw_group_count}"/>
+    <setting name="flw_group_map_count" value="50000"/>
     <setting name="mother_count" value="100000"/>
     <setting name="child_count" value="80000"/>
     <setting name="forms_count" value="100000"/>
