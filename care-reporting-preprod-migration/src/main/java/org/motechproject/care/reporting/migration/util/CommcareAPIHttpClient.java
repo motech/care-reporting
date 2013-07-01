@@ -58,12 +58,15 @@ public class CommcareAPIHttpClient {
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
             @Override
             public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
+                boolean retry = executionCount < getRetryCount();
+                logger.error("Exception occurred while pulling data from commcare hq", exception);
+                logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ignored) {
 
                 }
-                return executionCount < getRetryCount();
+                return retry;
             }
         });
 
