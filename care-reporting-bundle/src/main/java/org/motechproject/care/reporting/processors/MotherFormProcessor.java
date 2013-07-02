@@ -20,7 +20,6 @@ import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyP
 
 @Component
 public class MotherFormProcessor {
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     private static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
         add(new ClosedFormPostProcessor());
