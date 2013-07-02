@@ -1,21 +1,15 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormSegment;
-import org.motechproject.care.reporting.factory.FormFactory;
-import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,72 +27,28 @@ public class ChildFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
-    private Service service;
     private MapperService mapperService;
-    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public ChildFormProcessor(Service service, MapperService mapperService, CareReportingMapper careReportingMapper) {
-        this.service = service;
+    public ChildFormProcessor(MapperService mapperService) {
         this.mapperService = mapperService;
-        this.careReportingMapper = careReportingMapper;
     }
 
-    List<Serializable> parseChildForms(CommcareForm commcareForm) {
-        Class<?> childForm = FormFactory.getForm(namespace(commcareForm), CaseType.CHILD);
-        if (null == childForm) {
-            return new ArrayList<>();
-        }
-
-        List<Serializable> childForms = new ArrayList<>();
+    List<Map<String, String>> parseChildForms(CommcareForm commcareForm) {
         InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
         List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
 
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
         String instanceId = metadata.get("instanceId");
-        logger.info(String.format("Processing Form %s: %s", childForm, instanceId));
+        logger.info(String.format("Processing Form %s", instanceId));
 
         for (final Map<String, String> childDetail : childDetails) {
-            if (formExists(childForm, instanceId, childDetail.get("caseId")))
-                continue;
+            childDetail.putAll(metadata);
 
-            Map<String, String> childInfo = new HashMap<>(metadata);
-            childInfo.putAll(childDetail);
-
-            applyPostProcessors(CHILD_CASE_POST_PROCESSORS, childInfo);
-
-            Serializable formObject = (Serializable) careReportingMapper.map(childInfo, childForm);
-            childForms.add(formObject);
+            applyPostProcessors(CHILD_CASE_POST_PROCESSORS, childDetail);
         }
-        saveForm(childForms, childForm);
-        return childForms;
-    }
-
-    private boolean formExists(Class<?> type, String instanceId, String caseId) {
-        Map<String, Object> fieldMap = new HashMap<>();
-        fieldMap.put("instanceId", instanceId);
-        fieldMap.put("cc.caseId", caseId);
-
-        Map<String, String> aliasMap = new HashMap<>();
-        aliasMap.put("childCase", "cc");
-
-        Object existingForm = service.get(type, fieldMap, aliasMap);
-        if (existingForm != null) {
-            logger.warn(String.format("Cannot save Form: %s. Form with same instanceId (%s) and caseId %s already exists: %s", type, instanceId, caseId, existingForm));
-            return true;
-        }
-        return false;
-    }
-
-    private void saveForm(List<Serializable> forms, Class<?> type) {
-        for (Serializable form : forms) {
-            saveForm(form, type);
-        }
-    }
-
-    private void saveForm(Serializable form, Class<?> type) {
-        service.save(type.cast(form));
+        return childDetails;
     }
 
     private String namespace(CommcareForm commcareForm) {

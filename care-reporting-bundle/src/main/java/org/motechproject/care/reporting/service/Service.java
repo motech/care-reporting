@@ -35,4 +35,10 @@ public interface Service {
     <T> T get(Class<T> type, String fieldName, Object value);
 
     <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping);
+
+    void processAndSaveForms(Map<String, String> motherForm, List<Map<String,String>> childForms);
+
+    <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values);
+
+    void closeCase(Map<String, String> closeFields);
 }

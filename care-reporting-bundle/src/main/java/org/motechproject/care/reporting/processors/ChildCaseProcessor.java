@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.factory.CaseFactory;
-import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
@@ -30,13 +29,11 @@ public class ChildCaseProcessor {
     }};
     private Service service;
     private MapperService mapperService;
-    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public ChildCaseProcessor(Service service, MapperService mapperService, CareReportingMapper careReportingMapper) {
+    public ChildCaseProcessor(Service service, MapperService mapperService) {
         this.service = service;
         this.mapperService = mapperService;
-        this.careReportingMapper = careReportingMapper;
     }
 
     public void process(CaseEvent caseEvent) {
@@ -45,9 +42,8 @@ public class ChildCaseProcessor {
 
         applyPostProcessors(CHILD_CASE_POSTPROCESSOR, caseMap);
 
-        ChildCase childCase = careReportingMapper.map(caseMap, ChildCase.class);
-        logger.info(String.format("Started processing child case with case ID %s", childCase.getCaseId()));
-        service.saveOrUpdateByExternalPrimaryKey(childCase);
-        logger.info(String.format("Finished processing child case with case ID %s", childCase.getCaseId()));
+        logger.info(String.format("Started processing child case with case ID %s", caseMap.get("caseId")));
+        service.saveByExternalPrimaryKey(ChildCase.class, caseMap);
+        logger.info(String.format("Finished processing child case with case ID %s", caseMap.get("caseId")));
     }
 }

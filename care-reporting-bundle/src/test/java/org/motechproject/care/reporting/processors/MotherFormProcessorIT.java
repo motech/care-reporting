@@ -1,25 +1,22 @@
 package org.motechproject.care.reporting.processors;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
-import org.motechproject.care.reporting.domain.measure.RegistrationMotherForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import static org.motechproject.care.reporting.utils.AssertionUtils.assertContainsAll;
 
 public class MotherFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -65,25 +62,24 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("case", motherCaseData)
                 .build();
 
-        NewForm expectedForm = new NewForm();
-        expectedForm.setDateModified(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-        expectedForm.setFullName("&#2327;&#2366;&#2351;&#2340;&#2381;&#2352;&#2368; &#2342;&#2375;&#2357;&#2368;");
-        expectedForm.setHusbandName("&#2342;&#2367;&#2344;&#2375;&#2358; &#2350;&#2369;&#2326;&#2367;&#2351;&#2366;");
-        expectedForm.setHhNumber(165);
-        expectedForm.setFamilyNumber(5);
-        expectedForm.setDobKnown(false);
-        expectedForm.setCaste("other");
-        expectedForm.setAgeCalc(null);
-        expectedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
-        expectedForm.setMotherCase(motherCase);
-        expectedForm.setFlw(flw);
-        expectedForm.setTimeStart(new DateTime(2012, 7, 21, 11, 59, 31, 76, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-        expectedForm.setTimeEnd(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
+        Map<String, String> expectedForm = new HashMap<>();
+        expectedForm.put("dateModified", "2012-07-21T12:02:59.923+05:30");
+        expectedForm.put("fullName", "&#2327;&#2366;&#2351;&#2340;&#2381;&#2352;&#2368; &#2342;&#2375;&#2357;&#2368;");
+        expectedForm.put("husbandName", "&#2342;&#2367;&#2344;&#2375;&#2358; &#2350;&#2369;&#2326;&#2367;&#2351;&#2366;");
+        expectedForm.put("hhNumber", "165");
+        expectedForm.put("familyNumber", "5");
+        expectedForm.put("dobKnown", "no");
+        expectedForm.put("caste", "other");
+        expectedForm.put("ageCalc", null);
+        expectedForm.put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        expectedForm.put("motherCase", motherCase.getCaseId());
+        expectedForm.put("flw", flw.getFlwId());
+        expectedForm.put("timeStart", "2012-07-21T11:59:31.076+05:30");
+        expectedForm.put("timeEnd", "2012-07-21T12:02:59.923+05:30");
 
-        NewForm savedForm = (NewForm) motherFormProcessor.parseMotherForm(newFormData);
+        Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
 
-        assertReflectionEqualsWithIgnore(expectedForm, savedForm, new String[]{"id", "creationTime"});
-        assertDateIgnoringSeconds(expectedForm.getCreationTime(), savedForm.getCreationTime());
+        assertContainsAll(expectedForm, formValues);
     }
 
     @Test
@@ -127,8 +123,8 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                         .build())
                 .addSubElement("case", motherCaseData)
                 .build();
-        RegistrationMotherForm output = (RegistrationMotherForm) motherFormProcessor.parseMotherForm(commcareForm);
+        Map<String, String> motherFormValues = motherFormProcessor.parseMotherForm(commcareForm);
 
-        assertTrue(output.getClose());
+        assertEquals("true", motherFormValues.get("close"));
     }
 }

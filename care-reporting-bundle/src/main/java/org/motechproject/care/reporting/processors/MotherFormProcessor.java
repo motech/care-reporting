@@ -1,19 +1,14 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormSegment;
-import org.motechproject.care.reporting.factory.FormFactory;
-import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,27 +28,19 @@ public class MotherFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
-    private Service service;
     private MapperService mapperService;
-    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public MotherFormProcessor(Service service, MapperService mapperService, CareReportingMapper careReportingMapper) {
-        this.service = service;
+    public MotherFormProcessor(MapperService mapperService) {
         this.mapperService = mapperService;
-        this.careReportingMapper = careReportingMapper;
     }
 
-    public Serializable parseMotherForm(CommcareForm commcareForm) {
-        Class<?> motherForm = FormFactory.getForm(namespace(commcareForm), CaseType.MOTHER);
+    public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
         String instanceId = metadata.get("instanceId");
-        logger.info(String.format("Processing Form %s: %s", motherForm, instanceId));
-        if (formExists(motherForm, instanceId)) {
-            return null;
-        }
+        logger.info(String.format("Processing Form %s", instanceId));
 
         Map<String, String> motherInfo = new HashMap<>();
         motherInfo.putAll(metadata);
@@ -67,23 +54,7 @@ public class MotherFormProcessor {
 
         applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
 
-        Object formObject = careReportingMapper.map(motherInfo, motherForm);
-
-        saveForm((Serializable) formObject, motherForm);
-        return (Serializable) formObject;
-    }
-
-    private boolean formExists(Class<?> type, String instanceId) {
-        Object existingForm = service.get(type, "instanceId", instanceId);
-        if (existingForm != null) {
-            logger.warn(String.format("Cannot save Form: %s. Form with same instanceId (%s) already exists: %s", type, instanceId, existingForm));
-            return true;
-        }
-        return false;
-    }
-
-    private void saveForm(Serializable form, Class<?> type) {
-        service.save(type.cast(form));
+        return motherInfo;
     }
 
     private String namespace(CommcareForm commcareForm) {

@@ -59,4 +59,11 @@ public class CareDateConverterTest {
         convertedValue = careDateConverter.convert(Date.class, "2013-02-15T15:45:23");
         assertEquals((new DateTime(2013, 2, 15, 15, 45, 23)).toDate(), convertedValue);
     }
+
+    @Test
+    public void shouldGetStringValue() {
+        String dateTimeString = CareDateConverter.toString(new DateTime(2012, 7, 21, 12, 2, 59, 923, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
+
+        assertEquals("2012-07-21T12:02:59.923+05:30",dateTimeString);
+    }
 }

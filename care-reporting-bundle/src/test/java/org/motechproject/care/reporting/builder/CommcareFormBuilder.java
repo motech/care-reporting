@@ -50,4 +50,9 @@ public class CommcareFormBuilder {
 
         return form;
     }
+
+    public CommcareFormBuilder withId(String id) {
+        form.setId(id);
+        return this;
+    }
 }

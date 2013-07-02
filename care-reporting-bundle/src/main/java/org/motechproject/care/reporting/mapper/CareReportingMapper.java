@@ -15,36 +15,33 @@ import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.service.Service;
 import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-@Component
 public class CareReportingMapper {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
     private BeanUtilsBean beanUtilsBean;
 
-    @Autowired
-    public CareReportingMapper(FlwConverter flwConverter, FlwGroupConverter flwGroupConverter, MotherCaseConverter motherCaseConverter, ChildCaseConverter childCaseConverter) {
+    public CareReportingMapper(Service careService) {
         beanUtilsBean = BeanUtilsBean.getInstance();
         ConvertUtilsBean convertUtils = beanUtilsBean.getConvertUtils();
 
         convertUtils.register(new CareDateConverter(), Date.class);
         convertUtils.register(new IntegerConverter(null), Integer.class);
-        convertUtils.register(new ShortConverter(null),Short.class);
-        convertUtils.register(new BooleanConverter(null),Boolean.class);
-        convertUtils.register(new BigDecimalConverter(null),BigDecimal.class);
+        convertUtils.register(new ShortConverter(null), Short.class);
+        convertUtils.register(new BooleanConverter(null), Boolean.class);
+        convertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
 
-        convertUtils.register(flwConverter, Flw.class);
-        convertUtils.register(flwGroupConverter, FlwGroup.class);
-        convertUtils.register(motherCaseConverter, MotherCase.class);
-        convertUtils.register(childCaseConverter, ChildCase.class);
+        convertUtils.register(new FlwConverter(careService), Flw.class);
+        convertUtils.register(new FlwGroupConverter(careService), FlwGroup.class);
+        convertUtils.register(new MotherCaseConverter(careService), MotherCase.class);
+        convertUtils.register(new ChildCaseConverter(careService), ChildCase.class);
     }
 
     public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
@@ -58,7 +55,7 @@ public class CareReportingMapper {
         return map(keyStore, newInstance);
     }
 
-    private  <T, U> T map(Map<String, U> keyStore, T typeInstance) {
+    public <T, U> T map(Map<String, U> keyStore, T typeInstance) {
         for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
             U value = field.getValue();

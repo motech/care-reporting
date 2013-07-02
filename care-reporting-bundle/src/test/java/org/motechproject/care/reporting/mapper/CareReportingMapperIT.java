@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.mapper;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -9,6 +10,7 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.care.reporting.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -20,9 +22,17 @@ import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class CareReportingMapperIT extends SpringIntegrationTest {
-
     @Autowired
+    private Service service;
+
     private CareReportingMapper careReportingMapper;
+
+    @Override
+    @Before
+    public void setUp() {
+        super.setUp();
+        careReportingMapper = new CareReportingMapper(service);
+    }
 
     @Test
     public void testMapsFromKeyValueToFormObject() throws Exception {
@@ -32,7 +42,6 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
             put("ageCalc", "1");
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
         }};
-
         NewForm newForm = careReportingMapper.map(newFormValues, NewForm.class);
 
         assertEquals("1234", newForm.getInstanceId());

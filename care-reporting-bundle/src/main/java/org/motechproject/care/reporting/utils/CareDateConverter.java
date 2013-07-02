@@ -5,6 +5,7 @@ import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.DateTimeConverter;
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.String.format;
@@ -36,6 +37,10 @@ public final class CareDateConverter extends AbstractConverter {
         if(value.matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3,6}[\\\\+|-]\\d{2}$"))
             value = value + "00";
         return DEFAULT_CONVERTER.convert(type, value);
+    }
+
+    public static String toString(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(date);
     }
 
     @Override

@@ -30,11 +30,9 @@ public class MotherCaseProcessor {
 
     private Service service;
     private MapperService mapperService;
-    private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public MotherCaseProcessor(CareReportingMapper careReportingMapper, Service service, MapperService mapperService) {
-        this.careReportingMapper = careReportingMapper;
+    public MotherCaseProcessor(Service service, MapperService mapperService) {
         this.service = service;
         this.mapperService = mapperService;
     }
@@ -45,9 +43,8 @@ public class MotherCaseProcessor {
 
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
-        MotherCase motherCase = careReportingMapper.map(caseMap, MotherCase.class);
-        logger.info(String.format("Started processing mother case with case ID %s", motherCase.getCaseId()));
-        service.saveOrUpdateByExternalPrimaryKey(motherCase);
-        logger.info(String.format("Finished processing mother case with case ID %s", motherCase.getCaseId()));
+        logger.info(String.format("Started processing mother case with case ID %s", caseMap.get("caseId")));
+        service.saveByExternalPrimaryKey(MotherCase.class, caseMap);
+        logger.info(String.format("Finished processing mother case with case ID %s", caseMap.get("caseId")));
     }
 }

@@ -1,27 +1,22 @@
 package org.motechproject.care.reporting.processors;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.DeathChildForm;
-import org.motechproject.care.reporting.domain.measure.EbfChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class ChildFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -73,7 +68,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("breastfeeding", "yes")
                 .addSubElement("water_or_milk", "no")
                 .addSubElement("tea_other", "no")
-                .addSubElement("eating", "yes")
+                .addSubElement("eating", "no")
                 .addSubElement("emptying", "yes")
                 .build();
 
@@ -98,45 +93,38 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("child_info", childCase2Details)
                 .build();
 
-        MotherCase motherCase = new MotherCase();
-        motherCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
-        template.save(motherCase);
+        List<Map<String, String>> childFieldValues = childFormProcessor.parseChildForms(ebfForm);
+        assertEquals(2, childFieldValues.size());
 
-        Flw expectedFlw = new Flw();
-        expectedFlw.setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
-        template.save(expectedFlw);
+        Map<String, String> childValues1 = findWithCaseId("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childFieldValues);
 
-        ChildCase persistedChildCase1 = new ChildCase();
-        persistedChildCase1.setCaseId("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
-        template.save(persistedChildCase1);
+        assertEquals("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childValues1.get("caseId"));
+        assertEquals("2013-03-03T10:38:52.804+05:30", childValues1.get("dateModified"));
+        assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues1.get("flw"));
+        assertEquals("no", childValues1.get("nameUpdate"));
+        assertEquals(null, childValues1.get("childName"));
+        assertEquals("yes", childValues1.get("eating"));
 
-
-        ChildCase persistedChildCase2 = new ChildCase();
-        persistedChildCase2.setCaseId("59ab28e0-2d2d-4bc7-933f-09dcacf70d61");
-        template.save(persistedChildCase2);
-
-        List<Serializable> serializables = childFormProcessor.parseChildForms(ebfForm);
-        assertEquals(2, serializables.size());
-
-        final EbfChildForm expectedForm1 = getExpectedForm(((EbfChildForm) serializables.get(0)).getChildCase().getCaseId());
-        final EbfChildForm expectedForm2 = getExpectedForm(((EbfChildForm) serializables.get(1)).getChildCase().getCaseId());
-
-        assertChildEbfForm(expectedForm1, (EbfChildForm) serializables.get(0));
-        assertChildEbfForm(expectedForm2, (EbfChildForm) serializables.get(1));
+        Map<String, String> childValues2 = findWithCaseId("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childFieldValues);
+        assertEquals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childValues2.get("caseId"));
+        assertEquals("2013-03-03T10:38:52.804+05:30", childValues2.get("dateModified"));
+        assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues2.get("flw"));
+        assertEquals("no", childValues2.get("nameUpdate"));
+        assertEquals(null, childValues2.get("childName"));
+        assertEquals("no", childValues2.get("eating"));
     }
 
     @Test
-    public void shouldReturnEmptyListIfChildInfoNotExistsInForm(){
+    public void shouldReturnEmptyListIfChildInfoNotExistsInForm() {
         CommcareForm form = new CommcareFormBuilder().build();
 
-        List<Serializable> serializables = childFormProcessor.parseChildForms(form);
+        List<Map<String, String>> serializables = childFormProcessor.parseChildForms(form);
 
         assertEquals(0, serializables.size());
     }
 
     @Test
     public void shouldMarkClosedForm() throws Exception {
-
         FormValueElement childCase1Data = new FormValueElementBuilder()
                 .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
                 .addAttribute("date_modified", "2013-03-03T10:38:52.804+05:30")
@@ -160,13 +148,13 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("num_children", "1")
                 .addSubElement("child_info", childCase1Details)
                 .build();
-        List<Serializable> output = childFormProcessor.parseChildForms(ebfForm);
+        Map<String, String> output = childFormProcessor.parseChildForms(ebfForm).get(0);
 
-        assertTrue(((DeathChildForm) output.get(0)).getClose());
+        assertEquals("true", output.get("close"));
     }
 
     @Test
-    public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready(){
+    public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready() {
         String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
         String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
 
@@ -209,35 +197,13 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals(persistedForm, deathChildForms.get(0));
     }
 
-    private void assertChildEbfForm(EbfChildForm expectedForm, EbfChildForm actualForm) {
-        assertReflectionEqualsWithIgnore(expectedForm, actualForm, new String[]{"id","creationTime", "flw", "childCase"});
-        assertReflectionEqualsWithIgnore(expectedForm.getFlw(), actualForm.getFlw(), new String[]{"id", "creationTime"});
-        assertReflectionEqualsWithIgnore(expectedForm.getChildCase(), actualForm.getChildCase(), new String[]{"id", "creationTime"});
-        assertDateIgnoringSeconds(expectedForm.getCreationTime(), actualForm.getCreationTime());
+    private Map<String, String> findWithCaseId(final String caseId, List<Map<String, String>> childFieldValues) {
+        return (Map<String, String>) CollectionUtils.find(childFieldValues, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                return caseId.equals(((Map<String, String>) object).get("caseId"));
+            }
+        });
     }
 
-    private EbfChildForm getExpectedForm(String caseId) {
-        ChildCase expectedChildCase = new ChildCase();
-        expectedChildCase.setCaseId(caseId);
-
-        Flw expectedFlw = new Flw();
-        expectedFlw.setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
-
-        EbfChildForm expectedChildForm = new EbfChildForm();
-        expectedChildForm.setChildCase(expectedChildCase);
-        expectedChildForm.setFlw(expectedFlw);
-        expectedChildForm.setDateModified(new DateTime(2013, 3, 3, 10, 38, 52, 804, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-        expectedChildForm.setNameUpdate(false);
-        expectedChildForm.setChildName(null);
-        expectedChildForm.setBreastfeeding(true);
-        expectedChildForm.setWaterOrMilk(false);
-        expectedChildForm.setTeaOther(false);
-        expectedChildForm.setEating(true);
-        expectedChildForm.setEmptying(true);
-        expectedChildForm.setInstanceId("ff2eb090-03a9-4f23-afed-cf6012784c55");
-        expectedChildForm.setTimeStart(new DateTime(2013, 3, 3, 10, 31, 51, 45, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-        expectedChildForm.setTimeEnd(new DateTime(2013, 3, 3, 10, 38, 52, 804, DateTimeZone.forOffsetHoursMinutes(5, 30)).toDate());
-
-        return expectedChildForm;
-    }
 }
