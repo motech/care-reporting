@@ -63,6 +63,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .build();
 
         Map<String, String> expectedForm = new HashMap<>();
+        expectedForm.put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
         expectedForm.put("dateModified", "2012-07-21T12:02:59.923+05:30");
         expectedForm.put("fullName", "&#2327;&#2366;&#2351;&#2340;&#2381;&#2352;&#2368; &#2342;&#2375;&#2357;&#2368;");
         expectedForm.put("husbandName", "&#2342;&#2367;&#2344;&#2375;&#2358; &#2350;&#2369;&#2326;&#2367;&#2351;&#2366;");

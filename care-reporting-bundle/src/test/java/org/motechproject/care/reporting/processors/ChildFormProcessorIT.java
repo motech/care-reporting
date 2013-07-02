@@ -101,6 +101,8 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childValues1.get("caseId"));
         assertEquals("2013-03-03T10:38:52.804+05:30", childValues1.get("dateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues1.get("flw"));
+        assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues1.get("xmlns"));
+
         assertEquals("no", childValues1.get("nameUpdate"));
         assertEquals(null, childValues1.get("childName"));
         assertEquals("yes", childValues1.get("eating"));
@@ -109,6 +111,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childValues2.get("caseId"));
         assertEquals("2013-03-03T10:38:52.804+05:30", childValues2.get("dateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues2.get("flw"));
+        assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues2.get("xmlns"));
         assertEquals("no", childValues2.get("nameUpdate"));
         assertEquals(null, childValues2.get("childName"));
         assertEquals("no", childValues2.get("eating"));
