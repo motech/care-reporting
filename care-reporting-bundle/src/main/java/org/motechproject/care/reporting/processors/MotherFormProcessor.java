@@ -39,9 +39,6 @@ public class MotherFormProcessor {
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
-        String instanceId = metadata.get("instanceId");
-        logger.info(String.format("Processing Form %s", instanceId));
-
         Map<String, String> motherInfo = new HashMap<>();
         motherInfo.putAll(metadata);
         InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);

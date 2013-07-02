@@ -40,8 +40,6 @@ public class ChildFormProcessor {
 
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
-        String instanceId = metadata.get("instanceId");
-        logger.info(String.format("Processing Form %s", instanceId));
 
         for (final Map<String, String> childDetail : childDetails) {
             childDetail.putAll(metadata);
