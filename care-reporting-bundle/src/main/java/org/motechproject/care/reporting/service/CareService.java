@@ -204,8 +204,14 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
 
     private void saveMotherForm(Map<String, String> motherFormValues) {
-        Class<?> motherFormClass = FormFactory.getForm(motherFormValues.get("xmlns"), CaseType.MOTHER);
+        String xmlns = motherFormValues.get("xmlns");
+        Class<?> motherFormClass = FormFactory.getForm(xmlns, CaseType.MOTHER);
         String instanceId = motherFormValues.get("instanceId");
+        if(motherFormClass == null) {
+            logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
+            return;
+        }
+
         Object existingForm = get(motherFormClass, "instanceId", instanceId);
         if (existingForm != null) {
             logger.warn(format("Cannot save Form: %s. Form with same instanceId (%s) already exists: %s", motherFormClass, instanceId, existingForm));

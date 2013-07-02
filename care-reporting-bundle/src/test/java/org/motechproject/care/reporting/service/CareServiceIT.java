@@ -22,6 +22,7 @@ import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 import static org.motechproject.care.reporting.utils.TestUtils.*;
 
 public class CareServiceIT extends SpringIntegrationTest {
@@ -214,6 +215,30 @@ public class CareServiceIT extends SpringIntegrationTest {
         List<Flw> flws = template.loadAll(Flw.class);
         assertEquals(1, flws.size());
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", flws.get(0).getFlwId());
+    }
+
+    @Test
+    public void shouldIgnoreMotherFormsWithoutXmlns() {
+        Map<String, String> motherFormValuesWithoutXmlns = motherFormValues("94d5374f-290e-409f-bc57-86c2e4bcc43f", "89fda0284e008d2e0c980fb13fa0e5bb");
+        motherFormValuesWithoutXmlns.remove("xmlns");
+
+        try {
+            careService.processAndSaveForms(motherFormValuesWithoutXmlns, new ArrayList<Map<String, String>>());
+        } catch (Exception e) {
+            fail("The exception should not have been thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotThrowExceptionIfXmlnsNotRecognized() {
+        Map<String, String> motherFormValuesWithoutXmlns = motherFormValues("94d5374f-290e-409f-bc57-86c2e4bcc43f", "89fda0284e008d2e0c980fb13fa0e5bb");
+        motherFormValuesWithoutXmlns.put("xmlns", "randomurl");
+
+        try {
+            careService.processAndSaveForms(motherFormValuesWithoutXmlns, new ArrayList<Map<String, String>>());
+        } catch (Exception e) {
+            fail("The exception should not have been thrown: " + e.getMessage());
+        }
     }
 
     private RegistrationChildForm getExpectedForm(String caseId) {
