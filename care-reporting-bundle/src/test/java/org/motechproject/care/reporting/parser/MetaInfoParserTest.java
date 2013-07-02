@@ -7,8 +7,10 @@ import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import static org.mockito.Mockito.verify;
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MetaInfoParserTest {
@@ -17,21 +19,26 @@ public class MetaInfoParserTest {
     InfoParser infoParser;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
     }
 
     @Test
     public void shouldParseMetaInfo() throws Exception {
-        CommcareForm commcareForm = new CommcareFormBuilder()
+        CommcareForm commcareForm = new CommcareFormBuilder().addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/ebf")
                 .addMetadata("user_id", "89fda0284e008d2e0c980fb13fa0e5bb").build();
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("user_id", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/ebf");
         }};
 
-        new MetaInfoParser(infoParser).parse(commcareForm);
+        HashMap<String, Object> meta = new HashMap<>();
+        meta.put("user_id", "89fda0284e008d2e0c980fb13fa0e5bb");
+        when(infoParser.parse(commcareForm.getMetadata())).thenReturn(meta);
 
-        verify(infoParser).parse(expected);
+        Map<String, String> metaInfo = new MetaInfoParser(infoParser).parse(commcareForm);
+
+        assertEquals(expected, metaInfo);
     }
 }

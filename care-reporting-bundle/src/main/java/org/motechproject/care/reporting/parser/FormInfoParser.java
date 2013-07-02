@@ -53,7 +53,6 @@ public class FormInfoParser extends CaseInfoParser {
         final String dateModified = caseElement.getAttributes().get("date_modified");
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
-        caseInfo.put("xmlns", commcareForm.getForm().getAttributes().get("xmlns"));
         caseInfo.putAll(infoParser.parse(caseElement, true));
 
         return caseInfo;

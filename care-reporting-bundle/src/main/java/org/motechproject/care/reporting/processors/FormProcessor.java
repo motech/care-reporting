@@ -34,8 +34,9 @@ public class FormProcessor {
         String xmlns = commcareForm.getForm().getAttributes().get(FORM_XMLNS_ATTRIBUTE);
         logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s;", commcareForm.getId(), formName, xmlns));
 
-        Map<String,String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
-        List<Map<String,String>> childForms = childFormProcessor.parseChildForms(commcareForm);
+        Map<String, String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
+        List<Map<String, String>> childForms = childFormProcessor.parseChildForms(commcareForm);
         service.processAndSaveForms(motherForm, childForms);
+        logger.info(String.format("Finished processing form. id: %s, type: %s;", commcareForm.getId(), formName));
     }
 }
