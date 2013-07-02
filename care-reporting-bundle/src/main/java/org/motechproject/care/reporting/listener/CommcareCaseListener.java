@@ -39,7 +39,7 @@ public class CommcareCaseListener {
         String action = caseEvent.getAction();
         String caseName = caseEvent.getCaseName();
 
-        logger.info(String.format("Received case. id: %s, case name: %s; action: %s;", caseId, action, caseName));
+        logger.info(String.format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
 
         if ("CLOSE".equals(action)) {
             closeCaseProcessor.process(caseEvent);

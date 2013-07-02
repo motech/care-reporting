@@ -14,7 +14,7 @@ public class CaseMigrationTask extends MigrationTask {
 
     private CommcareAPIHttpClient commcareAPIHttpClient;
     private MotechAPIHttpClient motechAPIHttpClient;
-    private static final Logger logger = LoggerFactory.getLogger(FormMigrationTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
 
     @Autowired
     public CaseMigrationTask(MigrationBatchProcessor migrationBatchProcessor, CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient) {

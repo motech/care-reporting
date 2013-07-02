@@ -19,7 +19,7 @@ import java.util.Properties;
 @Component
 public class MotechAPIHttpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommcareAPIHttpClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(MotechAPIHttpClient.class);
 
     private HttpClient httpClient;
     private final Properties platformProperties;
