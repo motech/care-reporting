@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static java.lang.String.format;
+
 @Component
 public class CommcareCaseListener {
 
@@ -39,7 +41,7 @@ public class CommcareCaseListener {
         String action = caseEvent.getAction();
         String caseName = caseEvent.getCaseName();
 
-        logger.info(String.format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
+        logger.info(format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
 
         if ("CLOSE".equals(action)) {
             closeCaseProcessor.process(caseEvent);
@@ -49,6 +51,8 @@ public class CommcareCaseListener {
                 motherCaseProcessor.process(caseEvent);
             } else if (caseTypeClass.equals(ChildCase.class)) {
                 childCaseProcessor.process(caseEvent);
+            } else {
+                logger.warn(format("Cannot process case with id %s of type %s", caseId, caseEvent.getCaseType()));
             }
         }
     }
