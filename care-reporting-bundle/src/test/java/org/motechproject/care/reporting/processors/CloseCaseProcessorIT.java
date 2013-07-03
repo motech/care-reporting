@@ -95,4 +95,29 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
     public void shouldThrowExceptionWhenTryingToClosedCaseThatDoesNotExists() {
         closeCaseProcessor.process(new CaseEventBuilder(caseId).withAction("CLOSE").build());
     }
+
+    @Test
+    public void shouldCreateOnlyOneFlwForClosedByAndFlw() {
+        ChildCase childCase = new ChildCaseBuilder()
+                .caseId(caseId)
+                .flw(null)
+                .build();
+        template.save(childCase);
+
+        CaseEvent closedCase = new CaseEventBuilder(caseId)
+                .withAction("CLOSE")
+                .withUserId(userId)
+                .withDateModified(dateModified)
+                .build();
+
+
+        closeCaseProcessor.process(closedCase);
+
+        List<Flw> flws = template.loadAll(Flw.class);
+        assertEquals(1, flws.size());
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+
+        assertEquals(userId, childCases.get(0).getClosedBy().getFlwId());
+        assertEquals(userId, childCases.get(0).getFlw().getFlwId());
+    }
 }
