@@ -26,21 +26,21 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
 	private String awcCode;
 	private String name;
 	private Boolean reporting;
-    private Date creationTime = new Date();
+    private Date creationTime;
     private Date lastModifiedTime;
-    private Set<Flw> flws = new HashSet<>(0);
+    private Set<Flw> flws;
 
 	public FlwGroup() {
+        Date date = new Date();
+        creationTime = date;
+        lastModifiedTime = date;
+        flws = new HashSet<>(0);
 	}
 
-	public FlwGroup(int id) {
-		this.id = id;
-	}
-
-	public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
+    public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
                     Date creationTime, Date lastModifiedTime, Set<Flw> flws) {
-		this.id = id;
+        this.id = id;
 		this.groupId = groupId;
 		this.caseSharing = caseSharing;
 		this.domain = domain;

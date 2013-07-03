@@ -22,9 +22,9 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 
 public class CareServiceTest {
     @Mock
-    Repository dbRepository;
+    private Repository dbRepository;
 
-    CareService service;
+    private CareService service;
 
     @Before
     public void setUp() {
@@ -53,7 +53,7 @@ public class CareServiceTest {
 
         MotherCase actualMotherCase = service.getOrCreateMotherCase("1");
 
-        assertReflectionEqualsWithIgnore(expectedMotherCase, actualMotherCase, new String[]{"creationTime"});
+        assertReflectionEqualsWithIgnore(expectedMotherCase, actualMotherCase, new String[]{"creationTime", "lastModifiedTime"});
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CareServiceTest {
 
         ChildCase actualChildCase = service.getOrCreateChildCase("1");
 
-        assertReflectionEqualsWithIgnore(expectedChildCase, actualChildCase, new String[]{"creationTime"});
+        assertReflectionEqualsWithIgnore(expectedChildCase, actualChildCase, new String[]{"creationTime", "lastModifiedTime"});
     }
 
     @Test
@@ -101,7 +101,7 @@ public class CareServiceTest {
 
         Flw actualFlw = service.getOrCreateFlw("1");
 
-        assertReflectionEqualsWithIgnore(expectedFlw, actualFlw, new String[]{"creationTime"});
+        assertReflectionEqualsWithIgnore(expectedFlw, actualFlw, new String[]{"creationTime", "lastModifiedTime"});
     }
 
     @Test

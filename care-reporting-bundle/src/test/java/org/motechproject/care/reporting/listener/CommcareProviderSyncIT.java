@@ -25,7 +25,7 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionC
 
 public class CommcareProviderSyncIT extends SpringIntegrationTest {
     @Autowired
-    CommcareProviderSyncListener commcareProviderSyncListener;
+    private CommcareProviderSyncListener commcareProviderSyncListener;
 
     @Test
     public void shouldHandleGroupSyncAndSaveFlwGroups() {
@@ -38,8 +38,8 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(2, flwGroupsFromDb.size());
-        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d05d4"), flwGroupsFromDb, new String[]{"id", "creationTime"});
-        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d1de1"), flwGroupsFromDb, new String[]{"id", "creationTime"});
+        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d05d4"), flwGroupsFromDb, new String[]{"id", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flwGroup("3c5a80e4db53049dfc110c368a0d1de1"), flwGroupsFromDb, new String[]{"id", "creationTime", "lastModifiedTime"});
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertTrue(flwsFromDb.isEmpty());
     }
@@ -58,16 +58,16 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertEquals(3, flwsFromDb.size());
 
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
 
-        assertReflectionContains(flwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id", "creationTime"});
-        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb63886"), flwGroupsFromDb, new String[]{"id", "creationTime"});
-        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb66a7b"), flwGroupsFromDb, new String[]{"id", "creationTime"});
+        assertReflectionContains(flwGroup("89fda0284e008d2e0c980fb13fb72931"), flwGroupsFromDb, new String[]{"id", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb63886"), flwGroupsFromDb, new String[]{"id", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(blankFlwGroup("89fda0284e008d2e0c980fb13fb66a7b"), flwGroupsFromDb, new String[]{"id", "creationTime", "lastModifiedTime"});
     }
 
     private FlwGroup blankFlwGroup(String groupId) {

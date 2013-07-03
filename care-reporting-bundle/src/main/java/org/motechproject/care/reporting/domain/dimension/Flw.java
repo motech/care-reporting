@@ -47,53 +47,16 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 	private String ictcordinator;
 	private String remarks;
     private Date dob;
-    private Date creationTime = new Date();
+    private Date creationTime;
     private Date lastModifiedTime;
-    private Set<FlwGroup> flwGroups = new HashSet<>();
+    private Set<FlwGroup> flwGroups;
 
 	public Flw() {
-	}
-
-	public Flw(int id) {
-		this.id = id;
-	}
-
-	public Flw(int id, String flwId,
-               String defaultPhoneNumber, String email, String firstName,
-               String lastName, String phoneNumber1, String phoneNumber2, String assetId,
-               String awcCode, String role, String subcentre,
-               String userType, String username, String population,
-               String education, String district, String block, String panchayat, String village, Short age, String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, Set<FlwGroup> flwGroups) {
-		this.id = id;
-		this.flwId = flwId;
-		this.defaultPhoneNumber = defaultPhoneNumber;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber1 = phoneNumber1;
-        this.phoneNumber2 = phoneNumber2;
-        this.assetId = assetId;
-		this.awcCode = awcCode;
-        this.role = role;
-		this.subcentre = subcentre;
-		this.userType = userType;
-		this.username = username;
-		this.population = population;
-		this.education = education;
-        this.district = district;
-        this.block = block;
-        this.panchayat = panchayat;
-        this.village = village;
-        this.age = age;
-        this.ward = ward;
-        this.caste = caste;
-        this.ictcordinator = ictcordinator;
-        this.remarks = remarks;
-        this.dob = dob;
-        this.creationTime = creationTime;
-        this.lastModifiedTime = lastModifiedTime;
-        this.flwGroups = flwGroups;
-	}
+        Date date = new Date();
+        creationTime = date;
+        lastModifiedTime = date;
+        flwGroups = new HashSet<>();
+    }
 
     public Flw(String flwId,
                String defaultPhoneNumber, String email, String firstName,

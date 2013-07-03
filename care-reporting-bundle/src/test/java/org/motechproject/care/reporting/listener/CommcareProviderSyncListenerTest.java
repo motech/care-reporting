@@ -20,8 +20,8 @@ import static org.mockito.Mockito.verify;
 public class CommcareProviderSyncListenerTest {
 
     @Mock
-    ProviderSyncProcessor providerSyncProcessor;
-    CommcareProviderSyncListener commcareProviderSyncListener;
+    private ProviderSyncProcessor providerSyncProcessor;
+    private CommcareProviderSyncListener commcareProviderSyncListener;
 
     @Before
     public void setUp(){

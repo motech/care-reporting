@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
-import org.motechproject.care.reporting.builder.MotherCaseBuilder;
 
 import java.util.Date;
 
@@ -22,12 +21,14 @@ public class ChildCaseTest {
 
     @Test
     public void shouldUpdateOnlyRequiredFields() {
-        ChildCase oldChild = new ChildCase(1);
+        ChildCase oldChild = new ChildCase();
+        oldChild.setId(1);
         oldChild.setCaseId("656a96a1-af77-4dca-9dd0-579d933733da");
         oldChild.setName("old name");
         oldChild.setDateModified(JAN_09);
 
-        ChildCase updatedChild = new ChildCase(2);
+        ChildCase updatedChild = new ChildCase();
+        updatedChild.setId(2);
         updatedChild.setCaseId("656a96a1-af77-4dca-9dd0-579d933733da");
         updatedChild.setName("new name");
         updatedChild.setDateModified(JAN_10);
@@ -157,5 +158,17 @@ public class ChildCaseTest {
         childCase.setDateModified(date);
         childCase.setName(name);
         return childCase;
+    }
+
+    @Test
+    public void shouldInitializeWithCreationAndLastModifiedTime() {
+        DateTime now = new DateTime();
+
+        ChildCase childCase = new ChildCase();
+
+        Date creationTime = childCase.getCreationTime();
+        Date lastModifiedTime = childCase.getLastModifiedTime();
+        Assert.assertEquals(creationTime, lastModifiedTime);
+        assertTrue(!now.isAfter(new DateTime(lastModifiedTime)));
     }
 }

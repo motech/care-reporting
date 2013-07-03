@@ -112,143 +112,17 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     private Boolean institutional;
     private Date dob;
     private Boolean closed;
-    private Date creationTime = new Date();
+    private Date creationTime;
     private Date lastModifiedTime;
     private Flw closedBy;
 
-
     public MotherCase() {
+        Date date = new Date();
+        creationTime = date;
+        lastModifiedTime = date;
 	}
 
-	public MotherCase(int id) {
-		this.id = id;
-	}
-
-	public MotherCase(int id, Flw flw, FlwGroup flwGroup, String caseId,
-                      String caseName, String caseType, Date dateModified,
-                      Date serverDateModified, Date serverDateOpened,
-                      Integer familyNumber, Integer hhNumber, String husbandName,
-                      String lastVisitType, Boolean motherAlive, Date motherDob,
-                      String motherName,
-                      Date closedOn, Date add, Short age, String birthPlace,
-                      Boolean complications, Date dateNextBp, Date dateNextCf,
-                      Date dateNextEb, Date dateNextPnc, Boolean eatsMeat, Date edd,
-                      Boolean enrolledInKilkari, String familyPlanningType,
-                      Short howManyChildren, Boolean interestInKilkari,
-                      Boolean lastPregTt, Date lmp, String mobileNumber, Short numBoys,
-                      Date dateCf1, Date dateCf2, Date dateCf3, Date dateCf4,
-                      Date dateCf5, Date dateCf6, Date dateEb1, Date dateEb2,
-                      Date dateEb3, Date dateEb4, Date dateEb5, Date dateEb6,
-                      Boolean allPncOnTime, Date datePnc1, Date datePnc2, Date datePnc3,
-                      String firstPncTime, Integer pnc1DaysLate, Integer pnc2DaysLate,
-                      Integer pnc3DaysLate, Date ttBoosterDate, Boolean sba,
-                      Boolean sbaPhone, Boolean accompany, Date anc1Date, Date anc2Date,
-                      Date anc3Date, Date anc4Date, Boolean cleanCloth,
-                      String coupleInterested, Date dateBp1, Date dateBp2, Date dateBp3,
-                      Date dateLastVisit, String deliveryType, Short ifaTablets,
-                      Date ifaTablets100, Boolean materials, Boolean maternalEmergency,
-                      Boolean maternalEmergencyNumber, Boolean phoneVehicle,
-                      Boolean savingMoney, Date tt1Date, Date tt2Date, Boolean vehicle,
-                      String birthStatus, Date migrateOutDate, String migratedStatus,
-                      String status, String term, Date dateCf7, Date dateDelFu,
-                      Date dateNextReg, Boolean institutional, Date dob, Boolean closed,
-                      Date creationTime, Date lastModifiedTime) {
-		this.id = id;
-		this.flw = flw;
-		this.flwGroup = flwGroup;
-		this.caseId = caseId;
-		this.caseName = caseName;
-		this.caseType = caseType;
-		this.dateModified = dateModified;
-		this.serverDateModified = serverDateModified;
-		this.serverDateOpened = serverDateOpened;
-		this.familyNumber = familyNumber;
-		this.hhNumber = hhNumber;
-		this.husbandName = husbandName;
-		this.lastVisitType = lastVisitType;
-		this.motherAlive = motherAlive;
-		this.motherDob = motherDob;
-		this.motherName = motherName;
-		this.closedOn = closedOn;
-		this.add = add;
-		this.age = age;
-		this.birthPlace = birthPlace;
-		this.complications = complications;
-		this.dateNextBp = dateNextBp;
-		this.dateNextCf = dateNextCf;
-		this.dateNextEb = dateNextEb;
-		this.dateNextPnc = dateNextPnc;
-		this.eatsMeat = eatsMeat;
-		this.edd = edd;
-		this.enrolledInKilkari = enrolledInKilkari;
-		this.familyPlanningType = familyPlanningType;
-		this.howManyChildren = howManyChildren;
-		this.interestInKilkari = interestInKilkari;
-		this.lastPregTt = lastPregTt;
-		this.lmp = lmp;
-		this.mobileNumber = mobileNumber;
-		this.numBoys = numBoys;
-		this.dateCf1 = dateCf1;
-		this.dateCf2 = dateCf2;
-		this.dateCf3 = dateCf3;
-		this.dateCf4 = dateCf4;
-		this.dateCf5 = dateCf5;
-		this.dateCf6 = dateCf6;
-		this.dateEb1 = dateEb1;
-		this.dateEb2 = dateEb2;
-		this.dateEb3 = dateEb3;
-		this.dateEb4 = dateEb4;
-		this.dateEb5 = dateEb5;
-		this.dateEb6 = dateEb6;
-		this.allPncOnTime = allPncOnTime;
-		this.datePnc1 = datePnc1;
-		this.datePnc2 = datePnc2;
-		this.datePnc3 = datePnc3;
-		this.firstPncTime = firstPncTime;
-		this.pnc1DaysLate = pnc1DaysLate;
-		this.pnc2DaysLate = pnc2DaysLate;
-		this.pnc3DaysLate = pnc3DaysLate;
-		this.ttBoosterDate = ttBoosterDate;
-		this.sba = sba;
-		this.sbaPhone = sbaPhone;
-		this.accompany = accompany;
-		this.anc1Date = anc1Date;
-		this.anc2Date = anc2Date;
-		this.anc3Date = anc3Date;
-		this.anc4Date = anc4Date;
-		this.cleanCloth = cleanCloth;
-		this.coupleInterested = coupleInterested;
-		this.dateBp1 = dateBp1;
-		this.dateBp2 = dateBp2;
-		this.dateBp3 = dateBp3;
-		this.dateLastVisit = dateLastVisit;
-		this.deliveryType = deliveryType;
-		this.ifaTablets = ifaTablets;
-		this.ifaTablets100 = ifaTablets100;
-		this.materials = materials;
-		this.maternalEmergency = maternalEmergency;
-		this.maternalEmergencyNumber = maternalEmergencyNumber;
-		this.phoneVehicle = phoneVehicle;
-		this.savingMoney = savingMoney;
-		this.tt1Date = tt1Date;
-		this.tt2Date = tt2Date;
-		this.vehicle = vehicle;
-		this.birthStatus = birthStatus;
-		this.migrateOutDate = migrateOutDate;
-		this.migratedStatus = migratedStatus;
-		this.status = status;
-		this.term = term;
-		this.dateCf7 = dateCf7;
-		this.dateDelFu = dateDelFu;
-		this.dateNextReg = dateNextReg;
-		this.institutional = institutional;
-		this.dob = dob;
-		this.closed = closed;
-        this.creationTime = creationTime;
-        this.lastModifiedTime = lastModifiedTime;
-    }
-
-	@Id
+    @Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {

@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.domain.dimension;
 
+import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.FlwBuilder;
@@ -83,5 +84,17 @@ public class MotherCaseTest {
         assertEquals(JAN_01, motherCase.getClosedOn());
         assertEquals(oldFlw, motherCase.getClosedBy());
         assertTrue(motherCase.getClosed());
+    }
+
+    @Test
+    public void shouldInitializeWithCreationAndLastModifiedTime() {
+        DateTime now = new DateTime();
+
+        MotherCase motherCase = new MotherCase();
+
+        Date creationTime = motherCase.getCreationTime();
+        Date lastModifiedTime = motherCase.getLastModifiedTime();
+        Assert.assertEquals(creationTime, lastModifiedTime);
+        assertTrue(!now.isAfter(new DateTime(lastModifiedTime)));
     }
 }

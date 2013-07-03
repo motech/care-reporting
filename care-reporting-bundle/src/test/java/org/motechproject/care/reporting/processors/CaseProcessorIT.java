@@ -63,9 +63,9 @@ public class CaseProcessorIT extends SpringIntegrationTest {
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
                 .build();
 
-        assertReflectionEqualsWithIgnore(expectedMotherCase, motherCases.get(0), "id", "flw", "flwGroup", "creationTime");
-        assertReflectionEqualsWithIgnore(flw, motherCases.get(0).getFlw(), "id", "flwGroup", "creationTime");
-        assertReflectionEqualsWithIgnore(flwGroup, motherCases.get(0).getFlwGroup(), "id", "flws", "creationTime");
+        assertReflectionEqualsWithIgnore(expectedMotherCase, motherCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");
+        assertReflectionEqualsWithIgnore(flw, motherCases.get(0).getFlw(), "id", "flwGroup", "creationTime", "lastModifiedTime");
+        assertReflectionEqualsWithIgnore(flwGroup, motherCases.get(0).getFlwGroup(), "id", "flws", "creationTime", "lastModifiedTime");
     }
 
     @Test

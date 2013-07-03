@@ -59,8 +59,8 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
                 .build();
 
-        assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), "id", "flw", "flwGroup", "creationTime");
-        assertReflectionEqualsWithIgnore(flw, childCases.get(0).getFlw(), "id", "flwGroup", "creationTime");
-        assertReflectionEqualsWithIgnore(flwGroup, childCases.get(0).getFlwGroup(), "id", "flws", "creationTime");
+        assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");
+        assertReflectionEqualsWithIgnore(flw, childCases.get(0).getFlw(), "id", "flwGroup", "creationTime", "lastModifiedTime");
+        assertReflectionEqualsWithIgnore(flwGroup, childCases.get(0).getFlwGroup(), "id", "flws", "creationTime", "lastModifiedTime");
     }
 }

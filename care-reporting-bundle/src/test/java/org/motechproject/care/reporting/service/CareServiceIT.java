@@ -6,7 +6,9 @@ import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.reporting.builder.*;
+import org.motechproject.care.reporting.builder.FlwBuilder;
+import org.motechproject.care.reporting.builder.FlwGroupBuilder;
+import org.motechproject.care.reporting.builder.MotherCaseBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -15,16 +17,22 @@ import org.motechproject.care.reporting.domain.measure.DeathChildForm;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.motechproject.commcare.domain.CommcareForm;
-import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
-import static org.motechproject.care.reporting.utils.TestUtils.*;
+import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class CareServiceIT extends SpringIntegrationTest {
     @Autowired
@@ -138,7 +146,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         List<NewForm> newForms = template.loadAll(NewForm.class);
         assertEquals(1, newForms.size());
         NewForm expectedForm = expectedForm(motherCase, flw);
-        assertReflectionEqualsWithIgnore(expectedForm, newForms.get(0), new String[]{"id", "creationTime"});
+        assertReflectionEqualsWithIgnore(expectedForm, newForms.get(0), new String[]{"id", "creationTime", "lastModifiedTime"});
     }
 
     @Test
@@ -180,7 +188,7 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         RegistrationChildForm expectedForm = getExpectedForm("94d5374f-290e-409f-bc57-86c2e4bcc43f");
 
-        assertReflectionEqualsWithIgnore(expectedForm, registrationChildForms.get(0), new String[]{"id", "flw", "childCase", "creationTime"});
+        assertReflectionEqualsWithIgnore(expectedForm, registrationChildForms.get(0), new String[]{"id", "flw", "childCase", "creationTime", "lastModifiedTime"});
 
         List<Flw> flws = template.loadAll(Flw.class);
         assertEquals(1, flws.size());
@@ -223,7 +231,7 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         Flw expectedFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", null);
         assertEquals(1, flws.size());
-        assertReflectionEqualsWithIgnore(expectedFlw, flws.get(0), new String[] {"id", "flwGroups", "creationTime"});
+        assertReflectionEqualsWithIgnore(expectedFlw, flws.get(0), new String[] {"id", "flwGroups", "creationTime", "lastModifiedTime"});
     }
 
     @Test

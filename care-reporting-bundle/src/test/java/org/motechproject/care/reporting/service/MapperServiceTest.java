@@ -21,14 +21,14 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class MapperServiceTest {
     @Mock
-    MapperSettingsService mapperSettingsService;
+    private MapperSettingsService mapperSettingsService;
     @Mock
-    BestMatchProcessor bestMatchProcessor1;
+    private BestMatchProcessor bestMatchProcessor1;
     @Mock
-    BestMatchProcessor bestMatchProcessor2;
+    private BestMatchProcessor bestMatchProcessor2;
 
-    MapperService mapperService;
-    String namespace = "http://bihar.commcarehq.org/pregnancy/";
+    private MapperService mapperService;
+    private String namespace = "http://bihar.commcarehq.org/pregnancy/";
 
     @Before
     public void setUp() {

@@ -27,7 +27,7 @@ public class MapperSettingsServiceTest {
     @Captor
     private ArgumentCaptor<List<Resource>> resourceArgumentCaptor;
 
-    MapperSettingsService mapperSettingsService;
+    private MapperSettingsService mapperSettingsService;
 
     @Before
     public void setUp() {
