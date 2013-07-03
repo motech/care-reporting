@@ -1,13 +1,33 @@
 package org.motechproject.care.reporting.mapper;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.converters.BigDecimalConverter;
+import org.apache.commons.beanutils.converters.BooleanConverter;
+import org.apache.commons.beanutils.converters.IntegerConverter;
+import org.apache.commons.beanutils.converters.ShortConverter;
+import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 public class GenericMapper {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private final BeanUtilsBean beanMapper;
+
+    public GenericMapper() {
+        beanMapper = BeanUtilsBean.getInstance();
+        ConvertUtilsBean convertUtils = beanMapper.getConvertUtils();
+
+        convertUtils.register(new CareDateConverter(), Date.class);
+        convertUtils.register(new IntegerConverter(null), Integer.class);
+        convertUtils.register(new ShortConverter(null), Short.class);
+        convertUtils.register(new BooleanConverter(null), Boolean.class);
+        convertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
+    }
 
     public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
         T newInstance;
@@ -20,7 +40,7 @@ public class GenericMapper {
         return map(keyStore, newInstance);
     }
 
-    private  <T, U> T map(Map<String, U> keyStore, T typeInstance) {
+    private <T, U> T map(Map<String, U> keyStore, T typeInstance) {
         for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
             U value = field.getValue();
@@ -33,7 +53,7 @@ public class GenericMapper {
 
     private boolean set(Object object, String fieldName, Object fieldValue) {
         try {
-            BeanUtils.setProperty(object, fieldName, fieldValue);
+            beanMapper.setProperty(object, fieldName, fieldValue);
             return true;
         } catch (Exception ex) {
             logger.warn("Exception when setting " + fieldValue + " to " + fieldName + " Exception Details: " + ex);
