@@ -178,7 +178,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             if (formExists(childFormClass, instanceId, childFormValue.get("caseId")))
                 continue;
 
-            childForms.add((Serializable) careReportingMapper.map(childFormValue, childFormClass));
+            childForms.add((Serializable) careReportingMapper.map(childFormClass, childFormValue));
         }
 
         for (Serializable childForm : childForms) {
@@ -217,13 +217,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             logger.warn(format("Cannot save Form: %s. Form with same instanceId (%s) already exists: %s", motherFormClass, instanceId, existingForm));
             return;
         }
-        Object motherForm = careReportingMapper.map(motherFormValues, motherFormClass);
+        Object motherForm = careReportingMapper.map(motherFormClass, motherFormValues);
         dbRepository.save(motherForm);
     }
 
     @Override
     public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values) {
-        T entity = careReportingMapper.map(values, entityClass);
+        T entity = careReportingMapper.map(entityClass, values);
         saveOrUpdateByExternalPrimaryKey(entity);
         return entity;
     }

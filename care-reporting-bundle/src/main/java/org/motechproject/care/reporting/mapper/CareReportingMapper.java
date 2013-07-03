@@ -44,7 +44,7 @@ public class CareReportingMapper {
         convertUtils.register(new ChildCaseConverter(careService), ChildCase.class);
     }
 
-    public <T, U> T map(Map<String, U> keyStore, Class<T> type) {
+    public <T, U> T map(Class<T> type, Map<String, U> keyStore) {
         T newInstance;
         try {
             newInstance = type.newInstance();

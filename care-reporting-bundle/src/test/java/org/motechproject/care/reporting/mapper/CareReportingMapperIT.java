@@ -42,7 +42,7 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
             put("ageCalc", "1");
             put("dateModified", "2012-07-21T12:02:59.923+05:30");
         }};
-        NewForm newForm = careReportingMapper.map(newFormValues, NewForm.class);
+        NewForm newForm = careReportingMapper.map(NewForm.class, newFormValues);
 
         assertEquals("1234", newForm.getInstanceId());
         assertEquals((short) 1, (short) newForm.getAgeCalc());
@@ -57,16 +57,16 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
         testData.booleanObject = Boolean.TRUE;
         testData.decimalObject = new BigDecimal("1.1");
 
-        TestData output = careReportingMapper.map(asMap("integerObject", null), TestData.class);
+        TestData output = careReportingMapper.map(TestData.class, asMap("integerObject", null));
         assertNull(output.integerObject);
 
-        output = careReportingMapper.map(asMap("shortObject", null), TestData.class);
+        output = careReportingMapper.map(TestData.class, asMap("shortObject", null));
         assertNull(output.shortObject);
 
-        output = careReportingMapper.map(asMap("booleanObject", null), TestData.class);
+        output = careReportingMapper.map(TestData.class, asMap("booleanObject", null));
         assertNull(output.booleanObject);
 
-        output = careReportingMapper.map(asMap("decimalObject", null), TestData.class);
+        output = careReportingMapper.map(TestData.class, asMap("decimalObject", null));
         assertNull(output.decimalObject);
     }
 
@@ -88,7 +88,7 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
         childCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
         template.save(childCase);
 
-        ConverterDemoObject target = careReportingMapper.map(values(), ConverterDemoObject.class);
+        ConverterDemoObject target = careReportingMapper.map(ConverterDemoObject.class, values());
 
         assertReflectionEqualsWithIgnore(flw, target.flw);
         assertReflectionEqualsWithIgnore(flwGroup, target.flwGroup);
