@@ -52,10 +52,10 @@ public class CareReportingMapper {
             throw new RuntimeException(ex);
         }
 
-        return map(keyStore, newInstance);
+        return map(newInstance, keyStore);
     }
 
-    public <T, U> T map(Map<String, U> keyStore, T typeInstance) {
+    public <T, U> T map(T typeInstance, Map<String, U> keyStore) {
         for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
             U value = field.getValue();

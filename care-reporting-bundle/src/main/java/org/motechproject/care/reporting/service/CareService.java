@@ -33,7 +33,7 @@ import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternal
 @Service
 @Transactional
 public class CareService implements org.motechproject.care.reporting.service.Service {
-    private static final Logger logger = LoggerFactory.getLogger(CareService.class);
+    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     private Repository dbRepository;
     private CareReportingMapper careReportingMapper;
@@ -229,20 +229,18 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public void closeCase(Map<String, String> closeFields) {
-        String caseId = closeFields.get("caseId");
-        logger.info(format("Closing case for caseId %s", caseId));
+    public void updateCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
         if (motherCase != null) {
-            careReportingMapper.map(closeFields, motherCase);
+            careReportingMapper.map(motherCase, updatedValues);
             update(motherCase);
         } else {
             ChildCase childCase = getChildCase(caseId);
             if (childCase == null) {
-                logger.warn(format("Cannot find case %s to close", caseId));
+                logger.warn(format("Cannot find case %s to update", caseId));
                 throw new CaseNotFoundException(caseId);
             }
-            careReportingMapper.map(closeFields, childCase);
+            careReportingMapper.map(childCase, updatedValues);
             update(childCase);
         }
     }
