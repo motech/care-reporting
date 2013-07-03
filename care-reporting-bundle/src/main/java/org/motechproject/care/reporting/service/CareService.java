@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -168,63 +167,44 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public void processAndSaveForms(Map<String, String> motherFormValues, List<Map<String, String>> childFormValues) {
-        if(motherFormValues != null)
-            saveMotherForm(motherFormValues);
+        if (motherFormValues != null)
+            saveForm(CaseType.MOTHER, motherFormValues);
 
-        List<Serializable> childForms = new ArrayList<>();
         for (Map<String, String> childFormValue : childFormValues) {
-            String xmlns = childFormValue.get("xmlns");
-            String instanceId = childFormValue.get("instanceId");
-            Class<?> childFormClass = FormFactory.getForm(xmlns, CaseType.CHILD);
-            if(childFormClass == null){
-                logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
-                continue;
-            }
-
-            if (formExists(childFormClass, instanceId, childFormValue.get("caseId")))
-                continue;
-
-            childForms.add((Serializable) careReportingMapper.map(childFormClass, childFormValue));
-        }
-
-        for (Serializable childForm : childForms) {
-            dbRepository.save(childForm);
+            saveForm(CaseType.CHILD, childFormValue);
         }
     }
 
-    private boolean formExists(Class<?> type, String instanceId, String caseId) {
-        Map<String, Object> fieldMap = new HashMap<>();
-        fieldMap.put("instanceId", instanceId);
-        fieldMap.put("cc.caseId", caseId);
-
-        Map<String, String> aliasMap = new HashMap<>();
-        aliasMap.put("childCase", "cc");
-
-        Object existingForm = get(type, fieldMap, aliasMap);
-        if (existingForm != null) {
-            logger.warn(format("Cannot save Form: %s. Form with same instanceId (%s) and caseId %s already exists: %s", type, instanceId, caseId, existingForm));
-            return true;
-        }
-        return false;
-    }
-
-
-    private void saveMotherForm(Map<String, String> motherFormValues) {
-        String xmlns = motherFormValues.get("xmlns");
-        Class<?> motherFormClass = FormFactory.getForm(xmlns, CaseType.MOTHER);
-        String instanceId = motherFormValues.get("instanceId");
-        if(motherFormClass == null) {
+    private void saveForm(CaseType caseType, Map<String, String> formValues) {
+        String xmlns = formValues.get("xmlns");
+        String instanceId = formValues.get("instanceId");
+        Class<?> formClass = FormFactory.getForm(xmlns, caseType);
+        if (formClass == null) {
             logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
             return;
         }
 
-        Object existingForm = get(motherFormClass, "instanceId", instanceId);
-        if (existingForm != null) {
-            logger.warn(format("Cannot save Form: %s. Form with same instanceId (%s) already exists: %s", motherFormClass, instanceId, existingForm));
-            return;
+        if (!formExists(caseType, formClass, instanceId, formValues.get("caseId"))) {
+            Object form = careReportingMapper.map(formClass, formValues);
+            dbRepository.save(form);
         }
-        Object motherForm = careReportingMapper.map(motherFormClass, motherFormValues);
-        dbRepository.save(motherForm);
+    }
+
+    private boolean formExists(CaseType caseType, Class<?> type, String instanceId, String caseId) {
+        Map<String, Object> fieldMap = new HashMap<>();
+        fieldMap.put("instanceId", instanceId);
+        Map<String, String> aliasMap = new HashMap<>();
+        if (CaseType.CHILD.equals(caseType)) {
+            fieldMap.put("cc.caseId", caseId);
+            aliasMap.put("childCase", "cc");
+        }
+
+        Object existingForm = get(type, fieldMap, aliasMap);
+        if (existingForm != null) {
+            logger.warn(format("Cannot save form. %s form with instance id %s already exists.", type.getName(), instanceId));
+            return true;
+        }
+        return false;
     }
 
     @Override

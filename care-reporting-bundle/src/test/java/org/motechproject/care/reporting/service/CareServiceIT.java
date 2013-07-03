@@ -6,16 +6,17 @@ import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.reporting.builder.FlwBuilder;
-import org.motechproject.care.reporting.builder.FlwGroupBuilder;
-import org.motechproject.care.reporting.builder.MotherCaseBuilder;
+import org.motechproject.care.reporting.builder.*;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.measure.DeathChildForm;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.commcare.domain.CommcareForm;
+import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -246,7 +247,36 @@ public class CareServiceIT extends SpringIntegrationTest {
         ChildCase expectedChildCase = new ChildCase();
         expectedChildCase.setCaseId(caseId);
         expectedChildCase.setName("new child name");
-        assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), new String[] {"id", "creationTime", "lastModifiedTime"});
+        assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), new String[]{"id", "creationTime", "lastModifiedTime"});
+    }
+
+    @Test
+    public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready() {
+        final String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
+        final String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
+
+        ChildCase persistedChildCase = new ChildCase();
+        persistedChildCase.setCaseId(caseId);
+
+        final DeathChildForm persistedForm = new DeathChildForm();
+        persistedForm.setInstanceId(instanceId);
+        persistedForm.setChildCase(persistedChildCase);
+        template.save(persistedForm);
+
+        final HashMap<String, String> deathChildFormValues = new HashMap<String, String>() {{
+            put("caseId", caseId);
+            put("dateModified", "2013-03-03T10:38:52.804+05:30");
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("close", "true");
+            put("instanceId", instanceId);
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/death");
+        }};
+
+        careService.processAndSaveForms(null, new ArrayList<Map<String, String>>() {{add(deathChildFormValues);}});
+
+        List<DeathChildForm> deathChildForms = template.loadAll(DeathChildForm.class);
+        assertEquals(1, deathChildForms.size());
+        assertEquals(persistedForm, deathChildForms.get(0));
     }
 
     private RegistrationChildForm getExpectedForm(String caseId) {

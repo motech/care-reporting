@@ -156,50 +156,6 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals("true", output.get("close"));
     }
 
-    @Test
-    public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready() {
-        String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
-        String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
-
-        ChildCase persistedChildCase = new ChildCase();
-        persistedChildCase.setCaseId(caseId);
-
-        DeathChildForm persistedForm = new DeathChildForm();
-        persistedForm.setInstanceId(instanceId);
-        persistedForm.setChildCase(persistedChildCase);
-        template.save(persistedForm);
-
-        FormValueElement childCase1Data = new FormValueElementBuilder()
-                .addAttribute("case_id", caseId)
-                .addAttribute("date_modified", "2013-03-03T10:38:52.804+05:30")
-                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
-                .build();
-
-        FormValueElement childCase1Details = new FormValueElementBuilder()
-                .addSubElement("cid", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
-                .addSubElement("index", "0")
-                .addSubElement("case", childCase1Data)
-                .addSubElement("close", new FormValueElement())
-                .build();
-
-        CommcareForm deathForm = new CommcareFormBuilder().addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
-                .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
-                .addMetadata("instance_id", instanceId)
-                .addAttribute("uiVersion", "1")
-                .addAttribute("version", "1")
-                .addAttribute("name", "EBF")
-                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/death")
-                .addSubElement("num_children", "1")
-                .addSubElement("child_info", childCase1Details)
-                .build();
-
-        childFormProcessor.parseChildForms(deathForm);
-
-        List<DeathChildForm> deathChildForms = template.loadAll(DeathChildForm.class);
-        assertEquals(1, deathChildForms.size());
-        assertEquals(persistedForm, deathChildForms.get(0));
-    }
-
     private Map<String, String> findWithCaseId(final String caseId, List<Map<String, String>> childFieldValues) {
         return (Map<String, String>) CollectionUtils.find(childFieldValues, new Predicate() {
             @Override
