@@ -55,7 +55,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
+    public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values) {
+        T entity = careReportingMapper.map(entityClass, values);
+        saveOrUpdateByExternalPrimaryKey(entity);
+        return entity;
+    }
+
+    private <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
         T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
         if (persistedObject == null)
             dbRepository.save(entity);
@@ -219,13 +225,6 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
         Object motherForm = careReportingMapper.map(motherFormClass, motherFormValues);
         dbRepository.save(motherForm);
-    }
-
-    @Override
-    public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values) {
-        T entity = careReportingMapper.map(entityClass, values);
-        saveOrUpdateByExternalPrimaryKey(entity);
-        return entity;
     }
 
     @Override

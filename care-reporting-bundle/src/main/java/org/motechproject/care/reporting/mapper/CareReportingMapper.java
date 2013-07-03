@@ -66,7 +66,7 @@ public class CareReportingMapper {
         return typeInstance;
     }
 
-    public void set(Object object, String fieldName, Object fieldValue) {
+    private void set(Object object, String fieldName, Object fieldValue) {
         try {
             beanUtilsBean.setProperty(object, fieldName, fieldValue);
         } catch (Exception ex) {

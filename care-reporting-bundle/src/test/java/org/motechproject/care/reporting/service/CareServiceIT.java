@@ -110,37 +110,6 @@ public class CareServiceIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldInsertAnEntityByExternalPrimaryKeyWhenDoesNotExists() throws Exception {
-        Flw newFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", flwGroupWithNameAndId("64a9a0928dde95d187544babf6c0ad38", "oldGroupName"));
-        careService.saveOrUpdateByExternalPrimaryKey(newFlw);
-
-        List<Flw> flws = template.loadAll(Flw.class);
-
-        assertEquals(1, flws.size());
-        assertReflectionContains(newFlw, flws);
-    }
-
-    @Test
-    public void shouldUpdateEntityByExternalPrimaryKeyWhenExists() {
-        String caseId = "case Id";
-        ChildCase existingChild = new ChildCase();
-        existingChild.setCaseId(caseId);
-        existingChild.setName("old Child name");
-        template.save(existingChild);
-
-        ChildCase newChild = new ChildCase();
-        newChild.setCaseId(caseId);
-        String newChildName = "new child name";
-        newChild.setName(newChildName);
-
-        careService.saveOrUpdateByExternalPrimaryKey(newChild);
-
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
-        Assert.assertEquals(1, childCases.size());
-        Assert.assertEquals(newChildName, childCases.get(0).getName());
-    }
-
-    @Test
     public void shouldNotSaveMotherOrChildFormsIfNullAndEmpty() {
         careService.processAndSaveForms(null, new ArrayList<Map<String, String>>());
 
@@ -239,6 +208,45 @@ public class CareServiceIT extends SpringIntegrationTest {
         } catch (Exception e) {
             fail("The exception should not have been thrown: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void shouldInsertAnEntityByExternalPrimaryKeyWhenDoesNotExists() throws Exception {
+        HashMap<String, String> flwValues = new HashMap<String, String>() {{
+            put("flwId", "5ba9a0928dde95d187544babf6c0ad24");
+            put("firstName", "FirstName1");
+        }};
+        careService.saveByExternalPrimaryKey(Flw.class, flwValues);
+
+        List<Flw> flws = template.loadAll(Flw.class);
+
+        Flw expectedFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", null);
+        assertEquals(1, flws.size());
+        assertReflectionEqualsWithIgnore(expectedFlw, flws.get(0), new String[] {"id", "flwGroups", "creationTime"});
+    }
+
+    @Test
+    public void shouldUpdateEntityByExternalPrimaryKeyWhenExists() {
+        String caseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
+        ChildCase existingChild = new ChildCase();
+        existingChild.setCaseId(caseId);
+        existingChild.setName("old Child name");
+        template.save(existingChild);
+
+        HashMap<String, String> updatedValues = new HashMap<String, String>() {{
+            put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+            put("name", "new child name");
+        }};
+
+        careService.saveByExternalPrimaryKey(ChildCase.class, updatedValues);
+
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        Assert.assertEquals(1, childCases.size());
+
+        ChildCase expectedChildCase = new ChildCase();
+        expectedChildCase.setCaseId(caseId);
+        expectedChildCase.setName("new child name");
+        assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), new String[] {"id", "creationTime", "lastModifiedTime"});
     }
 
     private RegistrationChildForm getExpectedForm(String caseId) {
