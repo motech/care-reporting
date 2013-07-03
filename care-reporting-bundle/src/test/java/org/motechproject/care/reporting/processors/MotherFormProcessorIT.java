@@ -24,18 +24,13 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldParseMotherNewForm() {
-        MotherCase motherCase = new MotherCase();
-        motherCase.setCaseId("94d5374f-290e-409f-bc57-86c2e4bcc43f");
-        template.save(motherCase);
-
-        Flw flw = new Flw();
-        flw.setFlwId("89fda0284e008d2e0c980fb13fa0e5bb");
-        template.save(flw);
+        String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
+        String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
 
         FormValueElement motherCaseData = new FormValueElementBuilder()
-                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                .addAttribute("case_id", motherCaseId)
                 .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
-                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .addAttribute("user_id", flwId)
                 .build();
 
         CommcareForm newFormData = new CommcareFormBuilder()
@@ -43,7 +38,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
                 .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
                 .addMetadata("username", "username")
-                .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .addMetadata("userID", flwId)
                 .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
 
                 .addAttribute("uiVersion", "1")
@@ -73,8 +68,8 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         expectedForm.put("caste", "other");
         expectedForm.put("ageCalc", null);
         expectedForm.put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
-        expectedForm.put("motherCase", motherCase.getCaseId());
-        expectedForm.put("flw", flw.getFlwId());
+        expectedForm.put("motherCase", motherCaseId);
+        expectedForm.put("flw", flwId);
         expectedForm.put("timeStart", "2012-07-21T11:59:31.076+05:30");
         expectedForm.put("timeEnd", "2012-07-21T12:02:59.923+05:30");
 
@@ -83,30 +78,6 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         assertContainsAll(expectedForm, formValues);
     }
 
-    @Test
-    public void shouldNotSaveIfMotherFormWithSameInstanceIdExist() {
-        NewForm persistedForm = new NewForm();
-        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
-        template.save(persistedForm);
-
-        FormValueElement motherCaseData = new FormValueElementBuilder()
-                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
-                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
-                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
-                .build();
-        CommcareForm newFormData = new CommcareFormBuilder()
-                .addMetadata("userID", "89fda0284e008d2e0c980fb13fa0e5bb")
-                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
-                .addSubElement("case", motherCaseData)
-                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/new")
-                .build();
-
-        motherFormProcessor.parseMotherForm(newFormData);
-
-        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
-        assertEquals(1, newFormsFromDb.size());
-        assertEquals(persistedForm, newFormsFromDb.get(0));
-    }
 
     @Test
     public void shouldMarkClosedForm() throws Exception {

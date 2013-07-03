@@ -251,6 +251,27 @@ public class CareServiceIT extends SpringIntegrationTest {
     }
 
     @Test
+    public void shouldNotSaveIfMotherFormWithSameInstanceIdExist() {
+        NewForm persistedForm = new NewForm();
+        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        template.save(persistedForm);
+
+
+        Map<String, String> motherFormValues = new HashMap<String, String>() {{
+            put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+            put("dateModified", "2012-07-21T12:02:59.923+05:30");
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
+            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        }};
+
+        careService.processAndSaveForms(motherFormValues, new ArrayList<Map<String, String>>());
+
+        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
+        assertEquals(1, newFormsFromDb.size());
+        assertEquals(persistedForm, newFormsFromDb.get(0));
+    }
+    @Test
     public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready() {
         final String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
         final String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
