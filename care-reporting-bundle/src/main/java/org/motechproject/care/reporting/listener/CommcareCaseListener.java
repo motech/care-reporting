@@ -21,6 +21,7 @@ import static java.lang.String.format;
 public class CommcareCaseListener {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    public static final String CLOSE_ACTION_IDENTIFIER = "CLOSE";
 
     private ChildCaseProcessor childCaseProcessor;
     private CloseCaseProcessor closeCaseProcessor;
@@ -43,7 +44,7 @@ public class CommcareCaseListener {
 
         logger.info(format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
 
-        if ("CLOSE".equals(action)) {
+        if (CLOSE_ACTION_IDENTIFIER.equals(action)) {
             closeCaseProcessor.process(caseEvent);
         } else {
             Class<?> caseTypeClass = CaseFactory.getCase(caseEvent.getCaseType());
