@@ -41,7 +41,6 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 	private String block;
 	private String panchayat;
 	private String village;
-	private Short age;
 	private String ward;
 	private String caste;
 	private String ictcordinator;
@@ -63,7 +62,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
                String lastName, String phoneNumber1, String phoneNumber2, String assetId,
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
-               String education, String district, String block, String panchayat, String village, Short age,
+               String education, String district, String block, String panchayat, String village,
                String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
@@ -84,7 +83,6 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
         this.block = block;
         this.panchayat = panchayat;
         this.village = village;
-        this.age = age;
         this.ward = ward;
         this.caste = caste;
         this.ictcordinator = ictcordinator;
@@ -288,15 +286,6 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     public void setVillage(String village) {
         this.village = village;
     }
-
-    @Column(name = "age")
-	public Short getAge() {
-		return this.age;
-	}
-
-	public void setAge(Short age) {
-		this.age = age;
-	}
 
     @Column
     public String getWard() {

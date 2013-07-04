@@ -15,7 +15,6 @@ CREATE TABLE report.flw (
        ,username VARCHAR(255)
 	   ,population VARCHAR(255)
 	   ,education VARCHAR(255)
-	   ,age SMALLINT
 	   ,district VARCHAR(255)
 	   ,block VARCHAR(255)
 	   ,panchayat VARCHAR(255)
