@@ -19,20 +19,10 @@ import org.motechproject.care.reporting.domain.measure.RegistrationChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
-import static org.motechproject.care.reporting.utils.TestUtils.assertDateIgnoringSeconds;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import static junit.framework.Assert.*;
+import static org.motechproject.care.reporting.utils.TestUtils.*;
 
 public class CareServiceIT extends SpringIntegrationTest {
     @Autowired
@@ -175,16 +165,16 @@ public class CareServiceIT extends SpringIntegrationTest {
         childFormValue.put("birthStatus", "healthy");
         childFormValue.put("instanceId", "ff2eb090-03a9-4f23-afed-cf6012784c55");
         childFormValue.put("flw", "89fda0284e008d2e0c980fb13fa0e5bb");
-        childFormValue.put("timeStart","2013-03-03T10:31:51.045+05:30");
-        childFormValue.put("timeEnd","2013-03-03T10:38:52.804+05:30");
-        childFormValue.put("dateModified","2013-03-03T10:38:52.804+05:30");
+        childFormValue.put("timeStart", "2013-03-03T10:31:51.045+05:30");
+        childFormValue.put("timeEnd", "2013-03-03T10:38:52.804+05:30");
+        childFormValue.put("dateModified", "2013-03-03T10:38:52.804+05:30");
 
         childFormValues.add(childFormValue);
 
         careService.processAndSaveForms(null, childFormValues);
 
         List<RegistrationChildForm> registrationChildForms = template.loadAll(RegistrationChildForm.class);
-        assertEquals(1,registrationChildForms.size());
+        assertEquals(1, registrationChildForms.size());
 
         RegistrationChildForm expectedForm = getExpectedForm("94d5374f-290e-409f-bc57-86c2e4bcc43f");
 
@@ -231,7 +221,7 @@ public class CareServiceIT extends SpringIntegrationTest {
 
         Flw expectedFlw = flw("5ba9a0928dde95d187544babf6c0ad24", "FirstName1", null);
         assertEquals(1, flws.size());
-        assertReflectionEqualsWithIgnore(expectedFlw, flws.get(0), new String[] {"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionEqualsWithIgnore(expectedFlw, flws.get(0), new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
     }
 
     @Test
@@ -279,6 +269,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         assertEquals(1, newFormsFromDb.size());
         assertEquals(persistedForm, newFormsFromDb.get(0));
     }
+
     @Test
     public void shouldNotSaveChildFormIfFormWithSameInstanceIdAndCaseIdExistsAlready() {
         final String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
@@ -301,11 +292,53 @@ public class CareServiceIT extends SpringIntegrationTest {
             put("xmlns", "http://bihar.commcarehq.org/pregnancy/death");
         }};
 
-        careService.processAndSaveForms(null, new ArrayList<Map<String, String>>() {{add(deathChildFormValues);}});
+        careService.processAndSaveForms(null, new ArrayList<Map<String, String>>() {{
+            add(deathChildFormValues);
+        }});
 
         List<DeathChildForm> deathChildForms = template.loadAll(DeathChildForm.class);
         assertEquals(1, deathChildForms.size());
         assertEquals(persistedForm, deathChildForms.get(0));
+    }
+
+    @Test
+    public void shouldSaveFlwOnceForMotherAndChild() {
+        final String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
+        Flw flw = new FlwBuilder().flwId(flwId).build();
+        final String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
+        HashMap<String, String> motherCase = new HashMap<String, String>() {{
+            put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
+            put("userId", flwId);
+            put("flw", flwId);
+            put("instanceId", instanceId);
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/registration");
+        }};
+
+        final HashMap<String, String> child1 = new HashMap<String, String>() {{
+            put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3c1");
+            put("userId", flwId);
+            put("flw", flwId);
+            put("instanceId", instanceId);
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/registration");
+        }};
+
+        final HashMap<String, String> child2 = new HashMap<String, String>() {{
+            put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3c2");
+            put("userId", flwId);
+            put("flw", flwId);
+            put("instanceId", instanceId);
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/registration");
+        }};
+
+        careService.processAndSaveForms(motherCase, new ArrayList<Map<String, String>>() {{
+            add(child1);
+            add(child2);
+        }});
+
+        List<Flw> actualFlws = template.loadAll(Flw.class);
+        assertEquals(1, actualFlws.size());
+
+        assertReflectionEqualsWithIgnore(flw, actualFlws.get(0),new String[]{"id","creationTime","lastModifiedTime"});
     }
 
     private RegistrationChildForm getExpectedForm(String caseId) {

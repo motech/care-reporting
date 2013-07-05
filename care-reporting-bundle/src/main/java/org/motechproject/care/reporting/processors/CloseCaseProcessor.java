@@ -28,7 +28,7 @@ public class CloseCaseProcessor {
     public void process(CaseEvent caseEvent) {
         String caseId = caseEvent.getCaseId();
         logger.info(format("Closing case for caseId %s", caseId));
-        service.updateCase(caseId, getClosedFields(caseEvent));
+        service.closeCase(caseId, getClosedFields(caseEvent));
     }
 
     private Map<String, String> getClosedFields(CaseEvent caseEvent) {

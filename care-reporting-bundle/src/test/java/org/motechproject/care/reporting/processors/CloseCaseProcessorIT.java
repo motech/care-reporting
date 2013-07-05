@@ -13,6 +13,7 @@ import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -93,7 +94,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     @Test(expected = CaseNotFoundException.class)
     public void shouldThrowExceptionWhenTryingToClosedCaseThatDoesNotExists() {
-        closeCaseProcessor.process(new CaseEventBuilder(caseId).withAction("CLOSE").build());
+        closeCaseProcessor.process(new CaseEventBuilder(caseId).withAction("CLOSE").withDateModified("2012-01-01").build());
     }
 
     @Test
@@ -119,5 +120,55 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
         assertEquals(userId, childCases.get(0).getClosedBy().getFlwId());
         assertEquals(userId, childCases.get(0).getFlw().getFlwId());
+    }
+
+    @Test
+    public void shouldNotUpdateClosedFieldsForMotherOnlyIfDateModifiedIsOld() {
+        Date dateModified = DateTime.parse("2012-01-05").toDate();
+        String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
+        String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
+        Flw flw = new FlwBuilder().flwId(oldFlwId).build();
+        template.save(flw);
+
+        MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).dateModified(dateModified).close().build();
+        template.save(mother);
+
+        CaseEvent closedCase = new CaseEventBuilder(caseId)
+                .withAction("CLOSE")
+                .withUserId(newFlwId)
+                .withDateModified("2012-01-01")
+                .build();
+
+        closeCaseProcessor.process(closedCase);
+
+        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        assertEquals(1, motherCases.size());
+        assertEquals(dateModified, motherCases.get(0).getClosedOn());
+        assertEquals(oldFlwId, motherCases.get(0).getClosedBy().getFlwId());
+    }
+
+    @Test
+    public void shouldNotUpdateClosedFieldsForChildOnlyIfDateModifiedOld() {
+        Date dateModified = DateTime.parse("2012-01-05").toDate();
+        String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
+        String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
+        Flw flw = new FlwBuilder().flwId(oldFlwId).build();
+        template.save(flw);
+
+        ChildCase child = new ChildCaseBuilder().caseId(caseId).flw(flw).dateModified(dateModified).close().build();
+        template.save(child);
+
+        CaseEvent closedCase = new CaseEventBuilder(caseId)
+                .withAction("CLOSE")
+                .withUserId(newFlwId)
+                .withDateModified("2012-01-01")
+                .build();
+
+        closeCaseProcessor.process(closedCase);
+
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        assertEquals(1, childCases.size());
+        assertEquals(dateModified, childCases.get(0).getClosedOn());
+        assertEquals(oldFlwId, childCases.get(0).getClosedBy().getFlwId());
     }
 }

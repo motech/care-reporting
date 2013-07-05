@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.joda.time.DateTime;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -20,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.String.format;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
@@ -208,19 +206,30 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public void updateCase(String caseId, Map<String, String> updatedValues) {
+    public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
+        Date closedOn = DateTime.parse(updatedValues.get("closedOn")).toDate();
         if (motherCase != null) {
-            careReportingMapper.map(motherCase, updatedValues);
-            update(motherCase);
+            Date previouslyClosedOnForMother = motherCase.getClosedOn();
+            if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
+                careReportingMapper.map(motherCase, updatedValues);
+                update(motherCase);
+            }
         } else {
             ChildCase childCase = getChildCase(caseId);
             if (childCase == null) {
                 logger.warn(format("Cannot find case %s to update", caseId));
                 throw new CaseNotFoundException(caseId);
             }
-            careReportingMapper.map(childCase, updatedValues);
-            update(childCase);
+            Date previouslyClosedOnForChild = childCase.getClosedOn();
+            if (canBeClosed(closedOn, previouslyClosedOnForChild)) {
+                careReportingMapper.map(childCase, updatedValues);
+                update(childCase);
+            }
         }
+    }
+
+    private boolean canBeClosed(Date closedOn, Date previouslyClosedOn) {
+        return previouslyClosedOn == null || !closedOn.before(previouslyClosedOn);
     }
 }

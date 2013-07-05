@@ -38,5 +38,5 @@ public interface Service {
 
     <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values);
 
-    void updateCase(String caseId, Map<String, String> updatedValues);
+    void closeCase(String caseId, Map<String, String> updatedValues);
 }
