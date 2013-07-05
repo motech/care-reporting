@@ -1,10 +1,7 @@
 package org.motechproject.care.reporting.parser;
 
-import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.motechproject.commcare.provider.sync.response.Provider;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +27,8 @@ public class ProviderParser extends BaseInfoParser {
 
         parsedProviderMap.put("phoneNumber1", safeGet(provider.getPhoneNumbers(), 0));
         parsedProviderMap.put("phoneNumber2", safeGet(provider.getPhoneNumbers(), 1));
-        parsedProviderMap.put("dob", transformDob((String) provider.getUserData().get("dob")));
+        parsedProviderMap.put("dob", provider.getUserData().get("dob"));
         return parsedProviderMap;
-    }
-
-    private Date transformDob(String dob) {
-        return StringUtils.isEmpty(dob) ? null : DateTime.parse(dob).toDate();
     }
 
     private Map<String, Object> parseProviderInfo(Object providerInfo, HashMap<String, String> keyConversionMap) {

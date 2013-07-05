@@ -14,6 +14,7 @@ import org.motechproject.care.reporting.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
     @Before
     public void setUp() {
         super.setUp();
-        careReportingMapper = new CareReportingMapper(service);
+        careReportingMapper = CareReportingMapper.getInstance(service);
     }
 
     @Test
@@ -111,4 +112,48 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
             put("childCase", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
         }};
     }
+
+    @Test
+    public void shouldConvertKnownDateFormats() {
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+06:30", new DateTime(2012, 7, 21, 11, 2, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+0630", new DateTime(2012, 7, 21, 11, 2, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+05", new DateTime(2012, 7, 21, 12, 32, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923Z", new DateTime(2012, 7, 21, 17, 32, 59, 923).toDate());
+
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+06:30", new DateTime(2012, 7, 21, 11, 2, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+0630", new DateTime(2012, 7, 21, 11, 2, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+05", new DateTime(2012, 7, 21, 12, 32, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59Z", new DateTime(2012, 7, 21, 17, 32, 59).toDate());
+
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59", new DateTime(2012, 7, 21, 12, 2, 59).toDate());
+
+        validateIfDateFormatIsAccepted("2012-11-29", new DateTime(2012, 11, 29, 0, 0, 0).toDate());
+        validateIfDateFormatIsAccepted("2012-01-02", new DateTime(2012, 1, 2, 0, 0, 0).toDate());
+    }
+
+    @Test
+    public void shouldSetDateAsNullIfOfUnknownFormat() {
+        validateIfDateFormatIsAccepted("01/01/2012", null);
+    }
+
+    private void validateIfDateFormatIsAccepted(final String input, Date expected) {
+        DateContainer actualDate = careReportingMapper.map(DateContainer.class, new HashMap<String, String>() {{
+            put("date", input);
+        }});
+
+        assertEquals(expected, actualDate.getDate());
+    }
+
+    public static class DateContainer {
+        private Date date;
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+    }
+
 }

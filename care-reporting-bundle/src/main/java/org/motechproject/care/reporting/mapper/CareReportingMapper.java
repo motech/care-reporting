@@ -3,45 +3,51 @@ package org.motechproject.care.reporting.mapper;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
-import org.apache.commons.beanutils.converters.BigDecimalConverter;
-import org.apache.commons.beanutils.converters.BooleanConverter;
-import org.apache.commons.beanutils.converters.IntegerConverter;
-import org.apache.commons.beanutils.converters.ShortConverter;
-import org.motechproject.care.reporting.converter.ChildCaseConverter;
-import org.motechproject.care.reporting.converter.FlwConverter;
-import org.motechproject.care.reporting.converter.FlwGroupConverter;
-import org.motechproject.care.reporting.converter.MotherCaseConverter;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.service.Service;
-import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Map;
 
 public class CareReportingMapper {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-    private BeanUtilsBean beanUtilsBean;
+    private BeanUtilsBean beanUtils;
 
-    public CareReportingMapper(Service careService) {
-        beanUtilsBean = BeanUtilsBean.getInstance();
-        ConvertUtilsBean convertUtils = beanUtilsBean.getConvertUtils();
+    private CareReportingMapper(Service careService) {
+        beanUtils = new BeanUtilsBean();
 
-        convertUtils.register(new CareDateConverter(), Date.class);
-        convertUtils.register(new IntegerConverter(null), Integer.class);
-        convertUtils.register(new ShortConverter(null), Short.class);
-        convertUtils.register(new BooleanConverter(null), Boolean.class);
-        convertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
+        ConvertUtilsBean convertUtils = beanUtils.getConvertUtils();
 
-        convertUtils.register(new FlwConverter(careService), Flw.class);
-        convertUtils.register(new FlwGroupConverter(careService), FlwGroup.class);
-        convertUtils.register(new MotherCaseConverter(careService), MotherCase.class);
-        convertUtils.register(new ChildCaseConverter(careService), ChildCase.class);
+        AllDataTypeConverters allDataTypeConverters = new AllDataTypeConverters();
+
+        allDataTypeConverters.registerBaseConverters(convertUtils, new String[]{
+                "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                "yyyy-MM-dd'T'HH:mm:ssXXX",
+                "yyyy-MM-dd'T'HH:mm:ssZ",
+                "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd",
+        });
+
+        allDataTypeConverters.registerDomainConverters(convertUtils, careService);
+    }
+
+
+    private static CareReportingMapper _instance;
+
+    public static CareReportingMapper getInstance(Service careService) {
+        if(_instance != null) {
+            return _instance;
+        }
+        return createInstance(careService);
+    }
+
+    private synchronized static CareReportingMapper createInstance(Service careService) {
+        if(_instance != null) {
+            return _instance;
+        }
+        _instance = new CareReportingMapper(careService);
+        return _instance;
     }
 
     public <T, U> T map(Class<T> type, Map<String, U> keyStore) {
@@ -68,7 +74,7 @@ public class CareReportingMapper {
 
     private void set(Object object, String fieldName, Object fieldValue) {
         try {
-            beanUtilsBean.setProperty(object, fieldName, fieldValue);
+            beanUtils.setProperty(object, fieldName, fieldValue);
         } catch (Exception ex) {
             logger.warn("Exception when setting " + fieldValue + " to " + fieldName + " Exception Details: " + ex);
         }

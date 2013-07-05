@@ -10,6 +10,7 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -90,6 +91,13 @@ public class ProviderParserTest {
     }
 
     @Test
+    public void shouldParseDob(){
+        Provider provider = builder().setDob("21/12/2013").build();
+        Map<String, Object> output = providerParser.parse(provider);
+        assertEquals(output.get("dob").toString(), "21/12/2013");
+    }
+
+    @Test
     public void shouldParseDobIfItIsNull(){
         Provider provider = builder().setDob(null).build();
         Map<String, Object> output = providerParser.parse(provider);
@@ -100,7 +108,7 @@ public class ProviderParserTest {
     public void shouldParseDobIfIsBlank(){
         Provider provider = builder().setDob("").build();
         Map<String, Object> output = providerParser.parse(provider);
-        assertNull(output.get("dob"));
+        assertEquals("", output.get("dob"));
     }
 
     private Provider customizedProvider(final String defaultPhoneNumber, final String... phoneNumbers) {

@@ -38,7 +38,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Autowired
     public CareService(Repository dbRepository) {
         this.dbRepository = dbRepository;
-        this.careReportingMapper = new CareReportingMapper(this);
+        this.careReportingMapper = CareReportingMapper.getInstance(this);
     }
 
     @Override
