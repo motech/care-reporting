@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
 import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflectionSerialize;
 
-public class MotherLifeCycleTest extends FormTestCase {
+public class MotherLifeCycleTest extends BaseTestCase {
 
     private String flwId;
     private String groupId;

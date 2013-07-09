@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
 
-public class MotherCaseUpdateTest extends FormTestCase {
+public class MotherCaseUpdateTest extends BaseTestCase {
 
     private String groupId;
     private String caseId;
