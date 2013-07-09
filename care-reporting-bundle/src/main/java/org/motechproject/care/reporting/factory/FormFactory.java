@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.factory;
 
+import org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm;
 import org.motechproject.care.reporting.domain.measure.*;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormType;
@@ -14,7 +15,7 @@ public class FormFactory {
     private static Map<Pair<FormType, CaseType>, Class<?>> mapper = new HashMap<Pair<FormType, CaseType>, Class<?>>() {{
         put(new Pair<>(FormType.New, CaseType.MOTHER), NewForm.class);
 
-        put(new Pair<>( FormType.Registration, CaseType.MOTHER), RegistrationMotherForm.class);
+        put(new Pair<>(FormType.Registration, CaseType.MOTHER), RegistrationMotherForm.class);
         put(new Pair<>(FormType.Registration, CaseType.CHILD), RegistrationChildForm.class);
 
         put(new Pair<>(FormType.Cf, CaseType.MOTHER), CfMotherForm.class);
@@ -45,9 +46,11 @@ public class FormFactory {
         put(new Pair<>(FormType.Bp, CaseType.MOTHER), BpForm.class);
         put(new Pair<>(FormType.Mi, CaseType.MOTHER), MiForm.class);
         put(new Pair<>(FormType.Mo, CaseType.MOTHER), MoForm.class);
+
+        put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
     }};
 
-    public static Class<?> getForm(String namespace, CaseType caseType){
+    public static Class<?> getForm(String namespace, CaseType caseType) {
         FormType formType = NamespaceMapper.getFormType(namespace);
         Pair<FormType, CaseType> inputPair = new Pair<>(formType, caseType);
 

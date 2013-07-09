@@ -1220,3 +1220,19 @@ CREATE TABLE report.mi_form(
     ,migrated_status VARCHAR(255)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
+
+CREATE TABLE report.move_beneficiary_form(
+   id SERIAL PRIMARY KEY
+  ,instance_id VARCHAR(50) UNIQUE
+  ,time_end TIMESTAMP WITH TIME ZONE
+  ,time_start TIMESTAMP WITH TIME ZONE
+  ,user_id INTEGER REFERENCES report.flw(id)
+  ,case_id	INTEGER REFERENCES report.mother_case(id)
+  ,date_modified	TIMESTAMP WITH TIME ZONE
+  ,app_version VARCHAR(255)
+  ,creation_time TIMESTAMP WITH TIME ZONE
+  ,confirm_move BOOLEAN
+  ,new_ward INTEGER
+  ,new_awcc INTEGER
+  ,confirm_again BOOLEAN
+);

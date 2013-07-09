@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertEquals;
 public class NamespaceMapperTest {
 
     @Test
-    public void testNamespaces(){
+    public void testNamespaces() {
         assertEquals(FormType.New, getFormType("new"));
         assertEquals(FormType.Registration, getFormType("registration"));
         assertEquals(FormType.Bp, getFormType("bp"));
@@ -29,5 +29,10 @@ public class NamespaceMapperTest {
     private FormType getFormType(String formNs) {
         String prefix = "http://bihar.commcarehq.org/pregnancy/";
         return NamespaceMapper.getFormType(prefix + formNs);
+    }
+
+    @Test
+    public void shouldGetFormTypeForToolsNamespace() {
+        assertEquals(FormType.MoveBeneficiary, NamespaceMapper.getFormType("http://bihar.commcarehq.org/tools/move_beneficiary"));
     }
 }

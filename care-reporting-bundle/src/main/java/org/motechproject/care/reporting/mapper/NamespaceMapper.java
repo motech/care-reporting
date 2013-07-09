@@ -9,24 +9,26 @@ import java.util.Map;
 public class NamespaceMapper {
 
     static Map<String, FormType> formMapper = new HashMap<String, FormType>() {{
-        String prefix = "http://bihar.commcarehq.org/pregnancy/";
-        put(prefix + "new", FormType.New);
-        put(prefix + "registration", FormType.Registration);
-        put(prefix + "bp", FormType.Bp);
-        put(prefix + "ebf", FormType.Ebf);
-        put(prefix + "cf", FormType.Cf);
-        put(prefix + "pnc", FormType.Pnc);
-        put(prefix + "refer", FormType.Refer);
-        put(prefix + "death", FormType.Death);
-        put(prefix + "del", FormType.Delivery);
-        put(prefix + "close", FormType.Close);
-        put(prefix + "migrate_out", FormType.Mo);
-        put(prefix + "migrate_in", FormType.Mi);
-        put(prefix + "mtp_abort", FormType.Abort);
-        put(prefix + "update_vaccinations", FormType.Ui);
+        String pregnancyPrefix = "http://bihar.commcarehq.org/pregnancy/";
+        String toolsPrefix = "http://bihar.commcarehq.org/tools/";
+        put(pregnancyPrefix + "new", FormType.New);
+        put(pregnancyPrefix + "registration", FormType.Registration);
+        put(pregnancyPrefix + "bp", FormType.Bp);
+        put(pregnancyPrefix + "ebf", FormType.Ebf);
+        put(pregnancyPrefix + "cf", FormType.Cf);
+        put(pregnancyPrefix + "pnc", FormType.Pnc);
+        put(pregnancyPrefix + "refer", FormType.Refer);
+        put(pregnancyPrefix + "death", FormType.Death);
+        put(pregnancyPrefix + "del", FormType.Delivery);
+        put(pregnancyPrefix + "close", FormType.Close);
+        put(pregnancyPrefix + "migrate_out", FormType.Mo);
+        put(pregnancyPrefix + "migrate_in", FormType.Mi);
+        put(pregnancyPrefix + "mtp_abort", FormType.Abort);
+        put(pregnancyPrefix + "update_vaccinations", FormType.Ui);
+        put(toolsPrefix + "move_beneficiary", FormType.MoveBeneficiary);
     }};
 
-    public static FormType getFormType(String namespace){
+    public static FormType getFormType(String namespace) {
         return formMapper.get(namespace);
     }
 }

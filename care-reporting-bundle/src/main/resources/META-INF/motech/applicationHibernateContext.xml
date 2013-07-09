@@ -45,6 +45,7 @@
                 <value>org.motechproject.care.reporting.domain.measure.UiMotherForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.DeliveryChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.DeliveryMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
             </list>
         </property>
 

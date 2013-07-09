@@ -14,5 +14,6 @@ public enum FormType {
     Mo,
     Pnc,
     Refer,
-    Ui
+    Ui,
+    MoveBeneficiary
 }
