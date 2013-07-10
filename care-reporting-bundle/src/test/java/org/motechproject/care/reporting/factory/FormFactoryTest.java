@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.factory;
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.measure.DeliveryChildForm;
 import org.motechproject.care.reporting.domain.measure.DeliveryMotherForm;
+import org.motechproject.care.reporting.domain.measure.MotherEditForm;
 import org.motechproject.care.reporting.enums.CaseType;
 
 import static junit.framework.Assert.assertEquals;
@@ -13,5 +14,10 @@ public class FormFactoryTest{
     public void testGetDeliveryForm() throws Exception {
         assertEquals(DeliveryMotherForm.class, FormFactory.getForm("http://bihar.commcarehq.org/pregnancy/del", CaseType.MOTHER));
         assertEquals(DeliveryChildForm.class, FormFactory.getForm("http://bihar.commcarehq.org/pregnancy/del", CaseType.CHILD));
+    }
+
+    @Test
+    public void shouldGetTheMotherEditForm(){
+        assertEquals(MotherEditForm.class, FormFactory.getForm("http://bihar.commcarehq.org/pregnancy/mother_edit", CaseType.MOTHER));
     }
 }

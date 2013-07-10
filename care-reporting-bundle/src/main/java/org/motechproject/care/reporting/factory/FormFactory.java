@@ -46,8 +46,8 @@ public class FormFactory {
         put(new Pair<>(FormType.Bp, CaseType.MOTHER), BpForm.class);
         put(new Pair<>(FormType.Mi, CaseType.MOTHER), MiForm.class);
         put(new Pair<>(FormType.Mo, CaseType.MOTHER), MoForm.class);
-
         put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
+        put(new Pair<>(FormType.MotherEdit, CaseType.MOTHER), MotherEditForm.class);
     }};
 
     public static Class<?> getForm(String namespace, CaseType caseType) {

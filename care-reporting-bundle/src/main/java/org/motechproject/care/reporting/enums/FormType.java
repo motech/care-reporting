@@ -15,5 +15,6 @@ public enum FormType {
     Pnc,
     Refer,
     Ui,
-    MoveBeneficiary
+    MoveBeneficiary,
+    MotherEdit
 }

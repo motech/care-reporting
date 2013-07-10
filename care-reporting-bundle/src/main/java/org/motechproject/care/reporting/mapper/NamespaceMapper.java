@@ -25,6 +25,7 @@ public class NamespaceMapper {
         put(pregnancyPrefix + "migrate_in", FormType.Mi);
         put(pregnancyPrefix + "mtp_abort", FormType.Abort);
         put(pregnancyPrefix + "update_vaccinations", FormType.Ui);
+        put(pregnancyPrefix + "mother_edit", FormType.MotherEdit);
         put(toolsPrefix + "move_beneficiary", FormType.MoveBeneficiary);
     }};
 

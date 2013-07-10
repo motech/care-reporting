@@ -1236,3 +1236,34 @@ CREATE TABLE report.move_beneficiary_form(
   ,new_awcc INTEGER
   ,confirm_again BOOLEAN
 );
+
+CREATE TABLE report.mother_edit_form(
+   id SERIAL PRIMARY KEY
+  ,instance_id VARCHAR(50) UNIQUE
+  ,time_end TIMESTAMP WITH TIME ZONE
+  ,time_start TIMESTAMP WITH TIME ZONE
+  ,user_id INTEGER REFERENCES report.flw(id)
+  ,case_id	INTEGER REFERENCES report.mother_case(id)
+  ,date_modified	TIMESTAMP WITH TIME ZONE
+  ,app_version VARCHAR(255)
+  ,creation_time TIMESTAMP WITH TIME ZONE
+  ,case_name VARCHAR(255)
+  ,age INTEGER
+  ,mother_name VARCHAR(255)
+  ,update_mother_name BOOLEAN
+  ,hh_number INTEGER
+  ,update_hh_number BOOLEAN
+  ,mother_dob DATE
+  ,update_mother_dob BOOLEAN
+  ,husband_name VARCHAR(255)
+  ,update_husband_name BOOLEAN
+  ,family_number INTEGER
+  ,update_family_number BOOLEAN
+  ,mobile_number VARCHAR(20)
+  ,update_mobile_number BOOLEAN
+  ,mobile_number_whose VARCHAR(255)
+  ,update_mobile_number_whose BOOLEAN
+  ,ward_number INTEGER
+  ,update_ward_number BOOLEAN
+);
+

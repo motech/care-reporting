@@ -74,6 +74,75 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         assertContainsAll(expectedForm, formValues);
     }
 
+    @Test
+    public void shouldParseMotherEditForm() {
+        String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
+        String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
+
+        FormValueElement motherCaseData = new FormValueElementBuilder()
+                .addAttribute("case_id", motherCaseId)
+                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("user_id", flwId)
+                .addSubElement("case_name", "Devi")
+                .addSubElement("mother_name", "MotherName")
+                .addSubElement("mother_dob", "2012-07-21")
+                .addSubElement("mother_number", "1111111111")
+                .addSubElement("ward_number", "42")
+                .addSubElement("age", "11")
+                .build();
+
+        CommcareForm newFormData = new CommcareFormBuilder()
+                .addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
+                .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
+                .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
+                .addMetadata("username", "username")
+                .addMetadata("userID", flwId)
+                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+
+                .addAttribute("uiVersion", "1")
+                .addAttribute("version", "1")
+                .addAttribute("name", "Mother Edit")
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit")
+
+                .addSubElement("case", motherCaseData)
+                .addSubElement("update_mother_name", "yes")
+                .addSubElement("update_hh_number", "no")
+                .addSubElement("update_family_number", "yes")
+                .addSubElement("update_ward_number", "no")
+                .addSubElement("update_husband_number", "yes")
+                .addSubElement("update_mother_dob", "no")
+                .addSubElement("update_mobile_number", "no")
+                .addSubElement("update_mobile_number_whose", "yes")
+                .build();
+
+        Map<String, String> expectedForm = new HashMap<>();
+        expectedForm.put("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit");
+        expectedForm.put("dateModified", "2012-07-21T12:02:59.923+05:30");
+        expectedForm.put("caseName", "Devi");
+        expectedForm.put("motherName", "MotherName");
+        expectedForm.put("motherDob", "2012-07-21");
+        expectedForm.put("motherNumber", "1111111111");
+        expectedForm.put("wardNumber", "42");
+        expectedForm.put("age", "11");
+        expectedForm.put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        expectedForm.put("motherCase", motherCaseId);
+        expectedForm.put("flw", flwId);
+        expectedForm.put("timeStart", "2012-07-21T11:59:31.076+05:30");
+        expectedForm.put("timeEnd", "2012-07-21T12:02:59.923+05:30");
+        expectedForm.put("updateMotherName", "yes");
+        expectedForm.put("updateHhNumber", "no");
+        expectedForm.put("updateFamilyNumber", "yes");
+        expectedForm.put("updateWardNumber", "no");
+        expectedForm.put("updateHusbandNumber", "yes");
+        expectedForm.put("updateMotherDob", "no");
+        expectedForm.put("updateMobileNumber", "no");
+        expectedForm.put("updateMobileNumberWhose", "yes");
+
+        Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
+
+        assertContainsAll(expectedForm, formValues);
+    }
+
 
     @Test
     public void shouldMarkClosedForm() throws Exception {
