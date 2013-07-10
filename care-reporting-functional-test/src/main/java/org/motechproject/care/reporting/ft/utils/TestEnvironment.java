@@ -9,7 +9,7 @@ import static java.lang.String.format;
 public class TestEnvironment {
     private final Properties properties;
 
-    public TestEnvironment()  {
+    public TestEnvironment() {
         properties = new Properties();
         InputStream resourceAsStream = getClass().getResourceAsStream(format("/environment/%s/test.properties", getEnv()));
         try {
@@ -42,5 +42,9 @@ public class TestEnvironment {
 
     public String getCaseUpdateEnpoint() {
         return String.format("%s/%s", properties.getProperty("app.baseurl"), properties.getProperty("app.update.endpoint.case"));
+    }
+
+    public String getFakeTimeRequestEndPoint() {
+        return String.format("%s/%s", properties.getProperty("app.baseurl"), properties.getProperty("app.update.endpoint.faketime"));
     }
 }

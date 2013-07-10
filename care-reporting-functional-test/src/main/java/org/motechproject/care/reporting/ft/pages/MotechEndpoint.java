@@ -1,13 +1,20 @@
 package org.motechproject.care.reporting.ft.pages;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.joda.time.DateTime;
 import org.motechproject.care.reporting.ft.utils.FileUtils;
 import org.motechproject.care.reporting.ft.utils.TemplateUtils;
 import org.motechproject.care.reporting.ft.utils.TestEnvironment;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MotechEndpoint {
@@ -23,23 +30,31 @@ public class MotechEndpoint {
     }
 
     public int postForm(String xmlFileName, Map<String, String> placeholderMap) {
-        return post(environment.getFormUpdateEnpoint(), xmlFileName, placeholderMap);
-    }
-
-    public int postCase(String xmlFileName) {
-        return postCase(xmlFileName, null);
+        return post(environment.getFormUpdateEnpoint(), getRequestBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP);
     }
 
     public int postCase(String xmlFileName, Map<String, String> placeholderMap) {
-        return post(environment.getCaseUpdateEnpoint(), xmlFileName, placeholderMap);
+        return post(environment.getCaseUpdateEnpoint(), getRequestBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP);
     }
 
-    private int post(String url, String xmlFileName, Map<String, String> placeholderMap) {
-        String requestBody = getRequestBody(xmlFileName, placeholderMap);
+    public int postFakeTimeRequest(final DateTime futureTimeToMove) {
+        Map<String, String> postParameters = new HashMap<String, String>() {{
+            put("newDateTime", futureTimeToMove.toString("dd/MM/yyyy HH:mm"));
+
+        }};
+        return post(environment.getFakeTimeRequestEndPoint(), null, postParameters);
+    }
+
+    private int post(String url, String requestBody, Map<String, String> postParameters) {
         HttpClient httpClient = new HttpClient();
         PostMethod postMethod = new PostMethod(url);
+        for (Map.Entry<String, String> postParameter : postParameters.entrySet()) {
+            postMethod.addParameter(postParameter.getKey(), postParameter.getValue());
+        }
+
         try {
-            postMethod.setRequestEntity(new StringRequestEntity(requestBody, "text/xml", "UTF-8"));
+            if (requestBody != null)
+                postMethod.setRequestEntity(new StringRequestEntity(requestBody, "text/xml", "UTF-8"));
             return httpClient.executeMethod(postMethod);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -48,7 +63,7 @@ public class MotechEndpoint {
 
     private String getRequestBody(String xmlFileName, Map<String, String> placeHolderMap) {
         String formXml = FileUtils.readFromClasspath(xmlFileName);
-        if(placeHolderMap == null || placeHolderMap.size() == 0) {
+        if (placeHolderMap == null || placeHolderMap.size() == 0) {
             return formXml;
         }
         return TemplateUtils.apply(formXml, placeHolderMap);
