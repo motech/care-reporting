@@ -1119,4 +1119,38 @@
         <attribute name="name" type="string" maxLength="{string_length}"/>
         <attribute name="note_given" type="boolean"/>
     </generate>
+
+    <echo> Generating Move Beneficiary form... </echo>
+    <generate type="move_beneficiary_form" count="{forms_count}" consumer="db">
+        <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
+        <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
+        <attribute name="confirm_move" type="boolean" />
+        <attribute name="new_ward" type="short" />
+        <attribute name="new_awcc" type="short" />
+        <attribute name="confirm_again" type="boolean" />
+    </generate>
+
+
+    <echo> Generating Mother Edit form... </echo>
+    <generate type="mother_edit_form" count="{forms_count}" consumer="db">
+        <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
+        <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
+        <attribute name="case_name" type="string" maxLength="{string_length}"/>
+        <attribute name="age" type="short" />
+        <attribute name="mother_name" type="string" maxLength="{string_length}"/>
+        <attribute name="hh_number" type="short" />
+        <attribute name="update_hh_number" type="boolean" />
+        <attribute name="mother_dob" type="date" generator="DateGenerator" />
+        <attribute name="update_mother_dob" type="boolean" />
+        <attribute name="husband_name" type="string" maxLength="{string_length}"/>
+        <attribute name="update_husband_name" type="boolean" />
+        <attribute name="family_number" type="short" />
+        <attribute name="update_family_number" type="boolean" />
+        <attribute name="mobile_number" type="string" maxLength="{string_length}"/>
+        <attribute name="update_mobile_number" type="boolean" />
+        <attribute name="mobile_number_whose" type="string" maxLength="{string_length}"/>
+        <attribute name="update_mobile_number_whose" type="boolean" />
+        <attribute name="ward_number" type="short" />
+        <attribute name="update_ward_number" type="boolean" />
+    </generate>
 </setup>
