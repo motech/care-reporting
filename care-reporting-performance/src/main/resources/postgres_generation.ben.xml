@@ -3,7 +3,7 @@
         xmlns="http://databene.org/benerator/0.7.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
-        defaultPageSize="50000"
+        defaultPageSize="100000"
         >
     <echo> Importing Platform... </echo>
 
