@@ -27,6 +27,7 @@
     <setting name="mother_count" value="100000"/>
     <setting name="child_count" value="80000"/>
     <setting name="forms_count" value="100000"/>
+    <setting name="high_volume_forms_count" value="{(int)forms_count * 6}"/>
 
     <include uri="{ftl:postgres.ben.properties}"/>
 
@@ -406,7 +407,7 @@
     </generate>
 
     <echo> Generating Bp form... </echo>
-    <generate type="bp_form" count="{forms_count}" consumer="db">
+    <generate type="bp_form" count="{high_volume_forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
         <attribute name="anc_latest_date" type="date" generator="DateGenerator"/>
@@ -895,7 +896,7 @@
     </generate>
 
     <echo> Generating Pnc Mother form... </echo>
-    <generate type="pnc_mother_form" count="{forms_count}" consumer="db">
+    <generate type="pnc_mother_form" count="{high_volume_forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.mother_case" source="db" distribution="random"/>
         <attribute name="abdominal_pain" type="boolean"/>
@@ -978,7 +979,7 @@
     </generate>
 
     <echo> Generating Pnc Child form... </echo>
-    <generate type="pnc_child_form" count="{forms_count}" consumer="db">
+    <generate type="pnc_child_form" count="{high_volume_forms_count}" consumer="db">
         <reference name="user_id"  selector="select id from report.flw" source="db" distribution="random"/>
         <reference name="case_id"  selector="select id from report.child_case" source="db" distribution="random"/>
         <attribute name="able_expressed_milk" type="boolean"/>
