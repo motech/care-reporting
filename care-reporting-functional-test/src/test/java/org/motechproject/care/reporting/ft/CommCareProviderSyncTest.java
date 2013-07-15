@@ -68,8 +68,7 @@ public class CommCareProviderSyncTest extends BaseTestCase {
                         .withHeader("Content-Type", "application/json")
                         .withBody(groupSyncResponse)));
 
-        DateTime groupSyncTime = new DateTime().withDayOfWeek(DateTimeConstants.SUNDAY).withHourOfDay(6).withMinuteOfHour(0).withSecondOfMinute(1);
-        motechEndpoint.postFakeTimeRequest(groupSyncTime);
+        motechEndpoint.postFakeTimeRequest(getGroupSyncTime());
 
         assertReportingGroupDetails(groupId1, "group1");
         assertReportingGroupDetails(groupId2, "group2");
@@ -84,8 +83,7 @@ public class CommCareProviderSyncTest extends BaseTestCase {
                         .withHeader("Content-Type", "application/json")
                         .withBody(providerSyncResponse)));
 
-        DateTime providerSyncTime = new DateTime().withDayOfWeek(DateTimeConstants.SUNDAY).withHourOfDay(6).withMinuteOfHour(30).withSecondOfMinute(0);
-        motechEndpoint.postFakeTimeRequest(providerSyncTime);
+        motechEndpoint.postFakeTimeRequest(getProviderSyncTime());
 
         assertReportingFlwDetails(providerId1, "provider1");
         assertReportingFlwDetails(providerId2, "provider2");
@@ -123,6 +121,20 @@ public class CommCareProviderSyncTest extends BaseTestCase {
                 return obj != null;
             }
         };
+    }
+
+    private DateTime getGroupSyncTime() {
+        return getSyncTime(6, 0);
+    }
+
+    private DateTime getProviderSyncTime() {
+        return getSyncTime(6, 30);
+    }
+
+    private DateTime getSyncTime(int hour, int min) {
+        DateTime currentFakeTime = motechEndpoint.getCurrentFakeTime();
+        DateTime syncTime = currentFakeTime.withDayOfWeek(DateTimeConstants.SUNDAY).withHourOfDay(hour).withMinuteOfHour(min).withSecondOfMinute(0);
+        return syncTime.isAfter(currentFakeTime) ? syncTime : syncTime.plusWeeks(1);
     }
 
     @Override

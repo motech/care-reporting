@@ -1,9 +1,12 @@
 package org.motechproject.care.reporting.ft.pages;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.motechproject.care.reporting.ft.utils.FileUtils;
 import org.motechproject.care.reporting.ft.utils.TemplateUtils;
 import org.motechproject.care.reporting.ft.utils.TestEnvironment;
@@ -38,7 +41,19 @@ public class MotechEndpoint {
             put("newDateTime", futureTimeToMove.toString("dd/MM/yyyy HH:mm"));
 
         }};
-        return post(environment.getFakeTimeRequestEndPoint(), null, postParameters);
+        return post(environment.updateFakeTimeEndPoint(), null, postParameters);
+    }
+
+    public DateTime getCurrentFakeTime() {
+        try {
+            GetMethod method = new GetMethod(environment.getFakeTimeEndPoint());
+            new HttpClient().executeMethod(method);
+
+            String currentTimeAsString = StringUtils.trim(method.getResponseBodyAsString());
+            return DateTimeFormat.forPattern("dd/MM/yyyy HH:mm").parseDateTime(currentTimeAsString);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private int post(String url, String requestBody, Map<String, String> postParameters) {

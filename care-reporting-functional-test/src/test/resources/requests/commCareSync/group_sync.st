@@ -34,6 +34,6 @@
             "users": [
                 "$providerId1$", "$providerId2$"
             ]
-        },
+        }
     ]
 }

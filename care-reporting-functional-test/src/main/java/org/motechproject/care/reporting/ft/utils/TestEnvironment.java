@@ -44,7 +44,11 @@ public class TestEnvironment {
         return String.format("%s/%s", properties.getProperty("app.baseurl"), properties.getProperty("app.update.endpoint.case"));
     }
 
-    public String getFakeTimeRequestEndPoint() {
+    public String updateFakeTimeEndPoint() {
         return String.format("%s/%s", properties.getProperty("app.baseurl"), properties.getProperty("app.update.endpoint.faketime"));
+    }
+
+    public String getFakeTimeEndPoint() {
+        return String.format("%s/%s", properties.getProperty("app.baseurl"), properties.getProperty("app.get.endpoint.faketime"));
     }
 }
