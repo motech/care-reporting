@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.joda.time.DateTime;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -208,7 +207,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
-        Date closedOn = DateTime.parse(updatedValues.get("closedOn")).toDate();
+        Date closedOn = careReportingMapper.map(updatedValues.get("closedOn"), Date.class);
         if (motherCase != null) {
             Date previouslyClosedOnForMother = motherCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {

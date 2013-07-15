@@ -1,10 +1,8 @@
 package org.motechproject.care.reporting.service;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.builder.MotherCaseBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -17,7 +15,8 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -186,32 +185,4 @@ public class CareServiceTest {
         ReflectionAssert.assertReflectionEquals(pncChildForm, actualPncChildForm);
     }
 
-    @Test
-    public void shouldNotCloseCaseIfClosedOnIsBeforePreviouslyClosed() {
-        String caseId = "caseIdValue";
-        HashMap<String, String> updatedValues = new HashMap<>();
-        updatedValues.put("closedOn", "2013-07-05");
-
-        MotherCase motherCase = new MotherCaseBuilder().caseId(caseId).closedDate(DateTime.parse("2013-07-06").toDate()).build();
-
-        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherCase);
-        service.closeCase(caseId, updatedValues);
-
-        verify(dbRepository, never()).update(any(MotherCase.class));
-    }
-
-    @Test
-    public void shouldCloseCaseOnlyIfClosedOnIsNotBeforePreviouslyClosed() {
-        String caseId = "caseIdValue";
-        HashMap<String, String> updatedValues = new HashMap<>();
-        updatedValues.put("closedOn", "2013-07-05");
-
-        MotherCase motherCase = new MotherCaseBuilder().caseId(caseId).closedDate(DateTime.parse("2013-07-05").toDate()).build();
-
-        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherCase);
-        service.closeCase(caseId, updatedValues);
-
-        verify(dbRepository).update(any(MotherCase.class ));
-
-    }
 }

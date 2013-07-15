@@ -276,8 +276,8 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.motherName = motherName;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "closed_on", length = 13)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "closed_on", length = 35)
 	public Date getClosedOn() {
 		return this.closedOn;
 	}

@@ -26,6 +26,11 @@ public class CareReportingMapper {
                 "yyyy-MM-dd'T'HH:mm:ssXXX",
                 "yyyy-MM-dd'T'HH:mm:ssZ",
                 "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd HH:mm:ss.SSSXXX",
+                "yyyy-MM-dd HH:mm:ss.SSSZ",
+                "yyyy-MM-dd HH:mm:ssXXX",
+                "yyyy-MM-dd HH:mm:ssZ",
+                "yyyy-MM-dd HH:mm:ss",
                 "yyyy-MM-dd",
         });
 
@@ -78,5 +83,9 @@ public class CareReportingMapper {
         } catch (Exception ex) {
             logger.warn("Exception when setting " + fieldValue + " to " + fieldName + " Exception Details: " + ex);
         }
+    }
+
+    public <T> T map(String from, Class<T> to) {
+        return (T) beanUtils.getConvertUtils().convert(from, to);
     }
 }

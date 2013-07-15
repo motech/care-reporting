@@ -138,7 +138,7 @@ CREATE TABLE report.mother_case (
 	,dob DATE
 	,closed BOOLEAN
 	,closed_by INTEGER REFERENCES report.flw(id)
-	,closed_on	DATE
+	,closed_on	TIMESTAMP WITH TIME ZONE
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
 );
@@ -184,7 +184,7 @@ CREATE TABLE report.child_case (
 	,vit_a_2_date DATE
 	,vit_a_3_date DATE
 	,closed BOOLEAN
-	,closed_on DATE
+	,closed_on TIMESTAMP WITH TIME ZONE
 	,closed_by INTEGER REFERENCES report.flw(id)
     ,creation_time TIMESTAMP WITH TIME ZONE
     ,last_modified_time TIMESTAMP WITH TIME ZONE
