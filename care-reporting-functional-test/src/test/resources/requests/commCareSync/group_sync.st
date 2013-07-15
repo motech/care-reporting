@@ -32,23 +32,8 @@
             "reporting": true,
             "resource_uri": "",
             "users": [
-                "$providerId1", "$providerId2"
+                "$providerId1$", "$providerId2$"
             ]
         },
-        {
-            "case_sharing": true,
-            "domain": "care-bihar",
-            "id": "$groupId3$",
-            "metadata": {
-                "awc-code": "123"
-            },
-            "name": "Group 3",
-            "path": [],
-            "reporting": true,
-            "resource_uri": "",
-            "users": [
-                "$providerId2", "$providerId3"
-            ]
-        }
     ]
 }

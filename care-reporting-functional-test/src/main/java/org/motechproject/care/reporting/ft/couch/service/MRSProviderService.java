@@ -1,6 +1,8 @@
 package org.motechproject.care.reporting.ft.couch.service;
 
 import org.motechproject.care.reporting.ft.couch.domain.Provider;
+import org.motechproject.care.reporting.ft.utils.TimedRunner;
+import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 import org.motechproject.couch.mrs.model.CouchProviderImpl;
 import org.motechproject.couch.mrs.repository.impl.AllCouchProvidersImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,22 @@ public class MRSProviderService {
         this.allCouchProviders = allCouchProviders;
         this.mrsPersionService = mrsPersionService;
     }
+
+    public Provider waitAndFindByProviderId(final String providerId, final int tries, final int intervalSleep, TimedRunnerBreakCondition breakCondition)  {
+        TimedRunner<Provider> timedRunner = new TimedRunner<Provider>(tries, intervalSleep, breakCondition) {
+            @Override
+            protected Provider run() {
+                return getFor(providerId);
+            }
+        };
+
+        try {
+            return timedRunner.executeWithTimeout();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public Provider getFor(String providerId) {
         if (providerId == null) {

@@ -35,43 +35,15 @@
             },
             "username": "8294168471@care-bihar.commcarehq.org"
         },
-        {
-            "default_phone_number": "8294168748",
-            "email": "",
-            "first_name": "Henarry",
-            "groups": [
-                "$groupId2$",
-                "$groupId3$"
-            ],
-            "id": "$providerId2$",
-            "last_name": "Turner",
-            "phone_numbers": [
-                "8294168748"
-            ],
-            "resource_uri": "",
-            "user_data": {
-                "asset-id": "MP1069",
-                "awc-code": "",
-                "block": "Sattarkatyea",
-                "district": "",
-                "imei-no": "352445051471325",
-                "location-code": "",
-                "panchayat": "",
-                "role": "BHM",
-                "subcentre": "",
-                "user_type": "",
-                "village": ""
-            },
-            "username": "8294168748@care-bihar.commcarehq.org"
-        },
- 	{
+    	{
             "default_phone_number": "8294168762",
             "email": "harry_potter@hogwarts.com",
             "first_name": "Harry",
             "groups": [
-			    "$groupId3$"
-                      ],
-            "id": "$providerId3$",
+                "$groupId2$",
+			    "$groupId1$"
+            ],
+            "id": "$providerId2$",
             "last_name": "Potter",
             "phone_numbers": [
                 "8294168762","8294168763","8294168764"
@@ -93,7 +65,7 @@
 		        "ward":"34",
 		        "caste":"caste",
 		        "education":"education",
-		        "dob":"2000-02-04",
+		        "dob":"04/02/2000",
 		        "ictcordinator":"ictccoror",
 		        "remarks":"awesome job done"
             },
