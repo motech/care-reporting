@@ -30,6 +30,7 @@
             <n1:interest_in_kilkari>no</n1:interest_in_kilkari>
             <n1:date_next_bp>2012-08-14</n1:date_next_bp>
         </n1:update>
+        <n1:close />
     </n1:case>
     <jsy_beneficiary>yes</jsy_beneficiary>
     <display_name>OK</display_name>
