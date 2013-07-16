@@ -107,7 +107,6 @@ public class MotherCaseUpdateTest extends BaseTestCase {
         assertNull(reportingDatabase().flwGroupMap.find(actualFlw.get("id")));
     }
 
-
     private void closeCase() {
         Map<String, String> placeholderMap = new HashMap<>();
         placeholderMap.put("caseId", caseId);
@@ -137,7 +136,6 @@ public class MotherCaseUpdateTest extends BaseTestCase {
 
         assertNull(reportingDatabase().flwGroupMap.find(actualFlw.get("id")));
     }
-
 
     @Override
     protected String getTestIdentifier() {

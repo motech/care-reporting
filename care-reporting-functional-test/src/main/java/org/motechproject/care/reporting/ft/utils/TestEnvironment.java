@@ -28,7 +28,6 @@ public class TestEnvironment {
         return envFromSystem != null ? envFromSystem : "local";
     }
 
-
     public String getDbConnectionString() {
         return format("jdbc:postgresql://%s:%s/%s",
                 properties.getProperty("postgres.host"),

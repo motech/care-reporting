@@ -40,7 +40,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         mrsDatabase().patients().detete(caseId, true);
     }
 
-
     @Test
     public void createNewAndRegisterMother() throws Exception {
         String newFormInstanceId = postNewFormAndAssert();
