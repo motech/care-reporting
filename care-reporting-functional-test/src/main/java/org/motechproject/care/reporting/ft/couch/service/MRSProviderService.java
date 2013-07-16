@@ -22,7 +22,7 @@ public class MRSProviderService {
         this.mrsPersionService = mrsPersionService;
     }
 
-    public Provider waitAndFindByProviderId(final String providerId, final int tries, final int intervalSleep, TimedRunnerBreakCondition breakCondition)  {
+    public Provider waitAndFindByProviderId(final String providerId, final int tries, final int intervalSleep, TimedRunnerBreakCondition breakCondition) {
         TimedRunner<Provider> timedRunner = new TimedRunner<Provider>(tries, intervalSleep, breakCondition) {
             @Override
             protected Provider run() {
@@ -37,19 +37,21 @@ public class MRSProviderService {
         }
     }
 
-
     public Provider getFor(String providerId) {
         if (providerId == null) {
             return null;
         }
 
-        CouchProviderImpl couchProvider = allCouchProviders.findByProviderId(providerId).get(0);
+        List<CouchProviderImpl> providers = allCouchProviders.findByProviderId(providerId);
+        if (providers.isEmpty())
+            return null;
+        CouchProviderImpl couchProvider = providers.get(0);
         return new Provider(couchProvider.getId(), couchProvider.getProviderId(), mrsPersionService.getFor(couchProvider.getPersonId()));
     }
 
     public void delete(String providerId) {
         List<CouchProviderImpl> providers = allCouchProviders.findByProviderId(providerId);
-        if(providers.size() == 0) {
+        if (providers.size() == 0) {
             return;
         }
 
