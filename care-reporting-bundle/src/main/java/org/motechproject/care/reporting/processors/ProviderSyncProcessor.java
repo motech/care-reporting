@@ -42,7 +42,7 @@ public class ProviderSyncProcessor {
         for (Group group : groups) {
             logger.info(String.format("Creating/Updating group with id: %s", group.getId()));
             Map<String, Object> parsedGroups = groupParser.parse(group);
-            flwGroups.add(genericMapper.map(parsedGroups, FlwGroup.class));
+            flwGroups.add(genericMapper.map(FlwGroup.class, parsedGroups));
         }
         service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
     }
@@ -53,7 +53,7 @@ public class ProviderSyncProcessor {
         for (Provider provider : providers) {
             logger.info(String.format("Creating/Updating provider with id: %s", provider.getId()));
             Map<String, Object> parsedProvider = providerParser.parse(provider);
-            Flw flw = genericMapper.map(parsedProvider, Flw.class);
+            Flw flw = genericMapper.map(Flw.class, parsedProvider);
             flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
             flws.add(flw);
         }

@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.utils;
 
+import org.apache.commons.beanutils.ConversionException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
@@ -10,13 +11,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 
 public class CareDateConverterTest {
-
-    @Test
-    public void shouldSetValueAsNullIfCannotConvertToGivenType() throws Exception {
-        CareDateConverter careDateConverter = new CareDateConverter(new String[]{});
-        assertNull(careDateConverter.convert(Integer.class, "1"));
-
-    }
 
     @Test
     public void shouldSupportFormats() {
@@ -61,8 +55,8 @@ public class CareDateConverterTest {
         assertEquals((new DateTime(2011, 2, 1, 0, 0, 0)).toDate(), convertedValue);
     }
 
-    @Test
-    public void shouldNotThrowExceptionIfInputFormatIsNotSupported() {
+    @Test(expected = ConversionException.class)
+    public void shouldThrowExceptionIfInputFormatIsNotSupported() {
         CareDateConverter careDateConverter = new CareDateConverter(new String[] {
                 "yyyy-MM-dd",
                 "dd/MM/yyyy"
@@ -80,7 +74,15 @@ public class CareDateConverterTest {
 
         assertNull(careDateConverter.convert(Date.class, null));
         assertNull(careDateConverter.convert(Date.class, ""));
-        assertNull(careDateConverter.convert(Date.class, "  "));
+    }
+
+    @Test(expected = ConversionException.class)
+    public void shouldThrowExceptionIfBlank() {
+        CareDateConverter careDateConverter = new CareDateConverter(new String[] {
+                "yyyy-MM-dd",
+                "dd/MM/yyyy"
+        });
+        careDateConverter.convert(Date.class, "  ");
     }
 
     @Test

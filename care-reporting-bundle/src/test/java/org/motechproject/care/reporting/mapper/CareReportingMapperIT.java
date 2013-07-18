@@ -3,7 +3,9 @@ package org.motechproject.care.reporting.mapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -25,6 +27,8 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 public class CareReportingMapperIT extends SpringIntegrationTest {
     @Autowired
     private Service service;
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     private CareReportingMapper careReportingMapper;
 
@@ -51,24 +55,35 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldSetPrimitiveValueObjectsAsNull(){
-        TestData testData = new TestData();
-        testData.integerObject = new Integer(1);
-        testData.shortObject = new Short("1");
-        testData.booleanObject = Boolean.TRUE;
-        testData.decimalObject = new BigDecimal("1.1");
+    public void shouldThrowExceptionIfUnableToConvertInteger() {
+        validateMapping("anInteger", "10.1");
+    }
 
-        TestData output = careReportingMapper.map(TestData.class, asMap("integerObject", null));
-        assertNull(output.integerObject);
+    @Test
+    public void shouldThrowExceptionIfUnableToConvertBoolean() {
+        validateMapping("aBoolean", "10");
+    }
 
-        output = careReportingMapper.map(TestData.class, asMap("shortObject", null));
-        assertNull(output.shortObject);
+    @Test
+    public void shouldThrowExceptionIfUnableToConvertShort() {
+        validateMapping("aShort", "3457889");
+    }
 
-        output = careReportingMapper.map(TestData.class, asMap("booleanObject", null));
-        assertNull(output.booleanObject);
+    @Test
+    public void shouldThrowExceptionIfUnableToConvertBigDecimal() {
+        validateMapping("aBigDecimal", "invalidDecimal");
+    }
 
-        output = careReportingMapper.map(TestData.class, asMap("decimalObject", null));
-        assertNull(output.decimalObject);
+    @Test
+    public void shouldThrowExceptionIfDateFormatIsInvalid() {
+        validateMapping("date", "01/15/2012");
+    }
+
+    private void validateMapping(String fieldName, String value) {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage(String.format("Exception when setting %s to %s", value, fieldName));
+
+        careReportingMapper.map(TestForm.class, asMap(fieldName, value));
     }
 
     @Test
@@ -97,9 +112,8 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
         assertReflectionEqualsWithIgnore(childCase, target.childCase);
     }
 
-
     private HashMap<String, Object> asMap(final String key, final Object value) {
-        return new HashMap<String, Object>(){{
+        return new HashMap<String, Object>() {{
             put(key, value);
         }};
     }
@@ -131,21 +145,36 @@ public class CareReportingMapperIT extends SpringIntegrationTest {
         validateIfDateFormatIsAccepted("2012-01-02", new DateTime(2012, 1, 2, 0, 0, 0).toDate());
     }
 
-    @Test
-    public void shouldSetDateAsNullIfOfUnknownFormat() {
-        validateIfDateFormatIsAccepted("01/01/2012", null);
-    }
-
     private void validateIfDateFormatIsAccepted(final String input, Date expected) {
-        DateContainer actualDate = careReportingMapper.map(DateContainer.class, new HashMap<String, String>() {{
+        TestForm actualDate = careReportingMapper.map(TestForm.class, new HashMap<String, String>() {{
             put("date", input);
         }});
 
         assertEquals(expected, actualDate.getDate());
     }
 
-    public static class DateContainer {
+    public static class TestForm {
         private Date date;
+        private Boolean aBoolean;
+        private Short aShort;
+        private BigDecimal aBigDecimal;
+        private Integer anInteger;
+
+        public void setaBoolean(Boolean aBoolean) {
+            this.aBoolean = aBoolean;
+        }
+
+        public void setaShort(Short aShort) {
+            this.aShort = aShort;
+        }
+
+        public void setaBigDecimal(BigDecimal aBigDecimal) {
+            this.aBigDecimal = aBigDecimal;
+        }
+
+        public void setAnInteger(Integer anInteger) {
+            this.anInteger = anInteger;
+        }
 
         public void setDate(Date date) {
             this.date = date;

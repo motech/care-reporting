@@ -63,6 +63,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
                 .withCaseType("cc_bihar_pregnancy")
                 .withUserId("5ba9a0928dde95d187544babf6c0ad24")
                 .withOwnerId("6ba9a0928dde95d187544babf6c0ad36")
+                .withDateModified("2013-01-01T12:00:23.923Z")
                 .build();
         commcareCaseListener.handleEvent(caseEvent.toMotechEventWithData());
 
@@ -90,6 +91,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
                 .withCaseType("cc_bihar_pregnancy")
                 .withUserId("5ba9a0928dde95d187544babf6c0ad24")
                 .withOwnerId("6ba9a0928dde95d187544babf6c0ad36")
+                .withDateModified("2013-01-01T12:00:23.923Z")
                 .build();
 
         commcareCaseListener.handleEvent(caseEvent.toMotechEventWithData());

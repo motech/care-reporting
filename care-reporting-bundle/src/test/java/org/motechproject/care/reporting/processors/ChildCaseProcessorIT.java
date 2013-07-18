@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.processors;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
@@ -45,6 +46,7 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent caseEvent = new CaseEventBuilder(caseId)
                 .withUserId(userId)
                 .withCaseType("cc_bihar_newborn")
+                .withDateModified("2013-01-01T12:00:23.923Z")
                 .withOwnerId(ownerId)
                 .build();
 
@@ -57,6 +59,7 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId(userId).build())
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
+                .dateModified(DateTime.parse("2013-01-01T12:00:23.923Z").toDate())
                 .build();
 
         assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");

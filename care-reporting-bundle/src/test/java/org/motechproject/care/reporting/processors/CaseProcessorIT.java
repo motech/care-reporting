@@ -50,6 +50,7 @@ public class CaseProcessorIT extends SpringIntegrationTest {
                 .withUserId(userId)
                 .withCaseType("cc_bihar_pregnancy")
                 .withOwnerId(ownerId)
+                .withDateModified("2013-01-01T12:00:23.923Z")
                 .build();
 
         motherCaseProcessor.process(caseEvent);
@@ -61,6 +62,7 @@ public class CaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId(userId).build())
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
+                .dateModified(DateTime.parse("2013-01-01T12:00:23.923Z").toDate())
                 .build();
 
         assertReflectionEqualsWithIgnore(expectedMotherCase, motherCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");
@@ -82,6 +84,7 @@ public class CaseProcessorIT extends SpringIntegrationTest {
         CaseEvent updatedCase = new CaseEventBuilder(caseId)
                 .withCaseName("User 2")
                 .withCaseType("cc_bihar_pregnancy")
+                .withDateModified("2013-01-01T12:00:23.923Z")
                 .build();
 
         motherCaseProcessor.process(updatedCase);

@@ -2,20 +2,24 @@ package org.motechproject.care.reporting.mapper;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Date;
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 
-public class GenericMapperTest {
+public class ProviderSyncMapperTest {
 
-    private ProviderSyncMapper genericMapper;
+    private ProviderSyncMapper providerSyncMapper;
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
-        genericMapper = ProviderSyncMapper.getInstance();
+        providerSyncMapper = ProviderSyncMapper.getInstance();
     }
 
     @Test
@@ -40,14 +44,17 @@ public class GenericMapperTest {
     }
 
     @Test
-    public void shouldSetDateAsNullIfOfUnknownFormat() {
+    public void shouldThrowExceptionIfDateFormat() {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage(String.format("Exception when setting 01/13/2012 to date"));
+
         validateIfDateFormatIsAccepted("01/13/2012", null);
     }
 
     private void validateIfDateFormatIsAccepted(final String input, Date expected) {
-        DateContainer actualDate = genericMapper.map(new HashMap<String, String>() {{
+        DateContainer actualDate = providerSyncMapper.map(DateContainer.class, new HashMap<String, String>() {{
             put("date", input);
-        }}, DateContainer.class);
+        }});
 
         assertEquals(expected, actualDate.getDate());
     }
