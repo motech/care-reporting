@@ -11,6 +11,7 @@ import org.motechproject.care.reporting.ft.utils.PropertyFile;
 import org.motechproject.care.reporting.ft.utils.ReflectionUtils;
 import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
 import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflectionSerialize;
 
+@ContextConfiguration("classpath:applicationContext.xml")
 public class Asserter {
 
     @Autowired
