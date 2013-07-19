@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.parser;
 import org.apache.log4j.Level;
 import org.hamcrest.core.IsAnything;
 import org.hamcrest.core.IsEqual;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -63,7 +64,9 @@ public class MotherInfoParserTest {
                                             .addSubElement("age", "1")
                                             .build();
 
+        final String receivedOn = DateTime.now().toString();
         CommcareForm commcareForm = new CommcareFormBuilder()
+                                            .withReceivedOn(receivedOn)
                                             .addSubElement("hh_number", "165")
                                             .addSubElement("family_number", "5")
                                             .addSubElement("case", motherCaseElement)
@@ -78,7 +81,7 @@ public class MotherInfoParserTest {
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
-            put("dateModified", "2012-07-21T12:02:59.923+05:30");
+            put("dateModified", receivedOn);
         }};
 
         verify(infoParser).parse(commcareForm.getForm(), true);

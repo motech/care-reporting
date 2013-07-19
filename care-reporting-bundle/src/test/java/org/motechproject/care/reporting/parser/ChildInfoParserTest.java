@@ -4,6 +4,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.log4j.Level;
 import org.hamcrest.core.IsAnything;
 import org.hamcrest.core.IsEqual;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -55,6 +56,7 @@ public class ChildInfoParserTest {
 
         String dateModified1 = "2012-07-21T12:02:59.923+05:30";
         String dateModified2 = null;
+        String receivedOn = DateTime.now().toString();
 
         FormValueElement childCaseElement1 = new FormValueElementBuilder()
                 .addAttribute("case_id", caseId1)
@@ -72,6 +74,7 @@ public class ChildInfoParserTest {
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
+                .withReceivedOn(receivedOn)
                 .build();
 
         when(infoParser.getCaseElement(childInfoElement1)).thenReturn(childCaseElement1);
@@ -93,8 +96,8 @@ public class ChildInfoParserTest {
             }
         });
 
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId1, dateModified1), childrenMapList.get(1));
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2), childrenMapList.get(0));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId1, receivedOn), childrenMapList.get(1));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, receivedOn), childrenMapList.get(0));
     }
 
     @Test
@@ -213,6 +216,7 @@ public class ChildInfoParserTest {
 
     @Test
     public void shouldChildFormInfoOverwriteChildCaseInfo(){
+        final String receivedOn = DateTime.now().toString();
         FormValueElement childCaseElement = new FormValueElementBuilder()
                 .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
                 .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
@@ -222,12 +226,13 @@ public class ChildInfoParserTest {
 
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addSubElement("child_info", childInfoElement)
+                .withReceivedOn(receivedOn)
                 .build();
 
 
         final HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
-            put("dateModified", "2012-07-21T12:02:59.923+05:30");
+            put("dateModified", receivedOn);
             put("age", "22");
         }};
 

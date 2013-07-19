@@ -39,6 +39,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("ward_number", "42")
                 .addSubElement("age", "11")
                 .build();
+        DateTime receivedOn = DateTime.now();
         CommcareForm newFormData = new CommcareFormBuilder()
                 .addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
                 .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
@@ -59,6 +60,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("update_mother_dob", "no")
                 .addSubElement("update_mobile_number", "no")
                 .addSubElement("update_mobile_number_whose", "yes")
+                .withReceivedOn(receivedOn.toString())
                 .build();
 
         formProcessor.process(newFormData);
@@ -66,7 +68,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
         List<MotherEditForm> motherEditForms = template.loadAll(MotherEditForm.class);
         assertEquals(1, motherEditForms.size());
         MotherEditForm motherEditForm = motherEditForms.get(0);
-        assertEquals(DateTime.parse("2012-07-21T12:02:59.923+05:30").toDate(), motherEditForm.getDateModified());
+        assertEquals(receivedOn.toDate(), motherEditForm.getDateModified());
         assertEquals("Devi", motherEditForm.getCaseName());
         assertEquals(motherCaseId,motherEditForm.getMotherCase().getCaseId());
         assertEquals(flwId, motherEditForm.getFlw().getFlwId());
@@ -100,7 +102,9 @@ public class FormProcessorIT extends SpringIntegrationTest {
                 .build();
 
         String instanceId = "194707f8-80c8-4198-bf99-c11c90ba5c98";
+        DateTime receivedOn = DateTime.now();
         CommcareForm moveBeneficiaryForm = new CommcareFormBuilder()
+                .withReceivedOn(receivedOn.toString())
                 .addMetadata("deviceID", "AUFN6IXAIV7Z1OKJBIWV7WY3C")
                 .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
                 .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
@@ -135,7 +139,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
         assertEquals(flwId, moveForm.getFlw().getFlwId());
         assertEquals(DateTime.parse("2012-07-21T11:59:31.076+05:30").toDate(), moveForm.getTimeStart());
         assertEquals(DateTime.parse("2012-07-21T12:02:59.923+05:30").toDate(), moveForm.getTimeEnd());
-        assertEquals(DateTime.parse("2012-07-21T12:04:00.923+05:30").toDate(), moveForm.getDateModified());
+        assertEquals(receivedOn.toDate(), moveForm.getDateModified());
         assertNotNull(moveForm.getCreationTime());
 
     }

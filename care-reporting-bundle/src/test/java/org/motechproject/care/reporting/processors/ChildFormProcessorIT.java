@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.processors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
@@ -72,6 +73,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("emptying", "yes")
                 .build();
 
+        String receivedOn = DateTime.now().toString();
         CommcareForm ebfForm = new CommcareFormBuilder().addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
                 .addMetadata("time_start", "2013-03-03T10:31:51.045+05:30")
                 .addMetadata("time_end", "2013-03-03T10:38:52.804+05:30")
@@ -91,6 +93,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("case", motherCaseData)
                 .addSubElement("child_info", childCase1Details)
                 .addSubElement("child_info", childCase2Details)
+                .withReceivedOn(receivedOn)
                 .build();
 
         List<Map<String, String>> childFieldValues = childFormProcessor.parseChildForms(ebfForm);
@@ -99,7 +102,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         Map<String, String> childValues1 = findWithCaseId("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childFieldValues);
 
         assertEquals("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childValues1.get("caseId"));
-        assertEquals("2013-03-03T10:38:52.804+05:30", childValues1.get("dateModified"));
+        assertEquals(receivedOn, childValues1.get("dateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues1.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues1.get("xmlns"));
 
@@ -109,7 +112,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
 
         Map<String, String> childValues2 = findWithCaseId("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childFieldValues);
         assertEquals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childValues2.get("caseId"));
-        assertEquals("2013-03-03T10:38:52.804+05:30", childValues2.get("dateModified"));
+        assertEquals(receivedOn, childValues2.get("dateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues2.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues2.get("xmlns"));
         assertEquals("no", childValues2.get("nameUpdate"));

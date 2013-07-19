@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FormInfoParser extends CaseInfoParser {
+public class FormInfoParser extends BaseInfoParser {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
@@ -32,7 +32,7 @@ public class FormInfoParser extends CaseInfoParser {
         return infoMap;
     }
 
-    protected void logCaseNotFoundEvent(CommcareForm commcareForm) {
+    private void logCaseNotFoundEvent(CommcareForm commcareForm) {
         String missingElementMessage = String.format("%s case element not found for form(%s). Ignoring this form.", formSegment, commcareForm.getId());
         if(infoParser.shouldReportMissingCaseElement()) {
             logger.error(missingElementMessage);
@@ -41,7 +41,7 @@ public class FormInfoParser extends CaseInfoParser {
         logger.info(missingElementMessage);
     }
 
-    protected Map<String, String> parseCaseInfo(FormValueElement caseElement, CommcareForm commcareForm) {
+    private Map<String, String> parseCaseInfo(FormValueElement caseElement, CommcareForm commcareForm) {
         Map<String, String> caseInfo = new HashMap<>();
 
         final String caseId = caseElement.getAttributes().get("case_id");
@@ -50,7 +50,7 @@ public class FormInfoParser extends CaseInfoParser {
             throw new RuntimeException(String.format("Empty case id found in form(%s)", commcareForm.getId()));
         }
 
-        final String dateModified = caseElement.getAttributes().get("date_modified");
+        final String dateModified = commcareForm.getReceivedOn();
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
         caseInfo.putAll(infoParser.parse(caseElement, true));

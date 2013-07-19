@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.builder;
 
 
+import org.joda.time.DateTime;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 
@@ -31,6 +32,11 @@ public class CommcareFormBuilder {
 
     public CommcareFormBuilder addSubElement(String key, FormValueElement value) {
         formBuilder.addSubElement(key, value);
+        return this;
+    }
+
+    public CommcareFormBuilder withReceivedOn(String receivedOn) {
+        form.setReceivedOn(receivedOn);
         return this;
     }
 

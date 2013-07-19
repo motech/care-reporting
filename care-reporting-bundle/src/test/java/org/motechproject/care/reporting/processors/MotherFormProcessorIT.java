@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.processors;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
@@ -29,7 +30,9 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .addAttribute("user_id", flwId)
                 .build();
 
+        String receivedOn = DateTime.now().toString();
         CommcareForm newFormData = new CommcareFormBuilder()
+                .withReceivedOn(receivedOn)
                 .addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
                 .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
                 .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
@@ -55,7 +58,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
 
         Map<String, String> expectedForm = new HashMap<>();
         expectedForm.put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
-        expectedForm.put("dateModified", "2012-07-21T12:02:59.923+05:30");
+        expectedForm.put("dateModified", receivedOn);
         expectedForm.put("fullName", "&#2327;&#2366;&#2351;&#2340;&#2381;&#2352;&#2368; &#2342;&#2375;&#2357;&#2368;");
         expectedForm.put("husbandName", "&#2342;&#2367;&#2344;&#2375;&#2358; &#2350;&#2369;&#2326;&#2367;&#2351;&#2366;");
         expectedForm.put("hhNumber", "165");
@@ -91,7 +94,9 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("age", "11")
                 .build();
 
+        String receivedOn = DateTime.now().toString();
         CommcareForm newFormData = new CommcareFormBuilder()
+                .withReceivedOn(receivedOn)
                 .addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
                 .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
                 .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
@@ -117,7 +122,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
 
         Map<String, String> expectedForm = new HashMap<>();
         expectedForm.put("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit");
-        expectedForm.put("dateModified", "2012-07-21T12:02:59.923+05:30");
+        expectedForm.put("dateModified", receivedOn);
         expectedForm.put("caseName", "Devi");
         expectedForm.put("motherName", "MotherName");
         expectedForm.put("motherDob", "2012-07-21");
