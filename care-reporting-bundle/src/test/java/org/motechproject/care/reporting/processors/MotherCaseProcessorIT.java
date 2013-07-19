@@ -47,7 +47,7 @@ public class MotherCaseProcessorIT extends SpringIntegrationTest {
                 .withUserId(userId)
                 .withCaseType("cc_bihar_pregnancy")
                 .withOwnerId(ownerId)
-                .withDateModified("2013-01-01T12:00:23.923Z")
+                .withServerModifiedOn("2013-01-01T12:00:23.923Z")
                 .build();
 
         motherCaseProcessor.process(caseEvent);

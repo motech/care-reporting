@@ -46,7 +46,7 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent caseEvent = new CaseEventBuilder(caseId)
                 .withUserId(userId)
                 .withCaseType("cc_bihar_newborn")
-                .withDateModified("2013-01-01T12:00:23.923Z")
+                .withServerModifiedOn("2013-01-01T12:00:23.923Z")
                 .withOwnerId(ownerId)
                 .build();
 

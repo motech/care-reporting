@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.parser;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,13 +23,13 @@ public class CaseInfoParserTest {
     private CaseInfoParser caseInfoParser;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         caseInfoParser = new CaseInfoParser(infoParser);
     }
 
     @Test
-    public void testNullCaseEvent(){
+    public void testNullCaseEvent() {
         final HashMap<String, String> expectedMap = new HashMap<>();
 
         final Map<String, String> actualMap = caseInfoParser.parse(null);
@@ -37,13 +38,13 @@ public class CaseInfoParserTest {
     }
 
     @Test
-    public void testWithoutFieldValues(){
-
+    public void testWithoutFieldValues() {
+        String serverModifiedOn = DateTime.now().toString();
         final HashMap<String, String> expectedMap = new HashMap<>();
         expectedMap.put("caseId", "id");
         expectedMap.put("userId", "userId");
         expectedMap.put("apiKey", "key");
-        expectedMap.put("dateModified", "2012-04-03");
+        expectedMap.put("dateModified", serverModifiedOn);
         expectedMap.put("action", "CREATE");
         expectedMap.put("caseType", "cc_bihar_newborn");
         expectedMap.put("caseName", "lad");
@@ -52,7 +53,9 @@ public class CaseInfoParserTest {
         final CaseEvent caseEvent = new CaseEventBuilder("id").withUserId("userId")
                 .withApiKey("key")
                 .withDateModified("2012-04-03").withAction("CREATE").withCaseType("cc_bihar_newborn")
-                .withCaseName("lad").withOwnerId("d823ea3d392a06f8b991e9e49394ce45").build();
+                .withCaseName("lad").withOwnerId("d823ea3d392a06f8b991e9e49394ce45")
+                .withServerModifiedOn(serverModifiedOn)
+                .build();
         caseEvent.setFieldValues(null);
 
         final Map<String, String> actualMap = caseInfoParser.parse(caseEvent);
@@ -60,48 +63,40 @@ public class CaseInfoParserTest {
         ReflectionAssert.assertReflectionEquals(expectedMap, actualMap);
     }
 
-
     @Test
-    public void testWithFieldValues(){
-
+    public void testWithFieldValues() {
+        String serverModifiedOn = DateTime.now().toString();
         final Map<String, String> caseEventFieldValues = new HashMap<String, String>() {{
             put("field_name1", "value1");
             put("field_name2", "value2");
         }};
-
         final CaseEvent caseEvent = new CaseEventBuilder("id").withUserId("userId")
                 .withApiKey("key")
                 .withDateModified("2012-04-03").withAction("CREATE").withCaseType("cc_bihar_newborn")
                 .withCaseName("lad").withOwnerId("d823ea3d392a06f8b991e9e49394ce45")
                 .with(caseEventFieldValues)
+                .withServerModifiedOn(serverModifiedOn)
                 .build();
-
-
         final Map<String, Object> expectedFieldValues = new HashMap<String, Object>() {{
             put("fieldName1", "value1");
             put("fieldName2", "value2");
         }};
-
         final Map<String, Object> caseEventFields = new HashMap<String, Object>() {{
             put("field_name1", "value1");
             put("field_name2", "value2");
         }};
-
         final HashMap<String, String> expectedMap = new HashMap<>();
         expectedMap.put("caseId", "id");
         expectedMap.put("userId", "userId");
         expectedMap.put("apiKey", "key");
-        expectedMap.put("dateModified", "2012-04-03");
+        expectedMap.put("dateModified", serverModifiedOn);
         expectedMap.put("action", "CREATE");
         expectedMap.put("caseType", "cc_bihar_newborn");
         expectedMap.put("caseName", "lad");
         expectedMap.put("ownerId", "d823ea3d392a06f8b991e9e49394ce45");
         expectedMap.put("fieldName1", "value1");
         expectedMap.put("fieldName2", "value2");
-
-
         when(infoParser.parse(caseEventFields)).thenReturn(expectedFieldValues);
-
 
         final Map<String, String> actualMap = caseInfoParser.parse(caseEvent);
 

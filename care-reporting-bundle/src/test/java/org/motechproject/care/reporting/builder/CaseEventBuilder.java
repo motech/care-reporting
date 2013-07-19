@@ -67,4 +67,9 @@ public class CaseEventBuilder{
     public CaseEvent build(){
         return caseEvent;
     }
+
+    public CaseEventBuilder withServerModifiedOn(String serverModifiedOn) {
+        caseEvent.setServerModifiedOn(serverModifiedOn);
+        return this;
+    }
 }

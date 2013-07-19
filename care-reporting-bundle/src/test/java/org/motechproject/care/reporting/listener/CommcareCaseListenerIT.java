@@ -108,7 +108,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
 
         CaseEvent caseEvent = new CaseEventBuilder("97e56523-5820-414a-83c2-bfcb6dcf4db3")
                 .withAction("CLOSE")
-                .withDateModified("2013-01-01")
+                .withServerModifiedOn("2013-01-01")
                 .withUserId("5ba9a0928dde95d187544babf6c0ad24")
                 .build();
 
@@ -142,7 +142,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
         fieldMap.put("closedOn","2013-01-05");
         CaseEvent caseEvent = new CaseEventBuilder("97e56523-5820-414a-83c2-bfcb6dcf4db3")
                 .withCaseType("cc_bihar_pregnancy")
-                .withDateModified("2013-01-20")
+                .withServerModifiedOn("2013-01-20")
                 .with(fieldMap)
                 .withCaseName("new name")
                 .build();

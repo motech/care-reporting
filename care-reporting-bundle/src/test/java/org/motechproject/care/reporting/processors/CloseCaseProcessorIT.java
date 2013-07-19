@@ -1,7 +1,8 @@
 package org.motechproject.care.reporting.processors;
 
-import org.apache.commons.beanutils.converters.DateConverter;
 import org.joda.time.DateTime;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
@@ -9,6 +10,7 @@ import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
@@ -18,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -26,7 +29,7 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 public class CloseCaseProcessorIT extends SpringIntegrationTest {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
-    private final String dateModified = "2013-06-13";
+    private final String serverModifiedOn = "2013-06-13";
 
     @Autowired
     private CloseCaseProcessor closeCaseProcessor;
@@ -47,7 +50,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(userId)
-                .withDateModified(dateModified)
+                .withServerModifiedOn(serverModifiedOn)
                 .build();
 
         closeCaseProcessor.process(closedCase);
@@ -78,7 +81,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(userId)
-                .withDateModified(dateModified)
+                .withServerModifiedOn(serverModifiedOn)
                 .build();
 
         closeCaseProcessor.process(closedCase);
@@ -111,7 +114,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(userId)
-                .withDateModified(dateModified)
+                .withServerModifiedOn(serverModifiedOn)
                 .build();
 
 
@@ -139,7 +142,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(newFlwId)
-                .withDateModified("2012-01-01")
+                .withServerModifiedOn("2012-01-01")
                 .build();
 
         closeCaseProcessor.process(closedCase);
@@ -165,7 +168,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(newFlwId)
-                .withDateModified(closeDate)
+                .withServerModifiedOn(closeDate)
                 .build();
 
         closeCaseProcessor.process(closedCase);
@@ -191,7 +194,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
                 .withUserId(newFlwId)
-                .withDateModified("2012-01-01")
+                .withServerModifiedOn("2012-01-01")
                 .build();
 
         closeCaseProcessor.process(closedCase);

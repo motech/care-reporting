@@ -35,7 +35,7 @@ public class CloseCaseProcessor {
         Map<String, String> closeFieldValues = new HashMap<>();
         closeFieldValues.put("closed", "true");
         closeFieldValues.put("lastModifiedTime", CareDateConverter.toString(new Date()));
-        closeFieldValues.put("closedOn", caseEvent.getDateModified());
+        closeFieldValues.put("closedOn", caseEvent.getServerModifiedOn());
         closeFieldValues.put("closedBy", caseEvent.getUserId());
         closeFieldValues.put("flw", caseEvent.getUserId());
         return closeFieldValues;
