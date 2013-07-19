@@ -84,18 +84,27 @@ public class ReportingDatabase {
         uiChildForm = getFormTable("ui_child_form");
         uiMotherForm = getFormTable("ui_mother_form");
 
-        motherCase = new Table("report.mother_case", "case_id", connection);
-        childCase = new Table("report.child_case", "case_id", connection);
-        flw = new Table("report.flw", "flw_id", connection);
-        flwGroup = new Table("report.flw_group", "group_id", connection);
-        flwGroupMap = new Table("report.flw_group_map", "flw_id", connection);
+        motherCase = getCaseTable("mother_case");
+        childCase = getCaseTable("child_case");
+
+        flw = getTable("flw", "flw_id");
+        flwGroup = getTable("flw_group", "group_id");
+        flwGroupMap =  getTable("flw_group_map", "flw_id");
 
         motherFormTables = Arrays.asList(newForm, registrationMotherForm);
         childFormTables = Arrays.asList();
     }
 
     private Table getFormTable(String tableName) {
-        final Table table = new Table("report." + tableName, "instance_id", connection);
+        return getTable(tableName, "instance_id");
+    }
+
+    private Table getCaseTable(String tableName) {
+        return getTable(tableName, "case_id");
+    }
+
+    private Table getTable(String tableName, String businessIdColumn){
+        final Table table = new Table("report." + tableName, businessIdColumn, connection);
         tableMapper.put(tableName, table);
         return table;
     }
