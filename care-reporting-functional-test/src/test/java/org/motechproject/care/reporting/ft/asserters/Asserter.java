@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.ft.asserters;
 
-
 import org.motechproject.care.reporting.ft.couch.MRSDatabase;
 import org.motechproject.care.reporting.ft.couch.domain.Patient;
 import org.motechproject.care.reporting.ft.pages.MotechEndpoint;
@@ -11,7 +10,7 @@ import org.motechproject.care.reporting.ft.utils.PropertyFile;
 import org.motechproject.care.reporting.ft.utils.ReflectionUtils;
 import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -20,8 +19,10 @@ import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
 import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflectionSerialize;
 
-@ContextConfiguration("classpath:applicationContext.xml")
+@Component
 public class Asserter {
+
+    private Map<String, String> placeholderMap;
 
     @Autowired
     private ReportingDatabase reportingDatabase;
@@ -35,14 +36,6 @@ public class Asserter {
 
     public MRSDatabase mrsDatabase() {
         return mrsDatabase;
-    }
-
-
-    private Map<String, String> placeholderMap;
-
-    public Asserter(Map<String, String> placeholderMap) {
-
-        this.placeholderMap = placeholderMap;
     }
 
     public void postForm(String requestUrl) {
@@ -85,5 +78,9 @@ public class Asserter {
         PropertyFile expectedCouchValues = new PropertyFile(expectedUrl, placeholderMap);
         PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(patient, "patient"));
         assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
+    }
+
+    public void setPlaceholder(Map<String, String> placeholder) {
+        this.placeholderMap = placeholder;
     }
 }

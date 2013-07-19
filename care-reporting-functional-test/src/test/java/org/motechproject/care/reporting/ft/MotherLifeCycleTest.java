@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.care.reporting.ft.asserters.Asserter;
 import org.motechproject.care.reporting.ft.reporting.TableName;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,10 @@ public class MotherLifeCycleTest extends BaseTestCase {
     private String flwId;
     private String groupId;
     private String caseId;
+
+    @Autowired
     private Asserter asserter;
+
     Map<String, String> placeholderMap = new HashMap<>();
 
     @Before
@@ -26,7 +30,7 @@ public class MotherLifeCycleTest extends BaseTestCase {
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
-        asserter = new Asserter(placeholderMap);
+        asserter.setPlaceholder(placeholderMap);
     }
 
     @After
