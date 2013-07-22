@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.ft.reporting;
 
 public class TableName {
     public static String child_case = "child_case";
+    public static String bp_form = "bp_form";
     public static String close_child_form = "close_child_form";
     public static String close_mother_form = "close_mother_form";
     public static String death_child_form = "death_child_form";

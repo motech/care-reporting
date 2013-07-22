@@ -91,8 +91,13 @@ public class ReportingDatabase {
         flwGroup = getTable("flw_group", "group_id");
         flwGroupMap =  getTable("flw_group_map", "flw_id");
 
-        motherFormTables = Arrays.asList(newForm, registrationMotherForm);
-        childFormTables = Arrays.asList();
+        motherFormTables = Arrays.asList(newForm, registrationMotherForm, bpForm, abortForm,
+                                         cfMotherForm, closeMotherForm, deathMotherForm, deliveryMotherForm,
+                                         ebfMotherForm, miForm, moForm, motherEditForm, moveBeneficiaryForm,
+                                         pncMotherForm, referMotherForm, uiMotherForm);
+
+        childFormTables = Arrays.asList(registrationChildForm, cfChildForm, closeChildForm, deathChildForm, ebfChildForm, pncChildForm,
+                                        referChildForm, uiChildForm);
     }
 
     private Table getFormTable(String tableName) {
