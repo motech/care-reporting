@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.ft.couch.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.ft.couch.domain.Encounter;
@@ -66,7 +67,7 @@ public class MRSEncounterService {
 
         Collections.sort(observations, new Comparator<Observation>() {
             private String getConceptName(Observation observation) {
-                return observation == null ? null : observation.getConceptName();
+                return observation == null ? null : StringUtils.lowerCase(observation.getConceptName());
             }
 
             @Override
