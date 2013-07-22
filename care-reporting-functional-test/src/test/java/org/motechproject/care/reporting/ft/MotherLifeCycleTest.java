@@ -71,7 +71,7 @@ public class MotherLifeCycleTest extends BaseTestCase {
 
     private void postRegistrationFormAndAssert(String newFormInstanceId) {
         final String registration_form = constructRequestTemplateUrl("registration_form");
-        final String expectedRegistrationFormUrl = constructExpectedUrl("reporting/registration_form");
+        final String expectedRegistrationFormUrl = constructExpectedUrl("reporting/registration_mother_form");
         final String expectedMotherCaseUrl = constructExpectedUrl("reporting/mother_case");
         final String expectedFlwUrl = constructExpectedUrl("reporting/flw");
         final String expectedPatientUrl = constructExpectedUrl("couch/mother_after_registration");
