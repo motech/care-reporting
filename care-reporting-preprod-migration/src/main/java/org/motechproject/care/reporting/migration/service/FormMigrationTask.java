@@ -24,10 +24,9 @@ public class FormMigrationTask extends MigrationTask {
     @Override
     public void migrate(String id) {
         logger.info(String.format("Migrating Form: %s", id));
-        String form = commcareAPIHttpClient.fetchForm(id);
+        CommcareResponseWrapper form = commcareAPIHttpClient.fetchForm(id);
         logger.info(String.format("Posting Form %s to motech", id));
         motechAPIHttpClient.postForm(form);
         logger.info(String.format("Migrating completed for form: %s", id));
     }
-
 }

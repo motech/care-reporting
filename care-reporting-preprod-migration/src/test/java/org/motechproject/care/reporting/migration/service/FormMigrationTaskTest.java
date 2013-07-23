@@ -1,5 +1,8 @@
 package org.motechproject.care.reporting.migration.service;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -7,6 +10,9 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -33,7 +39,7 @@ public class FormMigrationTaskTest {
     public void shouldPostForm() {
         FormMigrationTask formMigrationTask = new FormMigrationTask(migrationBatchProcessor, commcareAPIHttpClient, motechAPIHttpClient);
         String formId = "form Id";
-        String response = "form response";
+        CommcareResponseWrapper response = new CommcareResponseWrapper("form response", getHeader());
         when(commcareAPIHttpClient.fetchForm(formId)).thenReturn(response);
 
         formMigrationTask.migrate(formId);
@@ -56,12 +62,18 @@ public class FormMigrationTaskTest {
     public void shouldThrowExceptionIfFormPostFails() {
         FormMigrationTask formMigrationTask = new FormMigrationTask(migrationBatchProcessor, commcareAPIHttpClient, motechAPIHttpClient);
         String form = "form";
-        String response = "response";
+        CommcareResponseWrapper response = new CommcareResponseWrapper("response", getHeader());
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage("post failed");
         when(commcareAPIHttpClient.fetchForm(form)).thenReturn(response);
         doThrow(new RuntimeException("post failed")).when(motechAPIHttpClient).postForm(response);
 
         formMigrationTask.migrate(form);
+    }
+
+    private Map<String, String> getHeader() {
+        return new HashMap<String, String>(){{
+            put("received_on", DateTime.now().toString());
+        }};
     }
 }

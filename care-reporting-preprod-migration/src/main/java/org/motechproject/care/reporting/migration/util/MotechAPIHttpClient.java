@@ -4,6 +4,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.motechproject.care.reporting.migration.service.CommcareResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.Properties;
 
 @Component
@@ -30,17 +32,18 @@ public class MotechAPIHttpClient {
         this.platformProperties = platformProperties;
     }
 
-    public void postForm(String form) {
+    public void postForm(CommcareResponseWrapper form) {
         postContet(form, new PostMethod(getFormUpdateUrl()));
     }
 
-    public void postCase(String aCase) {
+    public void postCase(CommcareResponseWrapper aCase) {
         postContet(aCase, new PostMethod(getCaseUpdateUrl()));
     }
 
-    void postContet(String form, PostMethod postMethod) {
+    void postContet(CommcareResponseWrapper responseWrapper, PostMethod postMethod) {
         try {
-            postMethod.setRequestEntity(new StringRequestEntity(form, "text/xml; charset=UTF-8", "UTF-8"));
+            addHeader(postMethod, responseWrapper.getHeaders());
+            postMethod.setRequestEntity(new StringRequestEntity(responseWrapper.getResponseBody(), "text/xml; charset=UTF-8", "UTF-8"));
             httpClient.executeMethod(postMethod);
 
             int statusCode = postMethod.getStatusCode();
@@ -55,6 +58,12 @@ public class MotechAPIHttpClient {
         } catch (IOException e) {
             logger.error("IO exception while sending request to motech", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    private void addHeader(PostMethod postMethod, Map<String, String> headers) {
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            postMethod.addRequestHeader(header.getKey(), header.getValue());
         }
     }
 

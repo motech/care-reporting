@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.migration.service;
 
+import org.apache.commons.collections.MapUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,30 +36,33 @@ public class CaseMigrationTaskTest {
     public void shouldPostCase() {
         CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor, commcareAPIHttpClient, motechAPIHttpClient);
         String caseId = "form Id";
-        List<String> response = asList("case response");
+        List<CommcareResponseWrapper> response = asList(new CommcareResponseWrapper("case response", MapUtils.EMPTY_MAP));
         when(commcareAPIHttpClient.fetchCase(caseId)).thenReturn(response);
 
         caseMigrationTask.migrate(caseId);
 
-        verify(motechAPIHttpClient).postCase("case response");
+        verify(motechAPIHttpClient).postCase(response.get(0));
+        verifyNoMoreInteractions(motechAPIHttpClient);
     }
 
     @Test
     public void shouldPostCloseCaseAfterCreateUpdate() {
         CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor, commcareAPIHttpClient, motechAPIHttpClient);
         String caseId = "form Id";
-        List<String> response = asList("create update response", "close response");
+        CommcareResponseWrapper caseResponse = new CommcareResponseWrapper("create update response", MapUtils.EMPTY_MAP);
+        CommcareResponseWrapper closeCaseResponse = new CommcareResponseWrapper("close response", MapUtils.EMPTY_MAP);
+        List<CommcareResponseWrapper> response = asList(caseResponse, closeCaseResponse);
         when(commcareAPIHttpClient.fetchCase(caseId)).thenReturn(response);
 
         caseMigrationTask.migrate(caseId);
 
-        ArgumentCaptor<String> casePostCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<CommcareResponseWrapper> casePostCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
         verify(motechAPIHttpClient, times(2)).postCase(casePostCaptor.capture());
 
-        List<String> casePosts = casePostCaptor.getAllValues();
+        List<CommcareResponseWrapper> casePosts = casePostCaptor.getAllValues();
         assertEquals(2, casePosts.size());
-        assertEquals("create update response", casePosts.get(0));
-        assertEquals("close response", casePosts.get(1));
+        assertEquals(caseResponse, casePosts.get(0));
+        assertEquals(closeCaseResponse, casePosts.get(1));
     }
 
     @Test
@@ -73,15 +77,16 @@ public class CaseMigrationTaskTest {
     }
 
     @Test
-    public void shouldThrowExceptionIfFormPostFails() {
+    public void shouldThrowExceptionIfCasePostFails() {
         CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor, commcareAPIHttpClient, motechAPIHttpClient);
         String caseId = "caseId";
-        List<String> response = asList("case response");
+        List<CommcareResponseWrapper> response = asList(new CommcareResponseWrapper("case response", MapUtils.EMPTY_MAP));
+        when(commcareAPIHttpClient.fetchCase(caseId)).thenReturn(response);
+
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage("post failed");
-        when(commcareAPIHttpClient.fetchCase(caseId)).thenReturn(response);
-        doThrow(new RuntimeException("post failed")).when(motechAPIHttpClient).postCase(response.get(0));
 
+        doThrow(new RuntimeException("post failed")).when(motechAPIHttpClient).postCase(response.get(0));
         caseMigrationTask.migrate(caseId);
     }
 }

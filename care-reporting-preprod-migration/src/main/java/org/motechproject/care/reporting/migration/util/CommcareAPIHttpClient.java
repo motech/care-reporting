@@ -1,9 +1,13 @@
 package org.motechproject.care.reporting.migration.util;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.motechproject.care.reporting.migration.service.CommcareResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Component
 public class CommcareAPIHttpClient {
@@ -32,14 +35,42 @@ public class CommcareAPIHttpClient {
         authenticate();
     }
 
-    public String fetchForm(String formId) {
+    public CommcareResponseWrapper fetchForm(String formId) {
         String jsonResponse = getRequest(commcareFormUrl(formId), null);
-        return CommcareDataConverter.toFormXml(jsonResponse);
+
+        JsonObject jsonObject = parseJson(jsonResponse);
+        String responseBody = CommcareDataConverter.toFormXml(jsonObject);
+        Map<String, String> header = extractHeaders(jsonObject, "received_on", "received-on");
+
+        return new CommcareResponseWrapper(responseBody, header);
     }
 
-    public List<String> fetchCase(String caseId) {
+    public List<CommcareResponseWrapper> fetchCase(String caseId) {
         String jsonResponse = getRequest(commcareCaseUrl(caseId), null);
-        return CommcareDataConverter.toCaseXml(jsonResponse);
+
+        JsonObject jsonObject = parseJson(jsonResponse);
+        List<String> responses = CommcareDataConverter.toCaseXml(jsonObject);
+        Map<String, String> headers = extractHeaders(jsonObject, "server_date_modified", "server-modified-on");
+
+        ArrayList<CommcareResponseWrapper> responseWrappers = new ArrayList<>();
+        for (String response : responses) {
+            responseWrappers.add(new CommcareResponseWrapper(response, headers));
+        }
+        return responseWrappers;
+    }
+
+    private JsonObject parseJson(String jsonResponse) {
+        JsonParser parser = new JsonParser();
+        return (JsonObject) parser.parse(jsonResponse);
+    }
+
+    private Map<String, String> extractHeaders(JsonObject jsonResponse, String fieldToExtract, String requestHeader) {
+        Map<String, String> header = new HashMap<>();
+        JsonElement extractedValue = jsonResponse.get(fieldToExtract);
+        if (extractedValue == null)
+            throw new RuntimeException(String.format("%s field not present in commcare response", fieldToExtract));
+        header.put(requestHeader, extractedValue.getAsString());
+        return header;
     }
 
     private HttpMethod buildRequest(String url, NameValuePair[] queryParams) {
@@ -71,9 +102,7 @@ public class CommcareAPIHttpClient {
         });
 
         try {
-            httpClient.executeMethod(getMethod);
-            int statusCode = getMethod.getStatusCode();
-
+            int statusCode = httpClient.executeMethod(getMethod);
             String response = readResponse(getMethod);
 
             if (statusCode != HttpStatus.SC_OK) {

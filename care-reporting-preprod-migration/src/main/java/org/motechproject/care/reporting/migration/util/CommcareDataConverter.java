@@ -36,21 +36,15 @@ public class CommcareDataConverter {
         }
     }
 
-    public static String toFormXml(String formJson) {
+    public static String toFormXml(JsonObject formJson) {
         Document document = createNewDocument("data");
         Element rootElement = document.getDocumentElement();
-
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = (JsonObject) parser.parse(formJson);
-        recursivelyParse(rootElement, (JsonObject) jsonObject.get("form"));
+        recursivelyParse(rootElement, (JsonObject) formJson.get("form"));
         return toString(document);
     }
 
-    public static List<String> toCaseXml(String caseJson) {
+    public static List<String> toCaseXml(JsonObject jsonObject) {
         List<String> caseXmls = new ArrayList<>();
-
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = (JsonObject) parser.parse(caseJson);
 
         Document createUpdateCase = processForCreateAndUpdate(jsonObject);
         caseXmls.add(toString(createUpdateCase));

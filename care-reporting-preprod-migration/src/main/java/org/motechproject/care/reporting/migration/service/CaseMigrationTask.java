@@ -26,9 +26,9 @@ public class CaseMigrationTask extends MigrationTask {
     @Override
     public void migrate(String id) {
         logger.info(String.format("Migrating Case: %s", id));
-        List<String> caseXmls = commcareAPIHttpClient.fetchCase(id);
-        for (String caseXml : caseXmls) {
-            motechAPIHttpClient.postCase(caseXml);
+        List<CommcareResponseWrapper> caseResponses = commcareAPIHttpClient.fetchCase(id);
+        for (CommcareResponseWrapper caseResponse : caseResponses) {
+            motechAPIHttpClient.postCase(caseResponse);
         }
         logger.info(String.format("Migrating completed for Case: %s", id));
     }

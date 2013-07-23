@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.migration.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.Test;
 
 import java.util.List;
@@ -45,7 +47,7 @@ public class CommcareDataConverterTest {
                 "<childElement>5</childElement>%n" +
                 "</data>%n";
 
-        String actualXml = CommcareDataConverter.toFormXml(json);
+        String actualXml = CommcareDataConverter.toFormXml((JsonObject) new JsonParser().parse(json));
         assertEquals(format(expectedXml), actualXml);
     }
 
@@ -125,7 +127,7 @@ public class CommcareDataConverterTest {
                 "</index>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataConverter.toCaseXml(json);
+        List<String> cases = CommcareDataConverter.toCaseXml((JsonObject) new JsonParser().parse(json));
         assertEquals(1, cases.size());
         assertEquals(format(expectedXml),cases.get(0));
     }
@@ -210,7 +212,7 @@ public class CommcareDataConverterTest {
                 "<close/>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataConverter.toCaseXml(json);
+        List<String> cases = CommcareDataConverter.toCaseXml((JsonObject) new JsonParser().parse(json));
         assertEquals(2, cases.size());
         assertEquals(format(expectedXml),cases.get(0));
         assertEquals(format(expectedCloseXml),cases.get(1));
