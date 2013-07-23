@@ -525,10 +525,10 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
     }
 
     private boolean isLatest(ChildCase updatedObject) {
-        if (this.dateModified == null)
+        if (this.serverDateModified == null)
             return true;
-        else if (updatedObject.dateModified == null)
+        else if (updatedObject.serverDateModified == null)
             return false;
-        return this.getDateModified().compareTo(updatedObject.getDateModified()) <= 0;
+        return this.serverDateModified.compareTo(updatedObject.serverDateModified) <= 0;
     }
 }

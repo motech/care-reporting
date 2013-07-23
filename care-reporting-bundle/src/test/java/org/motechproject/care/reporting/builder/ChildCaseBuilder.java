@@ -67,7 +67,7 @@ public class ChildCaseBuilder {
     public ChildCaseBuilder close() {
         childCase.setClosed(true);
         childCase.setClosedBy(childCase.getFlw());
-        childCase.setClosedOn(childCase.getDateModified());
+        childCase.setClosedOn(childCase.getServerDateModified());
         return this;
     }
 

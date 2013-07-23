@@ -36,9 +36,9 @@ public class MotherCaseTest {
     }
 
     @Test
-    public void shouldNotUpdateIfDateModifiedOlderThanPresent() throws Exception {
-        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").dateModified(DEC_01).alive(false).build();
-        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").dateModified(JAN_01).alive(true).build();
+    public void shouldNotUpdateIfServerDateModifiedOlderThanPresent() throws Exception {
+        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").serverDateModified(DEC_01).alive(false).build();
+        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").serverDateModified(JAN_01).alive(true).build();
 
         oldMother.updateToLatest(updatedMother);
 
@@ -69,11 +69,11 @@ public class MotherCaseTest {
         Flw newFlw = new FlwBuilder().flwId("flw id2").build();
         MotherCase motherCase = new MotherCaseBuilder()
                 .flw(oldFlw)
-                .dateModified(JAN_01)
+                .serverDateModified(JAN_01)
                 .caseName("old Name").close().build();
         MotherCase newMother = new MotherCaseBuilder()
                 .closedBy(newFlw)
-                .dateModified(DEC_01)
+                .serverDateModified(DEC_01)
                 .closedDate(DEC_01)
                 .closed(false)
                 .caseName("new Name").build();

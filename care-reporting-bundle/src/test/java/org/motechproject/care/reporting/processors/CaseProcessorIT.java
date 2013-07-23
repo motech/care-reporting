@@ -23,7 +23,7 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 
 public class CaseProcessorIT extends SpringIntegrationTest {
 
-    public static final Date JAN_01 = DateTime.parse("2013-01-01").toDate();
+    public static final Date JAN_01 = DateTime.parse("2013-01-01T02:10:23.923Z").toDate();
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String ownerId = "89fda0284e008d2e0c980fb13fbb49e6";
@@ -80,7 +80,7 @@ public class CaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .caseName("User 1")
                 .flw(userId)
-                .dateModified(JAN_01)
+                .serverDateModified(JAN_01)
                 .close()
                 .build();
         template.save(motherCase);
@@ -88,7 +88,7 @@ public class CaseProcessorIT extends SpringIntegrationTest {
         CaseEvent updatedCase = new CaseEventBuilder(caseId)
                 .withCaseName("User 2")
                 .withCaseType("cc_bihar_pregnancy")
-                .withDateModified("2013-01-01T12:00:23.923Z")
+                .withServerModifiedOn("2013-01-02T12:00:23.923Z")
                 .build();
 
         motherCaseProcessor.process(updatedCase);

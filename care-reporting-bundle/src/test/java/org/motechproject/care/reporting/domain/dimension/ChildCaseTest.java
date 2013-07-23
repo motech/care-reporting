@@ -25,13 +25,13 @@ public class ChildCaseTest {
         oldChild.setId(1);
         oldChild.setCaseId("656a96a1-af77-4dca-9dd0-579d933733da");
         oldChild.setName("old name");
-        oldChild.setDateModified(JAN_09);
+        oldChild.setServerDateModified(JAN_09);
 
         ChildCase updatedChild = new ChildCase();
         updatedChild.setId(2);
         updatedChild.setCaseId("656a96a1-af77-4dca-9dd0-579d933733da");
         updatedChild.setName("new name");
-        updatedChild.setDateModified(JAN_10);
+        updatedChild.setServerDateModified(JAN_10);
 
         oldChild.updateToLatest(updatedChild);
 
@@ -50,9 +50,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldNotUpdateIfDateModifiedOlderThanPresent() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(JAN_10, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(JAN_09, "New Name");
+    public void shouldNotUpdateIfServerModifiedIsOlderThanPresent() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(JAN_10, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(JAN_09, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -60,9 +60,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldUpdateIfDateModifiedSameAsPresent() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(JAN_10, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(JAN_10, "New Name");
+    public void shouldUpdateIfServerDateModifiedSameAsPresent() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(JAN_10, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(JAN_10, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -70,9 +70,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldUpdateIfDateModifiedNewerThanPresent() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(JAN_10, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(JAN_11, "New Name");
+    public void shouldUpdateIfServerDateModifiedNewerThanPresent() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(JAN_10, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(JAN_11, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -80,9 +80,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldUpdateIfCurrentDateModifiedIsNull() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(null, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(JAN_11, "New Name");
+    public void shouldUpdateIfCurrentServerDateModifiedIsNull() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(null, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(JAN_11, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -90,9 +90,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldNotUpdateIfUpdatedDateModifiedIsNull() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(JAN_09, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(null, "New Name");
+    public void shouldNotUpdateIfUpdatedServerDateModifiedIsNull() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(JAN_09, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(null, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -100,9 +100,9 @@ public class ChildCaseTest {
     }
 
     @Test
-    public void shouldUpdateIfBothDateModifiedIsNull() throws Exception {
-        ChildCase existingChildCase = childCaseWithDateModified(null, "Old Name");
-        ChildCase newChildCase = childCaseWithDateModified(null, "New Name");
+    public void shouldUpdateIfBothServerDateModifiedIsNull() throws Exception {
+        ChildCase existingChildCase = childCaseWithServerModifiedOn(null, "Old Name");
+        ChildCase newChildCase = childCaseWithServerModifiedOn(null, "New Name");
 
         existingChildCase.updateToLatest(newChildCase);
 
@@ -111,17 +111,17 @@ public class ChildCaseTest {
 
     @Test
     public void shouldUpdateLastModifiedToCurrentTime(){
-        ChildCase childCase = childCaseWithDateModified(null, null);
+        ChildCase childCase = childCaseWithServerModifiedOn(null, null);
 
-        childCase.updateToLatest(childCaseWithDateModified(null, null));
+        childCase.updateToLatest(childCaseWithServerModifiedOn(null, null));
 
         assertDateIgnoringSeconds(new Date(), childCase.getLastModifiedTime());
     }
 
     @Test
     public void shouldNotUpdateCreationTimeOfChildCase(){
-        ChildCase childCase = childCaseWithDateModified(null, null);
-        ChildCase updatedChildCase = childCaseWithDateModified(null, null);
+        ChildCase childCase = childCaseWithServerModifiedOn(null, null);
+        ChildCase updatedChildCase = childCaseWithServerModifiedOn(null, null);
         updatedChildCase.setCreationTime(null);
 
         childCase.updateToLatest(updatedChildCase);
@@ -135,11 +135,11 @@ public class ChildCaseTest {
         Flw newFlw = new FlwBuilder().flwId("flw id2").build();
         ChildCase oldChild = new ChildCaseBuilder()
                 .flw(oldFlw)
-                .dateModified(JAN_09)
+                .serverDateModified(JAN_09)
                 .caseName("old Name").close().build();
         ChildCase newChild = new ChildCaseBuilder()
                 .closedBy(newFlw)
-                .dateModified(JAN_10)
+                .serverDateModified(JAN_10)
                 .closedDate(JAN_10)
                 .closed(false)
                 .caseName("new Name").build();
@@ -152,10 +152,10 @@ public class ChildCaseTest {
         assertTrue(oldChild.getClosed());
     }
 
-    private ChildCase childCaseWithDateModified(Date date, String name) {
+    private ChildCase childCaseWithServerModifiedOn(Date date, String name) {
         ChildCase childCase = new ChildCase();
         childCase.setCaseId("001");
-        childCase.setDateModified(date);
+        childCase.setServerDateModified(date);
         childCase.setName(name);
         return childCase;
     }

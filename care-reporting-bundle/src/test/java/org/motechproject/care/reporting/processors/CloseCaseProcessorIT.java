@@ -129,14 +129,14 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldNotUpdateClosedFieldsForMotherOnlyIfDateModifiedIsOld() {
-        Date dateModified = DateTime.parse("2012-01-05").toDate();
+    public void shouldNotUpdateClosedFieldsForMotherOnlyIfServerDateModifiedIsOld() {
+        Date serverDateModified = DateTime.parse("2012-01-05").toDate();
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
         template.save(flw);
 
-        MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).dateModified(dateModified).close().build();
+        MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
         template.save(mother);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
@@ -149,19 +149,19 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
         List<MotherCase> motherCases = template.loadAll(MotherCase.class);
         assertEquals(1, motherCases.size());
-        assertEquals(dateModified, motherCases.get(0).getClosedOn());
+        assertEquals(serverDateModified, motherCases.get(0).getClosedOn());
         assertEquals(oldFlwId, motherCases.get(0).getClosedBy().getFlwId());
     }
 
     @Test
-    public void shouldUpdateClosedFieldsIfDateModifiedIsNew() throws ParseException {
-        Date dateModified = DateTime.parse("2013-01-05").toDate();
+    public void shouldUpdateClosedFieldsIfServerDateModifiedIsNew() throws ParseException {
+        Date serverDateModified = DateTime.parse("2013-01-05").toDate();
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
         template.save(flw);
 
-        MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).dateModified(dateModified).close().build();
+        MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
         template.save(mother);
 
         String closeDate = "2013-07-05 01:27:35";
@@ -181,14 +181,14 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldNotUpdateClosedFieldsForChildOnlyIfDateModifiedOld() {
-        Date dateModified = DateTime.parse("2012-01-05").toDate();
+    public void shouldNotUpdateClosedFieldsForChildOnlyIfSererDateModifiedOld() {
+        Date serverDateModified = DateTime.parse("2012-01-05").toDate();
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
         template.save(flw);
 
-        ChildCase child = new ChildCaseBuilder().caseId(caseId).flw(flw).dateModified(dateModified).close().build();
+        ChildCase child = new ChildCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
         template.save(child);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
@@ -201,7 +201,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
         List<ChildCase> childCases = template.loadAll(ChildCase.class);
         assertEquals(1, childCases.size());
-        assertEquals(dateModified, childCases.get(0).getClosedOn());
+        assertEquals(serverDateModified, childCases.get(0).getClosedOn());
         assertEquals(oldFlwId, childCases.get(0).getClosedBy().getFlwId());
     }
 }

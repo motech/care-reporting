@@ -36,6 +36,7 @@ public class CloseCaseProcessor {
         closeFieldValues.put("closed", "true");
         closeFieldValues.put("lastModifiedTime", CareDateConverter.toString(new Date()));
         closeFieldValues.put("closedOn", caseEvent.getServerModifiedOn());
+        closeFieldValues.put("serverDateModified", caseEvent.getServerModifiedOn());
         closeFieldValues.put("closedBy", caseEvent.getUserId());
         closeFieldValues.put("flw", caseEvent.getUserId());
         return closeFieldValues;
