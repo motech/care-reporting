@@ -96,8 +96,8 @@ public class ChildInfoParserTest {
             }
         });
 
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId1, receivedOn), childrenMapList.get(1));
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, receivedOn), childrenMapList.get(0));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId1, dateModified1, receivedOn), childrenMapList.get(1));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2, receivedOn), childrenMapList.get(0));
     }
 
     @Test
@@ -108,6 +108,7 @@ public class ChildInfoParserTest {
 
         String dateModified1 = "2012-07-21T12:02:59.923+05:30";
         String dateModified2 = null;
+        String receivedOn = DateTime.now().toString();
 
         FormValueElement childCaseElement1 = new FormValueElementBuilder()
                 .addAttribute("case_id", caseId1)
@@ -125,6 +126,7 @@ public class ChildInfoParserTest {
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
+                .withReceivedOn(receivedOn)
                 .build();
 
         commcareForm.setId(instanceId);
@@ -148,7 +150,7 @@ public class ChildInfoParserTest {
             }
         });
 
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2), childrenMapList.get(0));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2, receivedOn), childrenMapList.get(0));
 
         assertNotNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsEqual<>(String.format("CHILD case element not found for form(%s). Ignoring this form.", instanceId))));
     }
@@ -161,6 +163,7 @@ public class ChildInfoParserTest {
 
         String dateModified1 = "2012-07-21T12:02:59.923+05:30";
         String dateModified2 = null;
+        String receivedOn = DateTime.now().toString();
 
         FormValueElement childCaseElement1 = new FormValueElementBuilder()
                 .addAttribute("case_id", caseId1)
@@ -178,6 +181,7 @@ public class ChildInfoParserTest {
         CommcareForm commcareForm = new CommcareFormBuilder()
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
+                .withReceivedOn(receivedOn)
                 .build();
 
         commcareForm.setId(instanceId);
@@ -201,25 +205,27 @@ public class ChildInfoParserTest {
             }
         });
 
-        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2), childrenMapList.get(0));
+        ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2, receivedOn), childrenMapList.get(0));
 
         assertNotNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsAnything<String>()));
     }
 
-    private HashMap<String, String> getExpectedChild(final String caseId, final String dateModified) {
+    private HashMap<String, String> getExpectedChild(final String caseId, final String dateModified, final String receivedOn) {
 
         return new HashMap<String, String>() {{
             put("caseId", caseId);
             put("dateModified", dateModified);
+            put("serverDateModified", receivedOn);
         }};
     }
 
     @Test
     public void shouldChildFormInfoOverwriteChildCaseInfo(){
         final String receivedOn = DateTime.now().toString();
+        final String dateModified = "2012-07-21T12:02:59.923+05:30";
         FormValueElement childCaseElement = new FormValueElementBuilder()
                 .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
-                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("date_modified", dateModified)
                 .build();
 
         FormValueElement childInfoElement = getFVE("case", childCaseElement);
@@ -232,7 +238,8 @@ public class ChildInfoParserTest {
 
         final HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf");
-            put("dateModified", receivedOn);
+            put("dateModified", dateModified);
+            put("serverDateModified", receivedOn);
             put("age", "22");
         }};
 

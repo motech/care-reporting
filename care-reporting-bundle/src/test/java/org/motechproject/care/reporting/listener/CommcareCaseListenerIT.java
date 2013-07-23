@@ -27,8 +27,9 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionC
 public class CommcareCaseListenerIT extends SpringIntegrationTest {
     @Autowired
     private CommcareCaseListener commcareCaseListener;
-    public static final Date JAN_01 = DateTime.parse("2013-01-01").toDate();
-    public static final Date JAN_20 = DateTime.parse("2013-01-20").toDate();
+    private static final Date JAN_01 = DateTime.parse("2013-01-01").toDate();
+    private static final Date JAN_20 = DateTime.parse("2013-01-20").toDate();
+    private static final Date JAN_21 = DateTime.parse("2013-01-21").toDate();
 
     @Before
     @After
@@ -143,6 +144,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
         CaseEvent caseEvent = new CaseEventBuilder("97e56523-5820-414a-83c2-bfcb6dcf4db3")
                 .withCaseType("cc_bihar_pregnancy")
                 .withServerModifiedOn("2013-01-20")
+                .withDateModified("2013-01-21")
                 .with(fieldMap)
                 .withCaseName("new name")
                 .build();
@@ -154,7 +156,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
         assertEquals(1, motherCases.size());
         MotherCase actualMother = motherCases.get(0);
         assertTrue(actualMother.getClosed());
-        assertEquals(JAN_20, actualMother.getDateModified());
+        assertEquals(JAN_21, actualMother.getDateModified());
         assertEquals(JAN_01, actualMother.getClosedOn());
         assertEquals("new name",actualMother.getCaseName());
     }

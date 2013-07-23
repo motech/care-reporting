@@ -32,9 +32,10 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                 .build();
 
+        String child1DateModified = "2013-03-03T10:38:52.804+05:30";
         FormValueElement childCase1Data = new FormValueElementBuilder()
                 .addAttribute("case_id", "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf")
-                .addAttribute("date_modified", "2013-03-03T10:38:52.804+05:30")
+                .addAttribute("date_modified", child1DateModified)
                 .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                 .build();
 
@@ -53,9 +54,10 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
                 .build();
 
 
+        String child2DateModified = "2013-03-03T11:38:52.804+05:30";
         FormValueElement childCase2Data = new FormValueElementBuilder()
                 .addAttribute("case_id", "59ab28e0-2d2d-4bc7-933f-09dcacf70d61")
-                .addAttribute("date_modified", "2013-03-03T10:38:52.804+05:30")
+                .addAttribute("date_modified", child2DateModified)
                 .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
                 .build();
 
@@ -102,7 +104,8 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         Map<String, String> childValues1 = findWithCaseId("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childFieldValues);
 
         assertEquals("3e8998ce-b19f-4fa7-b1a1-721b6951e3cf", childValues1.get("caseId"));
-        assertEquals(receivedOn, childValues1.get("dateModified"));
+        assertEquals(child1DateModified, childValues1.get("dateModified"));
+        assertEquals(receivedOn, childValues1.get("serverDateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues1.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues1.get("xmlns"));
 
@@ -112,7 +115,8 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
 
         Map<String, String> childValues2 = findWithCaseId("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childFieldValues);
         assertEquals("59ab28e0-2d2d-4bc7-933f-09dcacf70d61", childValues2.get("caseId"));
-        assertEquals(receivedOn, childValues2.get("dateModified"));
+        assertEquals(child2DateModified, childValues2.get("dateModified"));
+        assertEquals(receivedOn, childValues2.get("serverDateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues2.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues2.get("xmlns"));
         assertEquals("no", childValues2.get("nameUpdate"));

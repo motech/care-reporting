@@ -100,4 +100,9 @@ public class MotherCaseBuilder {
         motherCase.setClosed(isClosed);
         return this;
     }
+
+    public MotherCaseBuilder serverDateModified(Date serverModifiedOn) {
+        motherCase.setServerDateModified(serverModifiedOn);
+        return this;
+    }
 }

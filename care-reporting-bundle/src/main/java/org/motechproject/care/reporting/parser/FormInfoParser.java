@@ -16,25 +16,26 @@ public class FormInfoParser extends BaseInfoParser {
 
     private FormSegment formSegment;
 
-    public FormInfoParser(InfoParser infoParser, FormSegment formSegment){
+    public FormInfoParser(InfoParser infoParser, FormSegment formSegment) {
         super(infoParser);
         this.formSegment = formSegment;
     }
 
     protected Map<String, String> parse(FormValueElement startElement, CommcareForm commcareForm) {
         FormValueElement caseElement = infoParser.getCaseElement(startElement);
-        if(caseElement == null) {
+        if (caseElement == null) {
             logCaseNotFoundEvent(commcareForm);
-             return null;
+            return null;
         }
         Map<String, String> infoMap = parseCaseInfo(caseElement, commcareForm);
+        infoMap.putAll(extractHeaders(commcareForm));
         infoMap.putAll(infoParser.parse(startElement, true));
         return infoMap;
     }
 
     private void logCaseNotFoundEvent(CommcareForm commcareForm) {
         String missingElementMessage = String.format("%s case element not found for form(%s). Ignoring this form.", formSegment, commcareForm.getId());
-        if(infoParser.shouldReportMissingCaseElement()) {
+        if (infoParser.shouldReportMissingCaseElement()) {
             logger.error(missingElementMessage);
             return;
         }
@@ -46,16 +47,22 @@ public class FormInfoParser extends BaseInfoParser {
 
         final String caseId = caseElement.getAttributes().get("case_id");
 
-        if(StringUtils.isEmpty(caseId)) {
+        if (StringUtils.isEmpty(caseId)) {
             throw new RuntimeException(String.format("Empty case id found in form(%s)", commcareForm.getId()));
         }
 
-        final String dateModified = commcareForm.getReceivedOn();
+        final String dateModified = caseElement.getAttributes().get("date_modified");
         caseInfo.put("caseId", caseId);
         caseInfo.put("dateModified", dateModified);
         caseInfo.putAll(infoParser.parse(caseElement, true));
 
         return caseInfo;
+    }
+
+    public Map<String, String> extractHeaders(final CommcareForm commcareForm) {
+        return new HashMap<String,String>(){{
+            put("serverDateModified",commcareForm.getReceivedOn());
+        }};
     }
 }
 

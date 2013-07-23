@@ -46,11 +46,14 @@ public class CaseProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldParseMotherCase() {
+        String dateModified = "2013-01-01T12:00:23.923Z";
+        DateTime serverModifiedOn = DateTime.now();
         CaseEvent caseEvent = new CaseEventBuilder(caseId)
                 .withUserId(userId)
                 .withCaseType("cc_bihar_pregnancy")
                 .withOwnerId(ownerId)
-                .withServerModifiedOn("2013-01-01T12:00:23.923Z")
+                .withDateModified(dateModified)
+                .withServerModifiedOn(serverModifiedOn.toString())
                 .build();
 
         motherCaseProcessor.process(caseEvent);
@@ -62,7 +65,8 @@ public class CaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId(userId).build())
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
-                .dateModified(DateTime.parse("2013-01-01T12:00:23.923Z").toDate())
+                .dateModified(DateTime.parse(dateModified).toDate())
+                .serverDateModified(serverModifiedOn.toDate())
                 .build();
 
         assertReflectionEqualsWithIgnore(expectedMotherCase, motherCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");

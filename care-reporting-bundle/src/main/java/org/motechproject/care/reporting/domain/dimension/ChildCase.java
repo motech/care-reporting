@@ -465,8 +465,8 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.closed = closed;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "closed_on", length = 13)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "closed_on")
 	public Date getClosedOn() {
 		return this.closedOn;
 	}

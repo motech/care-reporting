@@ -85,4 +85,9 @@ public class ChildCaseBuilder {
         childCase.setClosed(isClosed);
         return this;
     }
+
+    public ChildCaseBuilder serverDateModified(Date serverDateModified) {
+        childCase.setServerDateModified(serverDateModified);
+        return this;
+    }
 }

@@ -25,9 +25,10 @@ public class FormProcessorIT extends SpringIntegrationTest {
         String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
         String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
 
+        String dateModified = "2012-07-21T12:02:59.923+05:30";
         FormValueElement motherCaseData = new FormValueElementBuilder()
                 .addAttribute("case_id", motherCaseId)
-                .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
+                .addAttribute("date_modified", dateModified)
                 .addAttribute("user_id", flwId)
                 .addSubElement("case_name", "Devi")
                 .addSubElement("mother_name", "MotherName")
@@ -68,7 +69,8 @@ public class FormProcessorIT extends SpringIntegrationTest {
         List<MotherEditForm> motherEditForms = template.loadAll(MotherEditForm.class);
         assertEquals(1, motherEditForms.size());
         MotherEditForm motherEditForm = motherEditForms.get(0);
-        assertEquals(receivedOn.toDate(), motherEditForm.getDateModified());
+        assertEquals(receivedOn.toDate(), motherEditForm.getServerDateModified());
+        assertEquals(DateTime.parse(dateModified).toDate(), motherEditForm.getDateModified());
         assertEquals("Devi", motherEditForm.getCaseName());
         assertEquals(motherCaseId,motherEditForm.getMotherCase().getCaseId());
         assertEquals(flwId, motherEditForm.getFlw().getFlwId());
@@ -95,9 +97,10 @@ public class FormProcessorIT extends SpringIntegrationTest {
         String motherCaseId = "11d5374f-290e-409f-bc57-86c2e4bcc43f";
         String flwId = "12fda0284e008d2e0c980fb13fa0e5bb";
 
+        String dateModified = "2012-07-21T12:04:00.923+05:30";
         FormValueElement motherCaseData = new FormValueElementBuilder()
                 .addAttribute("case_id", motherCaseId)
-                .addAttribute("date_modified", "2012-07-21T12:04:00.923+05:30")
+                .addAttribute("date_modified", dateModified)
                 .addAttribute("user_id", flwId)
                 .build();
 
@@ -139,7 +142,8 @@ public class FormProcessorIT extends SpringIntegrationTest {
         assertEquals(flwId, moveForm.getFlw().getFlwId());
         assertEquals(DateTime.parse("2012-07-21T11:59:31.076+05:30").toDate(), moveForm.getTimeStart());
         assertEquals(DateTime.parse("2012-07-21T12:02:59.923+05:30").toDate(), moveForm.getTimeEnd());
-        assertEquals(receivedOn.toDate(), moveForm.getDateModified());
+        assertEquals(DateTime.parse(dateModified).toDate(), moveForm.getDateModified());
+        assertEquals(receivedOn.toDate(), moveForm.getServerDateModified());
         assertNotNull(moveForm.getCreationTime());
 
     }

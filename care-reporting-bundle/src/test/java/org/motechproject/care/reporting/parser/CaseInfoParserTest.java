@@ -40,11 +40,13 @@ public class CaseInfoParserTest {
     @Test
     public void testWithoutFieldValues() {
         String serverModifiedOn = DateTime.now().toString();
+        String dateModified = "2012-04-03";
         final HashMap<String, String> expectedMap = new HashMap<>();
         expectedMap.put("caseId", "id");
         expectedMap.put("userId", "userId");
         expectedMap.put("apiKey", "key");
-        expectedMap.put("dateModified", serverModifiedOn);
+        expectedMap.put("dateModified", dateModified);
+        expectedMap.put("serverDateModified", serverModifiedOn);
         expectedMap.put("action", "CREATE");
         expectedMap.put("caseType", "cc_bihar_newborn");
         expectedMap.put("caseName", "lad");
@@ -52,7 +54,7 @@ public class CaseInfoParserTest {
 
         final CaseEvent caseEvent = new CaseEventBuilder("id").withUserId("userId")
                 .withApiKey("key")
-                .withDateModified("2012-04-03").withAction("CREATE").withCaseType("cc_bihar_newborn")
+                .withDateModified(dateModified).withAction("CREATE").withCaseType("cc_bihar_newborn")
                 .withCaseName("lad").withOwnerId("d823ea3d392a06f8b991e9e49394ce45")
                 .withServerModifiedOn(serverModifiedOn)
                 .build();
@@ -65,6 +67,7 @@ public class CaseInfoParserTest {
 
     @Test
     public void testWithFieldValues() {
+        String dateModified = "2012-04-03";
         String serverModifiedOn = DateTime.now().toString();
         final Map<String, String> caseEventFieldValues = new HashMap<String, String>() {{
             put("field_name1", "value1");
@@ -72,7 +75,7 @@ public class CaseInfoParserTest {
         }};
         final CaseEvent caseEvent = new CaseEventBuilder("id").withUserId("userId")
                 .withApiKey("key")
-                .withDateModified("2012-04-03").withAction("CREATE").withCaseType("cc_bihar_newborn")
+                .withDateModified(dateModified).withAction("CREATE").withCaseType("cc_bihar_newborn")
                 .withCaseName("lad").withOwnerId("d823ea3d392a06f8b991e9e49394ce45")
                 .with(caseEventFieldValues)
                 .withServerModifiedOn(serverModifiedOn)
@@ -89,7 +92,8 @@ public class CaseInfoParserTest {
         expectedMap.put("caseId", "id");
         expectedMap.put("userId", "userId");
         expectedMap.put("apiKey", "key");
-        expectedMap.put("dateModified", serverModifiedOn);
+        expectedMap.put("dateModified", dateModified);
+        expectedMap.put("serverDateModified", serverModifiedOn);
         expectedMap.put("action", "CREATE");
         expectedMap.put("caseType", "cc_bihar_newborn");
         expectedMap.put("caseName", "lad");

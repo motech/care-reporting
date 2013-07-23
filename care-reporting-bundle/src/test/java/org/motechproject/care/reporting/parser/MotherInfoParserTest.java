@@ -20,14 +20,10 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MotherInfoParserTest {
@@ -41,7 +37,7 @@ public class MotherInfoParserTest {
     private MotherInfoParser motherInfoParser;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         motherInfoParser = new MotherInfoParser(infoParser);
     }
@@ -53,35 +49,37 @@ public class MotherInfoParserTest {
 
     @Test
     public void shouldMapCaseIdAndDateModified() throws Exception {
+        final String dateModified = "2012-07-21T12:02:59.923+05:30";
         FormValueElement motherCaseElement = new FormValueElementBuilder()
-                                            .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
-                                            .addAttribute("date_modified", "2012-07-21T12:02:59.923+05:30")
-                                            .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
-                                            .build();
+                .addAttribute("case_id", "94d5374f-290e-409f-bc57-86c2e4bcc43f")
+                .addAttribute("date_modified", dateModified)
+                .addAttribute("user_id", "89fda0284e008d2e0c980fb13fa0e5bb")
+                .build();
 
         FormValueElement childInfoElement = new FormValueElementBuilder()
-                                            .addSubElement("hh_number", "555")
-                                            .addSubElement("age", "1")
-                                            .build();
+                .addSubElement("hh_number", "555")
+                .addSubElement("age", "1")
+                .build();
 
         final String receivedOn = DateTime.now().toString();
         CommcareForm commcareForm = new CommcareFormBuilder()
-                                            .withReceivedOn(receivedOn)
-                                            .addSubElement("hh_number", "165")
-                                            .addSubElement("family_number", "5")
-                                            .addSubElement("case", motherCaseElement)
-                                            .addSubElement("child_info", childInfoElement)
-                                            .build();
+                .withReceivedOn(receivedOn)
+                .addSubElement("hh_number", "165")
+                .addSubElement("family_number", "5")
+                .addSubElement("case", motherCaseElement)
+                .addSubElement("child_info", childInfoElement)
+                .build();
 
         when(infoParser.getCaseElement(commcareForm.getForm())).thenReturn(motherCaseElement);
 
-        Map<String,String> motherInfo = motherInfoParser.parse(commcareForm);
+        Map<String, String> motherInfo = motherInfoParser.parse(commcareForm);
 
-        assertEquals(2, motherInfo.size());
+        assertEquals(3, motherInfo.size());
 
         HashMap<String, String> expected = new HashMap<String, String>() {{
             put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
-            put("dateModified", receivedOn);
+            put("dateModified", dateModified);
+            put("serverDateModified", receivedOn);
         }};
 
         verify(infoParser).parse(commcareForm.getForm(), true);
@@ -100,7 +98,7 @@ public class MotherInfoParserTest {
                 .build();
         commcareForm.setId(instanceId);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(true);
-        Map<String,String> motherInfo = motherInfoParser.parse(commcareForm);
+        Map<String, String> motherInfo = motherInfoParser.parse(commcareForm);
 
         assertNull(motherInfo);
         assertNotNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsEqual<>(String.format("MOTHER case element not found for form(%s). Ignoring this form.", instanceId))));
@@ -116,7 +114,7 @@ public class MotherInfoParserTest {
                 .build();
         commcareForm.setId(instanceId);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(false);
-        Map<String,String> motherInfo = motherInfoParser.parse(commcareForm);
+        Map<String, String> motherInfo = motherInfoParser.parse(commcareForm);
 
         assertNull(motherInfo);
         assertNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsAnything<String>()));
