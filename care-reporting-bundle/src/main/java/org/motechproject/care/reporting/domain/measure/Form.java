@@ -4,6 +4,9 @@ import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @MappedSuperclass
 public class Form implements java.io.Serializable {
@@ -11,6 +14,8 @@ public class Form implements java.io.Serializable {
     private String instanceId;
 
     private String appVersion;
+
+    private Date serverDateModified;
 
     public Form() {
     }
@@ -31,5 +36,15 @@ public class Form implements java.io.Serializable {
 
     public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "server_date_modified", length = 35)
+    public Date getServerDateModified() {
+        return serverDateModified;
+    }
+
+    public void setServerDateModified(Date serverDateModified) {
+        this.serverDateModified = serverDateModified;
     }
 }
