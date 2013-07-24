@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns:orx="http://openrosa.org/jr/xforms" xmlns="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+    <h:head>
+        <h:title>Referral</h:title>
+        <model>
+            <instance>
+                <data xmlns:cc="http://commcarehq.org/xforms" xmlns="http://bihar.commcarehq.org/pregnancy/refer" uiVersion="1" version="1" name="Referral">
+                    <orx:meta>
+                        <orx:deviceID/>
+                        <orx:timeStart/>
+                        <orx:timeEnd/>
+                        <orx:username/>
+                        <orx:userID/>
+                        <orx:instanceID/>
+                        <cc:appVersion/>
+                    </orx:meta>
+
+                    <case xmlns="http://commcarehq.org/case/transaction/v2" case_id="" date_modified="" user_id=""/>
+
+                    <num_children />
+                    <children/>
+
+                    <refer_mother />
+                    <child_info jr:template="">
+                        <index/>
+                        <cid/>
+
+                        <refer_child/>
+                        <case xmlns="http://commcarehq.org/case/transaction/v2" case_id="" date_modified="" user_id=""/>
+                    </child_info>
+
+                    <referral_info />
+                    <success />
+                </data>
+            </instance>
+            <instance id="commcaresession" src="jr://instance/session"/>
+            <instance id="casedb" src="jr://instance/casedb"/>
+            <instance id="referral" src="jr://fixture/item-list:contact"/>
+
+            <setvalue event="xforms-ready" ref="/data/meta/timeStart" value="now()"/>
+            <setvalue event="xforms-ready" ref="/data/meta/instanceID" value="uuid()"/>
+            <setvalue event="xforms-ready" ref="/data/meta/deviceID" value="instance('commcaresession')/session/context/deviceid"/>
+            <setvalue event="xforms-ready" ref="/data/meta/username" value="instance('commcaresession')/session/context/username"/>
+            <setvalue event="xforms-ready" ref="/data/meta/userID" value="instance('commcaresession')/session/context/userid"/>
+            <setvalue event="xforms-ready" ref="/data/meta/appVersion" value="instance('commcaresession')/session/context/appversion"/>
+            <setvalue event="xforms-ready" ref="/data/case/@case_id" value="instance('commcaresession')/session/data/case_id"/>
+
+            <setvalue event="xforms-ready" ref="/data/children" value="join(' ',instance('casedb')/casedb/case[@case_type='cc_bihar_newborn'][index/mother_id=/data/case/@case_id][@status='open']/@case_id)"/>
+
+            <setvalue event="xforms-revalidate" ref="/data/meta/timeEnd" value="now()"/>
+
+            <bind nodeset="/data/meta/timeStart" type="dateTime"/>
+            <bind nodeset="/data/meta/timeEnd" type="dateTime"/>
+
+            <bind nodeset="/data/case/@date_modified" type="xsd:dateTime" calculate="/data/meta/timeEnd"/>
+            <bind nodeset="/data/case/@user_id" calculate="/data/meta/userID"/>
+
+            <bind nodeset="/data/child_info/index" calculate="position(..)"/>
+            <bind nodeset="/data/child_info/cid" calculate="selected-at(/data/children,../index)"/>
+
+            <bind nodeset="/data/child_info/case/@case_id" type="xsd:string" calculate="../../cid"/>
+            <bind nodeset="/data/child_info/case/@date_modified" type="xsd:dateTime" calculate="/data/meta/timeEnd"/>
+            <bind nodeset="/data/child_info/case/@user_id" type="xsd:string" calculate="/data/meta/userID"/>
+
+            <bind nodeset="/data/num_children" type="int" calculate="count-selected(/data/children)"/>
+
+            <bind nodeset="/data/refer_mother" />
+            <bind nodeset="/data/child_info/refer_child" />
+            <bind nodeset="/data/referral_info" relevant="/data/refer_mother = 'yes' or count(/data/child_info[refer_child = 'yes']) &gt; 0" />
+            <bind nodeset="/data/num_children" type="xsd:int" />
+            <bind nodeset="/data/success" />
+            <itext>
+                <translation lang="hin" default="">
+                    <text id="refer_mother-label">
+                        <value>???? ????? ?? ???? ?????</value>
+                        <value form="image">jr://file/commcare/media/images/referral/refer_mother.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/refer_mother_hin.mp3</value>
+                    </text>
+                    <text id="refer_mother-yes-label">
+                        <value>1. ??</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/yes_hin.mp3</value>
+                    </text>
+                    <text id="refer_mother-no-label">
+                        <value>2. ???</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/no_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-label">
+                        <value>???? ????? ?? ???? ???? <output value="instance('casedb')/casedb/case[@case_id=current()/../cid]/case_name"/></value>
+                        <value form="image">jr://file/commcare/media/images/referral/refer_child.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/refer_child_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-yes-label">
+                        <value>1. ??</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/yes_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-no-label">
+                        <value>2. ???</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/no_hin.mp3</value>
+                    </text>
+                    <text id="referral_info-label">
+                        <value>????? ???????? ???? :<output ref="       if(count(instance('referral')/contact_list/contact[type='public']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='public']/name,                 ': ',                  instance('referral')/contact_list/contact[type='public']/number),       '')"/><output ref="       if(count(instance('referral')/contact_list/contact[type='private']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='private']/name,                 ': ',                  instance('referral')/contact_list/contact[type='private']/number),       '')"/><output ref="       if(count(instance('referral')/contact_list/contact[type='transport']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='transport']/name,                 ': ',                  instance('referral')/contact_list/contact[type='transport']/number),       '')"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/referral_info_hin.mp3</value>
+                    </text>
+                    <text id="success-label">
+                        <value>??????????? ????? ???????</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/success_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/referral/success.png</value>
+                    </text>
+                </translation>
+                <translation lang="en">
+                    <text id="refer_mother-label">
+                        <value>Referring the mother?</value>
+                        <value form="image">jr://file/commcare/media/images/referral/refer_mother.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/refer_mother_hin.mp3</value>
+                    </text>
+                    <text id="refer_mother-yes-label">
+                        <value>1. Yes</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/yes_hin.mp3</value>
+                    </text>
+                    <text id="refer_mother-no-label">
+                        <value>2. No</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/no_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-label">
+                        <value>Referring the Child <output value="instance('casedb')/casedb/case[@case_id=current()/../cid]/case_name"/>?</value>
+                        <value form="image">jr://file/commcare/media/images/referral/refer_child.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/refer_child_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-yes-label">
+                        <value>1. Yes</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/yes_hin.mp3</value>
+                    </text>
+                    <text id="refer_child-no-label">
+                        <value>2. No</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/no_hin.mp3</value>
+                    </text>
+                    <text id="referral_info-label">
+                        <value>Your patient needs a referral:<output ref="       if(count(instance('referral')/contact_list/contact[type='public']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='public']/name,                 ': ',                  instance('referral')/contact_list/contact[type='public']/number),       '')"/><output ref="       if(count(instance('referral')/contact_list/contact[type='private']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='private']/name,                 ': ',                  instance('referral')/contact_list/contact[type='private']/number),       '')"/><output ref="       if(count(instance('referral')/contact_list/contact[type='transport']) &gt; 0,          concat(' ',           instance('referral')/contact_list/contact[type='transport']/name,                 ': ',                  instance('referral')/contact_list/contact[type='transport']/number),       '')"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/referral_info_hin.mp3</value>
+                    </text>
+                    <text id="success-label">
+                        <value>Success.  Done with form.</value>
+                        <value form="audio">jr://file/commcare/media/audio/referral/success_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/referral/success.png</value>
+                    </text>
+                </translation>
+            </itext>
+        </model>
+    </h:head>
+    <h:body>
+        <select1 ref="/data/refer_mother">
+            <label ref="jr:itext('refer_mother-label')" />
+            <item>
+                <label ref="jr:itext('refer_mother-yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('refer_mother-no-label')" />
+                <value>no</value>
+            </item>
+        </select1>
+        <group>
+            <repeat nodeset="/data/child_info" jr:count="/data/num_children">
+                <select1 ref="/data/child_info/refer_child">
+                    <label ref="jr:itext('refer_child-label')" />
+                    <item>
+                        <label ref="jr:itext('refer_child-yes-label')" />
+                        <value>yes</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('refer_child-no-label')" />
+                        <value>no</value>
+                    </item>
+                </select1>
+            </repeat>
+        </group>
+        <trigger ref="/data/referral_info">
+            <label ref="jr:itext('referral_info-label')" />
+        </trigger>
+        <trigger ref="/data/success">
+            <label ref="jr:itext('success-label')" />
+        </trigger>
+    </h:body>
+</h:html>

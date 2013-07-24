@@ -1,0 +1,2463 @@
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns:orx="http://openrosa.org/jr/xforms" xmlns="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+    <h:head>
+        <h:title>Birth Preparedness</h:title>
+        <model>
+            <instance>
+                <data xmlns:cc="http://commcarehq.org/xforms" xmlns="http://bihar.commcarehq.org/pregnancy/bp" uiVersion="1" version="2" name="Birth Preparedness">
+
+                    <orx:meta>
+                        <orx:deviceID/>
+                        <orx:timeStart/>
+                        <orx:timeEnd/>
+                        <orx:username/>
+                        <orx:userID/>
+                        <orx:instanceID/>
+                        <cc:appVersion/>
+                    </orx:meta>
+
+                    <!-- case block -->
+                    <case xmlns="http://commcarehq.org/case/transaction/v2" case_id="" date_modified="" user_id="">
+                        <update>
+
+                            <!-- MCTS data -->
+                            <anc_4_date />
+                            <anc_3_date />
+                            <anc_2_date />
+                            <anc_1_date />
+                            <tt_2_date />
+                            <tt_1_date />
+                            <tt_booster_date />
+                            <ifa_tablets_100/>
+
+                            <!-- logic data -->
+                            <edd/>
+                            <lmp/>
+                            <ifa_tablets/>
+                            <institutional/>
+                            <vehicle />
+                            <maternal_emergency />
+                            <couple_interested />
+                            <maternal_emergency_number />
+                            <clean_cloth />
+                            <materials />
+                            <SBA_phone />
+                            <SBA />
+                            <accompany />
+                            <phone_vehicle />
+                            <saving_money />
+                            <delivery_type />
+
+                            <date_bp_1/>
+                            <date_bp_2/>
+                            <date_bp_3/>
+
+                            <date_next_bp/>
+
+                            <bp_visit_num/>
+
+                            <last_visit_type>bp</last_visit_type>
+                            <date_last_visit/>
+                            <nextvisittype/>
+                            <nextvisitdate/>
+                            <days_visit_overdue/>
+                        </update>
+                    </case>
+
+                    <bp_visit_num/>
+
+                    <delivery_type/>
+                    <anc_latest_num/>
+                    <anc_latest_date/>
+
+                    <!-- form begins with third trimester specific info -->
+                    <update_edd/>
+                    <edd_known/>
+                    <new_edd/>
+                    <lmp_known/>
+                    <new_lmp/>
+                    <new_gest_age/>
+                    <display_new_edd/>
+                    <display_pregnancy_month/>
+                    <bp2>
+                        <not_yet_institutional/>
+
+                        <now_institutional />
+                        <play_birth_preparedness_vid />
+                        <birth_preparedness_vid />
+                        <saving_money />
+                        <not_yet_vehicle />
+                        <vehicle />
+                        <not_yet_phone_number />
+                        <phone_vehicle />
+                        <accompany />
+                        <care_of_home />
+                        <counsel_preparation />
+                        <not_yet_sba />
+                        <SBA />
+                        <not_yet_SBA_phone />
+                        <SBA_phone />
+                        <not_yet_materials />
+                        <materials />
+                        <not_yet_clean />
+                        <clean_cloth />
+                        <maternal_danger_signs />
+                        <inform_danger_signs />
+                        <has_danger_signs />
+
+                        <not_yet_maternal_emergency />
+                        <danger_institution />
+                        <not_yet_maternal_emergency_number />
+                        <danger_number />
+                        <play_cord_care_vid />
+                        <cord_care_vid />
+                        <wrapping />
+                        <skin_to_skin />
+                        <immediate_breastfeeding />
+                        <cord_care />
+                    </bp2>
+                    <!-- info for all trimesters -->
+                    <bp1>
+                        <ifa_total_previous_received />
+                        <ifa_tablets_already_200 />
+                        <ifa_tablets_issued />
+                        <total_ifa />
+                        <counsel_ifa />
+                        <using_ifa />
+                        <reason_no_ifa />
+                        <counsel_tt />
+                        <received_tt1 />
+                        <tt1_date />
+                        <received_tt2 />
+                        <tt2_date />
+                        <tt_booster />
+                        <tt_booster_date />
+                        <anc1_details />
+                        <anc1>
+                            <anc1_date />
+                            <anc1_facility />
+                            <anc1_blood_pressure />
+                            <anc1_abdominal_exam />
+                            <anc1_abnormalities />
+                        </anc1>
+                        <anc2_details />
+                        <anc2>
+                            <anc2_date />
+                            <anc2_facility />
+                            <anc2_blood_pressure />
+                            <anc2_abdominal_exam />
+                            <anc2_abnormalities />
+                        </anc2>
+                        <anc3_details />
+                        <anc3>
+                            <anc3_date />
+                            <anc3_facility />
+                            <anc3_blood_pressure />
+                            <anc3_abdominal_exam />
+                            <anc3_abnormalities />
+                        </anc3>
+                        <anc4_details />
+                        <anc4>
+                            <anc4_date />
+                            <anc4_facility />
+                            <anc4_blood_pressure />
+                            <anc4_abdominal_exam />
+                            <anc4_abnormalities />
+                        </anc4>
+                        <anc_display/>
+                        <resting />
+                        <eating_extra />
+                    </bp1>
+                    <ifa_tablets_total />
+
+
+                    <!-- family planning section, third trimester only -->
+                    <play_family_planning_vid />
+                    <family_planning_vid />
+                    <conceive />
+                    <postponing />
+                    <family_planning_group>
+                        <counsel_accessible />
+                        <help_decide/>
+                        <immediate_appropriate />
+                        <institution_immediate />
+                        <counsel_nearest/>
+                        <counsel_benefits />
+                        <avail_immediate />
+                        <counsel_stay />
+                        <counsel_institution />
+                        <counsel_disqualification />
+                        <counsel_options />
+                        <risk_of_preg />
+                        <stop_children />
+                        <counsel_methods />
+                        <postpone_conception />
+                        <spacing_methods />
+                    </family_planning_group>
+
+                    <!--if she showed any danger signs, refer -->
+                    <referral_prompt />
+                    <BP_complete_referral_needed />
+
+                    <success />
+
+                    <lmp_calc/>
+                    <edd_calc/>
+                    <cur_edd/>
+                    <cur_lmp/>
+                    <nextvisit/>
+                    <nextvisittype/>
+                    <del_fup/>
+                </data>
+            </instance>
+            <!-- accessing session data and case data -->
+            <instance id="commcaresession" src="jr://instance/session"/>
+            <instance id="casedb" src="jr://instance/casedb"/>
+            <instance id="referral" src="jr://fixture/item-list:contact"/>
+
+            <!-- metadata preloads -->
+            <setvalue event="xforms-ready" ref="/data/meta/timeStart" value="now()"/>
+            <setvalue event="xforms-ready" ref="/data/meta/instanceID" value="uuid()"/>
+            <setvalue event="xforms-ready" ref="/data/meta/deviceID" value="instance('commcaresession')/session/context/deviceid"/>
+            <setvalue event="xforms-ready" ref="/data/meta/username" value="instance('commcaresession')/session/context/username"/>
+            <setvalue event="xforms-ready" ref="/data/meta/userID" value="instance('commcaresession')/session/context/userid"/>
+            <setvalue event="xforms-ready" ref="/data/meta/appVersion" value="instance('commcaresession')/session/context/appversion"/>
+
+            <setvalue event="xforms-revalidate" ref="/data/meta/timeEnd" value="now()"/>
+
+            <bind nodeset="/data/meta/timeStart" type="dateTime"/>
+            <bind nodeset="/data/meta/timeEnd" type="dateTime"/>
+
+            <bind nodeset="/data/cur_edd" type="xsd:date" calculate="date(if(/data/case/update/edd = '',
+     																	instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/edd,
+     																	/data/case/update/edd
+     															     ))"/>
+            <bind nodeset="/data/cur_lmp" type="xsd:date" calculate="date(if(/data/case/update/lmp = '',
+     																	instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/lmp,
+     																	/data/case/update/lmp
+     															     ))"/>
+
+            <bind nodeset="/data/case/update/date_last_visit" type="xsd:date" calculate="today()"/>
+
+            <bind nodeset="/data/del_fup" calculate="date(if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_del_fu = '', 
+            										 date(/data/cur_edd) - 7,
+            										 date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_del_fu)- 7))"/>
+
+            <bind nodeset="/data/nextvisittype" calculate="if(/data/case/update/date_next_bp = '', 'del', 
+            											   if(date(/data/del_fup) &gt; date(/data/case/update/date_next_bp), 'bp', 'del'))"/>
+
+            <bind nodeset="/data/bp_visit_num" calculate="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_bp_1 ='' and (date(/data/cur_edd) -75 &gt; today()), 1,
+														  if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_bp_2 ='', 2,
+														  if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_bp_3 ='',3, instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/bp_visit_num + 1
+														     )))"/>
+
+            <bind nodeset="/data/case/update/edd" calculate="/data/edd_calc" relevant="/data/update_edd='yes'" />
+            <bind nodeset="/data/case/update/lmp" calculate="/data/lmp_calc" relevant="/data/update_edd='yes'" />
+
+            <bind nodeset="/data/case/update/date_bp_1" type="xsd:date" relevant="/data/bp_visit_num = 1" calculate="today()"/>
+            <bind nodeset="/data/case/update/date_bp_2" type="xsd:date" relevant="/data/bp_visit_num = 2" calculate="today()"/>
+            <bind nodeset="/data/case/update/date_bp_3" type="xsd:date" relevant="/data/bp_visit_num = 3" calculate="today()"/>
+
+
+            <bind nodeset="/data/case/update/date_next_bp" type="xsd:date" calculate="if(/data/bp_visit_num = 1, date(date(/data/cur_edd) -75),
+																						if(/data/bp_visit_num = 2, date(today() + 30), ''))"/>
+
+            <bind nodeset="/data/case/update/nextvisittype" calculate="/data/nextvisittype" />
+            <bind nodeset="/data/case/update/nextvisitdate" calculate="if(/data/nextvisittype = 'bp', /data/case/update/date_next_bp, /data/del_fup)" />
+            <bind nodeset="/data/case/update/days_visit_overdue" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_next_bp != ''"
+                  calculate="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_next_bp != '',
+																			   int(today() - date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/date_next_bp)), 
+																			    int(today() - date(/data/del_fup)))" />
+
+
+            <!-- Case XML Binds -->
+            <bind nodeset="/data/case/@case_id" calculate="instance('commcaresession')/session/data/case_id"/>
+            <bind nodeset="/data/case/@date_modified" type="xsd:dateTime" calculate="/data/meta/timeEnd"/>
+            <bind nodeset="/data/case/@user_id" calculate="/data/meta/userID"/>
+
+            <bind nodeset="/data/case/update/ifa_tablets_100" calculate="if(/data/ifa_tablets_total &lt; 100, '', if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets_100 = '', today(), instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets_100))" />
+
+            <!-- Saving data from the form to the case -->
+            <bind nodeset="/data/case/update/ifa_tablets" type="xsd:int" calculate="/data/ifa_tablets_total"/>
+            <bind nodeset="/data/case/update/vehicle" type="xsd:string" relevant="/data/bp2/vehicle != ''" calculate="/data/bp2/vehicle" />
+            <bind nodeset="/data/case/update/institutional" type="xsd:string" relevant="/data/bp2/now_institutional != ''" calculate="/data/bp2/now_institutional" />
+            <bind nodeset="/data/case/update/couple_interested" type="xsd:string" relevant="/data/postponing != ''" calculate="/data/postponing" />
+            <bind nodeset="/data/case/update/maternal_emergency_number" type="xsd:string" relevant="/data/bp2/danger_number!= ''" calculate="/data/bp2/danger_number" />
+            <bind nodeset="/data/case/update/maternal_emergency" type="xsd:string" relevant="/data/bp2/danger_institution != ''" calculate="/data/bp2/danger_institution" />
+            <bind nodeset="/data/case/update/clean_cloth" type="xsd:string" relevant="/data/bp2/clean_cloth != ''" calculate="/data/bp2/clean_cloth" />
+            <bind nodeset="/data/case/update/materials" type="xsd:string" relevant="/data/bp2/materials != ''" calculate="/data/bp2/materials" />
+            <bind nodeset="/data/case/update/SBA_phone" type="xsd:string" relevant="/data/bp2/SBA_phone != ''" calculate="/data/bp2/SBA_phone" />
+            <bind nodeset="/data/case/update/SBA" type="xsd:string" relevant="/data/bp2/SBA != ''" calculate="/data/bp2/SBA" />
+            <bind nodeset="/data/case/update/accompany" type="xsd:string" relevant="/data/bp2/accompany != ''" calculate="/data/bp2/accompany" />
+            <bind nodeset="/data/case/update/phone_vehicle" type="xsd:string" relevant="/data/bp2/phone_vehicle != ''" calculate="/data/bp2/phone_vehicle" />
+            <bind nodeset="/data/case/update/saving_money" type="xsd:string" relevant="/data/bp2/saving_money != ''" calculate="/data/bp2/saving_money" />
+            <bind nodeset="/data/case/update/anc_1_date" type="xsd:date" relevant="/data/bp1/anc1/anc1_date !=''" calculate="/data/bp1/anc1/anc1_date" />
+            <bind nodeset="/data/case/update/anc_2_date" type="xsd:date" relevant="/data/bp1/anc2/anc2_date !=''" calculate="/data/bp1/anc2/anc2_date" />
+            <bind nodeset="/data/case/update/anc_3_date" type="xsd:date" relevant="/data/bp1/anc3/anc3_date !=''" calculate="/data/bp1/anc3/anc3_date" />
+            <bind nodeset="/data/case/update/anc_4_date" type="xsd:date" relevant="/data/bp1/anc4/anc4_date !=''" calculate="/data/bp1/anc4/anc4_date" />
+            <bind nodeset="/data/case/update/tt_1_date" type="xsd:date" relevant="/data/bp1/tt1_date !=''" calculate="/data/bp1/tt1_date" />
+            <bind nodeset="/data/case/update/tt_2_date" type="xsd:date" relevant="/data/bp1/tt2_date !=''" calculate="/data/bp1/tt2_date" />
+            <bind nodeset="/data/case/update/tt_booster_date" type="xsd:date" relevant="/data/bp1/tt_booster_date !=''" calculate="/data/bp1/tt_booster_date" />
+            <bind nodeset="/data/case/update/delivery_type" type="xsd:string" relevant="/data/delivery_type !=''" calculate="/data/delivery_type" />
+            <bind nodeset="/data/case/update/bp_visit_num" type="xsd:int" calculate="/data/bp_visit_num" />
+
+            <!-- logic within the form -->
+            <bind nodeset="/data/delivery_type" calculate="if(/data/bp2/now_institutional='yes', 'institutional', 'home')" />
+            <bind nodeset="/data/anc_latest_num" calculate="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_4_date != '' or /data/bp1/anc4/anc4_date != '', 4,
+																if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date != '' or /data/bp1/anc3/anc3_date != '', 3,
+																	if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date != '' or /data/bp1/anc2/anc2_date != '', 2,
+																		if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date != '' or /data/bp1/anc1/anc1_date != '', 1, 0))))"
+                    />
+            <bind nodeset="/data/anc_latest_date" calculate="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_4_date != '', instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_4_date,
+																if(/data/bp1/anc4/anc4_date != '',  /data/bp1/anc4/anc4_date,
+																if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date != '', instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date,
+																	if(/data/bp1/anc3/anc3_date != '',  /data/bp1/anc3/anc3_date,
+																	if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date != '', instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date,
+																		if(/data/bp1/anc2/anc2_date != '',  /data/bp1/anc2/anc2_date,
+																		if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date != '', instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date, 
+																			if(/data/bp1/anc1/anc1_date != '',  /data/bp1/anc1/anc1_date,today()))))))))"
+                    />
+            <bind nodeset="/data/bp2" relevant="(date(/data/cur_edd) - today()) &lt;= 91" />
+            <bind nodeset="/data/bp2/not_yet_institutional" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/institutional = 'no'"/>
+            <bind nodeset="/data/bp2/now_institutional" />
+            <bind nodeset="/data/bp2/play_birth_preparedness_vid" relevant="/data/bp2/now_institutional='yes'" />
+            <bind nodeset="/data/bp2/birth_preparedness_vid" relevant="/data/bp2/play_birth_preparedness_vid = 'yes'" />
+            <bind nodeset="/data/bp2/saving_money" relevant="/data/bp2/now_institutional='yes'" />
+            <bind nodeset="/data/bp2/not_yet_vehicle" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/vehicle = 'no' and /data/bp2/now_institutional = 'yes'" />
+            <bind nodeset="/data/bp2/vehicle" relevant="/data/bp2/now_institutional = 'yes'" />
+            <bind nodeset="/data/bp2/not_yet_phone_number" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/phone_vehicle = 'no' and /data/bp2/vehicle = 'yes'" />
+            <bind nodeset="/data/bp2/phone_vehicle" relevant="/data/bp2/now_institutional='yes' and /data/bp2/vehicle = 'yes'" />
+            <bind nodeset="/data/bp2/accompany" relevant="/data/bp2/now_institutional = 'yes'" />
+            <bind nodeset="/data/bp2/care_of_home" relevant="/data/bp2/now_institutional = 'yes'" />
+            <bind nodeset="/data/bp2/counsel_preparation" relevant="/data/bp2/now_institutional = 'yes'" />
+            <bind nodeset="/data/bp2/not_yet_sba" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/SBA = 'no' and /data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/SBA" relevant="/data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/not_yet_SBA_phone" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/SBA_phone = 'no' and /data/bp2/SBA = 'yes'" />
+            <bind nodeset="/data/bp2/SBA_phone" relevant="/data/bp2/SBA = 'yes'" />
+            <bind nodeset="/data/bp2/not_yet_materials" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/materials = 'no' and /data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/materials" relevant="/data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/not_yet_clean" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/clean_cloth='no' and /data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/clean_cloth" relevant="/data/bp2/now_institutional = 'no'" />
+            <bind nodeset="/data/bp2/maternal_danger_signs" />
+            <bind nodeset="/data/bp2/inform_danger_signs" relevant="/data/bp2/maternal_danger_signs = 'no'" />
+            <bind nodeset="/data/bp2/has_danger_signs" />
+            <bind nodeset="/data/referral_prompt" relevant="/data/bp2/has_danger_signs = 'yes'" />
+            <bind nodeset="/data/bp2/not_yet_maternal_emergency" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/maternal_emergency = 'no'" />
+            <bind nodeset="/data/bp2/danger_institution" />
+            <bind nodeset="/data/bp2/not_yet_maternal_emergency_number" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/maternal_emergency_number = 'no'" />
+            <bind nodeset="/data/bp2/danger_number" relevant="/data/bp2/danger_institution = 'yes'" />
+            <bind nodeset="/data/bp2/play_cord_care_vid" />
+            <bind nodeset="/data/bp2/cord_care_vid" relevant="/data/bp2/play_cord_care_vid = 'yes'" />
+            <bind nodeset="/data/bp2/wrapping" />
+            <bind nodeset="/data/bp2/skin_to_skin" />
+            <bind nodeset="/data/bp2/immediate_breastfeeding" />
+            <bind nodeset="/data/bp2/cord_care" />
+            <bind nodeset="/data/bp1" />
+
+            <bind nodeset="/data/update_edd" />
+            <bind nodeset="/data/edd_known" relevant="/data/update_edd='yes'" required="true()"/>
+            <bind nodeset="/data/new_edd" type="xsd:date" constraint=". &lt; (today() + 315) and . &gt; today()" jr:constraintMsg="jr:itext('new_edd-constraintMsg')" relevant="/data/edd_known = 'yes'" required="true()" />
+            <bind nodeset="/data/lmp_known" relevant="/data/edd_known='no'" required="true()" />
+            <bind nodeset="/data/new_lmp" type="xsd:date" constraint=". &gt; today() - 305 and . &lt; today()" jr:constraintMsg="jr:itext('new_lmp-constraintMsg')" relevant="/data/lmp_known = 'yes'" required="true()"/>
+            <bind nodeset="/data/new_gest_age" type="xsd:int" constraint=". &lt;= 9 and . &gt; 0" relevant="/data/lmp_known = 'no'" required="true()"/>
+            <bind nodeset="/data/display_new_edd" relevant="/data/update_edd = 'yes'"/>
+            <bind nodeset="/data/display_pregnancy_month" relevant = "/data/update_edd = 'yes'" />
+
+            <bind nodeset="/data/bp1/ifa_total_previous_received" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets != ''" />
+            <bind nodeset="/data/bp1/ifa_tablets_already_200" relevant="/data/ifa_tablets_total &gt;=200" />
+            <bind nodeset="/data/bp1/ifa_tablets_issued" type="xsd:int" constraint="(. = int(. div 10) * 10) and . &lt;= 200" jr:constraintMsg="jr:itext('ifa_tablets_issued-constraintMsg')" />
+            <bind nodeset="/data/bp1/total_ifa" />
+            <bind nodeset="/data/bp1/counsel_ifa" />
+            <bind nodeset="/data/bp1/using_ifa" />
+            <bind nodeset="/data/bp1/reason_no_ifa" relevant="/data/bp1/using_ifa = 'no'" />
+            <bind nodeset="/data/bp1/counsel_tt" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date = '' or instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_2_date = ''" />
+            <bind nodeset="/data/bp1/received_tt1" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/last_preg_tt != 'yes' and instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date = ''" />
+            <bind nodeset="/data/bp1/tt1_date" type="xsd:date" constraint=". &lt;= today() and . &gt;= today() - 730" relevant="/data/bp1/received_tt1 = 'yes'" required="true()" />
+            <bind nodeset="/data/bp1/received_tt2" relevant="(/data/bp1/received_tt1 = 'yes' or instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date != '') and instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_2_date = '' and if(/data/bp1/received_tt1 = 'yes', today() &gt;= date(/data/bp1/tt1_date + 30), today() &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date)+ 30))" />
+            <bind nodeset="/data/bp1/tt2_date" type="xsd:date" constraint=". &lt;= today() and if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date != '', . &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_1_date) + 30), if(/data/bp1/tt1_date != '', . &gt;= date(/data/bp1/tt1_date + 30), . &gt;= today() - 730))" relevant="/data/bp1/received_tt2 = 'yes'" required="true()" />
+            <bind nodeset="/data/bp1/tt_booster" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/last_preg_tt = 'yes' and (instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_booster_date = '' or (today() - date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/tt_booster_date) > 730))"/>
+            <bind nodeset="/data/bp1/tt_booster_date" type="xsd:date" constraint=". &lt;= today() and . &gt;= today() - 730" relevant="/data/bp1/tt_booster = 'yes'" required="true()"/>
+            <bind nodeset="/data/bp1/anc1_details" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date = ''" />
+            <bind nodeset="/data/bp1/anc1" relevant="/data/bp1/anc1_details = 'yes'" />
+            <bind nodeset="/data/bp1/anc1/anc1_date" type="xsd:date" constraint=". &lt;= today() and . &gt; today() - 300" required="true()" />
+            <bind nodeset="/data/bp1/anc1/anc1_blood_pressure" relevant="/data/bp1/anc1/anc1_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc1/anc1_abdominal_exam" relevant="/data/bp1/anc1/anc1_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc1/anc1_abnormalities" relevant="/data/bp1/anc1/anc1_facility = 'public'" required="true()"/>
+
+            <bind nodeset="/data/bp1/anc2_details" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date = '' and (instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date != '' or /data/bp1/anc1/anc1_date != '') and if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date != '', today() &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date) + 30), today() &gt;= date(/data/bp1/anc1/anc1_date + 30))" />
+            <bind nodeset="/data/bp1/anc2" relevant="/data/bp1/anc2_details = 'yes'" />
+            <bind nodeset="/data/bp1/anc2/anc2_date" type="xsd:date" constraint="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date = '', . &gt;= date(/data/bp1/anc1/anc1_date + 30),. &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_1_date) + 30)) and . &lt;= today()" required="true()" />
+            <bind nodeset="/data/bp1/anc2/anc2_blood_pressure" relevant="/data/bp1/anc2/anc2_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc2/anc2_abdominal_exam" relevant="/data/bp1/anc2/anc2_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc2/anc2_abnormalities" relevant="/data/bp1/anc2/anc2_facility = 'public'" required="true()"/>
+
+            <bind nodeset="/data/bp1/anc3_details" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date = '' and (instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date != '' or /data/bp1/anc2/anc2_date != '') and if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date != '', today() &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date) + 30), today() &gt;= date(/data/bp1/anc2/anc2_date + 30))" />
+            <bind nodeset="/data/bp1/anc3" relevant="/data/bp1/anc3_details = 'yes'" />
+            <bind nodeset="/data/bp1/anc3/anc3_date" type="xsd:date" constraint="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date = '', . &gt;= date(/data/bp1/anc2/anc2_date + 30),. &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_2_date) + 30)) and . &lt;= today()" required="true()" />
+            <bind nodeset="/data/bp1/anc3/anc3_blood_pressure" relevant="/data/bp1/anc3/anc3_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc3/anc3_abdominal_exam" relevant="/data/bp1/anc3/anc3_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc3/anc3_abnormalities" relevant="/data/bp1/anc3/anc3_facility = 'public'" required="true()"/>
+
+            <bind nodeset="/data/bp1/anc4_details" relevant="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_4_date = '' and (instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date != '' or /data/bp1/anc3/anc3_date != '') and if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date != '', today() &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date) + 30), today() &gt;= date(/data/bp1/anc3/anc3_date + 30))" />
+            <bind nodeset="/data/bp1/anc4" relevant="/data/bp1/anc4_details = 'yes'" />
+            <bind nodeset="/data/bp1/anc4/anc4_date" type="xsd:date" constraint="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date = '', . &gt;= date(/data/bp1/anc3/anc3_date + 30),. &gt;= date(date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/anc_3_date) + 30)) and . &lt;= today()" required="true()" />
+            <bind nodeset="/data/bp1/anc4/anc4_blood_pressure" relevant="/data/bp1/anc4/anc4_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc4/anc4_abdominal_exam" relevant="/data/bp1/anc4/anc4_facility = 'public'" required="true()"/>
+            <bind nodeset="/data/bp1/anc4/anc4_abnormalities" relevant="/data/bp1/anc4/anc4_facility = 'public'" required="true()"/>
+
+            <bind nodeset="/data/bp1/anc_display" />
+
+            <bind nodeset="/data/bp1/resting" />
+            <bind nodeset="/data/bp1/eating_extra" />
+            <bind nodeset="/data/ifa_tablets_total" type="xsd:int" calculate="if(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets='', 0, int(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets)) + if(/data/bp1/ifa_tablets_issued='', 0, int(/data/bp1/ifa_tablets_issued))" />
+            <bind nodeset="/data/play_family_planning_vid" relevant="(date(/data/cur_edd) - today()) &lt;= 91 and instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/couple_interested != 'yes'" />
+            <bind nodeset="/data/family_planning_vid" relevant="/data/play_family_planning_vid = 'yes'" />
+            <bind nodeset="/data/conceive" relevant="(date(/data/cur_edd) - today()) &lt;= 91 and instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/couple_interested != 'yes'" />
+            <bind nodeset="/data/postponing" relevant="(date(/data/cur_edd) - today()) &lt;= 91 and instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/couple_interested != 'yes'" />
+            <bind nodeset="/data/family_planning_group" relevant="(/data/postponing = 'yes' or /data/postponing='undecided' or int(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/num_boys) &gt; 1 or instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/couple_interested = 'yes') and (date(/data/cur_edd) - today()) &lt;= 91" />
+            <bind nodeset="/data/family_planning_group/counsel_accessible" />
+            <bind nodeset="/data/family_planning_group/help_decide" />
+            <bind nodeset="/data/family_planning_group/immediate_appropriate"/>
+            <bind nodeset="/data/family_planning_group/institution_immediate" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/counsel_nearest" relevant="/data/family_planning_group/institution_immediate = 'no'"/>
+            <bind nodeset="/data/family_planning_group/counsel_benefits" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/avail_immediate" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/counsel_stay" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/counsel_institution" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/counsel_disqualification" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/counsel_options" relevant="/data/family_planning_group/immediate_appropriate = 'yes'" />
+            <bind nodeset="/data/family_planning_group/risk_of_preg" relevant="/data/family_planning_group/immediate_appropriate = 'no'" />
+            <bind nodeset="/data/family_planning_group/stop_children" relevant="/data/family_planning_group/immediate_appropriate = 'no'" />
+            <bind nodeset="/data/family_planning_group/counsel_methods" relevant="/data/family_planning_group/immediate_appropriate = 'no'" />
+            <bind nodeset="/data/family_planning_group/postpone_conception" relevant="/data/family_planning_group/immediate_appropriate = 'no'" />
+            <bind nodeset="/data/family_planning_group/spacing_methods" relevant="/data/family_planning_group/postpone_conception != 'yes' and /data/family_planning_group/immediate_appropriate = 'no'" />
+            <bind nodeset="/data/BP_complete_referral_needed" relevant="/data/bp2/has_danger_signs = 'yes'" />
+
+            <bind nodeset="/data/lmp_calc" type="xsd:date" calculate="if(/data/new_lmp != '', /data/new_lmp, if(/data/new_edd != '', date(/data/new_edd - 280), date(today() - (30*/data/new_gest_age))))" relevant="/data/update_edd='yes'" />
+            <bind nodeset="/data/edd_calc" type="xsd:date" calculate="if(/data/new_edd != '', /data/new_edd, if(/data/new_lmp != '', date(/data/new_lmp + 280), date(today() + 280 - 30*/data/new_gest_age)))" relevant="/data/update_edd='yes'"/>
+
+            <itext>
+                <translation lang="hin" default="">
+                    <text id="not_yet_institutional-label">
+                        <value>पिछ्ली भेंट में महिला ने हॉस्पिटल जाने का निर्णेय नहीं लिया था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_institutional_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/not_yet_institutional.png</value>
+                    </text>
+                    <text id="yes-label">
+                        <value>1. हॉ</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/yes_hin.mp3</value>
+                    </text>
+                    <text id="no-label">
+                        <value>2. नही</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/no_hin.mp3</value>
+                    </text>
+                    <text id="now_institutional-label">
+                        <value>क्या परिवार ने हॉस्पिटल मे प्रसव करवाने का निर्णय लिया?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/now_institutional_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/now_institutional.png</value>
+                    </text>
+                    <text id="saving_money-label">
+                        <value>क्या परिवार ने प्रसव करवाने के लिए पैसे की बचत शुरु की?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/saving_money_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/saving_money.png</value>
+                    </text>
+                    <text id="not_yet_vehicle-label">
+                        <value>पिछली मुलाकात में परिवार ने अस्पताल जाने के लिए गाडी का प्रबंध नहीं किया था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_vehicle_hin.mp3</value>
+                    </text>
+                    <text id="vehicle-label">
+                        <value>क्या परिवार ने गाडी की व्यवस्था की?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/vehicle_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/vehicle.png</value>
+                    </text>
+                    <text id="not_yet_phone_number-label">
+                        <value>पिछ्ली भेंट मे परिवार के पास गाडीवाले का फ़ोन न० नहीं था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_phone_number_hin.mp3</value>
+                    </text>
+                    <text id="phone_vehicle-label">
+                        <value>क्या परिवार के पास गाडी वाले का फोन न० हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/phone_vehicle_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/phone_vehicle.png</value>
+                    </text>
+                    <text id="accompany-label">
+                        <value>क्या  हॉस्पिटल मे प्रसव करवाने के समय परिवार से कोई साथ जायेगा?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/accompany_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/accompany.png</value>
+                    </text>
+                    <text id="care_of_home-label">
+                        <value>क्या परिवार ने सोचा है की जब गर्भवती महिला प्रसव के लिए जाएगी, तो घर की देखभाल कौन करेगा?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/care_of_home_hin.mp3</value>
+                    </text>
+                    <text id="counsel_preparation-label">
+                        <value>क्या परिवार को हॉस्पिटल मे प्रसव करवाने की तैयारी के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_preparation_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_preparation.png</value>
+                    </text>
+                    <text id="not_yet_sba-label">
+                        <value>पिछली भेंट में, घर पर प्रसव करवाने के लिए, परिवार ने  प्रशिक्षित दाई की पहचान नहीं की थी। </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_sba_hin.mp3</value>
+                    </text>
+                    <text id="SBA-label">
+                        <value>क्या परिवार ने प्रसव के लिये प्रशिक्षित दाई का चयन किया है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/SBA_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/SBA.png</value>
+                    </text>
+                    <text id="not_yet_SBA_phone-label">
+                        <value>पिछली भेंट में परिवार के पास प्रशिक्षित दाई का फ़ोन न० नहीं था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_SBA_phone_hin.mp3</value>
+                    </text>
+                    <text id="SBA_phone-label">
+                        <value>क्या परिवार के पास प्रशिक्षित दाई का फोन न० है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/SBA_phone_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/SBA_phone.png</value>
+                    </text>
+                    <text id="not_yet_materials-label">
+                        <value>पिछली भेंट में परिवार ने घर मे प्रसव करवाने के लिए सामान ईक्टठा नहीं किया था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_materials_hin.mp3</value>
+                    </text>
+                    <text id="materials-label">
+                        <value>क्या परिवार ने घर मे प्रसव करवाने के लिए सामान ईक्टठा कर लिया?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/materials_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/materials.png</value>
+                    </text>
+                    <text id="not_yet_clean-label">
+                        <value>पिछली भेंट में, परिवार ने घर मे प्रसव करवाने के लिए साफ कपडे का इंतज़ाम नही किया था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_clean_hin.mp3</value>
+                    </text>
+                    <text id="clean_cloth-label">
+                        <value>क्या परिवार ने साफ कपडो का इंतजाम कर लिया?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/clean_cloth_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/clean_cloth.png</value>
+                    </text>
+                    <text id="maternal_danger_signs-label">
+                        <value>क्या परिवार को गर्भावस्था मे होने वाले खतरों के लक्षण की जानकारी है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/maternal_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/maternal_danger_signs.png</value>
+                    </text>
+                    <text id="inform_danger_signs-label">
+                        <value>खतरे के लक्षणो के बारे मे परिवार को बताये।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/inform_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/inform_danger_signs.png</value>
+                    </text>
+                    <text id="has_danger_signs-label">
+                        <value>क्या गर्भवती मे कोई खतरे का लक्षण है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/has_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/has_danger_signs.png</value>
+                    </text>
+                    <text id="referral_prompt-label">
+                        <value>रेफरल की ज़रूरत है  </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/referral_prompt_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/referral_prompt.png</value>
+                    </text>
+                    <text id="not_yet_maternal_emergency-label">
+                        <value>पिछली भेंट में परिवार ने ईमरजेंसी सेवा के लिए हॉस्पिटल जाने कि व्यवस्था नही की थी।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_maternal_emergency_hin.mp3</value>
+                    </text>
+                    <text id="danger_institution-label">
+                        <value>क्या परिवार ने ईमरजेंसी सेवा के लिए हॉस्पिटल की पहचान की?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/danger_institution_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/danger_institution.png</value>
+                    </text>
+                    <text id="not_yet_maternal_emergency_number-label">
+                        <value>पिछली भेंट में परिवार के पास ईमरजेंसी सेवा के लिए हॉस्पिटल का फोन न0  नही था।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_maternal_emergency_number_hin.mp3</value>
+                    </text>
+                    <text id="danger_number-label">
+                        <value>क्या परिवार के पास हॉस्पिटल का फोन न० है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/danger_number_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/danger_number.png</value>
+                    </text>
+                    <text id="wrapping-label">
+                        <value>पोछने एवं लपेटने के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/wrapping_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/wrapping.png</value>
+                    </text>
+                    <text id="skin_to_skin-label">
+                        <value>त्वचा से त्वचा सम्पर्क के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/skin_to_skin_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/skin_to_skin.png</value>
+                    </text>
+                    <text id="cord_care-label">
+                        <value>नाल की देखभाल के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/cord_care_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/cord_care.png</value>
+                    </text>
+                    <text id="immediate_breastfeeding-label">
+                        <value>तुरंत स्तनपान के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/immediate_breastfeeding_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/immediate_breastfeeding.png</value>
+                    </text>
+                    <text id="conceive-label">
+                        <value>क्या पति पत्नी को मालुम हैं कि औरत अब प्रसव के बाद कभी भी गर्भवती हो सकती है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/conceive_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/conceive.png</value>
+                    </text>
+                    <text id="postponing-label">
+                        <value>क्या पति पत्नी परिवार नियोजन के लिए इच्छुक हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/postponing_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/postponing.png</value>
+                    </text>
+                    <text id="counsel_accessible-label">
+                        <value>इस गॉव के नजदीक प्रसव बाद परिवार नियोजन केन्द्र की उपलब्धता के बारे मे सलाह दी।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_accessible_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_accessible.png</value>
+                    </text>
+                    <text id="help_decide-label">
+                        <value>सही चुनाव करने मे मदद करे</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/help_decide_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/help_decide.png</value>
+                    </text>
+                    <text id="immediate_appropriate-label">
+                        <value>क्या तुरंत प्रसव बाद परिवार नियोजन विधि ( कॉपर-टी / बंध्याकरण ) पति पत्नी के लिए सही हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/immediate_appropriate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/immediate_appropriate.png</value>
+                    </text>
+                    <text id="institution_immediate-label">
+                        <value>क्या पति पत्नी ने तुरंत प्रसव बाद परिवार नियोजन के लिए सही हॉस्पिटल कि पहचान की?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/institution_immediate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/institution_immediate.png</value>
+                    </text>
+                    <text id="counsel_nearest-label">
+                        <value>प्रसव बाद परिवार नियोजन के लिये नजदीकी उप्लब्ध जगह की जानकारी दे?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_nearest.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_nearest.png</value>
+                    </text>
+                    <text id="counsel_benefits-label">
+                        <value>लाभ के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_benefits_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_benefits.png</value>
+                    </text>
+                    <text id="avail_immediate-label">
+                        <value>तुरंत कॉपर-टी / बंध्याकरण लेने के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/avail_immediate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/avail_immediate.png</value>
+                    </text>
+                    <text id="counsel_stay-label">
+                        <value>उसके दुष्प्रभाव को बताया?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_stay_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_stay.png</value>
+                    </text>
+                    <text id="counsel_institution-label">
+                        <value>हॉस्पिटल मे मिलने के लिए कहा?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_institution_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_institution.png</value>
+                    </text>
+                    <text id="counsel_disqualification-label">
+                        <value> कॉपर-टी / बंध्याकरण नही भी हो सकता है इसके बारे मे सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_disqualification_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_disqualification.png</value>
+                    </text>
+                    <text id="counsel_options-label">
+                        <value>यदि किसी कारण तुरंत प्रसव बाद परिवार नियोजन सम्भव नही हैं तो उसे अन्य विधियो के लिए सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_options_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_options.png</value>
+                    </text>
+                    <text id="risk_of_preg-label">
+                        <value>प्रसव बाद पुनः गर्भधारण के खतरो के बारे मे सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/risk_of_preg_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/risk_of_preg.png</value>
+                    </text>
+                    <text id="stop_children-label">
+                        <value>क्या पति पत्नी अब और बच्चे नही चाहते है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/stop_children_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/stop_children.png</value>
+                    </text>
+                    <text id="undecided-label">
+                        <value>3. निर्णय नही लिया</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/undecided_hin.mp3</value>
+                    </text>
+                    <text id="counsel_methods-label">
+                        <value>गर्भ रोकने के उपल्ब्ध विधियो के बारे मे सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_methods_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_methods.png</value>
+                    </text>
+                    <text id="postpone_conception-label">
+                        <value>क्या पति पत्नी अगले बच्चे को टालने के लिये तैयार हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/postpone_conception_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/postpone_conception.png</value>
+                    </text>
+                    <text id="spacing_methods-label">
+                        <value>अन्य परिवार नियोजन विधियो के बारे मे सलाह दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/spacing_methods_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/spacing_methods.png</value>
+                    </text>
+                    <text id="update_edd-label">
+                        <value><output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/mother_name"/> के प्रसव की सम्भावित <output value="format-date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/edd, '%e/%n/%y')"/> है। वह गर्भावस्था के <output value="int((today() - date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/lmp)) div 30)"/>  माह मे हैं। क्या ये सही है? </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/update_edd_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/update_edd.png</value>
+                    </text>
+                    <text id="lmp_known-label">
+                        <value>क्या अंतिम माहवारी की जानकारी है?</value>
+                        <value form="image">jr://file/commcare/media/images/bp/lmp_known.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp_known_hin.mp3</value>
+                    </text>
+                    <text id="new_lmp-label">
+                        <value>आखरी माहवारी </value>
+                        <value form="image">jr://file/commcare/media/images/bp/lmp.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp_hin.mp3</value>
+                    </text>
+                    <text id="new_lmp-constraintMsg">
+                        <value>अंतिम माहवारी की तिथि निश्चित ही 10 माह के अंदर हो</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="edd_known-label">
+                        <value>क्या डाक्टर/नर्स ने प्रसव की सम्भावित तारीख बतायी है?</value>
+                        <value form="image">jr://file/commcare/media/images/bp/edd_known.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd_known_hin.mp3</value>
+                    </text>
+                    <text id="new_edd-label">
+                        <value>प्रसव की सम्भावित तारीख</value>
+                        <value form="image">jr://file/commcare/media/images/bp/edd.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd_hin.mp3</value>
+                    </text>
+                    <text id="new_edd-constraintMsg">
+                        <value>सम्भावित प्रसव तिथि  निश्चित ही 10 माह के अन्दर हो </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="new_gest_age-label">
+                        <value>यह महिला कितने महिनो से गर्भवती है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/gest_age_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/gest_age.png</value>
+                    </text>
+                    <text id="display_new_edd-label">
+                        <value>आप की प्रसव की सम्भावित तारीख: <output value="format-date(/data/case/update/edd, '%e/%n/%y')"/></value>
+                        <value form="image">jr://file/commcare/media/images/bp/show_edd.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/show_edd_hin.mp3</value>
+                    </text>
+                    <text id="display_pregnancy_month-label">
+                        <value><output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/mother_name"/> गर्भावस्था के <output value="int((today() - date(/data/cur_lmp)) div 30)"/> माह मे हैं। </value>
+                        <value form="image">jr://file/commcare/media/images/bp/display_pregnancy_month.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/display_pregnancy_month_hin.mp3</value>
+                    </text>
+                    <text id="ifa_total_previous_received-label">
+                        <value>अब तक प्राप्त कुल आई.एफ.ए की गोलियॉ <output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_total_previous_received_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_total_previous_received.png</value>
+                    </text>
+                    <text id="ifa_tablets_already_200-label">
+                        <value>इस लाभार्थी को 200  गोलियॉ मिल चुकी है</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_already_200_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_tablets_already_200.png</value>
+                    </text>
+                    <text id="ifa_tablets_issued-label">
+                        <value>इसबार कितनी आई.एफ.ए की गोलियॉ मिली।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_issued_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_tablets_issued.png</value>
+                    </text>
+                    <text id="total_ifa-label">
+                        <value>आज तक प्राप्त कुल आई.एफ.ए की गोलियॉ <output ref="/data/ifa_tablets_total"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/total_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/total_ifa.png</value>
+                    </text>
+                    <text id="counsel_ifa-label">
+                        <value>गर्भवती महिला को आई.एफ.ए गोलियों की जानकारी दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_ifa.png</value>
+                    </text>
+                    <text id="using_ifa-label">
+                        <value>क्या यह गर्भवती महिला आई.एफ.ए की गोलियॉ ले रही है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/using_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/using_ifa.png</value>
+                    </text>
+                    <text id="reason_no_ifa-label">
+                        <value>गोलियॉ नही लेने का कारण?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-side_effects-label">
+                        <value>1. बुरे प्रभाव का डर</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-side_effects_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-dont_remember-label">
+                        <value>2. याद नही रहा</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-dont_remember_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-not_required-label">
+                        <value>3. जरुरत नही ( स्वस्थ्य है )</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-not_required_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-fear-label">
+                        <value>4. दवा का डर </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-fear_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-other-label">
+                        <value>5. अन्य कारण</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-other_hin.mp3</value>
+                    </text>
+                    <text id="counsel_tt-label">
+                        <value>टी.टी सुई की जानकारी दी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_tt_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_tt.png</value>
+                    </text>
+                    <text id="received_tt1-label">
+                        <value>टी.टी-1 लगवाया या नही?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/received_tt1_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/received_tt1.png</value>
+                    </text>
+                    <text id="tt1_date-label">
+                        <value>टी.टी - 1   की तारीख</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt1_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt1_date.png</value>
+                    </text>
+                    <text id="received_tt2-label">
+                        <value>टी.टी - 2  लगवाया या नही?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/received_tt2_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/received_tt2.png</value>
+                    </text>
+                    <text id="tt2_date-label">
+                        <value>टी.टी - 2  की तारीख</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt2_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt2_date.png</value>
+                    </text>
+                    <text id="tt_booster-label">
+                        <value>टी.टी - बूस्टर लगवाया या नही?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt_booster_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt_booster.png</value>
+                    </text>
+                    <text id="tt_booster_date-label">
+                        <value>टी.टी - बूस्टर की तारीख </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt_booster_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt_booster_date.png</value>
+                    </text>
+                    <text id="anc1_details-label">
+                        <value>पहली प्रसव पूर्व जॉच विवरण उपलब्ध हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_details.png</value>
+                    </text>
+                    <text id="anc_date-label">
+                        <value>इस जॉच की तारीख </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_date.png</value>
+                    </text>
+                    <text id="anc_blood_pressure-label">
+                        <value>रक्तचाप</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_blood_pressure_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_blood_pressure.png</value>
+                    </text>
+                    <text id="bp-normal-label">
+                        <value>1. सामान्य</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_blood_pressure-normal_hin.mp3</value>
+                    </text>
+                    <text id="bp-high-label">
+                        <value>2. उच्च </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_blood_pressure-high_bloodpressure_hin.mp3</value>
+                    </text>
+                    <text id="bp-not_measured-label">
+                        <value>3. मापा नही</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_blood_pressure-not_measured_hin.mp3</value>
+                    </text>
+                    <text id="anc_abdominal_exam-label">
+                        <value>पेट की जॉच</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_abdominal_exam.png</value>
+                    </text>
+                    <text id="performed-label">
+                        <value>1. की</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam-performed_hin.mp3</value>
+                    </text>
+                    <text id="not_performed-label">
+                        <value>2. नही की</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam-not_performed_hin.mp3</value>
+                    </text>
+                    <text id="anc_abnormalities-label">
+                        <value>कोई दिक्कत पाई गई?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abnormalities_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_abnormalities.png</value>
+                    </text>
+                    <text id="anc2_details-label">
+                        <value>दूसरा प्रसव पूर्व जॉच विवरण उपलब्ध है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc2_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc2_details.png</value>
+                    </text>
+
+                    <text id="anc3_details-label">
+                        <value>तीसरा प्रसव पूर्व जॉच विवरण उपलब्ध है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc3_details.png</value>
+                    </text>
+                    <text id="anc3_details-no-label">
+                        <value>2. नही</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/no_hin.mp3</value>
+                    </text>
+
+                    <text id="anc4_details-label">
+                        <value>चौथा प्रसव पूर्व जॉच विवरण उपलब्ध है?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc4_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc4_details.png</value>
+                    </text>
+
+                    <text id="anc_display-label">
+                        <value><output value="format-date(/data/anc_latest_date, '%e/%n/%y')" /> तक कुल प्रसव पूर्व जांच की संख्या <output ref="/data/anc_latest_num" />  है </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc_display_hin.mp3</value>
+                    </text>
+                    <text id="resting-label">
+                        <value>क्या वह दोपहर मे आराम कर रही है? </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/resting_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/resting.png</value>
+                    </text>
+                    <text id="eating_extra-label">
+                        <value>क्या वह ऊपरी आहार ले रही है? </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/eating_extra_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/eating_extra.png</value>
+                    </text>
+                    <text id="BP_complete_referral_needed-label">
+                        <value>तुरंत हॉस्पिटल भेज ये:<output ref="if(count(instance('referral')/contact_list/contact[type='public']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='public']/name,': ', instance('referral')/contact_list/contact[type='public']/number),'')"/><output ref="if(count(instance('referral')/contact_list/contact[type='private']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='private']/name,': ', instance('referral')/contact_list/contact[type='private']/number),'')"/><output ref="if(count(instance('referral')/contact_list/contact[type='transport']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='transport']/name,': ', instance('referral')/contact_list/contact[type='transport']/number),'')"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/BP_complete_referral_needed_hin.mp3</value>
+                    </text>
+                    <text id="success-label">
+                        <value>सफलतापूर्वक फार्म समाप्त।</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/success_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/success.png</value>
+                    </text>
+                    <text id="anc_facility-label">
+                        <value>प्रसव पूर्व जाँच कहॉ हुई थी?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_facility.png</value>
+                    </text>
+                    <text id="public-label">
+                        <value>1. सरकारी</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility-public_hin.mp3</value>
+                    </text>
+                    <text id="private-label">
+                        <value>2. प्राईवेट</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility-private_hin.mp3</value>
+                    </text>
+
+                    <text id="ifa_tablets_issued-constraintMsg">
+                        <value>गोलियों की संख्या 200 से कम होनी चाहिए एवं सिर्फ 10 गोलियों के पत्तों वाली संख्या भरें</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_issued-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="anc1_date-constraintMsg">
+                        <value>तारीख पिछले 10 महीने के अंदर होनी चाहिए</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_date-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="nextvisit-label">
+                        <value>अगला भेंट <output ref="jr:itext(concat('visittype-', /data/nextvisittype))"/> होगा, <output ref="date(if(/data/nextvisittype = 'bp', /data/case/update/date_next_bp,      if(/data/nextvisittype = 'del', /data/del_fup, '????'))) - today()"/> दिन मे</value>
+                    </text>
+                    <text id="visittype-bp">
+                        <value>प्रसव पुर्व तैयारी</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/visittype-bp_hin.mp3</value>
+                    </text>
+                    <text id="visittype-del">
+                        <value>प्रसव</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/visittype-del_hin.mp3</value>
+                    </text>
+                    <text id="play_family_planning_vid-label">
+                        <value>परिवार नियोजन की फिल्म दिखाना चाहती हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_family_planning_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_family_planning_vid.png</value>
+                    </text>
+
+                    <text id="family_planning_vid-label">
+                        <value>परिवार नियोजन</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/family_planning_vid.3gp</value>
+                    </text>
+                    <text id="play_cord_care_vid-label">
+                        <value>नाल की देखभाल के बारे मे फिल्म दिखाना चाहती हैं?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_cord_care_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_cord_care_vid.png</value>
+                    </text>
+                    <text id="cord_care_vid-label">
+                        <value>नाल की देखभाल</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/cord_care_vid.3gp</value>
+                    </text>
+                    <text id="play_birth_preparedness_vid-label">
+                        <value>प्रसव पूर्व तैयारी के बारे मे फिल्म दिखाना चाहती हैं? </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_birth_preparedness_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_birth_preparedness_vid.png</value>
+                    </text>
+                    <text id="birth_preparedness_vid-label">
+                        <value>प्रसव पूर्व तैयारी</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/birth_preparedness_vid.3gp</value>
+                    </text>
+                </translation>
+                <translation lang="en">
+                    <text id="not_yet_institutional-label">
+                        <value>Last visit the family had not decided to go for institutional delivery</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_institutional_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/not_yet_institutional.png</value>
+                    </text>
+                    <text id="yes-label">
+                        <value>1. Yes</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/yes_hin.mp3</value>
+                    </text>
+                    <text id="no-label">
+                        <value>2. No</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/no_hin.mp3</value>
+                    </text>
+                    <text id="now_institutional-label">
+                        <value>Has the family decided to go for institutional delivery?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/now_institutional_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/now_institutional.png</value>
+                    </text>
+                    <text id="saving_money-label">
+                        <value>Has the family started saving money?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/saving_money_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/saving_money.png</value>
+                    </text>
+                    <text id="not_yet_vehicle-label">
+                        <value>Last visit the family had not identiied a vehicle</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_vehicle_hin.mp3</value>
+                    </text>
+                    <text id="vehicle-label">
+                        <value>Has a vehicle been identified?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/vehicle_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/vehicle.png</value>
+                    </text>
+                    <text id="not_yet_phone_number-label">
+                        <value>Last visit the family did not have a phone number to call vehicle</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_phone_number_hin.mp3</value>
+                    </text>
+                    <text id="phone_vehicle-label">
+                        <value>Do they have a phone number to call vehicle?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/phone_vehicle_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/phone_vehicle.png</value>
+                    </text>
+                    <text id="accompany-label">
+                        <value>Has the family decided who is going to accompany her to institution?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/accompany_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/accompany.png</value>
+                    </text>
+                    <text id="care_of_home-label">
+                        <value>Has the family arranged to take care of home when pregnant woman is away?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/care_of_home_hin.mp3</value>
+                    </text>
+                    <text id="counsel_preparation-label">
+                        <value> Counselled the woman on proper preparation for an institutional delivery?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_preparation_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_preparation.png</value>
+                    </text>
+                    <text id="not_yet_sba-label">
+                        <value>Last visit the family had not identified a Skilled Birth Attendant (SBA)</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_sba_hin.mp3</value>
+                    </text>
+                    <text id="SBA-label">
+                        <value>Has the family identified a Skilled Birth Attendant (SBA)?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/SBA_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/SBA.png</value>
+                    </text>
+                    <text id="not_yet_SBA_phone-label">
+                        <value>Last visit the family did not have the phone number</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_SBA_phone_hin.mp3</value>
+                    </text>
+                    <text id="SBA_phone-label">
+                        <value>Does the family have the phone number?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/SBA_phone_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/SBA_phone.png</value>
+                    </text>
+                    <text id="not_yet_materials-label">
+                        <value>Last visit the family had not gathered materials for conducting home delivery</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_materials_hin.mp3</value>
+                    </text>
+                    <text id="materials-label">
+                        <value>Has the family gathered materials for conducting home delivery?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/materials_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/materials.png</value>
+                    </text>
+                    <text id="not_yet_clean-label">
+                        <value>Last visit the family did not keep aside clean cloth for woman and baby</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_clean_hin.mp3</value>
+                    </text>
+                    <text id="clean_cloth-label">
+                        <value>Has family kept aside clean cloth for woman and baby?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/clean_cloth_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/clean_cloth.png</value>
+                    </text>
+                    <text id="maternal_danger_signs-label">
+                        <value>Is the family aware of maternal danger signs?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/maternal_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/maternal_danger_signs.png</value>
+                    </text>
+                    <text id="inform_danger_signs-label">
+                        <value>Inform family about maternal danger signs</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/inform_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/inform_danger_signs.png</value>
+                    </text>
+                    <text id="has_danger_signs-label">
+                        <value>Does she have any symptoms of danger signs?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/has_danger_signs_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/has_danger_signs.png</value>
+                    </text>
+                    <text id="referral_prompt-label">
+                        <value>Referral Needed.  </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/referral_prompt_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/referral_prompt.png</value>
+                    </text>
+                    <text id="not_yet_maternal_emergency-label">
+                        <value>Last visit family had not identified which institution to go to, if there is a maternal emergency</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_maternal_emergency_hin.mp3</value>
+                    </text>
+                    <text id="danger_institution-label">
+                        <value>If there is maternal emergency, has family identified which institution to go?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/danger_institution_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/danger_institution.png</value>
+                    </text>
+                    <text id="not_yet_maternal_emergency_number-label">
+                        <value>Last visit the family did not have the phone number</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/not_yet_maternal_emergency_number_hin.mp3</value>
+                    </text>
+                    <text id="danger_number-label">
+                        <value>Does the family have the phone number?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/danger_number_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/danger_number.png</value>
+                    </text>
+                    <text id="wrapping-label">
+                        <value>Counselled for drying/wrapping?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/wrapping_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/wrapping.png</value>
+                    </text>
+                    <text id="skin_to_skin-label">
+                        <value>Counselled for Skin to Skin Care?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/skin_to_skin_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/skin_to_skin.png</value>
+                    </text>
+                    <text id="cord_care-label">
+                        <value>Counselled for cord care?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/cord_care_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/cord_care.png</value>
+                    </text>
+                    <text id="immediate_breastfeeding-label">
+                        <value>Counselled for immediate breast feeding?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/immediate_breastfeeding_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/immediate_breastfeeding.png</value>
+                    </text>
+                    <text id="conceive-label">
+                        <value>Is the couple aware that woman may conceive again anytime after delivery?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/conceive_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/conceive.png</value>
+                    </text>
+                    <text id="postponing-label">
+                        <value>Is the couple interested in postponing next birth/limiting birth?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/postponing_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/postponing.png</value>
+                    </text>
+                    <text id="counsel_accessible-label">
+                        <value>Counselled PPFP accessible to this village?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_accessible_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_accessible.png</value>
+                    </text>
+                    <text id="help_decide-label">
+                        <value>Help them to decide appropriate choice</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/help_decide_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/help_decide.png</value>
+                    </text>
+                    <text id="immediate_appropriate-label">
+                        <value>Is the choice of immediate PPFP method (IUD or TL) appropriate for the couple?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/immediate_appropriate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/immediate_appropriate.png</value>
+                    </text>
+                    <text id="institution_immediate-label">
+                        <value>Has the family identified right institute for immediate PPFP?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/institution_immediate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/institution_immediate.png</value>
+                    </text>
+                    <text id="counsel_nearest-label">
+                        <value>Counselled about nearest available PPFP option</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_nearest.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_nearest.png</value>
+                    </text>
+                    <text id="counsel_benefits-label">
+                        <value>Counselled about benefits?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_benefits_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_benefits.png</value>
+                    </text>
+                    <text id="avail_immediate-label">
+                        <value>Counselled about how to avail of immediate IUD/TL?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/avail_immediate_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/avail_immediate.png</value>
+                    </text>
+                    <text id="counsel_stay-label">
+                        <value>Counselled about duration of stay and side effects?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_stay_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_stay.png</value>
+                    </text>
+                    <text id="counsel_institution-label">
+                        <value>Counselled about whom to contact at the institution?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_institution_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_institution.png</value>
+                    </text>
+                    <text id="counsel_disqualification-label">
+                        <value>Counselled about the possibility of no availability or disqualification?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_disqualification_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_disqualification.png</value>
+                    </text>
+                    <text id="counsel_options-label">
+                        <value>Counselled about other options available in case immediate PPFP is not possible?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_options_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_options.png</value>
+                    </text>
+                    <text id="risk_of_preg-label">
+                        <value>Counselled about the risk of pregnancy soon after delivery?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/risk_of_preg_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/risk_of_preg.png</value>
+                    </text>
+                    <text id="stop_children-label">
+                        <value>Does the couple now intend to stop having children?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/stop_children_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/stop_children.png</value>
+                    </text>
+                    <text id="undecided-label">
+                        <value>3. Undecided</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/undecided_hin.mp3</value>
+                    </text>
+                    <text id="counsel_methods-label">
+                        <value>Counseled about choice of available methods?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_methods_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_methods.png</value>
+                    </text>
+                    <text id="postpone_conception-label">
+                        <value>Does the couple intend to postpone the next conception?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/postpone_conception_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/postpone_conception.png</value>
+                    </text>
+                    <text id="spacing_methods-label">
+                        <value>Counseled about other spacing methods?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/spacing_methods_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/spacing_methods.png</value>
+                    </text>
+                    <text id="lmp_known-label">
+                        <value>LMP Known?</value>
+                        <value form="image">jr://file/commcare/media/images/bp/lmp_known.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp_known_hin.mp3</value>
+                    </text>
+
+                    <text id="new_lmp-label">
+                        <value>LMP</value>
+                        <value form="image">jr://file/commcare/media/images/bp/lmp.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp_hin.mp3</value>
+                    </text>
+                    <text id="new_lmp-constraintMsg">
+                        <value>LMP must be within past 10 months. </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/lmp-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="update_edd-label">
+                        <value><output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/mother_name"/> is due for delivery on <output value="format-date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/edd, '%e/%n/%y')"/>.  They are <output value="int((today() - date(instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/lmp)) div 30)"/> months into their pregnancy.  Is this correct? </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/update_edd_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/update_edd.png</value>
+                    </text>
+                    <text id="edd_known-label">
+                        <value>Has a Doctor or Nurse provided an EDD?</value>
+                        <value form="image">jr://file/commcare/media/images/bp/edd_known.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd_known_hin.mp3</value>
+                    </text>
+                    <text id="new_edd-label">
+                        <value>EDD</value>
+                        <value form="image">jr://file/commcare/media/images/bp/edd.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd_hin.mp3</value>
+                    </text>
+                    <text id="new_edd-constraintMsg">
+                        <value>EDD must be within next 10 months.</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/edd-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="new_gest_age-label">
+                        <value>Enter Gestational Age in Months</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/gest_age_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/gest_age.png</value>
+                    </text>
+                    <text id="display_new_edd-label">
+                        <value>Your EDD is: <output value="format-date(/data/case/update/edd, '%e/%n/%y')"/></value>
+                        <value form="image">jr://file/commcare/media/images/bp/show_edd.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/show_edd_hin.mp3</value>
+                    </text>
+                    <text id="display_pregnancy_month-label">
+                        <value><output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/mother_name"/> is <output value="int((today() - date(/data/cur_lmp)) div 30)"/> months into their pregnancy.</value>
+                        <value form="image">jr://file/commcare/media/images/bp/display_pregnancy_month.png</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/display_pregnancy_month_hin.mp3</value>
+                    </text>
+                    <text id="ifa_total_previous_received-label">
+                        <value>Total number of IFA tablets previously issued: <output ref="instance('casedb')/casedb/case[@case_id=/data/case/@case_id]/ifa_tablets"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_total_previous_received_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_total_previous_received.png</value>
+                    </text>
+                    <text id="ifa_tablets_already_200-label">
+                        <value>You have already punched the case to receive 200 tablets!</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_already_200_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_tablets_already_200.png</value>
+                    </text>
+                    <text id="ifa_tablets_issued-label">
+                        <value>IFA Tablets Received:</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_issued_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/ifa_tablets_issued.png</value>
+                    </text>
+                    <text id="total_ifa-label">
+                        <value>Total number of IFA tablets issued up till today: <output ref="/data/ifa_tablets_total"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/total_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/total_ifa.png</value>
+                    </text>
+                    <text id="counsel_ifa-label">
+                        <value>Counselled about IFA tablets?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_ifa.png</value>
+                    </text>
+                    <text id="using_ifa-label">
+                        <value>Is the pregnant woman consuming tablets?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/using_ifa_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/using_ifa.png</value>
+                    </text>
+                    <text id="reason_no_ifa-label">
+                        <value>Why isn't she using IFA tablets?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-side_effects-label">
+                        <value>1. Side Effects</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-side_effects_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-dont_remember-label">
+                        <value>2. Don't Remember</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-dont_remember_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-not_required-label">
+                        <value>3. Not Required (Already Healthy)</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-not_required_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-fear-label">
+                        <value>4. Fear of Medications</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-fear_hin.mp3</value>
+                    </text>
+                    <text id="reason_no_ifa-other-label">
+                        <value>5. Other Reasons</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/reason_no_ifa-other_hin.mp3</value>
+                    </text>
+                    <text id="counsel_tt-label">
+                        <value>Counselled for TT Injection?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/counsel_tt_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/counsel_tt.png</value>
+                    </text>
+                    <text id="received_tt1-label">
+                        <value>Received TT1 Injection</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/received_tt1_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/received_tt1.png</value>
+                    </text>
+                    <text id="tt1_date-label">
+                        <value>Date of TT1</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt1_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt1_date.png</value>
+                    </text>
+                    <text id="received_tt2-label">
+                        <value>Received TT2 injection</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/received_tt2_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/received_tt2.png</value>
+                    </text>
+                    <text id="tt2_date-label">
+                        <value>Date of TT2</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt2_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt2_date.png</value>
+                    </text>
+                    <text id="tt_booster-label">
+                        <value>Received tt booster dosage?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt_booster_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt_booster.png</value>
+                    </text>
+                    <text id="tt_booster_date-label">
+                        <value>Date of TT Booster</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/tt_booster_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/tt_booster_date.png</value>
+                    </text>
+                    <text id="anc1_details-label">
+                        <value>ANC 1 details available?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_details.png</value>
+                    </text>
+                    <text id="anc_blood_pressure-label">
+                        <value>Blood pressure: </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_blood_pressure_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_blood_pressure.png</value>
+                    </text>
+
+                    <text id="anc_abdominal_exam-label">
+                        <value>Abdominal Examination</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_abdominal_exam.png</value>
+                    </text>
+                    <text id="performed-label">
+                        <value>1. Performed</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam-performed_hin.mp3</value>
+                    </text>
+                    <text id="not_performed-label">
+                        <value>2. Not performed</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abdominal_exam-not_performed_hin.mp3</value>
+                    </text>
+                    <text id="anc_abnormalities-label">
+                        <value>Any abnormalities detected?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_abnormalities_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_abnormalities.png</value>
+                    </text>
+                    <text id="anc2_details-label">
+                        <value>ANC 2 check-up details available</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc2_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc2_details.png</value>
+                    </text>
+
+                    <text id="anc3_details-label">
+                        <value>ANC 3 check-up details available</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc3_details.png</value>
+                    </text>
+                    <text id="anc_date-label">
+                        <value>Date of this check-up</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_date_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc3_date.png</value>
+                    </text>
+                    <text id="bp-normal-label">
+                        <value>1. Normal</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_blood_pressure-normal_hin.mp3</value>
+                    </text>
+                    <text id="bp-high-label">
+                        <value>2. High</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_blood_pressure-high_hin.mp3</value>
+                    </text>
+                    <text id="bp-not_measured-label">
+                        <value>3. Not measured</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc3_blood_pressure-not_measured_hin.mp3</value>
+                    </text>
+
+                    <text id="anc4_details-label">
+                        <value>ANC 4 check-up details available</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc4_details_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc4_details.png</value>
+                    </text>
+
+                    <text id="anc_display-label">
+                        <value>Total number of checkups is <output ref="/data/anc_latest_num" /> as of date <output value="format-date(/data/anc_latest_date, '%e/%n/%y')" /> </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc_display_hin.mp3</value>
+                    </text>
+                    <text id="resting-label">
+                        <value>Is she resting in the afternoon?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/resting_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/resting.png</value>
+                    </text>
+                    <text id="eating_extra-label">
+                        <value>Is she eating an extra meal?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/eating_extra_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/eating_extra.png</value>
+                    </text>
+                    <text id="BP_complete_referral_needed-label">
+                        <value>Your patient needs a referral:<output ref="if(count(instance('referral')/contact_list/contact[type='public']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='public']/name,': ', instance('referral')/contact_list/contact[type='public']/number),'')"/><output ref="if(count(instance('referral')/contact_list/contact[type='private']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='private']/name,': ', instance('referral')/contact_list/contact[type='private']/number),'')"/><output ref="if(count(instance('referral')/contact_list/contact[type='transport']) > 0,concat('&#10;',instance('referral')/contact_list/contact[type='transport']/name,': ', instance('referral')/contact_list/contact[type='transport']/number),'')"/></value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/BP_complete_referral_needed_hin.mp3</value>
+                    </text>
+                    <text id="success-label">
+                        <value>Success.  Done with form.</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/success_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/success.png</value>
+                    </text>
+                    <text id="anc_facility-label">
+                        <value>ANC Visit Facility:</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/anc1_facility.png</value>
+                    </text>
+                    <text id="public-label">
+                        <value>1. Public</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility-public_hin.mp3</value>
+                    </text>
+                    <text id="private-label">
+                        <value>2. Private</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_facility-private_hin.mp3</value>
+                    </text>
+
+                    <text id="ifa_tablets_issued-constraintMsg">
+                        <value>Number must be less than 200 and only comes in strips of 10</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/ifa_tablets_issued-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="anc1_date-constraintMsg">
+                        <value>Date must be within last 10 months. </value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/anc1_date-constraintMsg_hin.mp3</value>
+                    </text>
+                    <text id="nextvisit-label">
+                        <value>Your next visit with this woman will be <output ref="jr:itext(concat('visittype-', /data/nextvisittype))"/>, in <output ref="date(if(/data/nextvisittype = 'bp', /data/case/update/date_next_bp,      if(/data/nextvisittype = 'del', /data/del_fup, '????'))) - today()"/> days</value>
+                    </text>
+                    <text id="visittype-bp">
+                        <value>Birth Planning</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/visittype-bp_hin.mp3</value>
+                    </text>
+                    <text id="visittype-del">
+                        <value>Delivery Update</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/visittype-del_hin.mp3</value>
+                    </text>
+                    <text id="play_family_planning_vid-label">
+                        <value>Counsel family planning with video?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_family_planning_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_family_planning_vid.png</value>
+                    </text>
+
+                    <text id="family_planning_vid-label">
+                        <value>Family Planning</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/family_planning_vid.3gp</value>
+                    </text>
+                    <text id="play_cord_care_vid-label">
+                        <value>Counsel cord care with video?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_cord_care_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_cord_care_vid.png</value>
+                    </text>
+
+                    <text id="cord_care_vid-label">
+                        <value>Cord Care</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/cord_care_vid.3gp</value>
+                    </text>
+                    <text id="play_birth_preparedness_vid-label">
+                        <value>Counsel birth preparedness with video?</value>
+                        <value form="audio">jr://file/commcare/media/audio/bp/play_birth_preparedness_vid_hin.mp3</value>
+                        <value form="image">jr://file/commcare/media/images/bp/play_birth_preparedness_vid.png</value>
+                    </text>
+
+                    <text id="birth_preparedness_vid-label">
+                        <value>Birth Preparedness</value>
+                        <value form="video">jr://file/commcare/media/videos/bp/birth_preparedness_vid.3gp</value>
+                    </text>
+                </translation>
+            </itext>
+        </model>
+    </h:head>
+    <h:body>
+        <select1 ref="/data/update_edd" >
+            <label ref="jr:itext('update_edd-label')" />
+            <!-- THESE ARE BACKWARDS IT IS CORRECT -->
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>no</value><!-- THESE ARE BACKWARDS IT IS CORRECT -->
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>yes</value><!-- THESE ARE BACKWARDS IT IS CORRECT -->
+            </item>
+            <!-- THESE ARE BACKWARDS IT IS CORRECT -->
+        </select1>
+        <select1 ref="/data/edd_known">
+            <label ref="jr:itext('edd_known-label')" />
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>no</value>
+            </item>
+        </select1>
+        <input ref="/data/new_edd">
+            <label ref="jr:itext('new_edd-label')"/>
+        </input>
+        <select1 ref="/data/lmp_known" >
+            <label ref="jr:itext('lmp_known-label')" />
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>no</value>
+            </item>
+        </select1>
+        <input ref="/data/new_lmp" >
+            <label ref="jr:itext('new_lmp-label')" />
+        </input>
+        <input ref="/data/new_gest_age">
+            <label ref="jr:itext('new_gest_age-label')" />
+        </input>
+        <trigger ref="/data/display_new_edd" >
+            <label ref="jr:itext('display_new_edd-label')" />
+        </trigger>
+        <trigger ref="/data/display_pregnancy_month" >
+            <label ref="jr:itext('display_pregnancy_month-label')" />
+        </trigger>
+
+        <group ref="/data/bp2">
+            <trigger ref="/data/bp2/not_yet_institutional">
+                <label ref="jr:itext('not_yet_institutional-label')" />
+            </trigger>
+
+            <select1 ref="/data/bp2/now_institutional">
+                <label ref="jr:itext('now_institutional-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/play_birth_preparedness_vid">
+                <label ref="jr:itext('play_birth_preparedness_vid-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/birth_preparedness_vid">
+                <label ref="jr:itext('birth_preparedness_vid-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/saving_money">
+                <label ref="jr:itext('saving_money-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_vehicle">
+                <label ref="jr:itext('not_yet_vehicle-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/vehicle">
+                <label ref="jr:itext('vehicle-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_phone_number">
+                <label ref="jr:itext('not_yet_phone_number-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/phone_vehicle">
+                <label ref="jr:itext('phone_vehicle-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/accompany">
+                <label ref="jr:itext('accompany-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/care_of_home">
+                <label ref="jr:itext('care_of_home-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/counsel_preparation">
+                <label ref="jr:itext('counsel_preparation-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_sba">
+                <label ref="jr:itext('not_yet_sba-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/SBA">
+                <label ref="jr:itext('SBA-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_SBA_phone">
+                <label ref="jr:itext('not_yet_SBA_phone-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/SBA_phone">
+                <label ref="jr:itext('SBA_phone-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_materials">
+                <label ref="jr:itext('not_yet_materials-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/materials">
+                <label ref="jr:itext('materials-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_clean">
+                <label ref="jr:itext('not_yet_clean-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/clean_cloth">
+                <label ref="jr:itext('clean_cloth-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+
+            <select1 ref="/data/bp2/maternal_danger_signs">
+                <label ref="jr:itext('maternal_danger_signs-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/inform_danger_signs">
+                <label ref="jr:itext('inform_danger_signs-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/has_danger_signs">
+                <label ref="jr:itext('has_danger_signs-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+
+            <trigger ref="/data/bp2/not_yet_maternal_emergency">
+                <label ref="jr:itext('not_yet_maternal_emergency-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/danger_institution">
+                <label ref="jr:itext('danger_institution-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/not_yet_maternal_emergency_number">
+                <label ref="jr:itext('not_yet_maternal_emergency_number-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/danger_number">
+                <label ref="jr:itext('danger_number-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/play_cord_care_vid">
+                <label ref="jr:itext('play_cord_care_vid-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/bp2/cord_care_vid">
+                <label ref="jr:itext('cord_care_vid-label')" />
+            </trigger>
+            <select1 ref="/data/bp2/wrapping">
+                <label ref="jr:itext('wrapping-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/skin_to_skin">
+                <label ref="jr:itext('skin_to_skin-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/immediate_breastfeeding">
+                <label ref="jr:itext('immediate_breastfeeding-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp2/cord_care">
+                <label ref="jr:itext('cord_care-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+        </group>
+        <group ref="/data/bp1">
+
+            <trigger ref="/data/bp1/ifa_total_previous_received">
+                <label ref="jr:itext('ifa_total_previous_received-label')" />
+            </trigger>
+            <trigger ref="/data/bp1/ifa_tablets_already_200">
+                <label ref="jr:itext('ifa_tablets_already_200-label')" />
+            </trigger>
+            <input ref="/data/bp1/ifa_tablets_issued">
+                <label ref="jr:itext('ifa_tablets_issued-label')" />
+            </input>
+            <trigger ref="/data/bp1/total_ifa">
+                <label ref="jr:itext('total_ifa-label')" />
+            </trigger>
+            <select1 ref="/data/bp1/counsel_ifa">
+                <label ref="jr:itext('counsel_ifa-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp1/using_ifa">
+                <label ref="jr:itext('using_ifa-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp1/reason_no_ifa">
+                <label ref="jr:itext('reason_no_ifa-label')" />
+                <item>
+                    <label ref="jr:itext('reason_no_ifa-side_effects-label')" />
+                    <value>side_effects</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('reason_no_ifa-dont_remember-label')" />
+                    <value>dont_remember</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('reason_no_ifa-not_required-label')" />
+                    <value>not_required</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('reason_no_ifa-fear-label')" />
+                    <value>fear</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('reason_no_ifa-other-label')" />
+                    <value>other</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp1/counsel_tt">
+                <label ref="jr:itext('counsel_tt-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp1/received_tt1">
+                <label ref="jr:itext('received_tt1-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <input ref="/data/bp1/tt1_date">
+                <label ref="jr:itext('tt1_date-label')" />
+            </input>
+            <select1 ref="/data/bp1/received_tt2">
+                <label ref="jr:itext('received_tt2-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <input ref="/data/bp1/tt2_date">
+                <label ref="jr:itext('tt2_date-label')" />
+            </input>
+            <select1 ref="/data/bp1/tt_booster">
+                <label ref="jr:itext('tt_booster-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <input ref="/data/bp1/tt_booster_date">
+                <label ref="jr:itext('tt_booster_date-label')" />
+            </input>
+            <select1 ref="/data/bp1/anc1_details">
+                <label ref="jr:itext('anc1_details-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <group ref="/data/bp1/anc1">
+                <input ref="/data/bp1/anc1/anc1_date">
+                    <label ref="jr:itext('anc_date-label')" />
+                </input>
+                <select1 ref="/data/bp1/anc1/anc1_facility">
+                    <label ref="jr:itext('anc_facility-label')" />
+                    <item>
+                        <label ref="jr:itext('public-label')" />
+                        <value>public</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('private-label')" />
+                        <value>private</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc1/anc1_blood_pressure">
+                    <label ref="jr:itext('anc_blood_pressure-label')" />
+                    <item>
+                        <label ref="jr:itext('bp-normal-label')" />
+                        <value>normal</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-high-label')" />
+                        <value>high_bloodpressure</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-not_measured-label')" />
+                        <value>not_measured</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc1/anc1_abdominal_exam">
+                    <label ref="jr:itext('anc_abdominal_exam-label')" />
+                    <item>
+                        <label ref="jr:itext('performed-label')" />
+                        <value>performed</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('not_performed-label')" />
+                        <value>not_performed</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc1/anc1_abnormalities">
+                    <label ref="jr:itext('anc_abnormalities-label')" />
+                    <item>
+                        <label ref="jr:itext('yes-label')" />
+                        <value>yes</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('no-label')" />
+                        <value>no</value>
+                    </item>
+                </select1>
+            </group>
+            <select1 ref="/data/bp1/anc2_details">
+                <label ref="jr:itext('anc2_details-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <group ref="/data/bp1/anc2">
+                <input ref="/data/bp1/anc2/anc2_date">
+                    <label ref="jr:itext('anc_date-label')" />
+                </input>
+                <select1 ref="/data/bp1/anc2/anc2_facility">
+                    <label ref="jr:itext('anc_facility-label')" />
+                    <item>
+                        <label ref="jr:itext('public-label')" />
+                        <value>public</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('private-label')" />
+                        <value>private</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc2/anc2_blood_pressure">
+                    <label ref="jr:itext('anc_blood_pressure-label')" />
+                    <item>
+                        <label ref="jr:itext('bp-normal-label')" />
+                        <value>normal</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-high-label')" />
+                        <value>high</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-not_measured-label')" />
+                        <value>not_measured</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc2/anc2_abdominal_exam">
+                    <label ref="jr:itext('anc_abdominal_exam-label')" />
+                    <item>
+                        <label ref="jr:itext('performed-label')" />
+                        <value>performed</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('not_performed-label')" />
+                        <value>not_performed</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc2/anc2_abnormalities">
+                    <label ref="jr:itext('anc_abnormalities-label')" />
+                    <item>
+                        <label ref="jr:itext('yes-label')" />
+                        <value>yes</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('no-label')" />
+                        <value>no</value>
+                    </item>
+                </select1>
+            </group>
+            <select1 ref="/data/bp1/anc3_details">
+                <label ref="jr:itext('anc3_details-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <group ref="/data/bp1/anc3">
+                <input ref="/data/bp1/anc3/anc3_date">
+                    <label ref="jr:itext('anc_date-label')" />
+                </input>
+                <select1 ref="/data/bp1/anc3/anc3_facility">
+                    <label ref="jr:itext('anc_facility-label')" />
+                    <item>
+                        <label ref="jr:itext('public-label')" />
+                        <value>public</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('private-label')" />
+                        <value>private</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc3/anc3_blood_pressure">
+                    <label ref="jr:itext('anc_blood_pressure-label')" />
+                    <item>
+                        <label ref="jr:itext('bp-normal-label')" />
+                        <value>normal</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-high-label')" />
+                        <value>high</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-not_measured-label')" />
+                        <value>not_measured</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc3/anc3_abdominal_exam">
+                    <label ref="jr:itext('anc_abdominal_exam-label')" />
+                    <item>
+                        <label ref="jr:itext('performed-label')" />
+                        <value>performed</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('not_performed-label')" />
+                        <value>not_performed</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc3/anc3_abnormalities">
+                    <label ref="jr:itext('anc_abnormalities-label')" />
+                    <item>
+                        <label ref="jr:itext('yes-label')" />
+                        <value>yes</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('no-label')" />
+                        <value>no</value>
+                    </item>
+                </select1>
+            </group>
+            <select1 ref="/data/bp1/anc4_details">
+                <label ref="jr:itext('anc4_details-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <group ref="/data/bp1/anc4">
+                <input ref="/data/bp1/anc4/anc4_date">
+                    <label ref="jr:itext('anc_date-label')" />
+                </input>
+                <select1 ref="/data/bp1/anc4/anc4_facility">
+                    <label ref="jr:itext('anc_facility-label')" />
+                    <item>
+                        <label ref="jr:itext('public-label')" />
+                        <value>public</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('private-label')" />
+                        <value>private</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc4/anc4_blood_pressure">
+                    <label ref="jr:itext('anc_blood_pressure-label')" />
+                    <item>
+                        <label ref="jr:itext('bp-normal-label')" />
+                        <value>normal</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-high-label')" />
+                        <value>high</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('bp-not_measured-label')" />
+                        <value>not_measured</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc4/anc4_abdominal_exam">
+                    <label ref="jr:itext('anc_abdominal_exam-label')" />
+                    <item>
+                        <label ref="jr:itext('performed-label')" />
+                        <value>performed</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('not_performed-label')" />
+                        <value>not_performed</value>
+                    </item>
+                </select1>
+                <select1 ref="/data/bp1/anc4/anc4_abnormalities">
+                    <label ref="jr:itext('anc_abnormalities-label')" />
+                    <item>
+                        <label ref="jr:itext('yes-label')" />
+                        <value>yes</value>
+                    </item>
+                    <item>
+                        <label ref="jr:itext('no-label')" />
+                        <value>no</value>
+                    </item>
+                </select1>
+
+            </group>
+            <trigger ref="/data/bp1/anc_display">
+                <label ref="jr:itext('anc_display-label')" />
+            </trigger>
+            <select1 ref="/data/bp1/resting">
+                <label ref="jr:itext('resting-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/bp1/eating_extra">
+                <label ref="jr:itext('eating_extra-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+        </group>
+        <select1 ref="/data/play_family_planning_vid">
+            <label ref="jr:itext('play_family_planning_vid-label')" />
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>no</value>
+            </item>
+        </select1>
+        <trigger ref="/data/family_planning_vid">
+            <label ref="jr:itext('family_planning_vid-label')" />
+        </trigger>
+        <select1 ref="/data/conceive">
+            <label ref="jr:itext('conceive-label')" />
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>no</value>
+            </item>
+        </select1>
+        <select1 ref="/data/postponing">
+            <label ref="jr:itext('postponing-label')" />
+            <item>
+                <label ref="jr:itext('yes-label')" />
+                <value>yes</value>
+            </item>
+            <item>
+                <label ref="jr:itext('no-label')" />
+                <value>no</value>
+            </item>
+            <item>
+                <label ref="jr:itext('undecided-label')"/>
+                <value>undecided</value>
+            </item>
+        </select1>
+        <group ref="/data/family_planning_group">
+            <select1 ref="/data/family_planning_group/counsel_accessible">
+                <label ref="jr:itext('counsel_accessible-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <trigger ref="/data/family_planning_group/help_decide">
+                <label ref="jr:itext('help_decide-label')" />
+            </trigger>
+            <select1 ref="/data/family_planning_group/immediate_appropriate">
+                <label ref="jr:itext('immediate_appropriate-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/institution_immediate">
+                <label ref="jr:itext('institution_immediate-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_nearest">
+                <label ref="jr:itext('counsel_nearest-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_benefits">
+                <label ref="jr:itext('counsel_benefits-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/avail_immediate">
+                <label ref="jr:itext('avail_immediate-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_stay">
+                <label ref="jr:itext('counsel_stay-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_institution">
+                <label ref="jr:itext('counsel_institution-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_disqualification">
+                <label ref="jr:itext('counsel_disqualification-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_options">
+                <label ref="jr:itext('counsel_options-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/risk_of_preg">
+                <label ref="jr:itext('risk_of_preg-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/stop_children">
+                <label ref="jr:itext('stop_children-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('undecided-label')" />
+                    <value>undecided</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/counsel_methods">
+                <label ref="jr:itext('counsel_methods-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/postpone_conception">
+                <label ref="jr:itext('postpone_conception-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+            <select1 ref="/data/family_planning_group/spacing_methods">
+                <label ref="jr:itext('spacing_methods-label')" />
+                <item>
+                    <label ref="jr:itext('yes-label')" />
+                    <value>yes</value>
+                </item>
+                <item>
+                    <label ref="jr:itext('no-label')" />
+                    <value>no</value>
+                </item>
+            </select1>
+        </group>
+        <trigger ref="/data/referral_prompt">
+            <label ref="jr:itext('referral_prompt-label')" />
+        </trigger>
+        <trigger ref="/data/BP_complete_referral_needed">
+            <label ref="jr:itext('BP_complete_referral_needed-label')" />
+        </trigger>
+        <trigger ref="/data/success">
+            <label ref="jr:itext('success-label')" />
+        </trigger>
+
+        <trigger ref="/data/nextvisit">
+            <label ref="jr:itext('nextvisit-label')" />
+        </trigger>
+    </h:body>
+</h:html>

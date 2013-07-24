@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.listener;
 
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.CaseFactory;
 import org.motechproject.care.reporting.processors.ChildCaseProcessor;
 import org.motechproject.care.reporting.processors.CloseCaseProcessor;
@@ -47,10 +46,14 @@ public class CommcareCaseListener {
         if (CLOSE_ACTION_IDENTIFIER.equals(action)) {
             closeCaseProcessor.process(caseEvent);
         } else {
-            Class<?> caseTypeClass = CaseFactory.getCase(caseEvent.getCaseType());
-            if (caseTypeClass.equals(MotherCase.class)) {
+            CaseType caseType = CaseFactory.getCaseType(caseEvent.getCaseType());
+            if(!caseType.shouldProcess())  {
+                logger.info(String.format("Ignorning task case with the case id ",caseId));
+                return;
+            }
+            if (caseType.equals(CaseType.MOTHER)) {
                 motherCaseProcessor.process(caseEvent);
-            } else if (caseTypeClass.equals(ChildCase.class)) {
+            } else if (caseType.equals(CaseType.CHILD)) {
                 childCaseProcessor.process(caseEvent);
             } else {
                 logger.warn(format("Cannot process case with id %s of type %s", caseId, caseEvent.getCaseType()));
