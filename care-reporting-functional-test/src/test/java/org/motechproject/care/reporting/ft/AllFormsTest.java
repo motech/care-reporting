@@ -16,6 +16,7 @@ public class AllFormsTest extends BaseTestCase {
     private String flwId;
     private String groupId;
     private String caseId;
+    private String child1caseId;
 
     @Autowired
     private Asserter asserter;
@@ -25,9 +26,11 @@ public class AllFormsTest extends BaseTestCase {
     @Before
     public void setUp() {
         caseId = UUID.randomUUID().toString();
+        child1caseId = UUID.randomUUID().toString();
         flwId = UUID.randomUUID().toString().replaceAll("-", "");
         groupId = UUID.randomUUID().toString().replaceAll("-", "");
         placeholderMap.put("caseId", caseId);
+        placeholderMap.put("child1caseId", child1caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
         asserter.setPlaceholder(placeholderMap);
@@ -36,32 +39,52 @@ public class AllFormsTest extends BaseTestCase {
     @After
     public void tearDown() throws InterruptedException {
         reportingDatabase().deleteMother(caseId);
+        reportingDatabase().deleteChild(child1caseId);
         reportingDatabase().deleteFLW(flwId);
         reportingDatabase().deleteGroup(groupId);
 
         mrsDatabase().patients().delete(caseId, true);
+        mrsDatabase().patients().delete(child1caseId, true);
     }
 
     @Test
     public void createNewForm() throws Exception {
         String instanceId = postForm("new_form");
-        assertReportingDatabase(TableName.new_form, instanceId, "new_form");
-        assertCouchDatabase("mother_after_new");
+        assertReportingDatabaseWithMotherAndFlw(TableName.new_form, instanceId, "new_form");
+        assertCouchDatabaseForMother("mother_after_new");
 
     }
 
     @Test
     public void createRegistrationMotherForm() throws Exception {
         String instanceId = postForm("registration_mother_form");
-        assertReportingDatabase(TableName.registration_mother_form, instanceId, "registration_mother_form");
-        assertCouchDatabase("mother_after_registration");
+        assertReportingDatabaseWithMotherAndFlw(TableName.registration_mother_form, instanceId, "registration_mother_form");
+        assertCouchDatabaseForMother("mother_after_registration");
     }
 
     @Test
     public void createBPForm() throws Exception {
         String instanceId = postForm("bp_form");
-        assertReportingDatabase(TableName.bp_form, instanceId, "bp_form");
-        assertCouchDatabase("mother_after_bp");
+        assertReportingDatabaseWithMotherAndFlw(TableName.bp_form, instanceId, "bp_form");
+        assertCouchDatabaseForMother("mother_after_bp");
+    }
+
+    @Test
+    public void createCFForm() throws Exception {
+        String instanceId = postForm("cf_form");
+        assertReportingDatabaseWithMotherAndFlw(TableName.cf_mother_form, instanceId, "cf_mother_form");
+        assertReportingDatabaseWithChild(TableName.cf_child_form, instanceId, "cf_child_form");
+        assertCouchDatabaseForMother("mother_after_cf");
+        assertCouchDatabaseForChild("child_after_cf");
+    }
+
+    @Test
+    public void createCloseForm() throws Exception {
+        String instanceId = postForm("close_form");
+        assertReportingDatabaseWithMotherAndFlw(TableName.close_mother_form, instanceId, "close_mother_form");
+        assertReportingDatabaseWithChild(TableName.close_child_form, instanceId, "close_child_form");
+        assertCouchDatabaseForMother("mother_after_close");
+        assertCouchDatabaseForChild("child_after_close");
     }
 
     private String postForm(String formName){
@@ -74,15 +97,28 @@ public class AllFormsTest extends BaseTestCase {
         return instanceId;
     }
 
-    private void assertReportingDatabase(String tableName, String instanceId, String expectedFormUrl){
+    private void assertReportingDatabaseWithMotherAndFlw(String tableName, String instanceId, String expectedFormUrl){
         asserter.verifyTable(tableName, instanceId, constructExpectedUrl("reporting/"+expectedFormUrl));
         asserter.verifyTable(TableName.mother_case, caseId, constructExpectedUrl("reporting/mother_case"));
         asserter.verifyFlwWithoutGroup(flwId, constructExpectedUrl("reporting/flw"), groupId);
     }
 
-    private void assertCouchDatabase(String expectedCouchUrl){
+    private void assertReportingDatabaseWithChild(String tableName, String instanceId, String expectedFormUrl){
+        asserter.verifyTable(tableName, instanceId, constructExpectedUrl("reporting/"+expectedFormUrl));
+        asserter.verifyTable(TableName.child_case, child1caseId, constructExpectedUrl("reporting/child_case"));
+    }
+
+    private void assertCouchDatabaseForMother(String expectedCouchUrl){
+        assertCouchDatabase(caseId, expectedCouchUrl);
+    }
+
+    private void assertCouchDatabaseForChild(String expectedCouchUrl){
+        assertCouchDatabase(child1caseId, expectedCouchUrl);
+    }
+
+    private void assertCouchDatabase(String id, String expectedCouchUrl){
         final String expectedPatientUrl = constructExpectedUrl("couch/"+expectedCouchUrl);
-        asserter.verifyCouchPatient(caseId, expectedPatientUrl);
+        asserter.verifyCouchPatient(id, expectedPatientUrl);
     }
 
     @Override

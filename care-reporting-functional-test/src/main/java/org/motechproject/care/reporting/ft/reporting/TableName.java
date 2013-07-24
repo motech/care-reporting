@@ -5,6 +5,8 @@ public class TableName {
     public static String bp_form = "bp_form";
     public static String close_child_form = "close_child_form";
     public static String close_mother_form = "close_mother_form";
+    public static String cf_child_form = "cf_child_form";
+    public static String cf_mother_form = "cf_mother_form";
     public static String death_child_form = "death_child_form";
     public static String death_mother_form = "death_mother_form";
     public static String delivery_child_form = "delivery_child_form";
