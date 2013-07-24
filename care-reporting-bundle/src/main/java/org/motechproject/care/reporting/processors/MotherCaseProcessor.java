@@ -1,8 +1,7 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.factory.CaseFactory;
-import org.motechproject.care.reporting.mapper.CareReportingMapper;
+import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
@@ -38,13 +37,16 @@ public class MotherCaseProcessor {
     }
 
     public void process(CaseEvent caseEvent) {
-        InfoParser infoParser = mapperService.getCaseInfoParser(CaseFactory.getCaseType(caseEvent.getCaseType()), null);
+        CaseType caseType = CaseType.getType(caseEvent.getCaseType());
+        InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
         Map<String, String> caseMap = new CaseInfoParser(infoParser).parse(caseEvent);
 
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
-        logger.info(String.format("Started processing mother case with case ID %s", caseMap.get("caseId")));
+        String caseId = caseMap.get("caseId");
+
+        logger.info(String.format("Started processing mother case with case ID %s", caseId));
         service.saveByExternalPrimaryKey(MotherCase.class, caseMap);
-        logger.info(String.format("Finished processing mother case with case ID %s", caseMap.get("caseId")));
+        logger.info(String.format("Finished processing mother case with case ID %s", caseId));
     }
 }

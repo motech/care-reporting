@@ -1,7 +1,7 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.factory.CaseFactory;
+import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
@@ -27,6 +27,7 @@ public class ChildCaseProcessor {
         add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
         add(PostProcessor.COPY_MOTHER_ID_AS_MOTHER_CASE);
     }};
+
     private Service service;
     private MapperService mapperService;
 
@@ -37,13 +38,16 @@ public class ChildCaseProcessor {
     }
 
     public void process(CaseEvent caseEvent) {
-        InfoParser infoParser = mapperService.getCaseInfoParser(CaseFactory.getCaseType(caseEvent.getCaseType()), null);
+        CaseType caseType = CaseType.getType(caseEvent.getCaseType());
+        InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
         Map<String, String> caseMap = new CaseInfoParser(infoParser).parse(caseEvent);
 
         applyPostProcessors(CHILD_CASE_POSTPROCESSOR, caseMap);
 
-        logger.info(String.format("Started processing child case with case ID %s", caseMap.get("caseId")));
+        String caseId = caseMap.get("caseId");
+
+        logger.info(String.format("Started processing child case with case ID %s", caseId));
         service.saveByExternalPrimaryKey(ChildCase.class, caseMap);
-        logger.info(String.format("Finished processing child case with case ID %s", caseMap.get("caseId")));
+        logger.info(String.format("Finished processing child case with case ID %s", caseId));
     }
 }

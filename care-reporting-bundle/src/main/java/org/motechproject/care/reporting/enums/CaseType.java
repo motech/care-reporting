@@ -13,15 +13,15 @@ public enum CaseType {
         this.shouldProcess = shouldProcess;
     }
 
-    public static CaseType getType(String type){
-          for(CaseType caseType: CaseType.values()){
-            if(caseType.type.equals(type))
+    public static CaseType getType(String type) {
+        for (CaseType caseType : CaseType.values()) {
+            if (caseType.type.equals(type))
                 return caseType;
         }
         throw new IllegalArgumentException(String.format("Cannot find CaseType for value: %s", type));
     }
 
     public boolean shouldProcess() {
-       return shouldProcess;
+        return shouldProcess;
     }
 }

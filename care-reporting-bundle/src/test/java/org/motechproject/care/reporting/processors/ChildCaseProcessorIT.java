@@ -26,6 +26,7 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
 
     @Autowired
     private ChildCaseProcessor childCaseProcessor;
+
     private FlwGroup flwGroup;
     private Flw flw;
 

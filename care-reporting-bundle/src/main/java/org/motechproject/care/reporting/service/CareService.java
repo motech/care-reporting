@@ -217,7 +217,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         } else {
             ChildCase childCase = getChildCase(caseId);
             if (childCase == null) {
-                logger.warn(format("Cannot find case %s to update", caseId));
+                logger.error(format("Cannot find case %s to update", caseId));
                 throw new CaseNotFoundException(caseId);
             }
             Date previouslyClosedOnForChild = childCase.getClosedOn();

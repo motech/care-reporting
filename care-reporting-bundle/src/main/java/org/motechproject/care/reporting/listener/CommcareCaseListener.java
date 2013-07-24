@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.listener;
 
 import org.motechproject.care.reporting.enums.CaseType;
-import org.motechproject.care.reporting.factory.CaseFactory;
 import org.motechproject.care.reporting.processors.ChildCaseProcessor;
 import org.motechproject.care.reporting.processors.CloseCaseProcessor;
 import org.motechproject.care.reporting.processors.MotherCaseProcessor;
@@ -44,20 +43,37 @@ public class CommcareCaseListener {
         logger.info(format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
 
         if (CLOSE_ACTION_IDENTIFIER.equals(action)) {
-            closeCaseProcessor.process(caseEvent);
-        } else {
-            CaseType caseType = CaseFactory.getCaseType(caseEvent.getCaseType());
-            if(!caseType.shouldProcess())  {
-                logger.info(String.format("Ignorning task case with the case id ",caseId));
-                return;
-            }
-            if (caseType.equals(CaseType.MOTHER)) {
-                motherCaseProcessor.process(caseEvent);
-            } else if (caseType.equals(CaseType.CHILD)) {
-                childCaseProcessor.process(caseEvent);
-            } else {
-                logger.warn(format("Cannot process case with id %s of type %s", caseId, caseEvent.getCaseType()));
-            }
+            processClose(caseEvent);
+            return;
         }
+
+        processCreateUpdate(caseEvent, caseId);
+    }
+
+
+
+    private void processCreateUpdate(CaseEvent caseEvent, String caseId) {
+        CaseType caseType = CaseType.getType(caseEvent.getCaseType());
+
+        if(!caseType.shouldProcess())  {
+            logger.info(String.format("Ignoring case type %s with the case id %s", caseId));
+            return;
+        }
+
+        if (caseType.equals(CaseType.MOTHER)) {
+            motherCaseProcessor.process(caseEvent);
+            return;
+        }
+
+        if (caseType.equals(CaseType.CHILD)) {
+            childCaseProcessor.process(caseEvent);
+            return;
+        }
+
+        throw new RuntimeException(format("Cannot process case with id %s of type %s", caseId, caseType));
+    }
+
+    private void processClose(CaseEvent caseEvent) {
+        closeCaseProcessor.process(caseEvent);
     }
 }
