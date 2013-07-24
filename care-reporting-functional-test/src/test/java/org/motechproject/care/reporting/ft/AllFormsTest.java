@@ -71,21 +71,83 @@ public class AllFormsTest extends BaseTestCase {
 
     @Test
     public void createCFForm() throws Exception {
-        String instanceId = postForm("cf_form");
-        assertReportingDatabaseWithMotherAndFlw(TableName.cf_mother_form, instanceId, "cf_mother_form");
-        assertReportingDatabaseWithChild(TableName.cf_child_form, instanceId, "cf_child_form");
-        assertCouchDatabaseForMother("mother_after_cf");
-        assertCouchDatabaseForChild("child_after_cf");
+        testFormWithChild("cf");
     }
 
     @Test
     public void createCloseForm() throws Exception {
-        String instanceId = postForm("close_form");
-        assertReportingDatabaseWithMotherAndFlw(TableName.close_mother_form, instanceId, "close_mother_form");
-        assertReportingDatabaseWithChild(TableName.close_child_form, instanceId, "close_child_form");
-        assertCouchDatabaseForMother("mother_after_close");
-        assertCouchDatabaseForChild("child_after_close");
+        testFormWithChild("close");
     }
+
+    @Test
+    public void createDeathForm() throws Exception {
+        testFormWithChild("death");
+    }
+
+    @Test
+    public void createDeliveryForm() throws Exception {
+        testFormWithChild("delivery");
+    }
+
+    @Test
+    public void createEbfForm() throws Exception {
+        testFormWithChild("ebf");
+    }
+
+    @Test
+    public void createPncForm() throws Exception {
+        testFormWithChild("pnc");
+    }
+
+    @Test
+    public void createReferForm() throws Exception {
+        testFormWithChild("refer");
+    }
+
+    @Test
+    public void createUiForm() throws Exception {
+        testFormWithChild("ui");
+    }
+
+    @Test
+    public void createAbortForm() throws Exception {
+        testForm("abort");
+    }
+
+    @Test
+    public void createMiForm() throws Exception {
+        testForm("mi");
+    }
+
+    @Test
+    public void createMoForm() throws Exception {
+        testForm("mo");
+    }
+
+    @Test
+    public void createMotherEditForm() throws Exception {
+        testForm("mother_edit");
+    }
+
+    @Test
+    public void createMoveBeneficiaryForm() throws Exception {
+        testForm("move_beneficiary");
+    }
+
+    private void testFormWithChild(String formName) throws Exception {
+        String instanceId = postForm(formName + "_form");
+        assertReportingDatabaseWithMotherAndFlw(formName + "_mother_form", instanceId, formName + "_mother_form");
+        assertReportingDatabaseWithChild(formName + "_child_form", instanceId, formName + "_child_form");
+        assertCouchDatabaseForMother("mother_after_" + formName);
+        assertCouchDatabaseForChild("child_after_" + formName);
+    }
+
+    private void testForm(String formName) throws Exception {
+        String instanceId = postForm(formName + "_form");
+        assertReportingDatabaseWithMotherAndFlw(formName + "_form", instanceId, formName + "_form");
+        assertCouchDatabaseForMother("mother_after_" + formName);
+    }
+
 
     private String postForm(String formName){
         final String formUrl = constructRequestTemplateUrl(formName);
