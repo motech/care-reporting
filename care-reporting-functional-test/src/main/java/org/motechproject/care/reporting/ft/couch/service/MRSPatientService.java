@@ -82,7 +82,7 @@ public class MRSPatientService {
         return getSinglePatient(allCouchPatients.findByPatientId(patientId));
     }
 
-    public void detete(String motechId, boolean deleteProviders) {
+    public void delete(String motechId, boolean deleteProviders) {
         List<CouchPatientImpl> patients = allCouchPatients.findByMotechId(motechId);
         if(patients.size() == 0) {
             return;

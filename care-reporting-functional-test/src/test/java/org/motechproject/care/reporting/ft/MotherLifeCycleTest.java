@@ -39,7 +39,7 @@ public class MotherLifeCycleTest extends BaseTestCase {
         reportingDatabase().deleteFLW(flwId);
         reportingDatabase().deleteGroup(groupId);
 
-        mrsDatabase().patients().detete(caseId, true);
+        mrsDatabase().patients().delete(caseId, true);
     }
 
     @Test
