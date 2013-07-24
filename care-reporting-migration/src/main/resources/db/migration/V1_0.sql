@@ -55,7 +55,6 @@ CREATE TABLE report.mother_case (
 	,user_id INTEGER REFERENCES report.flw(id)
 	,date_modified	TIMESTAMP WITH TIME ZONE
 	,server_date_modified TIMESTAMP WITH TIME ZONE
-	,server_date_opened TIMESTAMP WITH TIME ZONE
 	,family_number	INTEGER
 	,hh_number	INTEGER
 	,husband_name	VARCHAR(255)
@@ -149,7 +148,6 @@ CREATE TABLE report.child_case (
 	,case_name	VARCHAR(255)
 	,date_modified	TIMESTAMP WITH TIME ZONE	
 	,server_date_modified TIMESTAMP WITH TIME ZONE
-	,server_date_opened TIMESTAMP WITH TIME ZONE
   ,mother_id	INTEGER REFERENCES report.mother_case(id)
 	,case_type	VARCHAR(255)
 	,owner_id	INTEGER REFERENCES report.flw_group(id)	

@@ -30,8 +30,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private String caseName;
 	private Date dateModified;
 	private Date serverDateModified;
-	private Date serverDateOpened;
-	private String caseType;
+    private String caseType;
 	private Boolean babyMeasles;
 	private Date bcgDate;
 	private String birthStatus;
@@ -155,17 +154,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.serverDateModified = serverDateModified;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_opened", length = 35)
-	public Date getServerDateOpened() {
-		return this.serverDateOpened;
-	}
-
-	public void setServerDateOpened(Date serverDateOpened) {
-		this.serverDateOpened = serverDateOpened;
-	}
-
-	@Column(name = "case_type")
+    @Column(name = "case_type")
 	public String getCaseType() {
 		return this.caseType;
 	}

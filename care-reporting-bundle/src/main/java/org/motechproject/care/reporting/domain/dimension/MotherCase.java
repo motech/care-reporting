@@ -29,8 +29,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private String caseType;
 	private Date dateModified;
 	private Date serverDateModified;
-	private Date serverDateOpened;
-	private Integer familyNumber;
+    private Integer familyNumber;
 	private Integer hhNumber;
 	private String husbandName;
 	private String lastVisitType;
@@ -202,17 +201,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.serverDateModified = serverDateModified;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_opened", length = 35)
-	public Date getServerDateOpened() {
-		return this.serverDateOpened;
-	}
-
-	public void setServerDateOpened(Date serverDateOpened) {
-		this.serverDateOpened = serverDateOpened;
-	}
-
-	@Column(name = "family_number")
+    @Column(name = "family_number")
 	public Integer getFamilyNumber() {
 		return this.familyNumber;
 	}
