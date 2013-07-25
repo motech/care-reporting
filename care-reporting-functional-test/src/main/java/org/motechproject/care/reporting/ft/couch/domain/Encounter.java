@@ -24,11 +24,11 @@ public class Encounter extends CouchDocument {
     @XmlElement
     private Facility facility;
 
-    @JsonProperty
+    @JsonProperty("encounterDate")
     @XmlElement
     private Provider provider;
 
-    @JsonProperty
+    @JsonProperty("encounterPatientId")
     @XmlElement
     private String patientId;
 
