@@ -17,7 +17,7 @@ public class AllFormsTest extends BaseTestCase {
     private String groupId;
     private String caseId;
     private String child1caseId;
-    private String receivedOn;
+    private String receivedOn, receivedOnIST;
 
     @Autowired
     private Asserter asserter;
@@ -32,11 +32,14 @@ public class AllFormsTest extends BaseTestCase {
         flwId = UUID.randomUUID().toString().replaceAll("-", "");
         groupId = UUID.randomUUID().toString().replaceAll("-", "");
         receivedOn = "2012-07-21T10:10:20.000Z";
+        receivedOnIST = "2012-07-21 15:40:20.0";
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("child1caseId", child1caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
         placeholderMap.put("receivedOn", receivedOn);
+        placeholderMap.put("receivedOnIST", receivedOnIST);
+
         asserter.setPlaceholder(placeholderMap);
 
         headerMap.put("received-on",receivedOn);
