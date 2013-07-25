@@ -17,11 +17,13 @@ public class AllFormsTest extends BaseTestCase {
     private String groupId;
     private String caseId;
     private String child1caseId;
+    private String receivedOn;
 
     @Autowired
     private Asserter asserter;
 
     Map<String, String> placeholderMap = new HashMap<>();
+    Map<String, String> headerMap = new HashMap<>();
 
     @Before
     public void setUp() {
@@ -29,11 +31,16 @@ public class AllFormsTest extends BaseTestCase {
         child1caseId = UUID.randomUUID().toString();
         flwId = UUID.randomUUID().toString().replaceAll("-", "");
         groupId = UUID.randomUUID().toString().replaceAll("-", "");
+        receivedOn = "2012-07-21T10:10:20.000Z";
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("child1caseId", child1caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
+        placeholderMap.put("receivedOn", receivedOn);
         asserter.setPlaceholder(placeholderMap);
+
+        headerMap.put("received-on",receivedOn);
+        asserter.setHeader(headerMap);
     }
 
     @After

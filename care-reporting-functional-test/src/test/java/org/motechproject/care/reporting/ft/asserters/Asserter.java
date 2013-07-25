@@ -23,6 +23,7 @@ import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflecti
 public class Asserter {
 
     private Map<String, String> placeholderMap;
+    private Map<String, String> header;
 
     @Autowired
     private ReportingDatabase reportingDatabase;
@@ -40,8 +41,7 @@ public class Asserter {
 
     public void postForm(String requestUrl) {
         MotechEndpoint motechEndpoint = new MotechEndpoint();
-
-        int response = motechEndpoint.postForm(requestUrl, placeholderMap);
+        int response = motechEndpoint.postForm(requestUrl, placeholderMap, header);
         assertEquals(200, response);
 
     }
@@ -77,10 +77,17 @@ public class Asserter {
         });
         PropertyFile expectedCouchValues = new PropertyFile(expectedUrl, placeholderMap);
         PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(patient, "patient"));
+        for (Map.Entry<String, String> actual : actualCouchValues.properties().entrySet()) {
+            System.out.println(actual.getKey() + "=" +actual.getValue());
+        }
         assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
     }
 
     public void setPlaceholder(Map<String, String> placeholder) {
         this.placeholderMap = placeholder;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 }

@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.ft.pages;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -24,16 +26,12 @@ public class MotechEndpoint {
         environment = new TestEnvironment();
     }
 
-    public int postForm(String xmlFileName) {
-        return postForm(xmlFileName, null);
-    }
-
-    public int postForm(String xmlFileName, Map<String, String> placeholderMap) {
-        return post(environment.getFormUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP);
+    public int postForm(String xmlFileName, Map<String, String> placeholderMap, Map<String, String> header) {
+        return post(environment.getFormUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP, header);
     }
 
     public int postCase(String xmlFileName, Map<String, String> placeholderMap) {
-        return post(environment.getCaseUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP);
+        return post(environment.getCaseUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP, null);
     }
 
     public int postFakeTimeRequest(final DateTime futureTimeToMove) {
@@ -41,7 +39,7 @@ public class MotechEndpoint {
             put("newDateTime", futureTimeToMove.toString("dd/MM/yyyy HH:mm"));
 
         }};
-        return post(environment.updateFakeTimeEndPoint(), null, postParameters);
+        return post(environment.updateFakeTimeEndPoint(), null, postParameters, null);
     }
 
     public DateTime getCurrentFakeTime() {
@@ -56,11 +54,17 @@ public class MotechEndpoint {
         }
     }
 
-    private int post(String url, String requestBody, Map<String, String> postParameters) {
+    private int post(String url, String requestBody, Map<String, String> postParameters, Map<String, String> header) {
         HttpClient httpClient = new HttpClient();
         PostMethod postMethod = new PostMethod(url);
         for (Map.Entry<String, String> postParameter : postParameters.entrySet()) {
             postMethod.addParameter(postParameter.getKey(), postParameter.getValue());
+        }
+
+        if(MapUtils.isNotEmpty(header)){
+            for (Map.Entry<String, String> headerEntry : header.entrySet()) {
+                postMethod.addRequestHeader(headerEntry.getKey(), headerEntry.getValue());
+            }
         }
 
         try {
