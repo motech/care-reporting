@@ -56,24 +56,17 @@ public class AllFormsTest extends BaseTestCase {
 
     @Test
     public void createNewForm() throws Exception {
-        String instanceId = postForm("new_form");
-        assertReportingDatabaseWithMotherAndFlw(TableName.new_form, instanceId, "new_form");
-        assertCouchDatabaseForMother("mother_after_new");
-
+        testForm("new");
     }
 
     @Test
-    public void createRegistrationMotherForm() throws Exception {
-        String instanceId = postForm("registration_mother_form");
-        assertReportingDatabaseWithMotherAndFlw(TableName.registration_mother_form, instanceId, "registration_mother_form");
-        assertCouchDatabaseForMother("mother_after_registration");
+    public void createRegistrationForm() throws Exception {
+        testFormWithChild("registration");
     }
 
     @Test
     public void createBPForm() throws Exception {
-        String instanceId = postForm("bp_form");
-        assertReportingDatabaseWithMotherAndFlw(TableName.bp_form, instanceId, "bp_form");
-        assertCouchDatabaseForMother("mother_after_bp");
+        testForm("bp");
     }
 
     @Test

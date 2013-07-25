@@ -78,7 +78,22 @@ public class Asserter {
         PropertyFile expectedCouchValues = new PropertyFile(expectedUrl, placeholderMap);
         PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(patient, "patient"));
         for (Map.Entry<String, String> actual : actualCouchValues.properties().entrySet()) {
-            System.out.println(actual.getKey() + "=" +actual.getValue());
+            String key = actual.getKey();
+            String value = actual.getValue();
+            boolean showConsole = key.contains("patient.encounters[0].observations[");
+
+            if (showConsole) {
+                if (key.endsWith("].patientId"))
+                    value = "$caseId$";
+                else if (key.endsWith("].observationId")) {
+                    String conceptName = value.substring(value.lastIndexOf("-"), value.length());
+                    value = "$caseId$-$instanceId$"+conceptName;
+                }
+                else if (key.endsWith("].date")){
+                    value = "$receivedOn$";
+                }
+                System.out.println(key + "=" + value);
+            }
         }
         assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
     }
