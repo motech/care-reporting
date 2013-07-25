@@ -80,7 +80,7 @@ public class Asserter {
         for (Map.Entry<String, String> actual : actualCouchValues.properties().entrySet()) {
             String key = actual.getKey();
             String value = actual.getValue();
-            boolean showConsole = key.contains("patient.encounters[0].observations[");
+            boolean showConsole = key.contains("patient.encounters[1].observations[");
 
             if (showConsole) {
                 if (key.endsWith("].patientId"))
