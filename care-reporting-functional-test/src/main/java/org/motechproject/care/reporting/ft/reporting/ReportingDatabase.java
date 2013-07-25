@@ -97,7 +97,7 @@ public class ReportingDatabase {
                                          pncMotherForm, referMotherForm, uiMotherForm);
 
         childFormTables = Arrays.asList(registrationChildForm, cfChildForm, closeChildForm, deathChildForm, ebfChildForm, pncChildForm,
-                                        referChildForm, uiChildForm);
+                                        referChildForm, deliveryChildForm, uiChildForm);
     }
 
     private Table getFormTable(String tableName) {
