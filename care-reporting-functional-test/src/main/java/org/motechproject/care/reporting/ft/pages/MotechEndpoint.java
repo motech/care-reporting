@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.ft.pages;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -30,8 +29,8 @@ public class MotechEndpoint {
         return post(environment.getFormUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP, header);
     }
 
-    public int postCase(String xmlFileName, Map<String, String> placeholderMap) {
-        return post(environment.getCaseUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP, null);
+    public int postCase(String xmlFileName, Map<String, String> placeholderMap, Map<String, String> header) {
+        return post(environment.getCaseUpdateEnpoint(), getBody(xmlFileName, placeholderMap), Collections.EMPTY_MAP, header);
     }
 
     public int postFakeTimeRequest(final DateTime futureTimeToMove) {
@@ -61,7 +60,7 @@ public class MotechEndpoint {
             postMethod.addParameter(postParameter.getKey(), postParameter.getValue());
         }
 
-        if(MapUtils.isNotEmpty(header)){
+        if (MapUtils.isNotEmpty(header)) {
             for (Map.Entry<String, String> headerEntry : header.entrySet()) {
                 postMethod.addRequestHeader(headerEntry.getKey(), headerEntry.getValue());
             }

@@ -16,21 +16,35 @@ public class MotherLifeCycleTest extends BaseTestCase {
     private String flwId;
     private String groupId;
     private String caseId;
+    private String receivedOn, receivedOnIST;
+    private String newFormInstanceId;
+    private String registrationFormInstanceId;
 
     @Autowired
     private Asserter asserter;
 
     Map<String, String> placeholderMap = new HashMap<>();
+    Map<String, String> headerMap = new HashMap<>();
 
     @Before
     public void setUp() {
         caseId = UUID.randomUUID().toString();
+        newFormInstanceId = UUID.randomUUID().toString();
+        registrationFormInstanceId = UUID.randomUUID().toString();
         flwId = UUID.randomUUID().toString().replaceAll("-", "");
         groupId = UUID.randomUUID().toString().replaceAll("-", "");
+        receivedOn = "2012-07-21T10:10:20.000Z";
+        receivedOnIST = "2012-07-21 15:40:20.0";
+
         placeholderMap.put("caseId", caseId);
         placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", flwId);
+        placeholderMap.put("receivedOn", receivedOn);
+        placeholderMap.put("receivedOnIST", receivedOnIST);
         asserter.setPlaceholder(placeholderMap);
+
+        headerMap.put("received-on",receivedOn);
+        asserter.setHeader(headerMap);
     }
 
     @After
@@ -44,45 +58,41 @@ public class MotherLifeCycleTest extends BaseTestCase {
 
     @Test
     public void createNewAndRegisterMother() throws Exception {
-        String newFormInstanceId = postNewFormAndAssert();
-        postRegistrationFormAndAssert(newFormInstanceId);
+        postNewFormAndAssert();
+        postRegistrationFormAndAssert();
     }
 
-    private String postNewFormAndAssert() {
+    private void postNewFormAndAssert() {
         final String new_form = constructRequestTemplateUrl("new_form");
         final String expectedNewFormUrl = constructExpectedUrl("reporting/new_form");
         final String expectedMotherCaseUrl = constructExpectedUrl("reporting/mother_case");
         final String expectedFlwUrl = constructExpectedUrl("reporting/flw");
         final String expectedPatientUrl = constructExpectedUrl("couch/mother_after_new");
 
-        String instanceId = UUID.randomUUID().toString();
-        placeholderMap.put("instanceId", instanceId);
+        placeholderMap.put("instanceId", newFormInstanceId);
 
         asserter.postForm(new_form);
 
-        asserter.verifyTable(TableName.new_form, instanceId, expectedNewFormUrl);
+        asserter.verifyTable(TableName.new_form, newFormInstanceId, expectedNewFormUrl);
         asserter.verifyTable(TableName.mother_case, caseId, expectedMotherCaseUrl);
         asserter.verifyFlwWithoutGroup(flwId, expectedFlwUrl, groupId);
 
         asserter.verifyCouchPatient(caseId, expectedPatientUrl);
-
-        return instanceId;
     }
 
-    private void postRegistrationFormAndAssert(String newFormInstanceId) {
+    private void postRegistrationFormAndAssert() {
         final String registration_form = constructRequestTemplateUrl("registration_form");
         final String expectedRegistrationFormUrl = constructExpectedUrl("reporting/registration_mother_form");
         final String expectedMotherCaseUrl = constructExpectedUrl("reporting/mother_case");
         final String expectedFlwUrl = constructExpectedUrl("reporting/flw");
         final String expectedPatientUrl = constructExpectedUrl("couch/mother_after_registration");
 
-        String instanceId = UUID.randomUUID().toString();
-        placeholderMap.put("instanceId", instanceId);
+        placeholderMap.put("instanceId", registrationFormInstanceId);
         placeholderMap.put("newFormInstanceId", newFormInstanceId);
 
         asserter.postForm(registration_form);
 
-        asserter.verifyTable(TableName.registration_mother_form, instanceId, expectedRegistrationFormUrl);
+        asserter.verifyTable(TableName.registration_mother_form, registrationFormInstanceId, expectedRegistrationFormUrl);
         asserter.verifyTable(TableName.mother_case, caseId, expectedMotherCaseUrl);
         asserter.verifyFlwWithoutGroup(flwId, expectedFlwUrl, groupId);
 
