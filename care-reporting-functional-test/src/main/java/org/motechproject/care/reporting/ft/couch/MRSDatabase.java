@@ -14,9 +14,6 @@ public class MRSDatabase {
     private MRSFacilityService mrsFacilityService;
 
     @Autowired
-    private MRSObservationService mrsObservationService;
-
-    @Autowired
     private MRSPatientService mrsPatientService;
 
     @Autowired
@@ -31,10 +28,6 @@ public class MRSDatabase {
 
     public MRSFacilityService facilities() {
         return mrsFacilityService;
-    }
-
-    public MRSObservationService observations() {
-        return mrsObservationService;
     }
 
     public MRSPatientService patients() {

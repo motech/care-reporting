@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.motechproject.care.reporting.ft.couch.domain.Encounter;
 import org.motechproject.care.reporting.ft.couch.domain.Observation;
 import org.motechproject.couch.mrs.model.CouchEncounterImpl;
+import org.motechproject.couch.mrs.model.CouchObservation;
 import org.motechproject.couch.mrs.repository.impl.AllCouchEncountersImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,15 +19,14 @@ public class MRSEncounterService {
     private final MRSFacilityService mrsFacilityService;
     private final MRSProviderService mrsProviderService;
     private final AllCouchEncountersImpl allCouchEncounters;
-    private final MRSObservationService mrsObservationService;
 
     @Autowired
     public MRSEncounterService(MRSFacilityService mrsFacilityService,
-                               MRSProviderService mrsProviderService, AllCouchEncountersImpl allCouchEncounters, MRSObservationService mrsObservationService) {
+                               MRSProviderService mrsProviderService, AllCouchEncountersImpl allCouchEncounters) {
         this.mrsFacilityService = mrsFacilityService;
         this.mrsProviderService = mrsProviderService;
         this.allCouchEncounters = allCouchEncounters;
-        this.mrsObservationService = mrsObservationService;
+
     }
 
     public List<Encounter> getForMotechId(String motechId) {
@@ -57,12 +57,9 @@ public class MRSEncounterService {
     }
 
     private Encounter map(CouchEncounterImpl couchEncounter) {
-        List<Observation> observations = new ArrayList<Observation>();
-        Set<String> observationIds = couchEncounter.getObservationIds();
-        if (observationIds != null && observationIds.size() > 0) {
-            for (String observationId : observationIds) {
-                observations.add(mrsObservationService.getFor(observationId));
-            }
+        List<Observation> observations = new ArrayList<>();
+        for (CouchObservation couchObservation : couchEncounter.getObservations()) {
+            observations.add(new Observation(couchObservation));
         }
 
         Collections.sort(observations, new Comparator<Observation>() {
@@ -88,10 +85,6 @@ public class MRSEncounterService {
 
         if(encounter == null) {
             return;
-        }
-
-        for (String observationId : encounter.getObservationIds()) {
-            mrsObservationService.delete(observationId);
         }
 
         if(deleteProviders) {
