@@ -23,6 +23,11 @@ public class MotherCaseUpdateTest extends BaseTestCase {
     private String createdByFlwId;
     private String updatedByFlwId;
     private String closeByFlwId;
+    private String serverDateModified;
+    private String serverDateModifiedIST;
+
+    Map<String, String> placeholderMap = new HashMap<>();
+    Map<String, String> header = new HashMap<>();
 
     @Before
     public void setUp() {
@@ -31,6 +36,15 @@ public class MotherCaseUpdateTest extends BaseTestCase {
         createdByFlwId = UUID.randomUUID().toString().replaceAll("-", "");
         updatedByFlwId = UUID.randomUUID().toString().replaceAll("-", "");
         closeByFlwId = UUID.randomUUID().toString().replaceAll("-", "");
+        serverDateModified = "2013-07-20T10:45:50.908Z";
+        serverDateModifiedIST = "2013-07-20 16:15:50.908";
+
+        placeholderMap.put("caseId", caseId);
+        placeholderMap.put("ownerId", groupId);
+        placeholderMap.put("userId", createdByFlwId);
+        placeholderMap.put("serverDateModifiedIST", serverDateModifiedIST);
+
+        header.put("server-modified-on",serverDateModified);
     }
 
     @After
@@ -50,13 +64,9 @@ public class MotherCaseUpdateTest extends BaseTestCase {
     }
 
     private void createCase() {
-        Map<String, String> placeholderMap = new HashMap<>();
-        placeholderMap.put("caseId", caseId);
-        placeholderMap.put("ownerId", groupId);
-        placeholderMap.put("userId", createdByFlwId);
 
         MotechEndpoint motechEndpoint = new MotechEndpoint();
-        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_create"), placeholderMap);
+        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_create"), placeholderMap, header);
         assertEquals(200, response);
 
         Map<String, Object> actualFlw = reportingDatabase().flw.waitAndGet(createdByFlwId);
@@ -78,15 +88,12 @@ public class MotherCaseUpdateTest extends BaseTestCase {
     }
 
     private void updateCase() {
-        Map<String, String> placeholderMap = new HashMap<>();
-        placeholderMap.put("caseId", caseId);
-        placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", updatedByFlwId);
 
         long currentTime = System.currentTimeMillis();
 
         MotechEndpoint motechEndpoint = new MotechEndpoint();
-        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_update"), placeholderMap);
+        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_update"), placeholderMap, header);
         assertEquals(200, response);
 
         Map<String, Object> actualFlw = reportingDatabase().flw.waitAndGet(updatedByFlwId);
@@ -108,15 +115,12 @@ public class MotherCaseUpdateTest extends BaseTestCase {
     }
 
     private void closeCase() {
-        Map<String, String> placeholderMap = new HashMap<>();
-        placeholderMap.put("caseId", caseId);
-        placeholderMap.put("ownerId", groupId);
         placeholderMap.put("userId", closeByFlwId);
 
         long currentTime = System.currentTimeMillis();
 
         MotechEndpoint motechEndpoint = new MotechEndpoint();
-        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_close"), placeholderMap);
+        int response = motechEndpoint.postCase(constructRequestTemplateUrl("mother_case_close"), placeholderMap, header);
         assertEquals(200, response);
 
         Map<String, Object> actualFlw = reportingDatabase().flw.waitAndGet(closeByFlwId);
