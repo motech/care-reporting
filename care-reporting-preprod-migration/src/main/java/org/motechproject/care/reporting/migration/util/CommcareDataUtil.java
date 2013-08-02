@@ -122,7 +122,8 @@ public class CommcareDataUtil {
     }
 
     private static Element populateProperty(Element element, JsonObject jsonObject, String propertyName) {
-        String propertyValue = jsonObject.get(propertyName).getAsString();
+        JsonElement jsonElement = jsonObject.get(propertyName);
+        String propertyValue = jsonElement.isJsonNull() ? null : jsonElement.getAsString();
         return populateProperty(element, propertyValue, propertyName);
     }
 
