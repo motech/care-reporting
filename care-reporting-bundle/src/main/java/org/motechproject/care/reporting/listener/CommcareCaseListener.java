@@ -56,7 +56,7 @@ public class CommcareCaseListener {
         CaseType caseType = CaseType.getType(caseEvent.getCaseType());
 
         if(!caseType.shouldProcess())  {
-            logger.info(String.format("Ignoring case type %s with the case id %s", caseId));
+            logger.info(String.format("Ignoring case type %s with the case id %s", caseType,caseId));
             return;
         }
 
