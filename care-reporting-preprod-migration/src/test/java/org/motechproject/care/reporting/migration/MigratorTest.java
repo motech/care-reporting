@@ -9,9 +9,7 @@ import org.motechproject.care.reporting.migration.service.MigrationService;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 
@@ -30,30 +28,10 @@ public class MigratorTest {
 
     @Test
     public void shouldValidateAndMigrate() {
-        when(migrationService.migrate(migratorArguments)).thenReturn(true);
-
-        boolean success = new Migrator(migrationService).migrate(migratorArguments);
-
-        assertTrue(success);
-        verify(migrationService).migrate(migratorArguments);
-    }
-
-    @Test
-    public void shouldThrowExeptionWhenValidationFails() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Some exception");
-        doThrow(new IllegalArgumentException("Some exception")).when(migrationService).migrate(migratorArguments);
 
         new Migrator(migrationService).migrate(migratorArguments);
-    }
 
-    @Test
-    public void shouldReturnFalseIfMigrationServiceIsUnsuccessful() {
-        when(migrationService.migrate(migratorArguments)).thenReturn(false);
-
-        boolean success = new Migrator(migrationService).migrate(migratorArguments);
-
-        assertFalse(success);
         verify(migrationService).migrate(migratorArguments);
     }
+
 }

@@ -1,4 +1,4 @@
-package org.motechproject.care.reporting.migration.service;
+package org.motechproject.care.reporting.migration.common;
 
 import java.util.Map;
 
@@ -18,4 +18,5 @@ public class CommcareResponseWrapper {
     public String getResponseBody() {
         return responseBody;
     }
+
 }

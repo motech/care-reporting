@@ -1,6 +1,9 @@
 package org.motechproject.care.reporting.migration.util;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,12 +19,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
 
-public class CommcareDataConverter {
+public class CommcareDataUtil {
 
     private static Document createNewDocument(String rootElementName) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -54,6 +58,15 @@ public class CommcareDataConverter {
             caseXmls.add(toString(closeCase));
         }
         return caseXmls;
+    }
+
+    public static Map<String, String> extractAsMap(JsonObject jsonResponse, String fieldToExtract, String requestHeader) {
+        Map<String, String> map = new HashMap<>();
+        JsonElement extractedValue = jsonResponse.get(fieldToExtract);
+        if (extractedValue == null)
+            throw new RuntimeException(String.format("%s field not present in commcare response", fieldToExtract));
+        map.put(requestHeader, extractedValue.getAsString());
+        return map;
     }
 
     private static Document processForCreateAndUpdate(JsonObject jsonObject) {
@@ -200,16 +213,11 @@ public class CommcareDataConverter {
     }
 
     private static boolean isAttribute(String key) {
-        if (key.startsWith("@")) {
-            return true;
-        }
-        return false;
+        return key.startsWith("@");
     }
 
     private static boolean isValue(String key) {
-        if (key.startsWith("#")) {
-            return true;
-        }
-        return false;
+        return key.startsWith("#");
     }
+
 }

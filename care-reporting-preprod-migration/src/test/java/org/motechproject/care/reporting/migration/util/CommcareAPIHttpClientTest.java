@@ -10,24 +10,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.motechproject.care.reporting.migration.service.CommcareResponseWrapper;
+import org.motechproject.care.reporting.migration.common.PaginationOption;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommcareAPIHttpClientTest {
+    public static final int LIMIT = 1;
+    public static final int OFFSET = 2;
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -53,35 +57,43 @@ public class CommcareAPIHttpClientTest {
     }
 
     @Test
-    public void shouldReturnReceivedOnHeaderForForm() throws IOException {
+    public void shouldFetchFormsWithPageOptionAsParameter() throws Exception {
         String receivedOn = DateTime.now().toString();
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getFormResponseWithHeaderField("received_on", receivedOn)));
 
-        CommcareResponseWrapper commcareResponseWrapper = commcareAPIHttpClient.fetchForm("formId");
+        commcareAPIHttpClient.fetchForms(new NameValuePair[]{}, new PaginationOption(10, 0));
 
-        assertEquals(receivedOn, commcareResponseWrapper.getHeaders().get("received-on"));
+        ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
+        verify(httpClient).executeMethod(methodCaptor.capture());
+
+        GetMethod getMethod = methodCaptor.getValue();
+        Matcher matcher = findLimitOffset(getMethod);
+        assertEquals("10", matcher.group(LIMIT));
+        assertEquals("0",matcher.group(OFFSET));
     }
 
     @Test
-    public void shouldThrowExceptionIfFieldIsNotPresent() throws IOException {
-        when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getFormResponseWithHeaderField(null, null)));
-
-        expectedException.expect(RuntimeException.class);
-        expectedException.expectMessage("received_on field not present in commcare response");
-
-        commcareAPIHttpClient.fetchForm("formId");
-    }
-
-    @Test
-    public void shouldReturnServerModifiedOnHeaderForCase() throws IOException {
+    public void shouldFetchCasesWithPageOptionAsParameter() throws Exception {
         String serverModifiedOn = DateTime.now().toString();
-        when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_date_modified", serverModifiedOn)));
+        when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_modified_on", serverModifiedOn)));
 
-        List<CommcareResponseWrapper> cases = commcareAPIHttpClient.fetchCase("caseId");
+        commcareAPIHttpClient.fetchCases(new NameValuePair[]{}, new PaginationOption(100, 20));
 
-        assertEquals(2, cases.size());
-        assertEquals(serverModifiedOn, cases.get(0).getHeaders().get("server-modified-on"));
-        assertEquals(serverModifiedOn, cases.get(1).getHeaders().get("server-modified-on"));
+        ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
+        verify(httpClient).executeMethod(methodCaptor.capture());
+
+        GetMethod getMethod = methodCaptor.getValue();
+        Matcher matcher = findLimitOffset(getMethod);
+        assertEquals("100",matcher.group(LIMIT));
+        assertEquals("20",matcher.group(OFFSET));
+    }
+
+    private Matcher findLimitOffset(GetMethod getMethod) {
+        String queryString = getMethod.getQueryString();
+        Pattern pattern = Pattern.compile("limit=(\\d+)&offset=(\\d+)");
+        Matcher matcher = pattern.matcher(queryString);
+        matcher.find();
+        return matcher;
     }
 
     private class CommcareRequestAnswer implements Answer {
@@ -133,7 +145,7 @@ public class CommcareAPIHttpClientTest {
         if (headerField != null)
             field = String.format("\"%s\": \"%s\",\n", headerField, headerValue);
 
-        return  "{\n" +
+        return "{\n" +
                 "\"case_id\": \"361816d9-a98e-41d9-9d67-af1e18a26ea7\",\n" +
                 "\"closed\": true,\n" +
                 "\"date_closed\": null,\n" +

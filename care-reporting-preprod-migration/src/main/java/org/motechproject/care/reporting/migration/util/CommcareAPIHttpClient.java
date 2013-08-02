@@ -1,13 +1,10 @@
 package org.motechproject.care.reporting.migration.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.motechproject.care.reporting.migration.service.CommcareResponseWrapper;
+import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 @Component
 public class CommcareAPIHttpClient {
@@ -35,43 +35,26 @@ public class CommcareAPIHttpClient {
         authenticate();
     }
 
-    public CommcareResponseWrapper fetchForm(String formId) {
-        String jsonResponse = getRequest(commcareFormUrl(formId), null);
+    public String fetchForms(NameValuePair[] parameters, PaginationOption option) {
+        List<NameValuePair> parameterList = new ArrayList<>(Arrays.asList(parameters));
+        parameterList.add(new NameValuePair("limit", String.valueOf(option.getLimit())));
+        parameterList.add(new NameValuePair("offset", String.valueOf(option.getOffset())));
 
-        JsonObject jsonObject = parseJson(jsonResponse);
-        String responseBody = CommcareDataConverter.toFormXml(jsonObject);
-        Map<String, String> header = extractHeaders(jsonObject, "received_on", "received-on");
+        NameValuePair[] queryParams = parameterList.toArray(new NameValuePair[parameterList.size()]);
 
-        return new CommcareResponseWrapper(responseBody, header);
+        return getRequest(commcareFormListUrl(), queryParams);
     }
 
-    public List<CommcareResponseWrapper> fetchCase(String caseId) {
-        String jsonResponse = getRequest(commcareCaseUrl(caseId), null);
+    public String fetchCases(NameValuePair[] parameters, PaginationOption option) {
+        List<NameValuePair> parameterList = new ArrayList<>(Arrays.asList(parameters));
+        parameterList.add(new NameValuePair("limit", String.valueOf(option.getLimit())));
+        parameterList.add(new NameValuePair("offset", String.valueOf(option.getOffset())));
 
-        JsonObject jsonObject = parseJson(jsonResponse);
-        List<String> responses = CommcareDataConverter.toCaseXml(jsonObject);
-        Map<String, String> headers = extractHeaders(jsonObject, "server_date_modified", "server-modified-on");
+        NameValuePair[] queryParams = parameterList.toArray(new NameValuePair[parameterList.size()]);
 
-        ArrayList<CommcareResponseWrapper> responseWrappers = new ArrayList<>();
-        for (String response : responses) {
-            responseWrappers.add(new CommcareResponseWrapper(response, headers));
-        }
-        return responseWrappers;
+        return getRequest(commcareCaseListUrl(), queryParams);
     }
 
-    private JsonObject parseJson(String jsonResponse) {
-        JsonParser parser = new JsonParser();
-        return (JsonObject) parser.parse(jsonResponse);
-    }
-
-    private Map<String, String> extractHeaders(JsonObject jsonResponse, String fieldToExtract, String requestHeader) {
-        Map<String, String> header = new HashMap<>();
-        JsonElement extractedValue = jsonResponse.get(fieldToExtract);
-        if (extractedValue == null)
-            throw new RuntimeException(String.format("%s field not present in commcare response", fieldToExtract));
-        header.put(requestHeader, extractedValue.getAsString());
-        return header;
-    }
 
     private HttpMethod buildRequest(String url, NameValuePair[] queryParams) {
         HttpMethod requestMethod = new GetMethod(url);
@@ -102,6 +85,7 @@ public class CommcareAPIHttpClient {
         });
 
         try {
+            logger.info("Executing " + getMethod.getURI().getURI());
             int statusCode = httpClient.executeMethod(getMethod);
             String response = readResponse(getMethod);
 
@@ -141,12 +125,12 @@ public class CommcareAPIHttpClient {
                 new UsernamePasswordCredentials(getUsername(), getPassword()));
     }
 
-    private String commcareFormUrl(String formId) {
-        return String.format("%s/%s/api/%s/form/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), getVersion(), formId);
+    private String commcareCaseListUrl() {
+        return String.format("%s/%s/api/%s/case", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
-    private String commcareCaseUrl(String caseId) {
-        return String.format("%s/%s/api/%s/case/%s/?format=json", getCommcareBaseUrl(), getCommcareDomain(), getVersion(), caseId);
+    private String commcareFormListUrl() {
+        return String.format("%s/%s/api/%s/form", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
     private String getCommcareBaseUrl() {
@@ -170,6 +154,7 @@ public class CommcareAPIHttpClient {
     private String getUsername() {
         return commcareProperties.getProperty("username");
     }
+
 
     private String getPassword() {
         return commcareProperties.getProperty("password");

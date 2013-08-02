@@ -1,9 +1,9 @@
 package org.motechproject.care.reporting.migration.factory;
 
-import org.motechproject.care.reporting.migration.service.CaseMigrationTask;
-import org.motechproject.care.reporting.migration.service.FormMigrationTask;
-import org.motechproject.care.reporting.migration.service.MigrationTask;
-import org.motechproject.care.reporting.migration.service.MigrationType;
+import org.motechproject.care.reporting.migration.task.CaseMigrationTask;
+import org.motechproject.care.reporting.migration.task.FormMigrationTask;
+import org.motechproject.care.reporting.migration.task.MigrationTask;
+import org.motechproject.care.reporting.migration.common.MigrationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

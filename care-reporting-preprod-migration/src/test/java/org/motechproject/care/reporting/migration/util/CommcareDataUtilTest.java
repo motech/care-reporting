@@ -9,7 +9,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
-public class CommcareDataConverterTest {
+public class CommcareDataUtilTest {
 
     @Test
     public void shouldConvertJsonToXml() {
@@ -47,7 +47,7 @@ public class CommcareDataConverterTest {
                 "<childElement>5</childElement>%n" +
                 "</data>%n";
 
-        String actualXml = CommcareDataConverter.toFormXml((JsonObject) new JsonParser().parse(json));
+        String actualXml = CommcareDataUtil.toFormXml((JsonObject) new JsonParser().parse(json));
         assertEquals(format(expectedXml), actualXml);
     }
 
@@ -127,9 +127,9 @@ public class CommcareDataConverterTest {
                 "</index>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataConverter.toCaseXml((JsonObject) new JsonParser().parse(json));
+        List<String> cases = CommcareDataUtil.toCaseXml((JsonObject) new JsonParser().parse(json));
         assertEquals(1, cases.size());
-        assertEquals(format(expectedXml),cases.get(0));
+        assertEquals(format(expectedXml), cases.get(0));
     }
 
     @Test
@@ -212,9 +212,9 @@ public class CommcareDataConverterTest {
                 "<close/>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataConverter.toCaseXml((JsonObject) new JsonParser().parse(json));
+        List<String> cases = CommcareDataUtil.toCaseXml((JsonObject) new JsonParser().parse(json));
         assertEquals(2, cases.size());
-        assertEquals(format(expectedXml),cases.get(0));
-        assertEquals(format(expectedCloseXml),cases.get(1));
+        assertEquals(format(expectedXml), cases.get(0));
+        assertEquals(format(expectedCloseXml), cases.get(1));
     }
 }

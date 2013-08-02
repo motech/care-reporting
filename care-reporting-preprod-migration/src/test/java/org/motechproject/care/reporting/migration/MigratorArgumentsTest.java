@@ -1,12 +1,18 @@
 package org.motechproject.care.reporting.migration;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.motechproject.care.reporting.migration.utils.FileUtils;
+import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.unitils.reflectionassert.ReflectionAssert;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static org.motechproject.care.reporting.migration.common.Constants.*;
 
 
 public class MigratorArgumentsTest {
@@ -14,50 +20,98 @@ public class MigratorArgumentsTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Test
-    public void shouldValidateArguments() throws IOException {
-        String fileName = "care_form_test_file";
-        File tempFile = FileUtils.createTempFile(fileName);
-        String absolutePath = tempFile.getAbsolutePath();
+    private String[] args;
 
-        new MigratorArguments(new String[]{"form", absolutePath}).validate();
+    @Before
+    public void setUp() {
+        args = new String[]{"form", "-t", "namespace", "-v", "version", "-start", "2012-10-20", "-enddate", "2012-10-20"};
     }
 
     @Test
-    public void shouldValidateIfNumberOfArgumentsIsMoreThanTwo() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Only two arguments are allowed");
-        new MigratorArguments(new String[]{"arg1", "arg2", "arg3"}).validate();
-    }
+    public void shouldGetMap() throws Exception {
+        Map<String, Object> expectedMap = new HashMap<String, Object>() {{
+            put(MIGRATION_TYPE, MigrationType.FORM);
+            put(TYPE, "namespace");
+            put(VERSION, "version");
+            put(START_DATE, "2012-10-20");
+            put(END_DATE, "2012-10-20");
+        }};
 
-
-    @Test
-    public void shouldValidateIfNumberOfArgumentsIsLessThanTwo() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Only two arguments are allowed");
-        new MigratorArguments(new String[]{"arg1"}).validate();
-    }
-
-    @Test
-    public void shouldValidateIfMigrationTypeIsCorrect() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Invalid migration type somemigrationType");
-        new MigratorArguments(new String[]{"somemigrationType", "anyfile"}).validate();
+        MigratorArguments arguments = new MigratorArguments(args);
+        Map<String, Object> actualMap = arguments.getMap();
+        ReflectionAssert.assertReflectionEquals(expectedMap, actualMap);
     }
 
     @Test
-    public void shouldValidateIfFileDoesNotExist() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File anyfile does not exist");
-        new MigratorArguments(new String[]{"form", "anyfile"}).validate();
+    public void shouldUsage() throws Exception {
+        assertNotNull(MigratorArguments.usage());
     }
 
     @Test
-    public void shouldValidateIfFileGivenIsNotAValidFile() {
+    public void shouldGetNameSpace() throws Exception {
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("namespace", arguments.getType());
+    }
+
+    @Test
+    public void shouldGetAppVersion() throws Exception {
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("version", arguments.getAppVersion());
+    }
+
+    @Test
+    public void shouldGetMigrationType() throws Exception {
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals(MigrationType.FORM, arguments.getMigrationType());
+    }
+
+    @Test
+    public void shouldGetStartDate() throws Exception {
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("2012-10-20", arguments.getStartDate());
+    }
+
+    @Test
+    public void shouldGetEndDate() throws Exception {
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("2012-10-20", arguments.getEndDate());
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidArgumentLength() {
+        String[] invalidArgs = new String[]{};
         expectedException.expect(IllegalArgumentException.class);
-        File tempDirectory = org.apache.commons.io.FileUtils.getTempDirectory();
-        expectedException.expectMessage(String.format("%s is not a valid file", tempDirectory.getPath()));
-        new MigratorArguments(new String[]{"form",tempDirectory.getPath()}).validate();
+        expectedException.expectMessage("Invalid number of arguments");
+
+        new MigratorArguments(invalidArgs);
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidArgument() {
+        String[] invalidArgs = new String[]{"form", "namespace", "-v"};
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Invalid version");
+
+        new MigratorArguments(invalidArgs);
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidMigrationType() {
+        String[] invalidArgs = new String[]{"invalidType", "namespace", "-v", "someversion"};
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Invalid migration type invalidType");
+
+        new MigratorArguments(invalidArgs);
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidDate() {
+        String[] args = new String[]{"form", "namespace", "-v", "version", "-start", "screwed", "-enddate", "2012-10-20"};
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Invalid format: \"screwed\"");
+
+        new MigratorArguments(args);
     }
 
 }

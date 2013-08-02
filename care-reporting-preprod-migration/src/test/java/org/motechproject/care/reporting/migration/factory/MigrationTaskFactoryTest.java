@@ -1,10 +1,10 @@
 package org.motechproject.care.reporting.migration.factory;
 
 import org.junit.Test;
-import org.motechproject.care.reporting.migration.service.CaseMigrationTask;
-import org.motechproject.care.reporting.migration.service.FormMigrationTask;
-import org.motechproject.care.reporting.migration.service.MigrationBatchProcessor;
-import org.motechproject.care.reporting.migration.service.MigrationType;
+import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.motechproject.care.reporting.migration.common.ResponseParser;
+import org.motechproject.care.reporting.migration.task.CaseMigrationTask;
+import org.motechproject.care.reporting.migration.task.FormMigrationTask;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 
@@ -17,14 +17,14 @@ public class MigrationTaskFactoryTest {
 
     @Test
     public void shouldGetMigrationTaskFromMigrationType() {
-        MigrationBatchProcessor migrationBatchProcessor = mock(MigrationBatchProcessor.class);
         CommcareAPIHttpClient httpClient = mock(CommcareAPIHttpClient.class);
         MotechAPIHttpClient motechAPIHttpClient = mock(MotechAPIHttpClient.class);
+        ResponseParser parser = mock(ResponseParser.class);
 
-        FormMigrationTask formMigrationTask = new FormMigrationTask(migrationBatchProcessor, httpClient, motechAPIHttpClient);
-        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(migrationBatchProcessor,httpClient,motechAPIHttpClient);
+        FormMigrationTask formMigrationTask = new FormMigrationTask(httpClient, motechAPIHttpClient, parser);
+        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(httpClient, motechAPIHttpClient, parser);
 
-        MigrationTaskFactory migrationTaskFactory = new MigrationTaskFactory(formMigrationTask, caseMigrationTask);
+        org.motechproject.care.reporting.migration.factory.MigrationTaskFactory migrationTaskFactory = new MigrationTaskFactory(formMigrationTask, caseMigrationTask);
 
         assertEquals(formMigrationTask, migrationTaskFactory.getFor(MigrationType.FORM));
         assertEquals(caseMigrationTask, migrationTaskFactory.getFor(MigrationType.CASE));

@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.migration.service.CommcareResponseWrapper;
+import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 
 import java.io.IOException;
 import java.util.HashMap;

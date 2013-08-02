@@ -1,4 +1,4 @@
-package org.motechproject.care.reporting.migration.service;
+package org.motechproject.care.reporting.migration.common;
 
 public enum MigrationType {
     FORM("form"), CASE("case");
