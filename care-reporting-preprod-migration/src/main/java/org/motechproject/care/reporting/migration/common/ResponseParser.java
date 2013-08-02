@@ -26,7 +26,7 @@ public class ResponseParser {
         JsonElement next = meta.get("next");
         if (next.isJsonNull())
             return null;
-        Pattern pattern = Pattern.compile("\\?limit=(\\d+)&offset=(\\d+)");
+        Pattern pattern = Pattern.compile(".*limit=(\\d+)&offset=(\\d+).*");
         Matcher matcher = pattern.matcher(next.getAsString());
         boolean found = matcher.find();
         if (!found)
