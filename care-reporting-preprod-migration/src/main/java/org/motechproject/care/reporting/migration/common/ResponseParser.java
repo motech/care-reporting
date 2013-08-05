@@ -26,14 +26,19 @@ public class ResponseParser {
         JsonElement next = meta.get("next");
         if (next.isJsonNull())
             return null;
-        Pattern pattern = Pattern.compile(".*limit=(\\d+)&offset=(\\d+).*");
+
+        int limit = Integer.parseInt(getOption(next, "limit"));
+        int offset = Integer.parseInt(getOption(next, "offset"));
+        return new PaginationOption(limit, offset);
+    }
+
+    private String getOption(JsonElement next, String option) {
+        String regex = ".*" + option + "=(\\d+).*";
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(next.getAsString());
         boolean found = matcher.find();
         if (!found)
-            throw new RuntimeException(String.format("Invalid next option %s. Pattern should be ?limit=<limit_value>&offset=<offset_value>", next.getAsString()));
-
-        int limit = Integer.parseInt(matcher.group(1));
-        int offset = Integer.parseInt(matcher.group(2));
-        return new PaginationOption(limit, offset);
+            throw new RuntimeException(String.format("Invalid %s option, %s", option, next.getAsString()));
+        return matcher.group(1);
     }
 }

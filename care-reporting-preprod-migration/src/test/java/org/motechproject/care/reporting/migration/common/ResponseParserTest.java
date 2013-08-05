@@ -14,7 +14,7 @@ public class ResponseParserTest {
 
     @Test
     public void shouldParseResponse() {
-        String response = getMessage("\"?limit=10&offset=30\"");
+        String response = getMessage("\"?offset=30&case_type=bihar_pregnancy&limit=10\"");
 
         PaginatedResult result = new ResponseParser().parse(response);
 
@@ -36,7 +36,7 @@ public class ResponseParserTest {
     @Test
     public void shouldThrowExceptionForInvalidNextField() {
         expectedException.expect(RuntimeException.class);
-        expectedException.expectMessage("Invalid next option li=10&of. Pattern should be ?limit=<limit_value>&offset=<offset_value>");
+        expectedException.expectMessage("Invalid limit option, li=10&of");
 
         String response = getMessage("\"li=10&of\"");
 
