@@ -6,11 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.PaginatedResult;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -33,7 +36,7 @@ public class PaginatorTest {
 
     @Test
     public void shouldInitializePaginationOptionWithOffset0ForFirstPage() {
-        NameValuePair[] parameters = {};
+        Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
 
         paginator.nextPage();
@@ -47,7 +50,7 @@ public class PaginatorTest {
 
     @Test
     public void shouldFetchNextPage() {
-        NameValuePair[] parameters = {};
+        Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
         PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), new PaginationOption(100, 100));
         when(parser.parse(anyString())).thenReturn(paginatedResult);
@@ -68,7 +71,7 @@ public class PaginatorTest {
 
     @Test
     public void shouldReturnNullIfNoPage() {
-        NameValuePair[] parameters = {};
+        Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
         PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), null);
         when(parser.parse(anyString())).thenReturn(paginatedResult);
@@ -84,4 +87,22 @@ public class PaginatorTest {
 
         assertNull(lastPage);
     }
+
+    @Test
+    public void shouldOverrideDefaultLimitAndOffsetIfProvidedInParams() {
+
+        Map<String,String> parameters = new HashMap<String,String>(){{
+                put(Constants.OFFSET, "2000");
+                put(Constants.LIMIT, "1000");
+        }};
+        Paginator paginator = new Paginator(parameters, scheme, parser);
+
+        paginator.nextPage();
+        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        verify(scheme).nextPage(eq(parameters), optionCaptor.capture());
+
+        assertEquals(2000, optionCaptor.getValue().getOffset());
+        assertEquals(1000, optionCaptor.getValue().getLimit());
+    }
+
 }

@@ -24,22 +24,24 @@ public class MigratorArgumentsTest {
 
     @Before
     public void setUp() {
-        args = new String[]{"form", "-t", "namespace", "-v", "version", "-start", "2012-10-20", "-enddate", "2012-10-20"};
+        args = new String[]{"form", "-t", "namespace", "-v", "version", "-start", "2012-10-20", "-enddate", "2012-10-20", "-o", "2000", "-l", "100"};
     }
 
     @Test
     public void shouldGetMap() throws Exception {
         Map<String, Object> expectedMap = new HashMap<String, Object>() {{
-            put(MIGRATION_TYPE, MigrationType.FORM);
             put(TYPE, "namespace");
             put(VERSION, "version");
             put(START_DATE, "2012-10-20");
             put(END_DATE, "2012-10-20");
+            put(OFFSET, "2000");
+            put(LIMIT, "100");
         }};
 
         MigratorArguments arguments = new MigratorArguments(args);
         Map<String, Object> actualMap = arguments.getMap();
         ReflectionAssert.assertReflectionEquals(expectedMap, actualMap);
+        assertEquals(MigrationType.FORM, arguments.getMigrationType());
     }
 
     @Test
@@ -78,8 +80,29 @@ public class MigratorArgumentsTest {
     }
 
     @Test
-    public void shouldThrowExceptionForInvalidArgumentLength() {
+    public void shouldGetOffset() {
+        MigratorArguments migratorArguments = new MigratorArguments(args);
+        assertEquals("2000", migratorArguments.getOffset());
+    }
+
+    @Test
+    public void shouldGetLimit() {
+        MigratorArguments migratorArguments = new MigratorArguments(args);
+        assertEquals("100", migratorArguments.getLimit());
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidArgumentLength_less() {
         String[] invalidArgs = new String[]{};
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Invalid number of arguments");
+
+        new MigratorArguments(invalidArgs);
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidArgumentLength_more() {
+        String[] invalidArgs = args = new String[]{"form", "-t", "namespace", "-v", "version", "-start", "2012-10-20", "-enddate", "2012-10-20", "-o", "2000", "-l", "100", "-x"};
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Invalid number of arguments");
 

@@ -4,6 +4,7 @@ import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 @Component
@@ -35,26 +36,29 @@ public class CommcareAPIHttpClient {
         authenticate();
     }
 
-    public String fetchForms(NameValuePair[] parameters, PaginationOption option) {
-        List<NameValuePair> parameterList = new ArrayList<>(Arrays.asList(parameters));
-        parameterList.add(new NameValuePair("limit", String.valueOf(option.getLimit())));
-        parameterList.add(new NameValuePair("offset", String.valueOf(option.getOffset())));
-
-        NameValuePair[] queryParams = parameterList.toArray(new NameValuePair[parameterList.size()]);
-
+    public String fetchForms(Map<String, String> parameters, PaginationOption option) {
+        NameValuePair[] queryParams = populateParams(parameters, option);
         return getRequest(commcareFormListUrl(), queryParams);
     }
 
-    public String fetchCases(NameValuePair[] parameters, PaginationOption option) {
-        List<NameValuePair> parameterList = new ArrayList<>(Arrays.asList(parameters));
-        parameterList.add(new NameValuePair("limit", String.valueOf(option.getLimit())));
-        parameterList.add(new NameValuePair("offset", String.valueOf(option.getOffset())));
-
-        NameValuePair[] queryParams = parameterList.toArray(new NameValuePair[parameterList.size()]);
-
+    public String fetchCases(Map<String, String> parameters, PaginationOption option) {
+        NameValuePair[] queryParams = populateParams(parameters, option);
         return getRequest(commcareCaseListUrl(), queryParams);
     }
 
+    private NameValuePair[] populateParams(Map<String, String> parameters, PaginationOption option) {
+        parameters.put(Constants.LIMIT, String.valueOf(option.getLimit()));
+        parameters.put(Constants.OFFSET, String.valueOf(option.getOffset()));
+        return toArray(parameters);
+    }
+
+    private NameValuePair[] toArray(Map<String, String> parameters) {
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        for (Map.Entry<String, String> parameterEntry : parameters.entrySet()) {
+            nameValuePairs.add(new NameValuePair(parameterEntry.getKey(), parameterEntry.getValue()));
+        }
+        return nameValuePairs.toArray(new NameValuePair[nameValuePairs.size()]);
+    }
 
     private HttpMethod buildRequest(String url, NameValuePair[] queryParams) {
         HttpMethod requestMethod = new GetMethod(url);
@@ -85,7 +89,7 @@ public class CommcareAPIHttpClient {
         });
 
         try {
-            logger.info("Executing " + getMethod.getURI().getURI());
+            logger.info("Fetching from: " + getMethod.getURI().getURI());
             int statusCode = httpClient.executeMethod(getMethod);
             String response = readResponse(getMethod);
 

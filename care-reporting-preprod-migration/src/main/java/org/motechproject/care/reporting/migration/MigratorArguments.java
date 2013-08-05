@@ -16,6 +16,8 @@ public class MigratorArguments {
     private String startDate;
     private String endDate;
     private String type;
+    private String offset;
+    private String limit;
 
     public MigratorArguments(String[] arguments) {
         this.arguments = arguments;
@@ -24,10 +26,10 @@ public class MigratorArguments {
     }
 
     public static String usage() {
-        return "Migrator migration-type -t <form-type> -v <app-version> -s <start-date> -e <end-date>\n" +
+        return "Migrator migration-type -t <form-type> -v <app-version> -s <start-date> -e <end-date> -o <offset> -l <limit>\n" +
                 "Eg:\n" +
                 "Migrator form -t http://bihar.commcarehq.org/pregnancy/new\n" +
-                "Migrator form -t http://bihar.commcarehq.org/pregnancy/new -v \"v2.0.0alpha (2b6e13-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #40 b:2012-Jul-17 r:2012-Jul-25\" -s 2013-07-01 -e 2013-07-31";
+                "Migrator form -t http://bihar.commcarehq.org/pregnancy/new -v \"v2.0.0alpha (2b6e13-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #40 b:2012-Jul-17 r:2012-Jul-25\" -s 2013-07-01 -e 2013-07-31 -o 2000 -l 100";
     }
 
     public Map<String, Object> getMap() {
@@ -55,12 +57,36 @@ public class MigratorArguments {
         return type;
     }
 
+    public String getOffset() {
+        return offset;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
     private void populateArguments() {
         populateMigrationType();
         populateType();
         populateAppVersion();
         populateStartDate();
         populateEndDate();
+        populateOffset();
+        populateLimit();
+    }
+
+    private void populateOffset() {
+        this.offset = getOptionValueFor(MigrationOption.OFFSET);
+        if (this.offset != null) {
+            optionsMap.put(Constants.OFFSET, this.offset);
+        }
+    }
+
+    private void populateLimit() {
+        this.limit = getOptionValueFor(MigrationOption.LIMIT);
+        if (this.limit != null) {
+            optionsMap.put(Constants.LIMIT, this.limit);
+        }
     }
 
     private void populateType() {
@@ -121,18 +147,16 @@ public class MigratorArguments {
         }
 
         this.migrationType = type;
-        optionsMap.put(Constants.MIGRATION_TYPE, this.migrationType);
-
     }
 
     private void validateArgumentsLength() {
-        if (arguments.length == 0 || arguments.length > 9) {
+        if (arguments.length == 0 || arguments.length > 13) {
             throw new IllegalArgumentException("Invalid number of arguments");
         }
     }
 
     private enum MigrationOption {
-        TYPE("-t", "type"), VERSION("-v", "version"), STARTDATE("-s", "start date"), ENDDATE("-e", "end date");
+        TYPE("-t", "type"), VERSION("-v", "version"), STARTDATE("-s", "start date"), ENDDATE("-e", "end date"), OFFSET("-o", "offset"), LIMIT("-l", "limit");
         private final String option;
         private final String name;
 

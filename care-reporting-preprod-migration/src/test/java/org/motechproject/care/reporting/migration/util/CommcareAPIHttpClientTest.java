@@ -15,10 +15,13 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,7 +64,7 @@ public class CommcareAPIHttpClientTest {
         String receivedOn = DateTime.now().toString();
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getFormResponseWithHeaderField("received_on", receivedOn)));
 
-        commcareAPIHttpClient.fetchForms(new NameValuePair[]{}, new PaginationOption(10, 0));
+        commcareAPIHttpClient.fetchForms(new HashMap<String, String>(), new PaginationOption(10, 0));
 
         ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
         verify(httpClient).executeMethod(methodCaptor.capture());
@@ -69,7 +72,7 @@ public class CommcareAPIHttpClientTest {
         GetMethod getMethod = methodCaptor.getValue();
         Matcher matcher = findLimitOffset(getMethod);
         assertEquals("10", matcher.group(LIMIT));
-        assertEquals("0",matcher.group(OFFSET));
+        assertEquals("0", matcher.group(OFFSET));
     }
 
     @Test
@@ -77,15 +80,55 @@ public class CommcareAPIHttpClientTest {
         String serverModifiedOn = DateTime.now().toString();
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_modified_on", serverModifiedOn)));
 
-        commcareAPIHttpClient.fetchCases(new NameValuePair[]{}, new PaginationOption(100, 20));
+        commcareAPIHttpClient.fetchCases(new HashMap<String, String>(), new PaginationOption(100, 20));
 
         ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
         verify(httpClient).executeMethod(methodCaptor.capture());
 
         GetMethod getMethod = methodCaptor.getValue();
         Matcher matcher = findLimitOffset(getMethod);
-        assertEquals("100",matcher.group(LIMIT));
-        assertEquals("20",matcher.group(OFFSET));
+        assertEquals("100", matcher.group(LIMIT));
+        assertEquals("20", matcher.group(OFFSET));
+    }
+
+    @Test
+    public void shouldOverridePaginationOptionIfAlreadyPresentForCases() throws IOException {
+        String serverModifiedOn = DateTime.now().toString();
+        Map<String,String> parameters = new HashMap<String,String>(){{
+                put(Constants.LIMIT, "1000");
+                put(Constants.OFFSET, "2000");
+        }};
+        PaginationOption paginationOption = new PaginationOption(200, 4000);
+        when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_modified_on", serverModifiedOn)));
+        commcareAPIHttpClient.fetchCases(parameters, paginationOption);
+
+        ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
+        verify(httpClient).executeMethod(methodCaptor.capture());
+
+        GetMethod getMethod = methodCaptor.getValue();
+        Matcher matcher = findLimitOffset(getMethod);
+        assertEquals("200", matcher.group(LIMIT));
+        assertEquals("4000", matcher.group(OFFSET));
+    }
+
+    @Test
+    public void shouldOverridePaginationOptionIfAlreadyPresentForForms() throws IOException {
+        String receivedOn = DateTime.now().toString();
+        Map<String,String> parameters = new HashMap<String,String>(){{
+            put(Constants.LIMIT, "1000");
+            put(Constants.OFFSET, "2000");
+        }};
+        PaginationOption paginationOption = new PaginationOption(200, 4000);
+        when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("received_on", receivedOn)));
+        commcareAPIHttpClient.fetchForms(parameters, paginationOption);
+
+        ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
+        verify(httpClient).executeMethod(methodCaptor.capture());
+
+        GetMethod getMethod = methodCaptor.getValue();
+        Matcher matcher = findLimitOffset(getMethod);
+        assertEquals("200", matcher.group(LIMIT));
+        assertEquals("4000", matcher.group(OFFSET));
     }
 
     private Matcher findLimitOffset(GetMethod getMethod) {

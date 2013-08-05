@@ -9,6 +9,7 @@ import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public abstract class MigrationTask {
     }
 
     public void migrate(MigratorArguments migratorArguments) {
-        NameValuePair[] pairs = getNameValuePair(migratorArguments);
+        Map<String, String> pairs = getNameValuePair(migratorArguments);
         Paginator paginator = getPaginator(pairs);
         PaginatedResult paginatedResult;
         while ((paginatedResult = paginator.nextPage()) != null) {
@@ -31,23 +32,25 @@ public abstract class MigrationTask {
         }
     }
 
-    private NameValuePair[] getNameValuePair(MigratorArguments migratorArguments) {
+    private Map<String,String> getNameValuePair(MigratorArguments migratorArguments) {
         Map<String, String> optionsToUrlMapper = getOptionsToUrlMapper();
 
-        List<NameValuePair> pairs = new ArrayList<>();
+        Map<String,String> pairs = new HashMap<>();
         for (Map.Entry<String, Object> entry : migratorArguments.getMap().entrySet()) {
             String optionKey = entry.getKey();
 
             if (optionsToUrlMapper.containsKey(optionKey)) {
-                pairs.add(new NameValuePair(optionsToUrlMapper.get(optionKey), entry.getValue().toString()));
+                pairs.put(optionsToUrlMapper.get(optionKey), entry.getValue().toString());
             }
+            else
+                pairs.put(optionKey,entry.getValue().toString());
         }
-        return pairs.toArray(new NameValuePair[pairs.size()]);
+        return pairs;
     }
 
     protected abstract Map<String, String> getOptionsToUrlMapper();
 
-    protected abstract Paginator getPaginator(NameValuePair[] pairs);
+    protected abstract Paginator getPaginator(Map<String, String> pairs);
 
     protected abstract void postToMotech(JsonArray request);
 

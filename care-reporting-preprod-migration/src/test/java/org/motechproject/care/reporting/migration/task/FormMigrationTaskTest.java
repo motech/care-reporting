@@ -52,18 +52,23 @@ public class FormMigrationTaskTest {
         optionsMap.put(VERSION, "version");
         optionsMap.put(START_DATE, now.toDate().toString());
         optionsMap.put(END_DATE, now.toDate().toString());
+        optionsMap.put(LIMIT, 100);
+        optionsMap.put(OFFSET, 2000);
+
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
         when(migratorArguments.getMap()).thenReturn(optionsMap);
 
-        NameValuePair[] expectedNameValuePairs = new NameValuePair[4];
-        expectedNameValuePairs[0] = new NameValuePair(FORM_NAMESPACE, "namespace");
-        expectedNameValuePairs[1] = new NameValuePair(FORM_VERSION, "version");
-        expectedNameValuePairs[2] = new NameValuePair(FORM_START_DATE, now.toDate().toString());
-        expectedNameValuePairs[3] = new NameValuePair(FORM_END_DATE, now.toDate().toString());
+        Map<String, String> expectedNameValuePairs = new HashMap<>();
+        expectedNameValuePairs.put(FORM_NAMESPACE, "namespace");
+        expectedNameValuePairs.put(FORM_VERSION, "version");
+        expectedNameValuePairs.put(FORM_START_DATE, now.toDate().toString());
+        expectedNameValuePairs.put(FORM_END_DATE, now.toDate().toString());
+        expectedNameValuePairs.put(LIMIT, String.valueOf(100));
+        expectedNameValuePairs.put(OFFSET, String.valueOf(2000));
 
         formMigrationTask.migrate(migratorArguments);
 
-        ArgumentCaptor<NameValuePair[]> parameterCaptor = ArgumentCaptor.forClass(NameValuePair[].class);
+        ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
         verify(commcareAPIHttpClient).fetchForms(parameterCaptor.capture(), any(PaginationOption.class));
         ReflectionAssert.assertLenientEquals(expectedNameValuePairs, parameterCaptor.getValue());
     }
@@ -76,12 +81,12 @@ public class FormMigrationTaskTest {
         String formResponse2 = "response2";
         JsonArray jsonResponse2 = getJsonFormArray("2013-12-13", 1);
         when(parser.parse(formResponse2)).thenReturn(new PaginatedResult(jsonResponse2, null));
-        when(commcareAPIHttpClient.fetchForms(any(NameValuePair[].class), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(formResponse2).thenReturn(null);
+        when(commcareAPIHttpClient.fetchForms(anyMap(), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(formResponse2).thenReturn(null);
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
 
         formMigrationTask.migrate(migratorArguments);
 
-        ArgumentCaptor<NameValuePair[]> parameterCaptor = ArgumentCaptor.forClass(NameValuePair[].class);
+        ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
         ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
         ArgumentCaptor<CommcareResponseWrapper> formReponseCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
 
@@ -102,7 +107,7 @@ public class FormMigrationTaskTest {
         String formResponse1 = "response1";
         JsonArray jsonResponse1 = getJsonFormArray("2013-10-30", 2);
         when(parser.parse(formResponse1)).thenReturn(new PaginatedResult(jsonResponse1, null));
-        when(commcareAPIHttpClient.fetchForms(any(NameValuePair[].class), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(null);
+        when(commcareAPIHttpClient.fetchForms(anyMap(), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(null);
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
         formMigrationTask.migrate(migratorArguments);
 

@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.apache.commons.httpclient.NameValuePair;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
@@ -12,8 +11,6 @@ import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,8 +32,6 @@ public class CaseMigrationTask extends MigrationTask {
         put(END_DATE, CASE_END_DATE);
     }};
 
-    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
-
     @Autowired
     public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser parser) {
         super(commcareAPIHttpClient, motechAPIHttpClient);
@@ -50,10 +45,10 @@ public class CaseMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected Paginator getPaginator(NameValuePair[] pairs) {
+    protected Paginator getPaginator(Map<String, String> pairs) {
         PaginationScheme paginationScheme = new PaginationScheme() {
             @Override
-            public String nextPage(NameValuePair[] parameters, PaginationOption paginationOption) {
+            public String nextPage(Map<String, String> parameters, PaginationOption paginationOption) {
                 return commcareAPIHttpClient.fetchCases(parameters, paginationOption);
             }
         };

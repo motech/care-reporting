@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.apache.commons.httpclient.NameValuePair;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,18 +50,22 @@ public class CaseMigrationTaskTest {
         optionsMap.put(VERSION, "version");
         optionsMap.put(START_DATE, now.toDate().toString());
         optionsMap.put(END_DATE, now.toDate().toString());
+        optionsMap.put(LIMIT, 100);
+        optionsMap.put(OFFSET, 2000);
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
         when(migratorArguments.getMap()).thenReturn(optionsMap);
 
-        NameValuePair[] expectedNameValuePairs = new NameValuePair[4];
-        expectedNameValuePairs[0] = new NameValuePair(CASE_TYPE, "cc_bihar_pregnancy");
-        expectedNameValuePairs[1] = new NameValuePair(CASE_VERSION, "version");
-        expectedNameValuePairs[2] = new NameValuePair(CASE_START_DATE, now.toDate().toString());
-        expectedNameValuePairs[3] = new NameValuePair(CASE_END_DATE, now.toDate().toString());
+        Map<String, String> expectedNameValuePairs = new HashMap<>();;
+        expectedNameValuePairs.put(CASE_TYPE, "cc_bihar_pregnancy");
+        expectedNameValuePairs.put(CASE_VERSION, "version");
+        expectedNameValuePairs.put(CASE_START_DATE, now.toDate().toString());
+        expectedNameValuePairs.put(CASE_END_DATE, now.toDate().toString());
+        expectedNameValuePairs.put(LIMIT, String.valueOf(100));
+        expectedNameValuePairs.put(OFFSET, String.valueOf(2000));
 
         caseMigrationTask.migrate(migratorArguments);
 
-        ArgumentCaptor<NameValuePair[]> parameterCaptor = ArgumentCaptor.forClass(NameValuePair[].class);
+        ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
         verify(commcareAPIHttpClient).fetchCases(parameterCaptor.capture(), any(PaginationOption.class));
         ReflectionAssert.assertLenientEquals(expectedNameValuePairs, parameterCaptor.getValue());
     }
@@ -75,12 +78,12 @@ public class CaseMigrationTaskTest {
         String caseResponse2 = "response2";
         JsonArray jsonResponse2 = getCaseJson("2013-12-13", 1);
         when(parser.parse(caseResponse2)).thenReturn(new PaginatedResult(jsonResponse2, null));
-        when(commcareAPIHttpClient.fetchCases(any(NameValuePair[].class), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(caseResponse2).thenReturn(null);
+        when(commcareAPIHttpClient.fetchCases(anyMap(), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(caseResponse2).thenReturn(null);
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
 
         caseMigrationTask.migrate(migratorArguments);
 
-        ArgumentCaptor<NameValuePair[]> parameterCaptor = ArgumentCaptor.forClass(NameValuePair[].class);
+        ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
         ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
         ArgumentCaptor<CommcareResponseWrapper> caseReponseCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
 
@@ -101,14 +104,14 @@ public class CaseMigrationTaskTest {
         String caseResponse1 = "response1";
         JsonArray jsonResponse1 = getCaseJson("2013-10-30", 2);
         when(parser.parse(caseResponse1)).thenReturn(new PaginatedResult(jsonResponse1, null));
-        when(commcareAPIHttpClient.fetchCases(any(NameValuePair[].class), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(null);
+        when(commcareAPIHttpClient.fetchCases(anyMap(), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(null);
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
 
         caseMigrationTask.migrate(migratorArguments);
 
         ArgumentCaptor<CommcareResponseWrapper> caseReponseCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
 
-        verify(commcareAPIHttpClient).fetchCases(any(NameValuePair[].class), any(PaginationOption.class));
+        verify(commcareAPIHttpClient).fetchCases(anyMap(), any(PaginationOption.class));
 
         verify(motechAPIHttpClient, times(2)).postCase(caseReponseCaptor.capture());
         List<CommcareResponseWrapper> actualForms = caseReponseCaptor.getAllValues();
@@ -121,14 +124,14 @@ public class CaseMigrationTaskTest {
         String caseResponse1 = "response1";
         JsonArray jsonResponse1 = getClosedCase();
         when(parser.parse(caseResponse1)).thenReturn(new PaginatedResult(jsonResponse1, null));
-        when(commcareAPIHttpClient.fetchCases(any(NameValuePair[].class), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(null);
+        when(commcareAPIHttpClient.fetchCases(anyMap(), any(PaginationOption.class))).thenReturn(caseResponse1).thenReturn(null);
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
 
         caseMigrationTask.migrate(migratorArguments);
 
         ArgumentCaptor<CommcareResponseWrapper> caseReponseCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
 
-        verify(commcareAPIHttpClient).fetchCases(any(NameValuePair[].class), any(PaginationOption.class));
+        verify(commcareAPIHttpClient).fetchCases(anyMap(), any(PaginationOption.class));
 
         verify(motechAPIHttpClient, times(2)).postCase(caseReponseCaptor.capture());
         List<CommcareResponseWrapper> actualForms = caseReponseCaptor.getAllValues();

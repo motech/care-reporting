@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.apache.commons.httpclient.NameValuePair;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
@@ -49,14 +48,13 @@ public class FormMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected Paginator getPaginator(NameValuePair[] pairs) {
+    protected Paginator getPaginator(Map<String, String> pairs) {
         PaginationScheme paginationScheme = new PaginationScheme() {
             @Override
-            public String nextPage(NameValuePair[] parameters, PaginationOption paginationOption) {
+            public String nextPage(Map<String, String> parameters, PaginationOption paginationOption) {
                 return commcareAPIHttpClient.fetchForms(parameters, paginationOption);
             }
         };
-
         return new Paginator(pairs, paginationScheme, parser);
     }
 

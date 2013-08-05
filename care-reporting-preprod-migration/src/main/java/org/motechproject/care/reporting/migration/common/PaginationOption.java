@@ -2,8 +2,8 @@ package org.motechproject.care.reporting.migration.common;
 
 public class PaginationOption {
 
-    private int limit = 100;
-    private int offset = 0;
+    private int limit = getDefaultLimit();
+    private int offset = getDefaultOffset();
 
     public PaginationOption() {
     }
@@ -27,5 +27,12 @@ public class PaginationOption {
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public static int getDefaultOffset(){
+        return 0;
+    }
+    public static int getDefaultLimit() {
+        return 100;
     }
 }
