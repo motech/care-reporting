@@ -18,6 +18,7 @@ public class Migrator {
     }
 
     public static void main(String[] args) {
+        boolean success = true;
         DateTime startTime = DateTime.now();
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext-migration.xml");
 
@@ -30,12 +31,15 @@ public class Migrator {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
             System.out.println("Usage: " + MigratorArguments.usage());
+        } catch (RuntimeException e) {
+            System.out.println("Migration Failed");
+            success = false;
         } finally {
             System.out.printf("Total time taken for migration: %d mins %n", new Duration(startTime, DateTime.now()).getStandardMinutes());
             applicationContext.destroy();
         }
-
-        System.exit(1);
+        if (!success)
+            System.exit(1);
     }
 
     public void migrate(MigratorArguments migratorArguments) {

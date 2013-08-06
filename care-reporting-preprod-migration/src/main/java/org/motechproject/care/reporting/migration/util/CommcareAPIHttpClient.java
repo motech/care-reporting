@@ -92,7 +92,7 @@ public class CommcareAPIHttpClient {
             logger.info("Fetching from: " + getMethod.getURI().getURI());
             int statusCode = httpClient.executeMethod(getMethod);
             String response = readResponse(getMethod);
-
+            logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
             if (statusCode != HttpStatus.SC_OK) {
                 BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
                 logger.error(e.getMessage(), e);
