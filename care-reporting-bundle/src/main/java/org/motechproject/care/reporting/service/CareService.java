@@ -3,11 +3,9 @@ package org.motechproject.care.reporting.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.dimension.*;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
@@ -132,6 +130,38 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public Flw getOrCreateFlw(String flwId) {
         return getOrCreateNew(Flw.class, "flwId", flwId);
+    }
+
+    @Override
+    public LocationDimension getLocation(String state, String district, String block) {
+
+        if(containsNullOrEmpty(state, district, block)) {
+            return getUnknownLocation();
+        }
+
+         Map<String, Object> fieldMaps = getLocationMap(state, district, block);
+        LocationDimension locationDimension = dbRepository.get(LocationDimension.class, fieldMaps, null);
+
+        return locationDimension == null ? getUnknownLocation() : locationDimension;
+    }
+
+    private LocationDimension getUnknownLocation() {
+        final String unknownLocation = "UNKNOWN";
+        LocationDimension locationDimension;Map<String, Object> unknownMap = getLocationMap(unknownLocation, unknownLocation, unknownLocation);
+        locationDimension = dbRepository.get(LocationDimension.class, unknownMap, null);
+        return locationDimension;
+    }
+
+    private Map<String, Object> getLocationMap(final String state,final String district,final String block) {
+        return new HashMap<String, Object>() {{
+            put("state", StringUtils.upperCase(state));
+            put("district", StringUtils.upperCase(district));
+            put("block", StringUtils.upperCase(block));
+        }};
+    }
+
+    private boolean containsNullOrEmpty(final String state,final String district,final String block) {
+        return StringUtils.isEmpty(state) || StringUtils.isEmpty(district) || StringUtils.isEmpty(block);
     }
 
     @Override

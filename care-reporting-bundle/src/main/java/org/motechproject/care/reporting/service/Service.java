@@ -1,10 +1,7 @@
 package org.motechproject.care.reporting.service;
 
 import org.motechproject.care.reporting.domain.SelfUpdatable;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.dimension.*;
 
 import java.util.List;
 import java.util.Map;
@@ -39,4 +36,6 @@ public interface Service {
     <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values);
 
     void closeCase(String caseId, Map<String, String> updatedValues);
+
+    LocationDimension getLocation(String state, String district, String block);
 }

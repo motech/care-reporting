@@ -1,22 +1,20 @@
 package org.motechproject.care.reporting.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.dimension.*;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.domain.measure.PncChildForm;
 import org.motechproject.care.reporting.repository.Repository;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
@@ -183,6 +181,100 @@ public class CareServiceTest {
         PncChildForm actualPncChildForm = service.get(PncChildForm.class, fieldMap, aliasMapping);
 
         ReflectionAssert.assertReflectionEquals(pncChildForm, actualPncChildForm);
+    }
+
+    @Test
+    public void shouldReturnLocationDimensionIfExistsInRepository() {
+        LocationDimension expectedLocation = new LocationDimension();
+        expectedLocation.setId(1);
+
+        Map<String, Object> fieldMaps = new HashMap<>();
+        fieldMaps.put("state", "BIHAR");
+        fieldMaps.put("district", "ARARIA");
+        fieldMaps.put("block", "BHARGAMA");
+
+        when(dbRepository.get(LocationDimension.class, fieldMaps, null)).thenReturn(expectedLocation);
+
+        LocationDimension actualLocationDimension = service.getLocation("BIHAR", "ARARIA", "BHARGAMA");
+
+        assertEquals(expectedLocation, actualLocationDimension);
+    }
+
+    @Test
+    public void shouldReturnUnknownLocationDimensionIfNotExistsInRepository() {
+        LocationDimension expectedUnknown = new LocationDimension();
+        expectedUnknown.setId(1);
+        final String unknown = "UNKNOWN";
+        expectedUnknown.setBlock(unknown);
+        expectedUnknown.setDistrict(unknown);
+        expectedUnknown.setState(unknown);
+
+        Map<String, Object> fieldMaps = new HashMap<>();
+        fieldMaps.put("state", "BIHAR");
+        fieldMaps.put("district", "ARARIA");
+        fieldMaps.put("block", "BHARGAMA");
+
+        Map<String, Object> unknownFieldMaps = new HashMap<>();
+        unknownFieldMaps.put("state", unknown);
+        unknownFieldMaps.put("district", unknown);
+        unknownFieldMaps.put("block", unknown);
+
+        when(dbRepository.get(LocationDimension.class, fieldMaps, null)).thenReturn(null);
+        when(dbRepository.get(LocationDimension.class, unknownFieldMaps, null)).thenReturn(expectedUnknown);
+
+
+        LocationDimension actualLocationDimension = service.getLocation("BIHAR", "ARARIA", "BHARGAMA");
+
+        assertEquals(expectedUnknown, actualLocationDimension);
+    }
+
+    @Test
+    public void shouldReturnLocationDimensionIfExistsInRepositoryByIgnoringCase() {
+        LocationDimension expectedLocation = new LocationDimension();
+        expectedLocation.setId(1);
+        expectedLocation.setBlock("BIHAR");
+        expectedLocation.setDistrict("ARARIA");
+        expectedLocation.setState("BHARGAMA");
+
+        Map<String, Object> fieldMaps = new HashMap<>();
+        fieldMaps.put("state", "BIHAR");
+        fieldMaps.put("district", "ARARIA");
+        fieldMaps.put("block", "BHARGAMA");
+
+        when(dbRepository.get(LocationDimension.class, fieldMaps, null)).thenReturn(expectedLocation);
+
+        LocationDimension actualLocationDimension = service.getLocation("bihar", "araria", "bhargama");
+
+        assertEquals(expectedLocation, actualLocationDimension);
+    }
+
+    @Test
+    public void shouldReturnUnknownLocationDimensionIfNotExistsInRepositoryAndAnyArgumentIsNullOrEmpty() {
+        LocationDimension expectedUnknown = new LocationDimension();
+        expectedUnknown.setId(1);
+        final String unknown = "UNKNOWN";
+        expectedUnknown.setBlock(unknown);
+        expectedUnknown.setDistrict(unknown);
+        expectedUnknown.setState(unknown);
+
+        Map<String, Object> fieldMaps = new HashMap<>();
+        fieldMaps.put("state", "BIHAR");
+        fieldMaps.put("district", null);
+        fieldMaps.put("block", StringUtils.EMPTY);
+
+        Map<String, Object> unknownFieldMaps = new HashMap<>();
+        unknownFieldMaps.put("state", unknown);
+        unknownFieldMaps.put("district", unknown);
+        unknownFieldMaps.put("block", unknown);
+
+        when(dbRepository.get(LocationDimension.class, fieldMaps, null)).thenReturn(null);
+        when(dbRepository.get(LocationDimension.class, unknownFieldMaps, null)).thenReturn(expectedUnknown);
+
+
+        LocationDimension actualLocationDimension = service.getLocation("BIHAR", null, StringUtils.EMPTY);
+
+        assertEquals(expectedUnknown, actualLocationDimension);
+        verify(dbRepository, times(0)).get(LocationDimension.class, fieldMaps, null);
     }
 
 }
