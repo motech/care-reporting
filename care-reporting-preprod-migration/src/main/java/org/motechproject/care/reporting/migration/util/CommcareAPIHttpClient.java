@@ -1,7 +1,10 @@
 package org.motechproject.care.reporting.migration.util;
 
 import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.auth.AuthScheme;
 import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
+import org.apache.commons.httpclient.auth.CredentialsProvider;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.motechproject.care.reporting.migration.common.Constants;
@@ -73,16 +76,23 @@ public class CommcareAPIHttpClient {
     private String getRequest(String requestUrl, NameValuePair[] queryParams) {
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
+        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new CredentialsProvider() {
+            @Override
+            public Credentials getCredentials(AuthScheme scheme, String host, int port, boolean proxy) throws CredentialsNotAvailableException {
+                return new UsernamePasswordCredentials(getUsername(), getPassword());
+            }
+        });
+
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
             @Override
             public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
                 boolean retry = executionCount < getRetryCount();
+
                 logger.error("Exception occurred while pulling data from commcare hq", exception);
                 logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ignored) {
-
                 }
                 return retry;
             }
@@ -91,16 +101,18 @@ public class CommcareAPIHttpClient {
         try {
             logger.info("Fetching from: " + getMethod.getURI().getURI());
             int statusCode = httpClient.executeMethod(getMethod);
+
             String response = readResponse(getMethod);
-            logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
             if (statusCode != HttpStatus.SC_OK) {
                 BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
                 logger.error(e.getMessage(), e);
                 throw e;
             }
+            logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
             return response;
 
         } catch (IOException e) {
+            getMethod.releaseConnection();
             logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
         }
@@ -122,7 +134,7 @@ public class CommcareAPIHttpClient {
     }
 
     private void authenticate() {
-        httpClient.getParams().setAuthenticationPreemptive(true);
+        httpClient.getParams().setAuthenticationPreemptive(false);
 
         httpClient.getState().setCredentials(
                 new AuthScope(null, -1, null, null),
