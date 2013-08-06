@@ -21,6 +21,7 @@
                 <value>org.motechproject.care.reporting.domain.dimension.Flw</value>
                 <value>org.motechproject.care.reporting.domain.dimension.FlwGroup</value>
                 <value>org.motechproject.care.reporting.domain.dimension.MotherCase</value>
+                <value>org.motechproject.care.reporting.domain.dimension.LocationDimension</value>
 
                 <value>org.motechproject.care.reporting.domain.measure.AbortForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.BpForm</value>

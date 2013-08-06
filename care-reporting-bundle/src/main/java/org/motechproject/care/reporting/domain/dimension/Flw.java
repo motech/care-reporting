@@ -49,6 +49,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     private Date creationTime;
     private Date lastModifiedTime;
     private Set<FlwGroup> flwGroups;
+    private LocationDimension locationDimension;
 
 	public Flw() {
         Date date = new Date();
@@ -63,7 +64,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String district, String block, String panchayat, String village,
-               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime) {
+               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -90,6 +91,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
         this.dob = dob;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
+        this.locationDimension = locationDimension;
     }
 
     @Id
@@ -364,4 +366,15 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     protected void updateLastModifiedTime() {
         this.lastModifiedTime = new Date();
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    public LocationDimension getLocationDimension() {
+        return this.locationDimension;
+    }
+
+    public void setLocationDimension(LocationDimension locationDimension) {
+        this.locationDimension = locationDimension;
+    }
+
 }
