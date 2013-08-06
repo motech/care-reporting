@@ -61,9 +61,11 @@ public class FormMigrationTask extends MigrationTask {
     @Override
     protected void postToMotech(JsonArray request) {
         List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
+        logger.info(String.format("Started posting %d form requests to motech", commcareResponseWrappers.size()));
         for (CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
             motechAPIHttpClient.postForm(commcareResponseWrapper);
         }
+        logger.info(String.format("Completed posting %d form requests to motech", commcareResponseWrappers.size()));
     }
 
     private List<CommcareResponseWrapper> convertToEntity(JsonArray request) {

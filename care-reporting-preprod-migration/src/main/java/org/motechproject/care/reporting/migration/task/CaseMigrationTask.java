@@ -11,6 +11,8 @@ import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,9 @@ import static org.motechproject.care.reporting.migration.common.Constants.*;
 
 @Component
 public class CaseMigrationTask extends MigrationTask {
+
+    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
+
 
     private final ResponseParser parser;
     private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
@@ -59,9 +64,11 @@ public class CaseMigrationTask extends MigrationTask {
     @Override
     protected void postToMotech(JsonArray request) {
         List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
+        logger.info(String.format("Started posting %d case requests to motech", commcareResponseWrappers.size()));
         for (CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
             motechAPIHttpClient.postCase(commcareResponseWrapper);
         }
+        logger.info(String.format("Started posting %d case requests to motech", commcareResponseWrappers.size()));
     }
 
     private List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
