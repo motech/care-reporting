@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.domain.dimension.LocationDimension;
 import org.motechproject.care.reporting.mapper.ProviderSyncMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
@@ -51,13 +52,23 @@ public class ProviderSyncProcessor {
         List<Flw> flws = new ArrayList<>();
         Map<String, FlwGroup> flwGroups = new HashMap<>();
         for (Provider provider : providers) {
-            logger.info(String.format("Creating/Updating provider with id: %s", provider.getId()));
-            Map<String, Object> parsedProvider = providerParser.parse(provider);
-            Flw flw = genericMapper.map(Flw.class, parsedProvider);
-            flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
+            Flw flw = processProvider(flwGroups, provider);
             flws.add(flw);
         }
         service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
+    }
+
+    private Flw processProvider(Map<String, FlwGroup> flwGroups, Provider provider) {
+        logger.info(String.format("Creating/Updating provider with id: %s", provider.getId()));
+        Map<String, Object> parsedProvider = providerParser.parse(provider);
+        Flw flw = genericMapper.map(Flw.class, parsedProvider);
+        flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
+        flw.setLocationDimension(getLocationDimension(parsedProvider));
+        return flw;
+    }
+
+    private LocationDimension getLocationDimension(Map<String, Object> parsedProvider) {
+        return service.getLocation((String) parsedProvider.get("state"), (String) parsedProvider.get("district"),(String)  parsedProvider.get("block"));
     }
 
     private List<FlwGroup> getAssociatedFlwGroups(List<String> groups, Map<String, FlwGroup> existingFlwGroups) {

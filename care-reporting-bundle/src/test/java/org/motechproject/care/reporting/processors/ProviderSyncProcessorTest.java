@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.domain.dimension.LocationDimension;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
@@ -18,10 +19,7 @@ import org.motechproject.commcare.provider.sync.response.Provider;
 import org.unitils.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Matchers.any;
@@ -131,6 +129,38 @@ public class ProviderSyncProcessorTest {
         assertEquals(2, actualFlwGroups.size());
         assertTrue(actualFlwGroups.contains(expectedFlwGroup1));
         assertTrue(actualFlwGroups.contains(expectedFlwGroup2));
+    }
+
+    @Test
+    public void shouldGetLocationDimensionsAndAssociateItWithFlw() {
+
+        final Provider provider = new Provider();
+
+        final String state = "BIHAR";
+        final String district = "ARARIA";
+        final String block = "BHARGAMA";
+
+        when(providerParser.parse(provider)).thenReturn(getLocationMap(state, district, block));
+        when(careService.getLocation(state, district, block)).thenReturn(new LocationDimension(state, district, block));
+
+        providerSyncProcessor.processProviderSync(new ArrayList<Provider>() {{
+            add(provider);
+        }});
+
+        verify(careService).getLocation(state, district, block);
+        verify(careService).saveOrUpdateAllByExternalPrimaryKey(eq(Flw.class), flwArgumentCaptor.capture());
+        final LocationDimension locationDimension = flwArgumentCaptor.getValue().get(0).getLocationDimension();
+        assertEquals(state, locationDimension.getState());
+        assertEquals(district, locationDimension.getDistrict());
+        assertEquals(block, locationDimension.getBlock());
+    }
+
+    private Map<String,Object> getLocationMap(final String state, final String district, final String block){
+        return new HashMap<String, Object>() {{
+            put("state", state);
+            put("district", district);
+            put("block", block);
+        }};
     }
 
     @Test
