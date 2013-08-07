@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
@@ -211,13 +212,17 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             return;
         }
 
-        if (!formExists(caseType, formClass, instanceId, formValues.get("caseId"))) {
-            Object form = careReportingMapper.map(formClass, formValues);
-            dbRepository.save(form);
+        final Object existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
+        if(existingForm != null) {
+            dbRepository.delete(existingForm);
         }
+
+        Object form = careReportingMapper.map(formClass, formValues);
+        dbRepository.save(form);
+
     }
 
-    private boolean formExists(CaseType caseType, Class<?> type, String instanceId, String caseId) {
+    private Object getForm(CaseType caseType, Class<?> type, String instanceId, String caseId) {
         Map<String, Object> fieldMap = new HashMap<>();
         fieldMap.put("instanceId", instanceId);
         Map<String, String> aliasMap = new HashMap<>();
@@ -226,12 +231,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             aliasMap.put("childCase", "cc");
         }
 
-        Object existingForm = get(type, fieldMap, aliasMap);
-        if (existingForm != null) {
-            logger.warn(format("Cannot save form. %s form with instance id %s already exists.", type.getName(), instanceId));
-            return true;
-        }
-        return false;
+        return get(type, fieldMap, aliasMap);
     }
 
     @Override
