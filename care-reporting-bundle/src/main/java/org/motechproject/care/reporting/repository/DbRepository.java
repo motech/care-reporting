@@ -34,6 +34,12 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
+    public <T> void delete(T instance) {
+        template.delete(instance);
+        template.flush();
+    }
+
+    @Override
     public <T> List<T> findAllByField(Class<T> clazz, List<String> values, String fieldName) {
         DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
         criteria.add(Restrictions.in(fieldName, values));

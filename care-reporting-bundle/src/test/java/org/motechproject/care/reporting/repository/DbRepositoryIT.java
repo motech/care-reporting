@@ -176,4 +176,21 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         assertEquals(instanceId, actualFormFromDb.getInstanceId());
         assertEquals(caseId, actualFormFromDb.getMotherCase().getCaseId());
     }
+
+    @Test
+    public void shouldDeleteForm(){
+        NewForm form = new NewForm();
+        form.setCaseName("mother");
+        form.setInstanceId("abcd");
+        repository.save(form);
+
+        NewForm newFormBeforeDelete = repository.get(NewForm.class, "caseName", "mother");
+        assertNotNull(newFormBeforeDelete);
+
+        repository.delete(form);
+
+        NewForm newFormAfterDelete = repository.get(NewForm.class, "caseName", "mother");
+        assertNull(newFormAfterDelete);
+    }
+
 }

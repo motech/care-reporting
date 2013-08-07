@@ -17,4 +17,6 @@ public interface Repository {
     <T> T findByExternalPrimaryKey(Class<T> clazz, Object value);
 
     <T> T get(Class<T> entityClass, Map<String, Object> fieldMap, Map<String, String> aliasMapping);
+
+    <T> void delete(T instance);
 }
