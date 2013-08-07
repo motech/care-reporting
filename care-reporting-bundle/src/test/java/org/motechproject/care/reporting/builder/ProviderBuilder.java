@@ -31,6 +31,7 @@ public class ProviderBuilder {
             put("awc-code", "001");
             put("asset-id", "P18");
             put("block", "Delhi");
+            put("state", "Bihar");
             put("district", "");
             put("location-code", "");
             put("panchayat", "Kapra");

@@ -1,0 +1,1 @@
+ALTER TABLE report.flw ADD COLUMN state VARCHAR(255);
