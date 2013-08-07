@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.repository;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.motechproject.care.reporting.utils.ListUtils;
@@ -65,8 +66,11 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     @Override
     public <T> T get(Class<T> entityClass, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
         DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
-        for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
-            criteria.createAlias(alias.getKey(), alias.getValue());
+
+        if(MapUtils.isNotEmpty(aliasMapping)) {
+            for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
+                criteria.createAlias(alias.getKey(), alias.getValue());
+            }
         }
 
         for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
