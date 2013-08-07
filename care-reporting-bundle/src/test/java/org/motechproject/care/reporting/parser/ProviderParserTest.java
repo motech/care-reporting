@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.parser;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -58,6 +59,7 @@ public class ProviderParserTest {
             put("dob", null);
             put("phoneNumber1", null);
             put("phoneNumber2", null);
+            put("state", "BIHAR");
         }};
 
         when(infoParser.parse(provider)).thenReturn(providerParsedMap);
@@ -109,6 +111,69 @@ public class ProviderParserTest {
         Provider provider = builder().setDob("").build();
         Map<String, Object> output = providerParser.parse(provider);
         assertEquals("", output.get("dob"));
+    }
+
+    @Test
+    public void shouldParseState(){
+
+        Provider provider = builder().build();
+
+        final Object userData = provider.getUserData();
+        final HashMap<String, Object> userDataParsedMap = new HashMap<String, Object>() {{
+            put("state", "ORISSA");
+        }};
+
+        when(infoParser.parse(userData)).thenReturn(userDataParsedMap);
+
+        Map<String, Object> actualParsedMap = providerParser.parse(provider);
+        verify(infoParser).parse(userData);
+        assertEquals("ORISSA", actualParsedMap.get("state"));
+    }
+
+    @Test
+    public void shouldParseStateIfItIsNull(){
+        Provider provider = builder().build();
+
+        final Object userData = provider.getUserData();
+        final HashMap<String, Object> userDataParsedMap = new HashMap<String, Object>() {{
+            put("state", null);
+        }};
+
+        when(infoParser.parse(userData)).thenReturn(userDataParsedMap);
+
+        Map<String, Object> actualParsedMap = providerParser.parse(provider);
+        verify(infoParser).parse(userData);
+        assertNull(actualParsedMap.get("state"));
+    }
+
+    @Test
+    public void shouldParseStateIfItIsBlank(){
+        Provider provider = builder().build();
+
+        final Object userData = provider.getUserData();
+        final HashMap<String, Object> userDataParsedMap = new HashMap<String, Object>() {{
+            put("state", StringUtils.EMPTY);
+        }};
+
+        when(infoParser.parse(userData)).thenReturn(userDataParsedMap);
+
+        Map<String, Object> actualParsedMap = providerParser.parse(provider);
+        verify(infoParser).parse(userData);
+        assertEquals(StringUtils.EMPTY, actualParsedMap.get("state"));
+    }
+
+    @Test
+    public void shouldParseDefaultStateIfStateDoesnotExistInProvider(){
+        Provider provider = builder().build();
+
+        final Object userData = provider.getUserData();
+        final HashMap<String, Object> userDataParsedMap = new HashMap<>();
+
+        when(infoParser.parse(userData)).thenReturn(userDataParsedMap);
+
+        Map<String, Object> actualParsedMap = providerParser.parse(provider);
+        verify(infoParser).parse(userData);
+        assertEquals("BIHAR", actualParsedMap.get("state"));
     }
 
     private Provider customizedProvider(final String defaultPhoneNumber, final String... phoneNumbers) {

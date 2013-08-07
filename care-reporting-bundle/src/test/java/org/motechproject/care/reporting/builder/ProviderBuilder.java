@@ -31,7 +31,7 @@ public class ProviderBuilder {
             put("awc-code", "001");
             put("asset-id", "P18");
             put("block", "Delhi");
-            put("state", "Bihar");
+            put("state", "BIHAR");
             put("district", "");
             put("location-code", "");
             put("panchayat", "Kapra");
@@ -73,6 +73,16 @@ public class ProviderBuilder {
 
     public ProviderBuilder setDob(String dob) {
         provider.getUserData().put("dob", dob);
+        return this;
+    }
+
+    public ProviderBuilder setState(String state) {
+        provider.getUserData().put("state", state);
+        return this;
+    }
+
+    public ProviderBuilder removeState() {
+        provider.getUserData().remove("state");
         return this;
     }
 }

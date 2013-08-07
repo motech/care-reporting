@@ -9,6 +9,7 @@ import static org.motechproject.care.reporting.utils.ListUtils.safeGet;
 
 public class ProviderParser extends BaseInfoParser {
 
+    private final String DEFAULT_STATE = "BIHAR";
     public ProviderParser(InfoParser infoParser) {
         super(infoParser);
     }
@@ -28,6 +29,10 @@ public class ProviderParser extends BaseInfoParser {
         parsedProviderMap.put("phoneNumber1", safeGet(provider.getPhoneNumbers(), 0));
         parsedProviderMap.put("phoneNumber2", safeGet(provider.getPhoneNumbers(), 1));
         parsedProviderMap.put("dob", provider.getUserData().get("dob"));
+
+        if(!parsedProviderMap.containsKey("state"))
+            parsedProviderMap.put("state", DEFAULT_STATE);
+
         return parsedProviderMap;
     }
 
