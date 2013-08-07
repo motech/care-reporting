@@ -254,6 +254,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
         final Date oldFormModifiedDate = DateTime.parse("2012-07-10T12:02:59.923+05:30").toDate();
         persistedForm.setDateModified(oldFormModifiedDate);
+        persistedForm.setServerDateModified(oldFormModifiedDate);
         template.save(persistedForm);
 
         final String newFormModifiedOn = "2012-07-20T12:02:59.923+05:30";
@@ -262,6 +263,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         Map<String, String> motherFormValues = new HashMap<String, String>() {{
             put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
             put("dateModified", newFormModifiedOn);
+            put("serverDateModified", newFormModifiedOn);
             put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
             put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
             put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
@@ -272,6 +274,33 @@ public class CareServiceIT extends SpringIntegrationTest {
         List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
         assertEquals(1, newFormsFromDb.size());
         assertEquals(newFormModifiedDate, newFormsFromDb.get(0).getDateModified());
+    }
+
+    @Test
+    public void shouldNotDeleteEarlierFormIfNewerMotherFormWithSameInstanceIdHasOldDate() {
+        NewForm persistedForm = new NewForm();
+        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        final Date oldFormModifiedDate = DateTime.parse("2012-07-20T12:02:59.923+05:30").toDate();
+        persistedForm.setServerDateModified(oldFormModifiedDate);
+        persistedForm.setDateModified(oldFormModifiedDate);
+        template.save(persistedForm);
+
+        final String newFormModifiedOn = "2012-07-10T12:02:59.923+05:30";
+
+        Map<String, String> motherFormValues = new HashMap<String, String>() {{
+            put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+            put("dateModified", newFormModifiedOn);
+            put("serverDateModified", newFormModifiedOn);
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
+            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        }};
+
+        careService.processAndSaveForms(motherFormValues, new ArrayList<Map<String, String>>());
+
+        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
+        assertEquals(1, newFormsFromDb.size());
+        assertEquals(oldFormModifiedDate, newFormsFromDb.get(0).getDateModified());
     }
 
     @Test
@@ -287,6 +316,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         persistedForm.setInstanceId(instanceId);
         persistedForm.setChildCase(persistedChildCase);
         persistedForm.setDateModified(oldFormModifiedDate);
+        persistedForm.setServerDateModified(oldFormModifiedDate);
         template.save(persistedForm);
 
         final String newFormModifiedOn = "2012-07-20T12:02:59.923+05:30";
@@ -294,6 +324,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         final HashMap<String, String> deathChildFormValues = new HashMap<String, String>() {{
             put("caseId", caseId);
             put("dateModified", newFormModifiedOn);
+            put("serverDateModified", newFormModifiedOn);
             put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
             put("close", "true");
             put("instanceId", instanceId);
@@ -310,6 +341,43 @@ public class CareServiceIT extends SpringIntegrationTest {
     }
 
     @Test
+    public void shouldNotDeleteEarlierFormIfNewerChildFormWithSameInstanceIdAndCaseIdHasOldDate() {
+        final String instanceId = "e34707f8-80c8-4198-bf99-c11c90ba5c98";
+        final String caseId = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
+        final Date oldFormModifiedDate = DateTime.parse("2012-07-20T12:02:59.923+05:30").toDate();
+
+        ChildCase persistedChildCase = new ChildCase();
+        persistedChildCase.setCaseId(caseId);
+
+        final DeathChildForm persistedForm = new DeathChildForm();
+        persistedForm.setInstanceId(instanceId);
+        persistedForm.setChildCase(persistedChildCase);
+        persistedForm.setDateModified(oldFormModifiedDate);
+        persistedForm.setServerDateModified(oldFormModifiedDate);
+        template.save(persistedForm);
+
+        final String newFormModifiedOn = "2012-07-10T12:02:59.923+05:30";
+        final HashMap<String, String> deathChildFormValues = new HashMap<String, String>() {{
+            put("caseId", caseId);
+            put("dateModified", newFormModifiedOn);
+            put("serverDateModified", newFormModifiedOn);
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("close", "true");
+            put("instanceId", instanceId);
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/death");
+        }};
+
+        careService.processAndSaveForms(null, new ArrayList<Map<String, String>>() {{
+            add(deathChildFormValues);
+        }});
+
+        List<DeathChildForm> deathChildForms = template.loadAll(DeathChildForm.class);
+        assertEquals(1, deathChildForms.size());
+        assertEquals(oldFormModifiedDate, deathChildForms.get(0).getDateModified());
+    }
+
+
+        @Test
     public void shouldSaveFlwOnceForMotherAndChild() {
         final String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
         Flw flw = new FlwBuilder().flwId(flwId).build();

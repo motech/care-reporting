@@ -6,6 +6,7 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.*;
+import org.motechproject.care.reporting.domain.measure.Form;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
@@ -212,17 +213,22 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             return;
         }
 
-        final Object existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
-        if(existingForm != null) {
-            dbRepository.delete(existingForm);
+        final Form existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
+        final Form currentForm = (Form) careReportingMapper.map(formClass, formValues);
+        if(existingForm == null) {
+            dbRepository.save(currentForm);
         }
-
-        Object form = careReportingMapper.map(formClass, formValues);
-        dbRepository.save(form);
-
+        else if(existingForm.getServerDateModified().before(currentForm.getServerDateModified())){
+            logger.info(format("Deleting existing %s form with instance id %s and saving a latest form.", formClass.getName(), instanceId));
+            dbRepository.delete(existingForm);
+            dbRepository.save(currentForm);
+        }
+        else {
+            logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
+        }
     }
 
-    private Object getForm(CaseType caseType, Class<?> type, String instanceId, String caseId) {
+    private Form getForm(CaseType caseType, Class<?> type, String instanceId, String caseId) {
         Map<String, Object> fieldMap = new HashMap<>();
         fieldMap.put("instanceId", instanceId);
         Map<String, String> aliasMap = new HashMap<>();
@@ -231,7 +237,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             aliasMap.put("childCase", "cc");
         }
 
-        return get(type, fieldMap, aliasMap);
+        return (Form) get(type, fieldMap, aliasMap);
     }
 
     @Override
