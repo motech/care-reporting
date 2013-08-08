@@ -123,7 +123,7 @@ public class EbfMotherForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -134,7 +134,7 @@ public class EbfMotherForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}
