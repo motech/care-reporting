@@ -51,6 +51,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     private Date lastModifiedTime;
     private Set<FlwGroup> flwGroups;
     private LocationDimension locationDimension;
+    private boolean isTest;
 
 	public Flw() {
         Date date = new Date();
@@ -65,7 +66,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String state, String district, String block, String panchayat, String village,
-               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension) {
+               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension, boolean isTest) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -94,6 +95,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
         this.locationDimension = locationDimension;
+        this.isTest = isTest;
     }
 
     @Id
@@ -388,5 +390,12 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     public void setLocationDimension(LocationDimension locationDimension) {
         this.locationDimension = locationDimension;
     }
+    @Column
+    public boolean getIsTest() {
+        return isTest;
+    }
 
+    public void setIsTest(boolean isTest) {
+        this.isTest = isTest;
+    }
 }

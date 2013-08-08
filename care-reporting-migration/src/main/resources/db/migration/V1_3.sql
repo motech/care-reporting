@@ -1,1 +1,2 @@
 ALTER TABLE report.flw ADD COLUMN state VARCHAR(255);
+ALTER TABLE report.flw ADD COLUMN isTest BOOLEAN;
