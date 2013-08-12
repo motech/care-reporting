@@ -218,13 +218,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         if(existingForm == null) {
             dbRepository.save(currentForm);
         }
-        else if(existingForm.getServerDateModified().before(currentForm.getServerDateModified())){
+        else if (currentForm.getServerDateModified().before(existingForm.getServerDateModified())) {
+            logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
+        }
+        else {
             logger.info(format("Deleting existing %s form with instance id %s and saving a latest form.", formClass.getName(), instanceId));
             dbRepository.delete(existingForm);
             dbRepository.save(currentForm);
-        }
-        else {
-            logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
         }
     }
 
