@@ -86,7 +86,7 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2, LocationDimension locationDimension) {
         return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2,
                 "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null,
-                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, DEFAULT_DOB, null, null, locationDimension, false);
+                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, DEFAULT_DOB, null, null, locationDimension);
     }
 
     private FlwGroup flwGroup(String groupId) {
