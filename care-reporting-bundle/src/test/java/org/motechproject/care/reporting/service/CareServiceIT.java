@@ -309,6 +309,59 @@ public class CareServiceIT extends SpringIntegrationTest {
     }
 
     @Test
+    public void shouldDeleteEarlierFormIfBothNewerAndOlderMotherFormWithSameInstanceIdHasNullDate() {
+        NewForm persistedForm = new NewForm();
+        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+
+        persistedForm.setCaste("OldCaste");
+        persistedForm.setServerDateModified(null);
+        template.save(persistedForm);
+
+        final String newCaste = "NewCaste";
+
+        Map<String, String> motherFormValues = new HashMap<String, String>() {{
+            put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+            put("serverDateModified", null);
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
+            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+            put("caste", newCaste);
+        }};
+
+        careService.processAndSaveForms(motherFormValues, new ArrayList<Map<String, String>>());
+
+        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
+        assertEquals(1, newFormsFromDb.size());
+        assertNull(newFormsFromDb.get(0).getDateModified());
+        assertEquals(newCaste, newFormsFromDb.get(0).getCaste());
+    }
+
+    @Test
+    public void shouldNotDeleteEarlierFormIfNewerMotherFormWithSameInstanceIdHasNullDate() {
+        NewForm persistedForm = new NewForm();
+        persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        final Date oldFormModifiedDate = DateTime.parse("2012-07-20T12:02:59.923+05:30").toDate();
+        persistedForm.setServerDateModified(oldFormModifiedDate);
+        persistedForm.setDateModified(oldFormModifiedDate);
+        template.save(persistedForm);
+
+        Map<String, String> motherFormValues = new HashMap<String, String>() {{
+            put("caseId", "94d5374f-290e-409f-bc57-86c2e4bcc43f");
+            put("dateModified", null);
+            put("serverDateModified", null);
+            put("userId", "89fda0284e008d2e0c980fb13fa0e5bb");
+            put("xmlns", "http://bihar.commcarehq.org/pregnancy/new");
+            put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        }};
+
+        careService.processAndSaveForms(motherFormValues, new ArrayList<Map<String, String>>());
+
+        List<NewForm> newFormsFromDb = template.loadAll(NewForm.class);
+        assertEquals(1, newFormsFromDb.size());
+        assertEquals(oldFormModifiedDate, newFormsFromDb.get(0).getDateModified());
+    }
+
+    @Test
     public void shouldNotDeleteEarlierFormIfNewerMotherFormWithSameInstanceIdHasOldDate() {
         NewForm persistedForm = new NewForm();
         persistedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");

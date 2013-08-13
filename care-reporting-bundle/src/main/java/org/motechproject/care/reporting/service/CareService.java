@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
@@ -218,7 +217,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         if(existingForm == null) {
             dbRepository.save(currentForm);
         }
-        else if (currentForm.getServerDateModified().before(existingForm.getServerDateModified())) {
+        else if (existingForm.getServerDateModified() != null && (currentForm.getServerDateModified() == null ||
+                 currentForm.getServerDateModified().before(existingForm.getServerDateModified()))) {
             logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
         }
         else {
