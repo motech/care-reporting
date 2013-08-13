@@ -21,6 +21,10 @@
                     <artifactId>org.springframework.context.support</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>com.springsource.slf4j.api</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- to send/receive motech events -->
