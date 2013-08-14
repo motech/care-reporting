@@ -15,6 +15,7 @@ CREATE TABLE report.flw (
        ,username VARCHAR(255)
 	   ,population VARCHAR(255)
 	   ,education VARCHAR(255)
+	   ,state VARCHAR(255)
 	   ,district VARCHAR(255)
 	   ,block VARCHAR(255)
 	   ,panchayat VARCHAR(255)
