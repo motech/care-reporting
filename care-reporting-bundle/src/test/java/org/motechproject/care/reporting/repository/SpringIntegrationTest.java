@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:META-INF/motech/applicationContext.xml")
+@ContextConfiguration("classpath:META-INF/motech/ApplicationCareReportingTest.xml")
 @Transactional
 public abstract class SpringIntegrationTest {
 

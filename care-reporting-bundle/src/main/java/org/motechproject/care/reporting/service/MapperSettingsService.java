@@ -20,7 +20,7 @@ public class MapperSettingsService {
     SettingsFacade settings;
 
     @Autowired
-    public MapperSettingsService(@Qualifier("settings") SettingsFacade settings) {
+    public MapperSettingsService(@Qualifier("careReportingSettings") SettingsFacade settings) {
         this.settings = settings;
         registerRawConfigFiles(getFileNames(getFormMappingPropertyValues()));
         registerRawConfigFiles(getFileNames(getCaseMappingPropertyValues()));

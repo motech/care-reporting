@@ -20,7 +20,7 @@ public class Migrator {
     public static void main(String[] args) {
         boolean success = true;
         DateTime startTime = DateTime.now();
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext-migration.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationCareMigration.xml");
 
         try {
             Migrator migrator = applicationContext.getBean(Migrator.class);
