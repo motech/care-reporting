@@ -46,6 +46,7 @@ public class PncMotherForm extends Form {
 	private Date dateLastVisit;
 	private Date dateNextEb;
 	private Date dateNextPnc;
+	private Date dateNextCf;
 	private Date datePnc1;
 	private Date datePnc2;
 	private Date datePnc3;
@@ -355,6 +356,16 @@ public class PncMotherForm extends Form {
 		this.dateNextEb = dateNextEb;
 	}
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_next_cf", length = 13)
+    public Date getDateNextCf() {
+        return this.dateNextCf;
+    }
+
+    public void setDateNextCf(Date dateNextCf) {
+        this.dateNextCf = dateNextCf;
+    }
+    
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_next_pnc", length = 13)
 	public Date getDateNextPnc() {

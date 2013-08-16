@@ -108,12 +108,18 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Date dateCf7;
     private Date dateDelFu;
     private Date dateNextReg;
-    private Boolean institutional;
+    private String institutional;
     private Date dob;
     private Boolean closed;
     private Date creationTime;
     private Date lastModifiedTime;
     private Flw closedBy;
+    private String mobileNumberWhose;
+    private int bpVisitNum;
+    private int wardNumber;
+    private int ebVisitNum;
+    private int pncVisitNum;
+    private int cfVisitNum;
 
     public MotherCase() {
         Date date = new Date();
@@ -953,11 +959,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "institutional")
-	public Boolean getInstitutional() {
+	public String getInstitutional() {
 		return this.institutional;
 	}
 
-	public void setInstitutional(Boolean institutional) {
+	public void setInstitutional(String institutional) {
 		this.institutional = institutional;
 	}
 
@@ -979,6 +985,61 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	public void setClosed(Boolean closed) {
 		this.closed = closed;
 	}
+
+    @Column(name = "mobile_number_whose")
+    public String getMobileNumberWhose() {
+        return this.mobileNumberWhose;
+    }
+
+    public void setMobileNumberWhose(String mobileNumberWhose) {
+        this.mobileNumberWhose = mobileNumberWhose;
+    }
+    
+    @Column(name = "ward_number")
+    public int getWardNumber() {
+        return this.wardNumber;
+    }
+
+    public void setWardNumber(int wardNumber) {
+        this.wardNumber = wardNumber;
+    }
+    
+    @Column(name = "bp_visit_num")
+    public int getBpVisitNum() {
+        return this.bpVisitNum;
+    }
+
+    public void setBpVisitNum(int bpVisitNum) {
+        this.bpVisitNum = bpVisitNum;
+    }
+    
+    @Column(name = "eb_visit_num")
+    public int getEbVisitNum() {
+        return this.ebVisitNum;
+    }
+
+    public void setEbVisitNum(int ebVisitNum) {
+        this.ebVisitNum = ebVisitNum;
+    }
+    
+    @Column(name = "pnc_visit_num")
+    public int getPncVisitNum() {
+        return this.pncVisitNum;
+    }
+
+    public void setPncVisitNum(int pncVisitNum) {
+        this.pncVisitNum = pncVisitNum;
+    }
+
+    @Column(name = "cf_visit_num")
+    public int getCfVisitNum() {
+        return this.cfVisitNum;
+    }
+
+    public void setCfVisitNum(int cfVisitNum) {
+        this.cfVisitNum = cfVisitNum;
+    }
+    
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")

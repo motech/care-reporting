@@ -60,6 +60,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private String timeOfBirth;
 	private Date vitA2Date;
 	private Date vitA3Date;
+    private Boolean cordFallen;
 	private Boolean closed;
 	private Date closedOn;
     private Flw closedBy;
@@ -445,7 +446,17 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.vitA3Date = vitA3Date;
 	}
 
-	@Column(name = "closed")
+    @Column(name = "cord_fallen")
+    public Boolean getCordFallen() {
+        return cordFallen;
+    }
+
+    public void setCordFallen(Boolean cordFallen) {
+        this.cordFallen = cordFallen;
+    }
+
+
+    @Column(name = "closed")
 	public Boolean getClosed() {
 		return this.closed;
 	}

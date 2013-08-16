@@ -134,7 +134,13 @@ CREATE TABLE report.mother_case (
 	,date_cf_7 DATE
 	,date_del_fu DATE
 	,date_next_reg DATE
-	,institutional BOOLEAN
+	,institutional VARCHAR(255)
+	,mobile_number_whose VARCHAR(255)
+	,bp_visit_num INTEGER
+	,ward_number INTEGER
+	,eb_visit_num INTEGER
+	,pnc_visit_num INTEGER
+	,cf_visit_num INTEGER
 	,dob DATE
 	,closed BOOLEAN
 	,closed_by INTEGER REFERENCES report.flw(id)
@@ -182,6 +188,7 @@ CREATE TABLE report.child_case (
 	,time_of_birth VARCHAR(25)
 	,vit_a_2_date DATE
 	,vit_a_3_date DATE
+	,cord_fallen BOOLEAN
 	,closed BOOLEAN
 	,closed_on TIMESTAMP WITH TIME ZONE
 	,closed_by INTEGER REFERENCES report.flw(id)
@@ -479,6 +486,7 @@ CREATE TABLE report.bp_form(
 	,nextvisittype	VARCHAR(20)
 	,play_family_planning_vid	BOOLEAN
 	,postponing	VARCHAR(15)
+	,institutional VARCHAR(255)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -514,6 +522,7 @@ CREATE TABLE report.pnc_mother_form(
 	,date_last_visit	DATE
 	,date_next_eb	DATE
 	,date_next_pnc	DATE
+	,date_next_cf	DATE
 	,date_pnc_1	DATE
 	,date_pnc_2	DATE
 	,date_pnc_3	DATE
@@ -1034,6 +1043,7 @@ CREATE TABLE report.close_mother_form(
 	,confirm_close	BOOLEAN
 	,death_village	BOOLEAN
 	,died_village	VARCHAR(255)
+	,place_village VARCHAR(255)
 	,dupe_reg	BOOLEAN
 	,finished_continuum	BOOLEAN
 	,num_children	SMALLINT
@@ -1046,6 +1056,7 @@ CREATE TABLE report.close_mother_form(
     ,died BOOLEAN
     ,date_death DATE
     ,site_death VARCHAR(255)
+    ,status VARCHAR(255)
   ,close	BOOLEAN
   ,creation_time TIMESTAMP WITH TIME ZONE
 );

@@ -126,6 +126,7 @@ public class BpForm extends Form {
 	private String nextvisittype;
 	private Boolean playFamilyPlanningVid;
 	private String postponing;
+    private String institutional;
     private Date creationTime = new Date();
 
     public BpForm() {
@@ -1140,6 +1141,16 @@ public class BpForm extends Form {
 	public void setPostponing(String postponing) {
 		this.postponing = postponing;
 	}
+
+
+    @Column(name = "institutional")
+    public String getInstitutional() {
+        return this.institutional;
+    }
+
+    public void setInstitutional(String institutional) {
+        this.institutional = institutional;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")
