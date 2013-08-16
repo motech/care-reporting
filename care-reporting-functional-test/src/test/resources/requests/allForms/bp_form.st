@@ -160,6 +160,7 @@
     <play_family_planning_vid>no</play_family_planning_vid>
     <conceive>no</conceive>
     <postponing>undecided</postponing>
+    <institutional>yes</institutional>
 
 
     <family_planning_group>
