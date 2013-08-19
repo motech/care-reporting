@@ -33,6 +33,12 @@
             <artifactId>motech-platform-event</artifactId>
             <version>${motech.version}</version>
         </dependency>
+        <!-- to schedule jobs on motech -->
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-scheduler</artifactId>
+            <version>${motech.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-commcare-api</artifactId>
