@@ -27,7 +27,7 @@ public class CloseMotherForm extends Form {
     private Boolean confirmClose;
     private Boolean deathVillage;
     private String diedVillage;
-    private String placeVillage;
+    private String placeDeath;
     private Boolean dupeReg;
     private Boolean finishedContinuum;
     private Short numChildren;
@@ -148,13 +148,13 @@ public class CloseMotherForm extends Form {
 		this.diedVillage = diedVillage;
 	}	
     
-    @Column(name = "place_village")
-	public String getPlaceVillage() {
-		return this.placeVillage;
+    @Column(name = "place_death")
+	public String getPlaceDeath() {
+		return this.placeDeath;
 	}
 
-	public void setPlaceVillage(String placeVillage) {
-		this.placeVillage = placeVillage;
+	public void setPlaceDeath(String placeDeath) {
+		this.placeDeath = placeDeath;
 	}
 
 	@Column(name = "dupe_reg")

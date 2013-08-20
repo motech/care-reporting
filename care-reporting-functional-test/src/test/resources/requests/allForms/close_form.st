@@ -28,7 +28,7 @@
     <close_mother>yes</close_mother>
     <finished_continuum>yes</finished_continuum>
     <died_village />
-    <place_village>kottampatti</place_village>
+    <place_death>kottampatti</place_death>
     <status>died</status>
     <confirm_close>yes</confirm_close>
     <yes_closed_message>OK</yes_closed_message>

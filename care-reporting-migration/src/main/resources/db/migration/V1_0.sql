@@ -1057,7 +1057,7 @@ CREATE TABLE report.close_mother_form(
 	,confirm_close	BOOLEAN
 	,death_village	BOOLEAN
 	,died_village	VARCHAR(255)
-	,place_village VARCHAR(255)
+	,place_death VARCHAR(255)
 	,dupe_reg	BOOLEAN
 	,finished_continuum	BOOLEAN
 	,num_children	SMALLINT
