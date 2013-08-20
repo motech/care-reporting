@@ -223,6 +223,7 @@ CREATE TABLE report.new_form (
 	,dob_known	BOOLEAN
 	,full_name	VARCHAR(255)
 	,manual_group	VARCHAR(255)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -316,6 +317,7 @@ CREATE TABLE report.registration_mother_form (
   ,which_hospital	VARCHAR(255)
   ,which_village	VARCHAR(255)
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
   ,creation_time TIMESTAMP WITH TIME ZONE
   ,children	BOOLEAN
 );
@@ -368,6 +370,7 @@ CREATE TABLE report.registration_child_form (
 	,child_have_a_name	BOOLEAN
 	,child_name	VARCHAR(255)
 	,weight	DECIMAL
+  	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 	,UNIQUE(instance_id, case_id)
 );
@@ -487,6 +490,7 @@ CREATE TABLE report.bp_form(
 	,play_family_planning_vid	BOOLEAN
 	,postponing	VARCHAR(15)
 	,institutional VARCHAR(255)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -579,6 +583,7 @@ CREATE TABLE report.pnc_mother_form(
 	,tl_counsel_side_effects	BOOLEAN
 	,tl_counsel_timing	BOOLEAN
 	,why_no_ppffp	VARCHAR(255)
+	,delivery_offset_days INTEGER
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -623,6 +628,7 @@ CREATE TABLE report.pnc_child_form(
 	,what_applied	VARCHAR(255)
 	,wrapped	BOOLEAN
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
 	,UNIQUE(instance_id, case_id)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
@@ -719,6 +725,7 @@ CREATE TABLE report.ebf_mother_form(
     ,ppiud_bleeding BOOLEAN
     ,ppiud_discharge BOOLEAN
     ,ppiud_fever BOOLEAN
+    ,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -775,8 +782,9 @@ CREATE TABLE report.ebf_child_form(
 	,tea_other	BOOLEAN
 	,treated_less_six	BOOLEAN
 	,water_or_milk	BOOLEAN
-	,UNIQUE(instance_id, case_id)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
+    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.cf_mother_form(
@@ -805,6 +813,7 @@ CREATE TABLE report.cf_mother_form(
   ,date_cf_7 DATE
 	,confirm_close BOOLEAN
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -875,8 +884,9 @@ CREATE TABLE report.cf_child_form(
     ,vit_a_3_date DATE
     ,vit_a_2_date DATE
 	  ,close	BOOLEAN
-    	,UNIQUE(instance_id, case_id)
+	  ,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
+    ,UNIQUE(instance_id, case_id)
 );
 
 
@@ -931,6 +941,7 @@ CREATE TABLE report.delivery_mother_form(
 	,which_hospital	VARCHAR(255)
 	,which_village	VARCHAR(255)
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -983,6 +994,7 @@ CREATE TABLE report.delivery_child_form(
 	,wrapped_dried 	BOOLEAN
   ,close	BOOLEAN
     ,creation_time TIMESTAMP WITH TIME ZONE
+    ,delivery_offset_days INTEGER
 	,UNIQUE(instance_id, case_id)
 );
 
@@ -1005,6 +1017,7 @@ CREATE TABLE report.death_mother_form(
 	,place_death	VARCHAR(255)
 	,site_death	VARCHAR(255)
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1023,9 +1036,10 @@ CREATE TABLE report.death_child_form(
 	,child_place_death	VARCHAR(255)
 	,child_site_death	VARCHAR(255)
 	,chld_date_death	DATE
-	,UNIQUE(instance_id, case_id)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
   ,close	BOOLEAN
+  ,UNIQUE(instance_id, case_id)
 
 );
 
@@ -1058,6 +1072,7 @@ CREATE TABLE report.close_mother_form(
     ,site_death VARCHAR(255)
     ,status VARCHAR(255)
   ,close	BOOLEAN
+  ,delivery_offset_days INTEGER
   ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1081,9 +1096,11 @@ CREATE TABLE report.close_child_form(
 	,finished_continuum	BOOLEAN
 	,site_death	VARCHAR(255)
 	,place_death VARCHAR(255)
-	,UNIQUE(instance_id, case_id)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
-  ,close	BOOLEAN
+    ,close	BOOLEAN
+    ,UNIQUE(instance_id, case_id)
+
 );
 
 CREATE TABLE report.refer_mother_form(
@@ -1098,6 +1115,7 @@ CREATE TABLE report.refer_mother_form(
 	,app_version VARCHAR(255)
 	,num_children	SMALLINT
 	,refer_mother	BOOLEAN
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1112,8 +1130,9 @@ CREATE TABLE report.refer_child_form(
   ,server_date_modified TIMESTAMP WITH TIME ZONE
 	,app_version VARCHAR(255)
 	,refer_child	BOOLEAN
-	,UNIQUE(instance_id, case_id)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
+	,UNIQUE(instance_id, case_id)
 );
 
 
@@ -1137,6 +1156,7 @@ CREATE TABLE report.ui_mother_form(
 	,num_children	SMALLINT
 	,update_mother	BOOLEAN
 	,tt_booster DATE
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1191,8 +1211,9 @@ CREATE TABLE report.ui_child_form(
     ,date_measles_booster DATE
     ,vit_a_2_date DATE
     ,vit_a_3_date DATE
-    ,UNIQUE(instance_id, case_id)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
+    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.abort_form(
@@ -1209,6 +1230,7 @@ CREATE TABLE report.abort_form(
 	,birth_status	VARCHAR(255)
 	,date_aborted	DATE
   ,close	BOOLEAN
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1229,6 +1251,7 @@ CREATE TABLE report.mo_form(
 	,date_left	DATE
 	,name	VARCHAR(255)
 	,note_given	BOOLEAN
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1251,6 +1274,7 @@ CREATE TABLE report.mi_form(
 	,abortion_type VARCHAR(255)
     ,date_aborted DATE
     ,migrated_status VARCHAR(255)
+	,delivery_offset_days INTEGER
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 
@@ -1269,6 +1293,7 @@ CREATE TABLE report.move_beneficiary_form(
   ,new_ward INTEGER
   ,new_awcc INTEGER
   ,confirm_again BOOLEAN
+  ,delivery_offset_days INTEGER
 );
 
 CREATE TABLE report.mother_edit_form(
@@ -1300,6 +1325,7 @@ CREATE TABLE report.mother_edit_form(
   ,update_mobile_number_whose BOOLEAN
   ,ward_number INTEGER
   ,update_ward_number BOOLEAN
+  ,delivery_offset_days INTEGER
 );
 
 With meta_info as (
