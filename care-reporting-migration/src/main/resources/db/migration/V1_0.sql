@@ -1328,13 +1328,3 @@ CREATE TABLE report.mother_edit_form(
   ,delivery_offset_days INTEGER
 );
 
-With meta_info as (
-Select table_name, 'form' as type, 'mother' as category from information_schema.tables where table_schema = 'report' and table_name like '%_form' and table_name NOT like '%_child_%'
-UNION ALL
-Select table_name, 'form', 'child' from information_schema.tables where table_schema = 'report' and table_name like '%_form' and table_name like '%_child_%'
-UNION ALL
-Select table_name, 'case', 'mother' from information_schema.tables where table_schema = 'report' and table_name like '%_case' and table_name not like 'child_%'
-UNION ALL
-Select table_name, 'case', 'child' from information_schema.tables where table_schema = 'report' and table_name like '%_case' and table_name like '%child_%'
-)
-Select row_number() over() as id, * into report.metadata  from meta_info;
