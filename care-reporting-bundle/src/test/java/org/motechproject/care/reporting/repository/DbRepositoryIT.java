@@ -11,11 +11,14 @@ import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.unitils.reflectionassert.ReflectionAssert;
 
 import java.util.*;
 
 import static junit.framework.Assert.*;
 import static org.motechproject.care.reporting.utils.TestUtils.*;
+import static java.util.Arrays.*;
+
 
 public class DbRepositoryIT extends SpringIntegrationTest {
 
@@ -191,6 +194,13 @@ public class DbRepositoryIT extends SpringIntegrationTest {
 
         NewForm newFormAfterDelete = repository.get(NewForm.class, "caseName", "mother");
         assertNull(newFormAfterDelete);
+    }
+
+
+    @Test
+    public void shouldExecuteSQL(){
+        Object result = repository.execute("Select 10");
+        ReflectionAssert.assertReflectionEquals(asList(10), result);
     }
 
 }

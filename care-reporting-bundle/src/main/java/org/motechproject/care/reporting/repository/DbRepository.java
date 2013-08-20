@@ -2,12 +2,18 @@ package org.motechproject.care.reporting.repository;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.motechproject.care.reporting.utils.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +44,17 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     public <T> void delete(T instance) {
         template.delete(instance);
         template.flush();
+    }
+
+    @Override
+    public Object execute(final String selectQuery) {
+        return template.execute(new HibernateCallback<Object>() {
+            @Override
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                final SQLQuery sqlQuery = session.createSQLQuery(selectQuery);
+                return sqlQuery.list();
+            }
+        });
     }
 
     @Override

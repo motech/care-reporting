@@ -19,4 +19,6 @@ public interface Repository {
     <T> T get(Class<T> entityClass, Map<String, Object> fieldMap, Map<String, String> aliasMapping);
 
     <T> void delete(T instance);
+
+    Object execute(String query);
 }
