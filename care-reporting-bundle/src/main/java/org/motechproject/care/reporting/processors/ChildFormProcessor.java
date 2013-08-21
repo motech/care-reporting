@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
+import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_CHILD_CASE_POST_PROCESSOR;
 import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_USER_ID_AS_FLW;
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
+import static org.motechproject.care.reporting.processors.ComputedFieldsProcessor.Utils.applyComputedFields;
 
 @Component
 public class ChildFormProcessor {
@@ -26,11 +28,15 @@ public class ChildFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
+    private List<ComputedFieldsProcessor> CHILD_FORM_COMPUTED_FIELDS = new ArrayList<>();
+
     private MapperService mapperService;
 
     @Autowired
-    public ChildFormProcessor(MapperService mapperService) {
+    public ChildFormProcessor(Service service, MapperService mapperService) {
         this.mapperService = mapperService;
+
+        CHILD_FORM_COMPUTED_FIELDS.add(new ComputeDeliveryOffsetForChild(service));
     }
 
     List<Map<String, String>> parseChildForms(CommcareForm commcareForm) {
@@ -44,6 +50,8 @@ public class ChildFormProcessor {
             childDetail.putAll(metadata);
 
             applyPostProcessors(CHILD_CASE_POST_PROCESSORS, childDetail);
+
+            applyComputedFields(CHILD_FORM_COMPUTED_FIELDS, childDetail);
         }
         return childDetails;
     }

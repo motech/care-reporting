@@ -3,9 +3,8 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
+import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +16,7 @@ import java.util.Map;
 import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR;
 import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_USER_ID_AS_FLW;
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
+import static org.motechproject.care.reporting.processors.ComputedFieldsProcessor.Utils.applyComputedFields;
 
 @Component
 public class MotherFormProcessor {
@@ -27,11 +27,15 @@ public class MotherFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
+    private List<ComputedFieldsProcessor> MOTHER_FORM_COMPUTED_FIELDS = new ArrayList<>();
+
     private MapperService mapperService;
 
     @Autowired
-    public MotherFormProcessor(MapperService mapperService) {
+    public MotherFormProcessor(Service service, MapperService mapperService) {
         this.mapperService = mapperService;
+
+        MOTHER_FORM_COMPUTED_FIELDS.add(new ComputeDeliveryOffsetForMother(service));
     }
 
     public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
@@ -49,6 +53,8 @@ public class MotherFormProcessor {
         motherInfo.putAll(formFields);
 
         applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
+
+        applyComputedFields(MOTHER_FORM_COMPUTED_FIELDS, motherInfo);
 
         return motherInfo;
     }

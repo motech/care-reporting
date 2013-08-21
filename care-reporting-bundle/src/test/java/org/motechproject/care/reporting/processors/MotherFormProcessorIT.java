@@ -4,13 +4,17 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
+import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.motechproject.care.reporting.utils.AssertionUtils.assertContainsAll;
@@ -18,6 +22,9 @@ import static org.motechproject.care.reporting.utils.AssertionUtils.assertContai
 public class MotherFormProcessorIT extends SpringIntegrationTest {
     @Autowired
     private MotherFormProcessor motherFormProcessor;
+
+    @Autowired
+    private Service service;
 
     @Test
     public void shouldParseMotherNewForm() {
@@ -146,6 +153,54 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         expectedForm.put("updateMotherDob", "no");
         expectedForm.put("updateMobileNumber", "no");
         expectedForm.put("updateMobileNumberWhose", "yes");
+
+        Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
+
+        assertContainsAll(expectedForm, formValues);
+    }
+
+    @Test
+    public void shouldParseMotherEditFormWithDeliveryOffset() {
+        String motherCaseId = UUID.randomUUID().toString();
+        String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
+        final Date tenDaysBack = DateTime.now().minusDays(10).toDate();
+
+
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        motherCase.setAdd(tenDaysBack);
+
+        service.save(motherCase);
+
+        String dateModified = "2012-07-21T12:02:59.923+05:30";
+        String receivedOn = DateTime.now().toString();
+        FormValueElement motherCaseData = new FormValueElementBuilder()
+                .addAttribute("case_id", motherCaseId)
+                .addAttribute("date_modified", dateModified)
+                .addAttribute("user_id", flwId)
+                .build();
+
+        CommcareForm newFormData = new CommcareFormBuilder()
+                .withReceivedOn(receivedOn)
+                .addMetadata("userID", flwId)
+                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+
+                .addAttribute("uiVersion", "1")
+                .addAttribute("version", "1")
+                .addAttribute("name", "Mother Edit")
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit")
+
+                .addSubElement("case", motherCaseData)
+                .build();
+
+        Map<String, String> expectedForm = new HashMap<>();
+        expectedForm.put("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit");
+        expectedForm.put("dateModified", dateModified);
+        expectedForm.put("serverDateModified", receivedOn);
+        expectedForm.put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
+        expectedForm.put("motherCase", motherCaseId);
+        expectedForm.put("flw", flwId);
+        expectedForm.put("deliveryOffsetDays", "-10");
 
         Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
 
