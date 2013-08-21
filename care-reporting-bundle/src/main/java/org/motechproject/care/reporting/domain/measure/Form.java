@@ -17,6 +17,8 @@ public class Form implements java.io.Serializable {
 
     private Date serverDateModified;
 
+    private Integer deliveryOffsetDays;
+
     public Form() {
     }
 
@@ -47,4 +49,15 @@ public class Form implements java.io.Serializable {
     public void setServerDateModified(Date serverDateModified) {
         this.serverDateModified = serverDateModified;
     }
+
+
+    @Column(name = "delivery_offset_days")
+    public Integer getDeliveryOffsetDays() {
+        return this.deliveryOffsetDays;
+    }
+
+    public void setDeliveryOffsetDays(Integer deliveryOffsetDays) {
+        this.deliveryOffsetDays = deliveryOffsetDays;
+    }
+
 }
