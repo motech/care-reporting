@@ -8,11 +8,14 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.jdbc.Work;
 import org.motechproject.care.reporting.utils.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +50,18 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public Object execute(final String selectQuery) {
+    public Object execute(final String query) {
+        final ResultSet[] resultSet = new ResultSet[1];
         return template.execute(new HibernateCallback<Object>() {
             @Override
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                final SQLQuery sqlQuery = session.createSQLQuery(selectQuery);
-                return sqlQuery.list();
+                session.doWork(new Work(){
+                    @Override
+                    public void execute(Connection connection) throws SQLException {
+                        resultSet[0] = connection.prepareCall(query).executeQuery();
+                    }
+                });
+                return resultSet[0] == null  || !resultSet[0].next() ? null : resultSet[0].getObject(1);
             }
         });
     }

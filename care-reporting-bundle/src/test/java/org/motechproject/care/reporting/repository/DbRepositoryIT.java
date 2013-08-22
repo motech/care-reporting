@@ -200,7 +200,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Test
     public void shouldExecuteSQL(){
         Object result = repository.execute("Select 10");
-        ReflectionAssert.assertReflectionEquals(asList(10), result);
+        ReflectionAssert.assertReflectionEquals(10, result);
     }
 
 }
