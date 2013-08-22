@@ -6,7 +6,9 @@ BEGIN
 		EXECUTE 'UPDATE report.' || result.table_name || ' AS v SET delivery_offset_days = CASE WHEN mc.add IS NOT NULL THEN extract(day from (v.server_date_modified - mc.add))
 												     WHEN mc.edd IS NOT NULL THEN extract(day from (v.server_date_modified - mc.edd))
 												     ELSE null
-												     END FROM report.mother_case mc WHERE mc.id = v.case_id';
+												     END FROM report.mother_case mc
+												     INNER JOIN report.job_metadata md ON mc.last_modified_time between md.last_run and current_timestamp
+												     WHERE mc.id = v.case_id';
 	END LOOP;
 
 	FOR result IN Select table_name from report.domain_metadata where type = 'form' and category='child' LOOP
