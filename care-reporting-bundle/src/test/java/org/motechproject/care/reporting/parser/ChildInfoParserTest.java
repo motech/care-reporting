@@ -25,6 +25,7 @@ import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -207,7 +208,7 @@ public class ChildInfoParserTest {
 
         ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2, dateModified2, receivedOn), childrenMapList.get(0));
 
-        assertNotNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsAnything<String>()));
+        assertNull(TestAppender.findMatching(new IsEqual(Level.ERROR), new IsAnything<String>()));
     }
 
     private HashMap<String, String> getExpectedChild(final String caseId, final String dateModified, final String receivedOn) {
