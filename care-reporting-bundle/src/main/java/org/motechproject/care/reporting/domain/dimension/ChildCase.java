@@ -95,7 +95,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.flw = flw;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mother_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public MotherCase getMotherCase() {
