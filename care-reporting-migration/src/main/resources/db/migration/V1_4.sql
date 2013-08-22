@@ -3,8 +3,8 @@ DECLARE
     result RECORD;
 BEGIN
 	FOR result IN Select table_name from report.domain_metadata where type = 'form' and category='mother' LOOP
-		EXECUTE 'UPDATE report.' || result.table_name || ' AS v SET delivery_offset_days = CASE WHEN mc.add IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.add)))
-												     WHEN mc.edd IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.edd)))
+		EXECUTE 'UPDATE report.' || result.table_name || ' AS v SET delivery_offset_days = CASE WHEN mc.add IS NOT NULL AND v.server_date_modified IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.add)))
+												     WHEN mc.edd IS NOT NULL  AND v.server_date_modified IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.edd)))
 												     ELSE null
 												     END FROM report.mother_case mc
 												     INNER JOIN report.job_metadata md ON mc.last_modified_time >= md.last_run
@@ -12,8 +12,8 @@ BEGIN
 	END LOOP;
 
 	FOR result IN Select table_name from report.domain_metadata where type = 'form' and category='child' LOOP
-		EXECUTE 'UPDATE report.' || result.table_name || ' AS v SET delivery_offset_days = CASE WHEN mc.add IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.add)))
-												     WHEN mc.edd IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.edd)))
+		EXECUTE 'UPDATE report.' || result.table_name || ' AS v SET delivery_offset_days = CASE WHEN mc.add IS NOT NULL  AND v.server_date_modified IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.add)))
+												     WHEN mc.edd IS NOT NULL  AND v.server_date_modified IS NOT NULL THEN extract(day from (date_trunc(''day'', v.server_date_modified) - date_trunc(''day'', mc.edd)))
 												     ELSE null
 												     END 
 												     FROM report.child_case cc
