@@ -13,6 +13,8 @@ public class ComputeFieldsJob {
 
     Repository repository;
 
+    ComputeFieldsJob(){}
+
     @Autowired
     public ComputeFieldsJob(Repository repository){
         this.repository = repository;
