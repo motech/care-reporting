@@ -158,6 +158,7 @@ public class ChildInfoParserTest {
 
     @Test
     public void shouldIgnoreChildrenIfCaseElementNotFoundWhilePopulatingCaseInformationAndNotLogError() throws Exception {
+        TestAppender.clear();
         String instanceId = "myInstanceId";
         String caseId1 = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
         String caseId2 = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cc";
