@@ -68,7 +68,7 @@ public class ComputeDeliveryOffsetForChild implements ComputedFieldsProcessor{
         }
 
         DateTime serverModified = DateTime.parse(serverModifiedValue);
-        final int days = Days.daysBetween(new DateTime(serverModified).toDateMidnight(), new DateTime(deliveryDate).toDateMidnight()).getDays();
+        final int days = Days.daysBetween(new DateTime(deliveryDate).toDateMidnight(), new DateTime(serverModified).toDateMidnight()).getDays();
 
         values.put("deliveryOffsetDays", String.valueOf(days));
     }

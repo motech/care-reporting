@@ -117,7 +117,7 @@ public class ComputeDeliveryOffsetForChildTest {
         computeDeliveryOffsetForChild.compute(formInfoMap);
 
         verify(service).getChildCase(caseId);
-        assertEquals("10", formInfoMap.get("deliveryOffsetDays"));
+        assertEquals("-10", formInfoMap.get("deliveryOffsetDays"));
     }
 
 
@@ -144,6 +144,6 @@ public class ComputeDeliveryOffsetForChildTest {
         computeDeliveryOffsetForChild.compute(formInfoMap);
 
         verify(service).getChildCase(caseId);
-        assertEquals("-10", formInfoMap.get("deliveryOffsetDays"));
+        assertEquals("10", formInfoMap.get("deliveryOffsetDays"));
     }
 }

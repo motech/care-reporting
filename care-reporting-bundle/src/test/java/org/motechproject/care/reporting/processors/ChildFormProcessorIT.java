@@ -225,7 +225,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues1.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues1.get("xmlns"));
 
-        assertEquals("-10", childValues1.get("deliveryOffsetDays"));
+        assertEquals("10", childValues1.get("deliveryOffsetDays"));
 
         Map<String, String> childValues2 = findWithCaseId(childCase2Id, childFieldValues);
         assertEquals(childCase2Id, childValues2.get("caseId"));
@@ -233,7 +233,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         assertEquals(receivedOn, childValues2.get("serverDateModified"));
         assertEquals("89fda0284e008d2e0c980fb13fa0e5bb", childValues2.get("flw"));
         assertEquals("http://bihar.commcarehq.org/pregnancy/ebf", childValues2.get("xmlns"));
-        assertEquals("-10", childValues1.get("deliveryOffsetDays"));
+        assertEquals("10", childValues1.get("deliveryOffsetDays"));
     }
 
     @Test

@@ -200,7 +200,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         expectedForm.put("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98");
         expectedForm.put("motherCase", motherCaseId);
         expectedForm.put("flw", flwId);
-        expectedForm.put("deliveryOffsetDays", "-10");
+        expectedForm.put("deliveryOffsetDays", "10");
 
         Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
 
