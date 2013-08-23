@@ -15,6 +15,7 @@ import java.util.List;
 public class MapperSettingsService {
     private final String FORM_MAPPING_PROPERTY_KEY = "form.mapping.file.names";
     private final String CASE_MAPPING_PROPERTY_KEY = "case.mapping.file.names";
+    private final String EXCLUSION_APPVERSION_PROPERTY_KEY = "exclusion.appversion.file.names";
     private final String FILE_NAME_DELIMITER = ",";
 
     SettingsFacade settings;
@@ -24,6 +25,7 @@ public class MapperSettingsService {
         this.settings = settings;
         registerRawConfigFiles(getFileNames(getFormMappingPropertyValues()));
         registerRawConfigFiles(getFileNames(getCaseMappingPropertyValues()));
+        registerRawConfigFiles(getFileNames(getExclusionAppversionPropertyValues()));
     }
 
     private void registerRawConfigFiles(String[] mappingFileNames) {
@@ -42,6 +44,10 @@ public class MapperSettingsService {
         return getStreams(getFileNames(getCaseMappingPropertyValues()));
     }
 
+    public List<InputStream> getExclusionAppversionStreams() {
+        return getStreams(getFileNames(getExclusionAppversionPropertyValues()));
+    }
+
     private List<InputStream> getStreams(String[] configFiles) {
         final List<InputStream> inputStreams = new ArrayList<>();
         for (String configFile : configFiles) {
@@ -56,6 +62,10 @@ public class MapperSettingsService {
 
     private String getFormMappingPropertyValues() {
         return settings.getProperty(FORM_MAPPING_PROPERTY_KEY);
+    }
+
+    private String getExclusionAppversionPropertyValues() {
+        return settings.getProperty(EXCLUSION_APPVERSION_PROPERTY_KEY);
     }
 
     private String[] getFileNames(String mappingPropertyValue) {

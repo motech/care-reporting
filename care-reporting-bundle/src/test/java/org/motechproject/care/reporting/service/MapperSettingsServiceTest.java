@@ -33,17 +33,19 @@ public class MapperSettingsServiceTest {
     public void setUp() {
         when(settingsFacade.getProperty("form.mapping.file.names")).thenReturn("formFileName1, formFileName2");
         when(settingsFacade.getProperty("case.mapping.file.names")).thenReturn("caseFileName1, caseFileName2");
+        when(settingsFacade.getProperty("exclusion.appversion.file.names")).thenReturn("exclusionFileName");
         mapperSettingsService = new MapperSettingsService(settingsFacade);
     }
 
     @Test
     public void shouldRegisterConfigFilesAtConstruction() {
-        verify(settingsFacade, times(2)).setRawConfigFiles(resourceArgumentCaptor.capture());
+        verify(settingsFacade, times(3)).setRawConfigFiles(resourceArgumentCaptor.capture());
         List<List<Resource>> allRegisteredFiles = resourceArgumentCaptor.getAllValues();
         assertEquals(new ClassPathResource("formFileName1"), allRegisteredFiles.get(0).get(0));
         assertEquals(new ClassPathResource("formFileName2"), allRegisteredFiles.get(0).get(1));
         assertEquals(new ClassPathResource("caseFileName1"), allRegisteredFiles.get(1).get(0));
         assertEquals(new ClassPathResource("caseFileName2"), allRegisteredFiles.get(1).get(1));
+        assertEquals(new ClassPathResource("exclusionFileName"), allRegisteredFiles.get(2).get(0));
     }
 
     @Test
@@ -64,6 +66,17 @@ public class MapperSettingsServiceTest {
         when(settingsFacade.getRawConfig("caseFileName2")).thenReturn(expectedInputStreams.get(1));
 
         final List<InputStream> actualCaseInputStreams = mapperSettingsService.getCaseStreams();
+
+        assertEquals(expectedInputStreams, actualCaseInputStreams);
+    }
+
+
+    @Test
+    public void shouldGetInputStreamsForExclusionAppversionFiles() throws Exception {
+        List<InputStream> expectedInputStreams = Arrays.asList((InputStream) new ByteArrayInputStream(bytes()));
+        when(settingsFacade.getRawConfig("exclusionFileName")).thenReturn(expectedInputStreams.get(0));
+
+        final List<InputStream> actualCaseInputStreams = mapperSettingsService.getExclusionAppversionStreams();
 
         assertEquals(expectedInputStreams, actualCaseInputStreams);
     }
