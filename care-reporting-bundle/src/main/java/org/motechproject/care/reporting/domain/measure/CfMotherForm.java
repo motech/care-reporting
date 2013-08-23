@@ -80,7 +80,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -90,7 +90,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -100,7 +100,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -110,7 +110,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_1", length = 13)
+	@Column(name = "date_cf_1")
 	public Date getDateCf1() {
 		return this.dateCf1;
 	}
@@ -120,7 +120,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_2", length = 13)
+	@Column(name = "date_cf_2")
 	public Date getDateCf2() {
 		return this.dateCf2;
 	}
@@ -130,7 +130,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_3", length = 13)
+	@Column(name = "date_cf_3")
 	public Date getDateCf3() {
 		return this.dateCf3;
 	}
@@ -140,7 +140,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_4", length = 13)
+	@Column(name = "date_cf_4")
 	public Date getDateCf4() {
 		return this.dateCf4;
 	}
@@ -150,7 +150,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_5", length = 13)
+	@Column(name = "date_cf_5")
 	public Date getDateCf5() {
 		return this.dateCf5;
 	}
@@ -160,7 +160,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_6", length = 13)
+	@Column(name = "date_cf_6")
 	public Date getDateCf6() {
 		return this.dateCf6;
 	}
@@ -170,7 +170,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -180,7 +180,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf", length = 13)
+	@Column(name = "date_next_cf")
 	public Date getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -189,7 +189,7 @@ public class CfMotherForm extends Form {
 		this.dateNextCf = dateNextCf;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -235,7 +235,7 @@ public class CfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_7", length = 13)
+	@Column(name = "date_cf_7")
 	public Date getDateCf7() {
 		return this.dateCf7;
 	}

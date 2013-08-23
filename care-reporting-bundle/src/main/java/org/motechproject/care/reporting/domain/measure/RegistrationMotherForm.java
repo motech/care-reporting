@@ -146,7 +146,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -156,7 +156,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -166,7 +166,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -229,7 +229,7 @@ public class RegistrationMotherForm extends Form {
 		this.ageEst = ageEst;
 	}
 
-	@Column(name = "age_est_trigger", length = 10)
+	@Column(name = "age_est_trigger")
 	public String getAgeEstTrigger() {
 		return this.ageEstTrigger;
 	}
@@ -239,7 +239,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
     @Temporal(TemporalType.DATE)
-	@Column(name = "add", length = 13)
+	@Column(name = "add")
 	public Date getAdd() {
 		return this.add;
 	}
@@ -276,7 +276,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -286,7 +286,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_bp", length = 13)
+	@Column(name = "date_next_bp")
 	public Date getDateNextBp() {
 		return this.dateNextBp;
 	}
@@ -296,7 +296,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf", length = 13)
+	@Column(name = "date_next_cf")
 	public Date getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -306,7 +306,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb", length = 13)
+	@Column(name = "date_next_eb")
 	public Date getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -316,7 +316,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_pnc", length = 13)
+	@Column(name = "date_next_pnc")
 	public Date getDateNextPnc() {
 		return this.dateNextPnc;
 	}
@@ -335,7 +335,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "edd", length = 13)
+	@Column(name = "edd")
 	public Date getEdd() {
 		return this.edd;
 	}
@@ -389,7 +389,7 @@ public class RegistrationMotherForm extends Form {
 		this.lastPregTt = lastPregTt;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -399,7 +399,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "lmp", length = 13)
+	@Column(name = "lmp")
 	public Date getLmp() {
 		return this.lmp;
 	}
@@ -408,7 +408,7 @@ public class RegistrationMotherForm extends Form {
 		this.lmp = lmp;
 	}
 
-	@Column(name = "mobile_number", length = 20)
+	@Column(name = "mobile_number")
 	public String getMobileNumber() {
 		return this.mobileNumber;
 	}
@@ -418,7 +418,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "mother_dob", length = 13)
+	@Column(name = "mother_dob")
 	public Date getMotherDob() {
 		return this.motherDob;
 	}
@@ -446,7 +446,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "child_dob", length = 13)
+	@Column(name = "child_dob")
 	public Date getChildDob() {
 		return this.childDob;
 	}
@@ -455,7 +455,7 @@ public class RegistrationMotherForm extends Form {
 		this.childDob = childDob;
 	}
 
-    @Column(name = "client_no_register", length = 10)
+    @Column(name = "client_no_register")
 	public String getClientNoRegister() {
 		return this.clientNoRegister;
 	}
@@ -464,7 +464,7 @@ public class RegistrationMotherForm extends Form {
 		this.clientNoRegister = clientNoRegister;
 	}
 
-	@Column(name = "client_not_pregnant", length = 10)
+	@Column(name = "client_not_pregnant")
 	public String getClientNotPregnant() {
 		return this.clientNotPregnant;
 	}
@@ -519,7 +519,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "edd_calc", length = 13)
+	@Column(name = "edd_calc")
 	public Date getEddCalc() {
 		return this.eddCalc;
 	}
@@ -664,7 +664,7 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "lmp_calc", length = 13)
+	@Column(name = "lmp_calc")
 	public Date getLmpCalc() {
 		return this.lmpCalc;
 	}
@@ -700,7 +700,7 @@ public class RegistrationMotherForm extends Form {
 		this.mobileNumberWhose = mobileNumberWhose;
 	}
 
-	@Column(name = "nextvisit", length = 10)
+	@Column(name = "nextvisit")
 	public String getNextvisit() {
 		return this.nextvisit;
 	}
@@ -709,7 +709,7 @@ public class RegistrationMotherForm extends Form {
 		this.nextvisit = nextvisit;
 	}
 
-	@Column(name = "nextvisit_bp", length = 10)
+	@Column(name = "nextvisit_bp")
 	public String getNextvisitBp() {
 		return this.nextvisitBp;
 	}
@@ -718,7 +718,7 @@ public class RegistrationMotherForm extends Form {
 		this.nextvisitBp = nextvisitBp;
 	}
 
-	@Column(name = "nextvisittype", length = 20)
+	@Column(name = "nextvisittype")
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}

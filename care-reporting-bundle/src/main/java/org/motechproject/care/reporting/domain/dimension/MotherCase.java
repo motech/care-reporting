@@ -188,7 +188,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -198,7 +198,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_modified", length = 35)
+	@Column(name = "server_date_modified")
 	public Date getServerDateModified() {
 		return this.serverDateModified;
 	}
@@ -253,7 +253,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "mother_dob", length = 13)
+	@Column(name = "mother_dob")
 	public Date getMotherDob() {
 		return this.motherDob;
 	}
@@ -272,7 +272,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "closed_on", length = 35)
+	@Column(name = "closed_on")
 	public Date getClosedOn() {
 		return this.closedOn;
 	}
@@ -282,7 +282,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "add", length = 13)
+	@Column(name = "add")
 	public Date getAdd() {
 		return this.add;
 	}
@@ -319,7 +319,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_bp", length = 13)
+	@Column(name = "date_next_bp")
 	public Date getDateNextBp() {
 		return this.dateNextBp;
 	}
@@ -329,7 +329,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf", length = 13)
+	@Column(name = "date_next_cf")
 	public Date getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -339,7 +339,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb", length = 13)
+	@Column(name = "date_next_eb")
 	public Date getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -349,7 +349,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_pnc", length = 13)
+	@Column(name = "date_next_pnc")
 	public Date getDateNextPnc() {
 		return this.dateNextPnc;
 	}
@@ -368,7 +368,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "edd", length = 13)
+	@Column(name = "edd")
 	public Date getEdd() {
 		return this.edd;
 	}
@@ -423,7 +423,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "lmp", length = 13)
+	@Column(name = "lmp")
 	public Date getLmp() {
 		return this.lmp;
 	}
@@ -432,7 +432,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.lmp = lmp;
 	}
 
-	@Column(name = "mobile_number", length = 20)
+	@Column(name = "mobile_number")
 	public String getMobileNumber() {
 		return this.mobileNumber;
 	}
@@ -451,7 +451,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_1", length = 13)
+	@Column(name = "date_cf_1")
 	public Date getDateCf1() {
 		return this.dateCf1;
 	}
@@ -461,7 +461,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_2", length = 13)
+	@Column(name = "date_cf_2")
 	public Date getDateCf2() {
 		return this.dateCf2;
 	}
@@ -471,7 +471,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_3", length = 13)
+	@Column(name = "date_cf_3")
 	public Date getDateCf3() {
 		return this.dateCf3;
 	}
@@ -481,7 +481,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_4", length = 13)
+	@Column(name = "date_cf_4")
 	public Date getDateCf4() {
 		return this.dateCf4;
 	}
@@ -491,7 +491,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_5", length = 13)
+	@Column(name = "date_cf_5")
 	public Date getDateCf5() {
 		return this.dateCf5;
 	}
@@ -501,7 +501,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_6", length = 13)
+	@Column(name = "date_cf_6")
 	public Date getDateCf6() {
 		return this.dateCf6;
 	}
@@ -511,7 +511,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_1", length = 13)
+	@Column(name = "date_eb_1")
 	public Date getDateEb1() {
 		return this.dateEb1;
 	}
@@ -521,7 +521,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_2", length = 13)
+	@Column(name = "date_eb_2")
 	public Date getDateEb2() {
 		return this.dateEb2;
 	}
@@ -531,7 +531,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_3", length = 13)
+	@Column(name = "date_eb_3")
 	public Date getDateEb3() {
 		return this.dateEb3;
 	}
@@ -541,7 +541,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_4", length = 13)
+	@Column(name = "date_eb_4")
 	public Date getDateEb4() {
 		return this.dateEb4;
 	}
@@ -551,7 +551,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_5", length = 13)
+	@Column(name = "date_eb_5")
 	public Date getDateEb5() {
 		return this.dateEb5;
 	}
@@ -561,7 +561,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_6", length = 13)
+	@Column(name = "date_eb_6")
 	public Date getDateEb6() {
 		return this.dateEb6;
 	}
@@ -580,7 +580,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_1", length = 13)
+	@Column(name = "date_pnc_1")
 	public Date getDatePnc1() {
 		return this.datePnc1;
 	}
@@ -590,7 +590,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_2", length = 13)
+	@Column(name = "date_pnc_2")
 	public Date getDatePnc2() {
 		return this.datePnc2;
 	}
@@ -600,7 +600,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_3", length = 13)
+	@Column(name = "date_pnc_3")
 	public Date getDatePnc3() {
 		return this.datePnc3;
 	}
@@ -646,7 +646,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_booster_date", length = 13)
+	@Column(name = "tt_booster_date")
 	public Date getTtBoosterDate() {
 		return this.ttBoosterDate;
 	}
@@ -683,7 +683,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_1_date", length = 13)
+	@Column(name = "anc_1_date")
 	public Date getAnc1Date() {
 		return this.anc1Date;
 	}
@@ -693,7 +693,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_2_date", length = 13)
+	@Column(name = "anc_2_date")
 	public Date getAnc2Date() {
 		return this.anc2Date;
 	}
@@ -703,7 +703,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_3_date", length = 13)
+	@Column(name = "anc_3_date")
 	public Date getAnc3Date() {
 		return this.anc3Date;
 	}
@@ -713,7 +713,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_4_date", length = 13)
+	@Column(name = "anc_4_date")
 	public Date getAnc4Date() {
 		return this.anc4Date;
 	}
@@ -731,7 +731,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.cleanCloth = cleanCloth;
 	}
 
-	@Column(name = "couple_interested", length = 15)
+	@Column(name = "couple_interested")
 	public String getCoupleInterested() {
 		return this.coupleInterested;
 	}
@@ -741,7 +741,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_1", length = 13)
+	@Column(name = "date_bp_1")
 	public Date getDateBp1() {
 		return this.dateBp1;
 	}
@@ -751,7 +751,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_2", length = 13)
+	@Column(name = "date_bp_2")
 	public Date getDateBp2() {
 		return this.dateBp2;
 	}
@@ -761,7 +761,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_3", length = 13)
+	@Column(name = "date_bp_3")
 	public Date getDateBp3() {
 		return this.dateBp3;
 	}
@@ -771,7 +771,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -799,7 +799,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "ifa_tablets_100", length = 13)
+	@Column(name = "ifa_tablets_100")
 	public Date getIfaTablets100() {
 		return this.ifaTablets100;
 	}
@@ -854,7 +854,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_1_date", length = 13)
+	@Column(name = "tt_1_date")
 	public Date getTt1Date() {
 		return this.tt1Date;
 	}
@@ -864,7 +864,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_2_date", length = 13)
+	@Column(name = "tt_2_date")
 	public Date getTt2Date() {
 		return this.tt2Date;
 	}
@@ -892,7 +892,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "migrate_out_date", length = 13)
+	@Column(name = "migrate_out_date")
 	public Date getMigrateOutDate() {
 		return this.migrateOutDate;
 	}
@@ -919,7 +919,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.status = status;
 	}
 
-	@Column(name = "term", length = 25)
+	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -929,7 +929,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_7", length = 13)
+	@Column(name = "date_cf_7")
 	public Date getDateCf7() {
 		return this.dateCf7;
 	}
@@ -939,7 +939,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_del_fu", length = 13)
+	@Column(name = "date_del_fu")
 	public Date getDateDelFu() {
 		return this.dateDelFu;
 	}
@@ -949,7 +949,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_reg", length = 13)
+	@Column(name = "date_next_reg")
 	public Date getDateNextReg() {
 		return this.dateNextReg;
 	}
@@ -968,7 +968,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dob", length = 13)
+	@Column(name = "dob")
 	public Date getDob() {
 		return this.dob;
 	}

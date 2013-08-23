@@ -64,7 +64,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -74,7 +74,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -84,7 +84,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}

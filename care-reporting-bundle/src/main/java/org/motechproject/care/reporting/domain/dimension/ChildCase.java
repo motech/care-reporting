@@ -136,7 +136,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -146,7 +146,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_modified", length = 35)
+	@Column(name = "server_date_modified")
 	public Date getServerDateModified() {
 		return this.serverDateModified;
 	}
@@ -174,7 +174,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "bcg_date", length = 13)
+	@Column(name = "bcg_date")
 	public Date getBcgDate() {
 		return this.bcgDate;
 	}
@@ -193,7 +193,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dob", length = 13)
+	@Column(name = "dob")
 	public Date getDob() {
 		return this.dob;
 	}
@@ -203,7 +203,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_1_date", length = 13)
+	@Column(name = "dpt_1_date")
 	public Date getDpt1Date() {
 		return this.dpt1Date;
 	}
@@ -213,7 +213,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_2_date", length = 13)
+	@Column(name = "dpt_2_date")
 	public Date getDpt2Date() {
 		return this.dpt2Date;
 	}
@@ -223,7 +223,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_3_date", length = 13)
+	@Column(name = "dpt_3_date")
 	public Date getDpt3Date() {
 		return this.dpt3Date;
 	}
@@ -232,7 +232,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.dpt3Date = dpt3Date;
 	}
 
-	@Column(name = "gender", length = 15)
+	@Column(name = "gender")
 	public String getGender() {
 		return this.gender;
 	}
@@ -242,7 +242,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_0_date", length = 13)
+	@Column(name = "hep_b_0_date")
 	public Date getHepB0Date() {
 		return this.hepB0Date;
 	}
@@ -252,7 +252,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_1_date", length = 13)
+	@Column(name = "hep_b_1_date")
 	public Date getHepB1Date() {
 		return this.hepB1Date;
 	}
@@ -262,7 +262,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_2_date", length = 13)
+	@Column(name = "hep_b_2_date")
 	public Date getHepB2Date() {
 		return this.hepB2Date;
 	}
@@ -272,7 +272,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_3_date", length = 13)
+	@Column(name = "hep_b_3_date")
 	public Date getHepB3Date() {
 		return this.hepB3Date;
 	}
@@ -282,7 +282,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "measles_date", length = 13)
+	@Column(name = "measles_date")
 	public Date getMeaslesDate() {
 		return this.measlesDate;
 	}
@@ -292,7 +292,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_0_date", length = 13)
+	@Column(name = "opv_0_date")
 	public Date getOpv0Date() {
 		return this.opv0Date;
 	}
@@ -302,7 +302,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_1_date", length = 13)
+	@Column(name = "opv_1_date")
 	public Date getOpv1Date() {
 		return this.opv1Date;
 	}
@@ -312,7 +312,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_2_date", length = 13)
+	@Column(name = "opv_2_date")
 	public Date getOpv2Date() {
 		return this.opv2Date;
 	}
@@ -322,7 +322,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_3_date", length = 13)
+	@Column(name = "opv_3_date")
 	public Date getOpv3Date() {
 		return this.opv3Date;
 	}
@@ -332,7 +332,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_1_date", length = 13)
+	@Column(name = "vit_a_1_date")
 	public Date getVitA1Date() {
 		return this.vitA1Date;
 	}
@@ -351,7 +351,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_booster_date", length = 13)
+	@Column(name = "dpt_booster_date")
 	public Date getDptBoosterDate() {
 		return this.dptBoosterDate;
 	}
@@ -361,7 +361,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_booster_date", length = 13)
+	@Column(name = "opv_booster_date")
 	public Date getOpvBoosterDate() {
 		return this.opvBoosterDate;
 	}
@@ -371,7 +371,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_je", length = 13)
+	@Column(name = "date_je")
 	public Date getDateJe() {
 		return this.dateJe;
 	}
@@ -381,7 +381,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_measles_booster", length = 13)
+	@Column(name = "date_measles_booster")
 	public Date getDateMeaslesBooster() {
 		return this.dateMeaslesBooster;
 	}
@@ -408,7 +408,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 		this.name = name;
 	}
 
-	@Column(name = "term", length = 50)
+	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -427,7 +427,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_2_date", length = 13)
+	@Column(name = "vit_a_2_date")
 	public Date getVitA2Date() {
 		return this.vitA2Date;
 	}
@@ -437,7 +437,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_3_date", length = 13)
+	@Column(name = "vit_a_3_date")
 	public Date getVitA3Date() {
 		return this.vitA3Date;
 	}

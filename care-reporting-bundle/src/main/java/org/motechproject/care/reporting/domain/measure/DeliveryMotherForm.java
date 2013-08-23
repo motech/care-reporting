@@ -105,7 +105,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -115,7 +115,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -125,7 +125,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -162,7 +162,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "add", length = 13)
+	@Column(name = "add")
 	public Date getAdd() {
 		return this.add;
 	}
@@ -171,7 +171,7 @@ public class DeliveryMotherForm extends Form {
 		this.add = add;
 	}
 
-	@Column(name = "birth_place", length = 25)
+	@Column(name = "birth_place")
 	public String getBirthPlace() {
 		return this.birthPlace;
 	}
@@ -181,7 +181,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_del_fu", length = 13)
+	@Column(name = "date_del_fu")
 	public Date getDateDelFu() {
 		return this.dateDelFu;
 	}
@@ -191,7 +191,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -201,7 +201,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf", length = 13)
+	@Column(name = "date_next_cf")
 	public Date getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -211,7 +211,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb", length = 13)
+	@Column(name = "date_next_eb")
 	public Date getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -221,7 +221,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_pnc", length = 13)
+	@Column(name = "date_next_pnc")
 	public Date getDateNextPnc() {
 		return this.dateNextPnc;
 	}
@@ -230,7 +230,7 @@ public class DeliveryMotherForm extends Form {
 		this.dateNextPnc = dateNextPnc;
 	}
 
-	@Column(name = "family_planning_type", length = 50)
+	@Column(name = "family_planning_type")
 	public String getFamilyPlanningType() {
 		return this.familyPlanningType;
 	}
@@ -257,7 +257,7 @@ public class DeliveryMotherForm extends Form {
 		this.motherAlive = motherAlive;
 	}
 
-	@Column(name = "term", length = 50)
+	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -285,7 +285,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_death", length = 13)
+	@Column(name = "date_death")
 	public Date getDateDeath() {
 		return this.dateDeath;
 	}
@@ -303,7 +303,7 @@ public class DeliveryMotherForm extends Form {
 		this.deathVillage = deathVillage;
 	}
 
-	@Column(name = "delivery_nature", length = 50)
+	@Column(name = "delivery_nature")
 	public String getDeliveryNature() {
 		return this.deliveryNature;
 	}
@@ -376,7 +376,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "notified", length = 13)
+	@Column(name = "notified")
 	public Date getNotified() {
 		return this.notified;
 	}
@@ -475,7 +475,7 @@ public class DeliveryMotherForm extends Form {
 		this.vaginalDischarge = vaginalDischarge;
 	}
 
-	@Column(name = "where_born", length = 50)
+	@Column(name = "where_born")
 	public String getWhereBorn() {
 		return this.whereBorn;
 	}

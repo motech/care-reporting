@@ -88,7 +88,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -98,7 +98,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -108,7 +108,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -145,7 +145,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -155,7 +155,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_reg", length = 13)
+	@Column(name = "date_next_reg")
 	public Date getDateNextReg() {
 		return this.dateNextReg;
 	}
@@ -191,7 +191,7 @@ public class NewForm extends Form {
 		this.husbandName = husbandName;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -210,7 +210,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "mother_dob", length = 13)
+	@Column(name = "mother_dob")
 	public Date getMotherDob() {
 		return this.motherDob;
 	}
@@ -238,7 +238,7 @@ public class NewForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dob", length = 13)
+	@Column(name = "dob")
 	public Date getDob() {
 		return this.dob;
 	}

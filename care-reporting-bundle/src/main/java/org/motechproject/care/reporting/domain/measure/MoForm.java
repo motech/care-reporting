@@ -69,7 +69,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -79,7 +79,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -89,7 +89,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -99,7 +99,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "migrate_out_date", length = 13)
+	@Column(name = "migrate_out_date")
 	public Date getMigrateOutDate() {
 		return this.migrateOutDate;
 	}
@@ -127,7 +127,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_learned", length = 13)
+	@Column(name = "date_learned")
 	public Date getDateLearned() {
 		return this.dateLearned;
 	}
@@ -137,7 +137,7 @@ public class MoForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_left", length = 13)
+	@Column(name = "date_left")
 	public Date getDateLeft() {
 		return this.dateLeft;
 	}

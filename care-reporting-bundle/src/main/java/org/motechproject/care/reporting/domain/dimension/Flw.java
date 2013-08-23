@@ -116,7 +116,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 		this.flwId = flwId;
 	}
 
-	@Column(name = "default_phone_number", length = 20)
+	@Column(name = "default_phone_number")
 	public String getDefaultPhoneNumber() {
 		return this.defaultPhoneNumber;
 	}
@@ -152,7 +152,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "phone_number_1", length = 20)
+	@Column(name = "phone_number_1")
 	public String getPhoneNumber1() {
 		return this.phoneNumber1;
 	}
@@ -161,7 +161,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 		this.phoneNumber1 = phoneNumber1;
 	}
 
-	@Column(name = "phone_number_2", length = 20)
+	@Column(name = "phone_number_2")
 	public String getPhoneNumber2() {
 		return this.phoneNumber2;
 	}

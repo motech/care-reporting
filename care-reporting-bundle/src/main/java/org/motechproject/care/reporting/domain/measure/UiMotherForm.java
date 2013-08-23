@@ -72,7 +72,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -82,7 +82,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -92,7 +92,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -111,7 +111,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_1_date", length = 13)
+	@Column(name = "tt_1_date")
 	public Date getTt1Date() {
 		return this.tt1Date;
 	}
@@ -121,7 +121,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_2_date", length = 13)
+	@Column(name = "tt_2_date")
 	public Date getTt2Date() {
 		return this.tt2Date;
 	}
@@ -131,7 +131,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_booster_date", length = 13)
+	@Column(name = "tt_booster_date")
 	public Date getTtBoosterDate() {
 		return this.ttBoosterDate;
 	}
@@ -158,7 +158,7 @@ public class UiMotherForm extends Form {
 		this.receivedTt2 = receivedTt2;
 	}
 
-	@Column(name = "up_to_date", length = 15)
+	@Column(name = "up_to_date")
 	public String getUpToDate() {
 		return this.upToDate;
 	}
@@ -186,7 +186,7 @@ public class UiMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_booster", length = 13)
+	@Column(name = "tt_booster")
 	public Date getTtBooster() {
 		return this.ttBooster;
 	}

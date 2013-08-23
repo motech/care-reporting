@@ -41,7 +41,7 @@ public class Form implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "server_date_modified", length = 35)
+    @Column(name = "server_date_modified")
     public Date getServerDateModified() {
         return serverDateModified;
     }

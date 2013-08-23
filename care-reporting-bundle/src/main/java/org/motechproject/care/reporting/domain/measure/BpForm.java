@@ -166,7 +166,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -176,7 +176,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -186,7 +186,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -196,7 +196,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_latest_date", length = 13)
+	@Column(name = "anc_latest_date")
 	public Date getAncLatestDate() {
 		return this.ancLatestDate;
 	}
@@ -242,7 +242,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc1_date", length = 13)
+	@Column(name = "anc1_date")
 	public Date getAnc1_Date() {
 		return this.anc1_Date;
 	}
@@ -297,7 +297,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc2_date", length = 13)
+	@Column(name = "anc2_date")
 	public Date getAnc2_Date() {
 		return this.anc2_Date;
 	}
@@ -352,7 +352,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc3_date", length = 13)
+	@Column(name = "anc3_date")
 	public Date getAnc3_Date() {
 		return this.anc3_Date;
 	}
@@ -407,7 +407,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc4_date", length = 13)
+	@Column(name = "anc4_date")
 	public Date getAnc4_Date() {
 		return this.anc4_Date;
 	}
@@ -507,7 +507,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt1_date", length = 13)
+	@Column(name = "tt1_date")
 	public Date getTt1_Date() {
 		return this.tt1_Date;
 	}
@@ -517,7 +517,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt2_date", length = 13)
+	@Column(name = "tt2_date")
 	public Date getTt2_Date() {
 		return this.tt2_Date;
 	}
@@ -536,7 +536,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_booster_date", length = 13)
+	@Column(name = "tt_booster_date")
 	public Date getTtBoosterDate() {
 		return this.ttBoosterDate;
 	}
@@ -780,7 +780,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_1_date", length = 13)
+	@Column(name = "anc_1_date")
 	public Date getAnc1Date() {
 		return this.anc1Date;
 	}
@@ -790,7 +790,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_2_date", length = 13)
+	@Column(name = "anc_2_date")
 	public Date getAnc2Date() {
 		return this.anc2Date;
 	}
@@ -800,7 +800,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_3_date", length = 13)
+	@Column(name = "anc_3_date")
 	public Date getAnc3Date() {
 		return this.anc3Date;
 	}
@@ -810,7 +810,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_4_date", length = 13)
+	@Column(name = "anc_4_date")
 	public Date getAnc4Date() {
 		return this.anc4Date;
 	}
@@ -829,7 +829,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_1", length = 13)
+	@Column(name = "date_bp_1")
 	public Date getDateBp1() {
 		return this.dateBp1;
 	}
@@ -839,7 +839,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_2", length = 13)
+	@Column(name = "date_bp_2")
 	public Date getDateBp2() {
 		return this.dateBp2;
 	}
@@ -849,7 +849,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_3", length = 13)
+	@Column(name = "date_bp_3")
 	public Date getDateBp3() {
 		return this.dateBp3;
 	}
@@ -859,7 +859,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -869,7 +869,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_bp", length = 13)
+	@Column(name = "date_next_bp")
 	public Date getDateNextBp() {
 		return this.dateNextBp;
 	}
@@ -897,7 +897,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "ifa_tablets_100", length = 13)
+	@Column(name = "ifa_tablets_100")
 	public Date getIfaTablets100() {
 		return this.ifaTablets100;
 	}
@@ -906,7 +906,7 @@ public class BpForm extends Form {
 		this.ifaTablets100 = ifaTablets100;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -934,7 +934,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_1_date", length = 13)
+	@Column(name = "tt_1_date")
 	public Date getTt1Date() {
 		return this.tt1Date;
 	}
@@ -944,7 +944,7 @@ public class BpForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_2_date", length = 13)
+	@Column(name = "tt_2_date")
 	public Date getTt2Date() {
 		return this.tt2Date;
 	}
@@ -1097,7 +1097,7 @@ public class BpForm extends Form {
 		this.spacingMethods = spacingMethods;
 	}
 
-	@Column(name = "stop_children", length = 15)
+	@Column(name = "stop_children")
 	public String getStopChildren() {
 		return this.stopChildren;
 	}
@@ -1115,7 +1115,7 @@ public class BpForm extends Form {
 		this.ifaTabletsTotal = ifaTabletsTotal;
 	}
 
-	@Column(name = "nextvisittype", length = 20)
+	@Column(name = "nextvisittype")
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}
@@ -1133,7 +1133,7 @@ public class BpForm extends Form {
 		this.playFamilyPlanningVid = playFamilyPlanningVid;
 	}
 
-	@Column(name = "postponing", length = 15)
+	@Column(name = "postponing")
 	public String getPostponing() {
 		return this.postponing;
 	}

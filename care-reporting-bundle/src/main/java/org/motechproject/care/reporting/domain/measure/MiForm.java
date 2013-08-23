@@ -71,7 +71,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -81,7 +81,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -91,7 +91,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -101,7 +101,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_arrived", length = 13)
+	@Column(name = "date_arrived")
 	public Date getDateArrived() {
 		return this.dateArrived;
 	}
@@ -111,7 +111,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_learned", length = 13)
+	@Column(name = "date_learned")
 	public Date getDateLearned() {
 		return this.dateLearned;
 	}
@@ -121,7 +121,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_of_delivery", length = 13)
+	@Column(name = "date_of_delivery")
 	public Date getDateOfDelivery() {
 		return this.dateOfDelivery;
 	}
@@ -167,7 +167,7 @@ public class MiForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_aborted", length = 13)
+	@Column(name = "date_aborted")
 	public Date getDateAborted() {
 		return this.dateAborted;
 	}

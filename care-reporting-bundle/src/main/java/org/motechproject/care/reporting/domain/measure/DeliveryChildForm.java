@@ -103,7 +103,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -113,7 +113,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -123,7 +123,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -214,7 +214,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "bcg_date", length = 13)
+	@Column(name = "bcg_date")
 	public Date getBcgDate() {
 		return this.bcgDate;
 	}
@@ -233,7 +233,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dob", length = 13)
+	@Column(name = "dob")
 	public Date getDob() {
 		return this.dob;
 	}
@@ -242,7 +242,7 @@ public class DeliveryChildForm extends Form {
 		this.dob = dob;
 	}
 
-	@Column(name = "gender", length = 25)
+	@Column(name = "gender")
 	public String getGender() {
 		return this.gender;
 	}
@@ -252,7 +252,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_0_date", length = 13)
+	@Column(name = "hep_b_0_date")
 	public Date getHepB0Date() {
 		return this.hepB0Date;
 	}
@@ -262,7 +262,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_0_date", length = 13)
+	@Column(name = "opv_0_date")
 	public Date getOpv0Date() {
 		return this.opv0Date;
 	}
@@ -271,7 +271,7 @@ public class DeliveryChildForm extends Form {
 		this.opv0Date = opv0Date;
 	}
 
-	@Column(name = "term", length = 50)
+	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -298,7 +298,7 @@ public class DeliveryChildForm extends Form {
 		this.childAlive = childAlive;
 	}
 
-	@Column(name = "child_breathing", length = 25)
+	@Column(name = "child_breathing")
 	public String getChildBreathing() {
 		return this.childBreathing;
 	}
@@ -334,7 +334,7 @@ public class DeliveryChildForm extends Form {
 		this.childHaveAName = childHaveAName;
 	}
 
-	@Column(name = "child_heartbeats", length = 25)
+	@Column(name = "child_heartbeats")
 	public String getChildHeartbeats() {
 		return this.childHeartbeats;
 	}
@@ -352,7 +352,7 @@ public class DeliveryChildForm extends Form {
 		this.childMovement = childMovement;
 	}
 
-	@Column(name = "child_name", length = 25)
+	@Column(name = "child_name")
 	public String getChildName() {
 		return this.childName;
 	}
@@ -361,7 +361,7 @@ public class DeliveryChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Column(name = "child_place_death", length = 25)
+	@Column(name = "child_place_death")
 	public String getChildPlaceDeath() {
 		return this.childPlaceDeath;
 	}
@@ -370,7 +370,7 @@ public class DeliveryChildForm extends Form {
 		this.childPlaceDeath = childPlaceDeath;
 	}
 
-	@Column(name = "child_site_death", length = 50)
+	@Column(name = "child_site_death")
 	public String getChildSiteDeath() {
 		return this.childSiteDeath;
 	}
@@ -380,7 +380,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "chld_date_death", length = 13)
+	@Column(name = "chld_date_death")
 	public Date getChldDateDeath() {
 		return this.chldDateDeath;
 	}
@@ -417,7 +417,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_first_weight", length = 13)
+	@Column(name = "date_first_weight")
 	public Date getDateFirstWeight() {
 		return this.dateFirstWeight;
 	}
@@ -427,7 +427,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_time_feed", length = 13)
+	@Column(name = "date_time_feed")
 	public Date getDateTimeFeed() {
 		return this.dateTimeFeed;
 	}

@@ -144,7 +144,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -154,7 +154,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -164,7 +164,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -174,7 +174,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "addval", length = 13)
+	@Column(name = "addval")
 	public Date getAddval() {
 		return this.addval;
 	}
@@ -292,7 +292,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_1", length = 13)
+	@Column(name = "date_eb_1")
 	public Date getDateEb1() {
 		return this.dateEb1;
 	}
@@ -302,7 +302,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_2", length = 13)
+	@Column(name = "date_eb_2")
 	public Date getDateEb2() {
 		return this.dateEb2;
 	}
@@ -312,7 +312,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_3", length = 13)
+	@Column(name = "date_eb_3")
 	public Date getDateEb3() {
 		return this.dateEb3;
 	}
@@ -322,7 +322,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_4", length = 13)
+	@Column(name = "date_eb_4")
 	public Date getDateEb4() {
 		return this.dateEb4;
 	}
@@ -332,7 +332,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_5", length = 13)
+	@Column(name = "date_eb_5")
 	public Date getDateEb5() {
 		return this.dateEb5;
 	}
@@ -342,7 +342,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_6", length = 13)
+	@Column(name = "date_eb_6")
 	public Date getDateEb6() {
 		return this.dateEb6;
 	}
@@ -352,7 +352,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_iud_adopted", length = 13)
+	@Column(name = "date_iud_adopted")
 	public Date getDateIudAdopted() {
 		return this.dateIudAdopted;
 	}
@@ -362,7 +362,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_inj", length = 13)
+	@Column(name = "date_last_inj")
 	public Date getDateLastInj() {
 		return this.dateLastInj;
 	}
@@ -372,7 +372,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -382,7 +382,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf", length = 13)
+	@Column(name = "date_next_cf")
 	public Date getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -392,7 +392,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb", length = 13)
+	@Column(name = "date_next_eb")
 	public Date getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -581,7 +581,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselSideEffects = iudCounselSideEffects;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -600,7 +600,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "next_inj_calc", length = 13)
+	@Column(name = "next_inj_calc")
 	public Date getNextInjCalc() {
 		return this.nextInjCalc;
 	}
@@ -609,7 +609,7 @@ public class EbfMotherForm extends Form {
 		this.nextInjCalc = nextInjCalc;
 	}
 
-	@Column(name = "nextvisittype", length = 20)
+	@Column(name = "nextvisittype")
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}
@@ -871,7 +871,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_tl_adopted", length = 13)
+	@Column(name = "date_tl_adopted")
 	public Date getDateTlAdopted() {
 		return this.dateTlAdopted;
 	}

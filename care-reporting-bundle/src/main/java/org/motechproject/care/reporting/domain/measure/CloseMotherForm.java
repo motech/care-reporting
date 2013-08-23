@@ -82,7 +82,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -92,7 +92,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -102,7 +102,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -184,7 +184,7 @@ public class CloseMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Column(name = "mother_alive", length = 20)
+	@Column(name = "mother_alive")
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -212,7 +212,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_learned", length = 13)
+	@Column(name = "date_learned")
 	public Date getDateLearned() {
 		return this.dateLearned;
 	}
@@ -222,7 +222,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_left", length = 13)
+	@Column(name = "date_left")
 	public Date getDateLeft() {
 		return this.dateLeft;
 	}
@@ -250,7 +250,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_death", length = 13)
+	@Column(name = "date_death")
 	public Date getDateDeath() {
 		return this.dateDeath;
 	}

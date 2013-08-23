@@ -142,7 +142,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_end", length = 35)
+	@Column(name = "time_end")
 	public Date getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -152,7 +152,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time_start", length = 35)
+	@Column(name = "time_start")
 	public Date getTimeStart() {
 		return this.timeStart;
 	}
@@ -162,7 +162,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified", length = 35)
+	@Column(name = "date_modified")
 	public Date getDateModified() {
 		return this.dateModified;
 	}
@@ -181,7 +181,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "addval", length = 13)
+	@Column(name = "addval")
 	public Date getAddval() {
 		return this.addval;
 	}
@@ -317,7 +317,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_death", length = 13)
+	@Column(name = "date_death")
 	public Date getDateDeath() {
 		return this.dateDeath;
 	}
@@ -327,7 +327,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_iud_adopted", length = 13)
+	@Column(name = "date_iud_adopted")
 	public Date getDateIudAdopted() {
 		return this.dateIudAdopted;
 	}
@@ -337,7 +337,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit", length = 13)
+	@Column(name = "date_last_visit")
 	public Date getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -347,7 +347,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb", length = 13)
+	@Column(name = "date_next_eb")
 	public Date getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -357,7 +357,7 @@ public class PncMotherForm extends Form {
 	}
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date_next_cf", length = 13)
+    @Column(name = "date_next_cf")
     public Date getDateNextCf() {
         return this.dateNextCf;
     }
@@ -367,7 +367,7 @@ public class PncMotherForm extends Form {
     }
     
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_pnc", length = 13)
+	@Column(name = "date_next_pnc")
 	public Date getDateNextPnc() {
 		return this.dateNextPnc;
 	}
@@ -377,7 +377,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_1", length = 13)
+	@Column(name = "date_pnc_1")
 	public Date getDatePnc1() {
 		return this.datePnc1;
 	}
@@ -387,7 +387,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_2", length = 13)
+	@Column(name = "date_pnc_2")
 	public Date getDatePnc2() {
 		return this.datePnc2;
 	}
@@ -397,7 +397,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_3", length = 13)
+	@Column(name = "date_pnc_3")
 	public Date getDatePnc3() {
 		return this.datePnc3;
 	}
@@ -407,7 +407,7 @@ public class PncMotherForm extends Form {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_tl_adopted", length = 13)
+	@Column(name = "date_tl_adopted")
 	public Date getDateTlAdopted() {
 		return this.dateTlAdopted;
 	}
@@ -560,7 +560,7 @@ public class PncMotherForm extends Form {
 		this.iudCounselSideEffects = iudCounselSideEffects;
 	}
 
-	@Column(name = "last_visit_type", length = 20)
+	@Column(name = "last_visit_type")
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -587,7 +587,7 @@ public class PncMotherForm extends Form {
 		this.motherChildAlive = motherChildAlive;
 	}
 
-	@Column(name = "nextvisittype", length = 20)
+	@Column(name = "nextvisittype")
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}
