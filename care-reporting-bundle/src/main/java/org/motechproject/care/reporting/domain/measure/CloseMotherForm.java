@@ -27,7 +27,7 @@ public class CloseMotherForm extends Form {
     private Boolean dupeReg;
     private Boolean finishedContinuum;
     private Short numChildren;
-    private String motherAlive;
+    private Boolean motherAlive;
     private Boolean moved;
     private Boolean migrated;
     private Date dateLearned;
@@ -181,11 +181,11 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Column(name = "mother_alive")
-	public String getMotherAlive() {
+	public Boolean getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(String motherAlive) {
+	public void setMotherAlive(Boolean motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 

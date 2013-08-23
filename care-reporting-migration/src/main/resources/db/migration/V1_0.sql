@@ -1061,7 +1061,7 @@ CREATE TABLE report.close_mother_form(
 	,dupe_reg	BOOLEAN
 	,finished_continuum	BOOLEAN
 	,num_children	SMALLINT
-	,mother_alive VARCHAR(20)
+	,mother_alive BOOLEAN
     ,moved BOOLEAN
     ,migrated BOOLEAN
     ,date_learned DATE

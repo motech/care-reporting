@@ -611,7 +611,7 @@
         <attribute name="dupe_reg" type="boolean"/>
         <attribute name="finished_continuum" type="boolean"/>
         <attribute name="num_children" type="short"/>
-        <attribute name="mother_alive" type="string" maxLength="{string_length}"/>
+        <attribute name="mother_alive" type="boolean"/>
         <attribute name="moved" type="boolean"/>
         <attribute name="migrated" type="boolean"/>
         <attribute name="date_learned" type="date" generator="DateGenerator"/>
