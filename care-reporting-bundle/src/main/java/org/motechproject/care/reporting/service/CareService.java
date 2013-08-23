@@ -50,6 +50,12 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
+    public Object execute(String query) {
+        return dbRepository.execute(query);
+    }
+
+
+    @Override
     public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values) {
         T entity = careReportingMapper.map(entityClass, values);
         saveOrUpdateByExternalPrimaryKey(entity);

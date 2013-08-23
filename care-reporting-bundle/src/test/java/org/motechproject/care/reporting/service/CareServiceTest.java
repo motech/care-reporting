@@ -30,6 +30,16 @@ public class CareServiceTest {
         service = new CareService(dbRepository);
     }
 
+
+    @Test
+    public void shouldExecuteInRepository() {
+        when(dbRepository.execute("query")).thenReturn(10);
+
+        Object output = service.execute("query");
+
+        assertEquals(10, output);
+    }
+
     @Test
     public void shouldReturnMotherIfExistsInRepository() {
         MotherCase expectedMotherCase = new MotherCase();

@@ -38,4 +38,6 @@ public interface Service {
     void closeCase(String caseId, Map<String, String> updatedValues);
 
     LocationDimension getLocation(String state, String district, String block);
+
+    Object execute(String query);
 }
