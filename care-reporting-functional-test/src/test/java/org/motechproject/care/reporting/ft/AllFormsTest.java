@@ -52,9 +52,6 @@ public class AllFormsTest extends BaseTestCase {
         reportingDatabase().deleteChild(child1caseId);
         reportingDatabase().deleteFLW(flwId);
         reportingDatabase().deleteGroup(groupId);
-
-        mrsDatabase().patients().delete(caseId, true);
-        mrsDatabase().patients().delete(child1caseId, true);
     }
 
     @Test
@@ -141,14 +138,11 @@ public class AllFormsTest extends BaseTestCase {
         String instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_mother_form", instanceId, formName + "_mother_form");
         assertReportingDatabaseWithChild(formName + "_child_form", instanceId, formName + "_child_form");
-        assertCouchDatabaseForMother("mother_after_" + formName);
-        assertCouchDatabaseForChild("child_after_" + formName);
     }
 
     private void testForm(String formName) throws Exception {
         String instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_form", instanceId, formName + "_form");
-        assertCouchDatabaseForMother("mother_after_" + formName);
     }
 
 
@@ -171,19 +165,6 @@ public class AllFormsTest extends BaseTestCase {
     private void assertReportingDatabaseWithChild(String tableName, String instanceId, String expectedFormUrl){
         asserter.verifyTable(tableName, instanceId, constructExpectedUrl("reporting/"+expectedFormUrl));
         asserter.verifyTable(TableName.child_case, child1caseId, constructExpectedUrl("reporting/child_case"));
-    }
-
-    private void assertCouchDatabaseForMother(String expectedCouchUrl){
-        assertCouchDatabase(caseId, expectedCouchUrl);
-    }
-
-    private void assertCouchDatabaseForChild(String expectedCouchUrl){
-        assertCouchDatabase(child1caseId, expectedCouchUrl);
-    }
-
-    private void assertCouchDatabase(String id, String expectedCouchUrl){
-        final String expectedPatientUrl = constructExpectedUrl("couch/"+expectedCouchUrl);
-        asserter.verifyCouchPatient(id, expectedPatientUrl);
     }
 
     @Override

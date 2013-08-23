@@ -69,21 +69,6 @@
             <version>2.2</version>
         </dependency>
         <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-mrs-couchdb</artifactId>
-            <version>${motech.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>org.springframework.web.servlet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>com.springsource.javax.servlet</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>stringtemplate</artifactId>
             <version>3.2.1</version>
@@ -105,6 +90,11 @@
 
             <!-- Include this if you have dependency conflicts for Guava, Jetty, Jackson or Apache HTTP Client -->
             <classifier>standalone</classifier>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2</version>
         </dependency>
     </dependencies>
 

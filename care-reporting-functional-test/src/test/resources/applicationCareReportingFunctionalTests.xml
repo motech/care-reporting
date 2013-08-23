@@ -2,16 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
- http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--<util:properties id="couchdbProperties" location="classpath:environment/${CARE_TEST_ENV:local}.couchdb.properties"/>-->
-    <!--<util:properties id="couchdbProperties" location="classpath:couchdb.properties"/>-->
-    <import resource="classpath:META-INF/motech/applicationCouchMRS.xml" />
-    <import resource="classpath:META-INF/motech/applicationCommonsCouchdbContext.xml" />
     <context:annotation-config />
     <context:component-scan base-package="org.motechproject.care.reporting.ft"/>
 

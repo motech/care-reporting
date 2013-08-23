@@ -1,14 +1,11 @@
 package org.motechproject.care.reporting.ft.asserters;
 
-import org.motechproject.care.reporting.ft.couch.MRSDatabase;
-import org.motechproject.care.reporting.ft.couch.domain.Patient;
 import org.motechproject.care.reporting.ft.pages.MotechEndpoint;
 import org.motechproject.care.reporting.ft.reporting.ReportingDatabase;
 import org.motechproject.care.reporting.ft.reporting.Table;
 import org.motechproject.care.reporting.ft.reporting.TableName;
 import org.motechproject.care.reporting.ft.utils.PropertyFile;
 import org.motechproject.care.reporting.ft.utils.ReflectionUtils;
-import org.motechproject.care.reporting.ft.utils.TimedRunnerBreakCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +14,6 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
-import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflectionSerialize;
 
 @Component
 public class Asserter {
@@ -28,15 +24,8 @@ public class Asserter {
     @Autowired
     private ReportingDatabase reportingDatabase;
 
-    @Autowired
-    private MRSDatabase mrsDatabase;
-
     public ReportingDatabase reportingDatabase() {
         return reportingDatabase;
-    }
-
-    public MRSDatabase mrsDatabase() {
-        return mrsDatabase;
     }
 
     public void postForm(String requestUrl) {
@@ -62,41 +51,6 @@ public class Asserter {
 
         assertNull(reportingDatabase().flwGroup.find(groupId));
         assertNull(reportingDatabase().flwGroupMap.find(actualFlw.get("id")));
-    }
-
-    public void verifyCouchPatient(String caseId, String expectedUrl) {
-        verifyCouchPatient(caseId, expectedUrl, 1);
-    }
-
-    public void verifyCouchPatient(String caseId, String expectedUrl, final int encounterCount) {
-        Patient patient = mrsDatabase().patients().waitAndFindByMotechId(caseId, new TimedRunnerBreakCondition() {
-            @Override
-            public boolean test(Object obj) {
-                return obj != null && ((Patient) obj).getEncounters().size() == encounterCount;
-            }
-        });
-        PropertyFile expectedCouchValues = new PropertyFile(expectedUrl, placeholderMap);
-        PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(patient, "patient"));
-// uncomment this to debug
-//        for (Map.Entry<String, String> actual : actualCouchValues.properties().entrySet()) {
-//            String key = actual.getKey();
-//            String value = actual.getValue();
-//            boolean showConsole = key.contains("patient.encounters[0].observations[");
-//
-//            if (showConsole) {
-//                if (key.endsWith("].patientId"))
-//                    value = "$caseId$";
-//                else if (key.endsWith("].observationId")) {
-//                    String conceptName = value.substring(value.lastIndexOf("-"), value.length());
-//                    value = "$caseId$-$instanceId$"+conceptName;
-//                }
-//                else if (key.endsWith("].date")){
-//                    value = "$receivedOn$";
-//                }
-//                System.out.println(key + "=" + value);
-//            }
-//        }
-        assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
     }
 
     public void setPlaceholder(Map<String, String> placeholder) {

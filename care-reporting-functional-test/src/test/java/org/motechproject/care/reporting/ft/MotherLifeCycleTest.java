@@ -52,8 +52,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         reportingDatabase().deleteMother(caseId);
         reportingDatabase().deleteFLW(flwId);
         reportingDatabase().deleteGroup(groupId);
-
-        mrsDatabase().patients().delete(caseId, true);
     }
 
     @Test
@@ -67,7 +65,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         final String expectedNewFormUrl = constructExpectedUrl("reporting/new_form");
         final String expectedMotherCaseUrl = constructExpectedUrl("reporting/mother_case");
         final String expectedFlwUrl = constructExpectedUrl("reporting/flw");
-        final String expectedPatientUrl = constructExpectedUrl("couch/mother_after_new");
 
         placeholderMap.put("instanceId", newFormInstanceId);
 
@@ -76,8 +73,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         asserter.verifyTable(TableName.new_form, newFormInstanceId, expectedNewFormUrl);
         asserter.verifyTable(TableName.mother_case, caseId, expectedMotherCaseUrl);
         asserter.verifyFlwWithoutGroup(flwId, expectedFlwUrl, groupId);
-
-        asserter.verifyCouchPatient(caseId, expectedPatientUrl);
     }
 
     private void postRegistrationFormAndAssert() {
@@ -85,7 +80,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         final String expectedRegistrationFormUrl = constructExpectedUrl("reporting/registration_mother_form");
         final String expectedMotherCaseUrl = constructExpectedUrl("reporting/mother_case");
         final String expectedFlwUrl = constructExpectedUrl("reporting/flw");
-        final String expectedPatientUrl = constructExpectedUrl("couch/mother_after_registration");
 
         placeholderMap.put("instanceId", registrationFormInstanceId);
         placeholderMap.put("newFormInstanceId", newFormInstanceId);
@@ -95,8 +89,6 @@ public class MotherLifeCycleTest extends BaseTestCase {
         asserter.verifyTable(TableName.registration_mother_form, registrationFormInstanceId, expectedRegistrationFormUrl);
         asserter.verifyTable(TableName.mother_case, caseId, expectedMotherCaseUrl);
         asserter.verifyFlwWithoutGroup(flwId, expectedFlwUrl, groupId);
-
-        asserter.verifyCouchPatient(caseId, expectedPatientUrl, 2);
     }
 
     @Override

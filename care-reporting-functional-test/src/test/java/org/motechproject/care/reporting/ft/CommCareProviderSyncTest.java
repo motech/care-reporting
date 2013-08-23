@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.motechproject.care.reporting.ft.couch.domain.Provider;
 import org.motechproject.care.reporting.ft.pages.MotechEndpoint;
 import org.motechproject.care.reporting.ft.utils.PropertyFile;
 import org.motechproject.care.reporting.ft.utils.ReflectionUtils;
@@ -17,9 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.motechproject.care.reporting.ft.utils.AssertionUtils.assertContainsAll;
-import static org.motechproject.care.reporting.ft.utils.ReflectionUtils.reflectionSerialize;
 
 public class CommCareProviderSyncTest extends BaseTestCase {
     private String groupId1;
@@ -54,9 +55,6 @@ public class CommCareProviderSyncTest extends BaseTestCase {
         reportingDatabase().deleteFLW(providerId2);
         reportingDatabase().deleteGroup(groupId1);
         reportingDatabase().deleteGroup(groupId2);
-
-        mrsDatabase().providers().delete(providerId1);
-        mrsDatabase().providers().delete(providerId2);
     }
 
     @Test
@@ -87,16 +85,6 @@ public class CommCareProviderSyncTest extends BaseTestCase {
 
         assertReportingFlwDetails(providerId1, "provider1");
         assertReportingFlwDetails(providerId2, "provider2");
-
-        assertMrsProviderDetails(providerId1, "provider1");
-        assertMrsProviderDetails(providerId2, "provider2");
-    }
-
-    private void assertMrsProviderDetails(String businessId, String expectedProperty) {
-        Provider actualProvider = mrsDatabase().providers().waitAndFindByProviderId(businessId, retries, intervalSleep, breakCondition());
-        PropertyFile expectedCouchValues = new PropertyFile(constructExpectedUrl("couch/" + expectedProperty), placeholders);
-        PropertyFile actualCouchValues = PropertyFile.fromString(reflectionSerialize(actualProvider, "provider"));
-        assertContainsAll(expectedCouchValues.properties(), actualCouchValues.properties());
     }
 
     private void assertReportingGroupDetails(String businessId, String expectedDetailsProperty) {

@@ -1,7 +1,5 @@
 package org.motechproject.care.reporting.ft.utils;
 
-import org.motechproject.care.reporting.ft.couch.service.SaveOperationStillInProgressException;
-
 public abstract class TimedRunner<T> {
 
     private int tries;
@@ -36,12 +34,7 @@ public abstract class TimedRunner<T> {
     public T executeWithTimeout() {
         T result;
         for (int i = 0; i < tries; i++) {
-            result = null;
-            try {
-                result = run();
-            } catch (SaveOperationStillInProgressException ex) {
-
-            }
+            result = run();
             if (breakCondition.test(result)) return result;
 
             try {
