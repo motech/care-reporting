@@ -27,7 +27,7 @@ public class JsonUtilsTest {
         }};
         expectedInfoParser.setKeyConversionMap(keyConversionMap);
 
-        final List<MappingEntity> mappingEntities = JsonUtils.parseStreams(asList(stream));
+        final List<MappingEntity> mappingEntities = JsonUtils.parseStreams(asList(stream), MappingEntity[].class);
 
         assertEquals(1, mappingEntities.size());
         MappingEntity entity = mappingEntities.get(0);
@@ -42,7 +42,7 @@ public class JsonUtilsTest {
     public void shouldThrowExceptionForNullStreamOrForIOErrors() {
         InputStream inputStream = null;
 
-        JsonUtils.parseStreams(asList(inputStream));
+        JsonUtils.parseStreams(asList(inputStream), MappingEntity[].class);
     }
 
     private String getSampleJson(){

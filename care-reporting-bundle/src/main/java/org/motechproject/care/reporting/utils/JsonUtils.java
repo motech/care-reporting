@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.utils;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.motechproject.care.reporting.model.MappingEntity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +12,18 @@ import static java.util.Arrays.asList;
 
 public class JsonUtils {
 
-    public static List<MappingEntity> parseStreams(List<InputStream> streams) {
-        List<MappingEntity> mappingEntities = new ArrayList<>();
+    public static <S> List<S>  parseStreams(List<InputStream> streams, Class<S[]> clazz){
+        List<S> mappingEntities = new ArrayList<>();
 
         for (InputStream stream : streams) {
-            mappingEntities.addAll(parseStream(stream));
+            mappingEntities.addAll(parseStream(stream, clazz));
         }
 
         return mappingEntities;
+
     }
 
-    private static List<MappingEntity> parseStream(InputStream stream) {
+    private static <S> List<S> parseStream(InputStream stream, Class<S[]> clazz) {
         final String jsonContent;
         try {
             jsonContent = IOUtils.toString(stream);
@@ -31,14 +31,15 @@ public class JsonUtils {
             throw new RuntimeException("Error parsing mapping file", e);
         }
 
-        return parseJson(jsonContent);
+        return parseJson(jsonContent, clazz);
     }
 
-    private static List<MappingEntity> parseJson(String json) {
+    private static <S> List<S> parseJson(String json, Class<S[]> clazz) {
         ObjectMapper objectMapper = new ObjectMapper();
 
+
         try {
-            return asList(objectMapper.readValue(json, MappingEntity[].class));
+            return asList(objectMapper.readValue(json, clazz));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

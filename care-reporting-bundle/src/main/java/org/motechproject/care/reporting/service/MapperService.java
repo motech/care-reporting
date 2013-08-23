@@ -37,7 +37,7 @@ public class MapperService {
     }
 
     private BestMatchProcessor getProcessor(List<InputStream> inputStreams) {
-        return new BestMatchProcessor(JsonUtils.parseStreams(inputStreams));
+        return new BestMatchProcessor(JsonUtils.parseStreams(inputStreams, MappingEntity[].class));
     }
 
     public InfoParser getFormInfoParser(String namespace, String version, FormSegment formSegment) {
