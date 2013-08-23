@@ -44,7 +44,7 @@ public class FormProcessor {
 
         String appVersion = commcareForm.getMetadata().get(FORM_VERSION_ATTRIBUTE);
         if(StringUtils.isEmpty(appVersion) || mapperService.getExclusionAppversionList().contains(appVersion)) {
-            logger.info(String.format("Ignoring the form, id: %s with appversion %s", commcareForm.getId(), appVersion));
+            logger.info(String.format("[Excluded App version] Ignoring the form, id: %s with appversion %s", commcareForm.getId(), appVersion));
             return;
         }
 
