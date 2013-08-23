@@ -1,7 +1,12 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.enums.FormSegment;
-import org.motechproject.care.reporting.parser.*;
+import org.motechproject.care.reporting.parser.ClosedFormPostProcessor;
+import org.motechproject.care.reporting.parser.DelFupFixPostProcessor;
+import org.motechproject.care.reporting.parser.InfoParser;
+import org.motechproject.care.reporting.parser.MetaInfoParser;
+import org.motechproject.care.reporting.parser.MotherInfoParser;
+import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
@@ -25,6 +30,7 @@ public class MotherFormProcessor {
         add(new ClosedFormPostProcessor());
         add(COPY_CASE_ID_AS_MOTHER_CASE_POST_PROCESSOR);
         add(FORM_COPY_USER_ID_AS_FLW);
+        add(new DelFupFixPostProcessor());
     }};
 
     private List<ComputedFieldsProcessor> MOTHER_FORM_COMPUTED_FIELDS = new ArrayList<>();

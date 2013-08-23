@@ -128,6 +128,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
                 .addSubElement("update_mother_dob", "no")
                 .addSubElement("update_mobile_number", "no")
                 .addSubElement("update_mobile_number_whose", "yes")
+                .addSubElement("del_fup", "2007-01-23")
                 .build();
 
         Map<String, String> expectedForm = new HashMap<>();
@@ -153,6 +154,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         expectedForm.put("updateMotherDob", "no");
         expectedForm.put("updateMobileNumber", "no");
         expectedForm.put("updateMobileNumberWhose", "yes");
+        expectedForm.put("delFup", "2007-01-23");
 
         Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
 
@@ -227,5 +229,41 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
         Map<String, String> motherFormValues = motherFormProcessor.parseMotherForm(commcareForm);
 
         assertEquals("true", motherFormValues.get("close"));
+    }
+
+    @Test
+    public void shouldApplyDelFupPostProcessor() {
+        String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
+        String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
+
+        String receivedOn = DateTime.now().toString();
+        FormValueElement motherCaseData = new FormValueElementBuilder()
+                .addAttribute("case_id", motherCaseId)
+                .build();
+
+        CommcareForm newFormData = new CommcareFormBuilder()
+                .withReceivedOn(receivedOn)
+                .addMetadata("deviceID", "IUFN6IXAIV7Z1OKJBIWV7WY3C")
+                .addMetadata("time_start", "2012-07-21T11:59:31.076+05:30")
+                .addMetadata("time_end", "2012-07-21T12:02:59.923+05:30")
+                .addMetadata("username", "username")
+                .addMetadata("userID", flwId)
+                .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+
+                .addAttribute("uiVersion", "1")
+                .addAttribute("version", "1")
+                .addAttribute("name", "Mother Edit")
+                .addAttribute("xmlns", "http://bihar.commcarehq.org/pregnancy/mother_edit")
+
+                .addSubElement("case", motherCaseData)
+                .addSubElement("del_fup", "15")
+                .build();
+
+        Map<String, String> expectedForm = new HashMap<>();
+        expectedForm.put("delFup", "1970-01-16");
+
+        Map<String, String> formValues = motherFormProcessor.parseMotherForm(newFormData);
+
+        assertContainsAll(expectedForm, formValues);
     }
 }

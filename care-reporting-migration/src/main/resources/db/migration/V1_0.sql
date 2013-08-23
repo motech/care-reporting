@@ -469,7 +469,7 @@ CREATE TABLE report.bp_form(
 	,tt_1_date	DATE
 	,tt_2_date	DATE
 	,conceive	BOOLEAN
-	,del_fup	INTEGER
+	,del_fup	DATE
 	,avail_immediate	BOOLEAN
 	,counsel_accessible	BOOLEAN
 	,counsel_benefits	BOOLEAN

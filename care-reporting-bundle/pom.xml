@@ -251,7 +251,7 @@
                                      target="clean.existing.database"/>
                                 <ant antfile="${project.basedir}/../care-reporting-migration/build/build.xml"
                                      target="migrate.db"/>
-                                <echo message="Cleaning existing Database : STOP"/>
+                                <echo message="Cleaning existing Database : DONE"/>
                             </target>
                         </configuration>
                         <goals>

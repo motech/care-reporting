@@ -8,6 +8,8 @@ import java.util.Date;
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 public final class CareDateConverter extends CareTypeConverter {
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+
     private DateTimeConverter dateTimeConverter;
 
     public CareDateConverter(String[] allowedDatePatterns) {
@@ -28,6 +30,6 @@ public final class CareDateConverter extends CareTypeConverter {
     }
 
     public static String toString(Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(date);
+        return new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(date);
     }
 }

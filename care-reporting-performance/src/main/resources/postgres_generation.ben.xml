@@ -493,7 +493,7 @@
         <attribute name="tt_1_date" type="date" generator="DateGenerator"/>
         <attribute name="tt_2_date" type="date" generator="DateGenerator"/>
         <attribute name="conceive" type="boolean"/>
-        <attribute name="del_fup" type="int"/>
+        <attribute name="del_fup" type="date" generator="DateGenerator"/>
         <attribute name="avail_immediate" type="boolean"/>
         <attribute name="counsel_accessible" type="boolean"/>
         <attribute name="counsel_benefits" type="boolean"/>

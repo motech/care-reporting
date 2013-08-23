@@ -195,5 +195,5 @@
     <success>OK</success>
     <nextvisit>OK</nextvisit>
     <nextvisittype>bp</nextvisittype>
-    <del_fup>15667</del_fup>
+    <del_fup>2013-12-13</del_fup>
 </data>

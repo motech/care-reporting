@@ -106,7 +106,7 @@ public class BpForm extends Form {
 	private Date tt1Date;
 	private Date tt2Date;
 	private Boolean conceive;
-	private Integer delFup;
+	private Date delFup;
 	private Boolean availImmediate;
 	private Boolean counselAccessible;
 	private Boolean counselBenefits;
@@ -963,11 +963,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "del_fup")
-	public Integer getDelFup() {
+	public Date getDelFup() {
 		return this.delFup;
 	}
 
-	public void setDelFup(Integer delFup) {
+	public void setDelFup(Date delFup) {
 		this.delFup = delFup;
 	}
 

@@ -43,7 +43,7 @@ public class Mapper {
         try {
             beanUtils.setProperty(object, fieldName, fieldValue);
         } catch (Exception ex) {
-            throw new RuntimeException(String.format("Exception when setting %s to %s", fieldValue, fieldName));
+            throw new RuntimeException(String.format("Exception when setting %s to %s", fieldValue, fieldName), ex);
         }
     }
 }
