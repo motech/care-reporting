@@ -22,5 +22,6 @@ public class ComputeFieldsJob implements Job {
     public void run() {
         logger.info("Starting Computed Fields Population");
         service.execute("SELECT report.populate_computed_fields()");
+        logger.info("Completed Computed Fields Population");
     }
 }
