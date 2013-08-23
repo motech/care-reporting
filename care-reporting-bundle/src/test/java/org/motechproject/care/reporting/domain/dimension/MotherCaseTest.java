@@ -20,14 +20,14 @@ public class MotherCaseTest {
     public void shouldUpdateUpdatableFields() throws Exception {
         Date jan01 = DateTime.parse("2012-01-01").toDate();
         Date dec01 = DateTime.parse("2012-12-01").toDate();
-        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").dateModified(jan01).alive(false).build();
-        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").dateModified(dec01).alive(true).build();
+        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").dateModified(jan01).alive("no").build();
+        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").dateModified(dec01).alive("yes").build();
 
         oldMother.updateToLatest(updatedMother);
 
         assertEquals("devi", oldMother.getCaseName());
         assertEquals(dec01, oldMother.getDateModified());
-        assertTrue(oldMother.getMotherAlive());
+        assertEquals("yes", oldMother.getMotherAlive());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -37,8 +37,8 @@ public class MotherCaseTest {
 
     @Test
     public void shouldNotUpdateIfServerDateModifiedOlderThanPresent() throws Exception {
-        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").serverDateModified(DEC_01).alive(false).build();
-        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").serverDateModified(JAN_01).alive(true).build();
+        MotherCase oldMother = new MotherCaseBuilder().caseId("01").caseName("durga").serverDateModified(DEC_01).alive("no").build();
+        MotherCase updatedMother = new MotherCaseBuilder().caseId("01").caseName("devi").serverDateModified(JAN_01).alive("yes").build();
 
         oldMother.updateToLatest(updatedMother);
 

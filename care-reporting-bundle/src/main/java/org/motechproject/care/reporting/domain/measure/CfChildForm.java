@@ -21,22 +21,22 @@ public class CfChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean addVaccinations;
-	private Boolean amountGood;
-	private Boolean babyBcg;
-	private Boolean babyDpt1;
-	private Boolean babyDpt2;
-	private Boolean babyDpt3;
-	private Boolean babyHepB0;
-	private Boolean babyHepB1;
-	private Boolean babyHepB2;
-	private Boolean babyHepB3;
-	private Boolean babyMeasles;
-	private Boolean babyOpv0;
-	private Boolean babyOpv1;
-	private Boolean babyOpv2;
-	private Boolean babyOpv3;
-	private Boolean babyVita1;
+	private String addVaccinations;
+	private String amountGood;
+	private String babyBcg;
+	private String babyDpt1;
+	private String babyDpt2;
+	private String babyDpt3;
+	private String babyHepB0;
+	private String babyHepB1;
+	private String babyHepB2;
+	private String babyHepB3;
+	private String babyMeasles;
+	private String babyOpv0;
+	private String babyOpv1;
+	private String babyOpv2;
+	private String babyOpv3;
+	private String babyVita1;
 	private Date bcgDate;
 	private String caseName;
 	private Date dpt1Date;
@@ -52,25 +52,25 @@ public class CfChildForm extends Form {
 	private Date opv2Date;
 	private Date opv3Date;
 	private Date vitA1Date;
-	private Boolean dal;
-	private Boolean eatenCereal;
-	private Boolean egg;
-	private Boolean fish;
-	private Boolean meat;
-	private Boolean milkCurd;
-	private Boolean moreFeedingLessSix;
-	private Boolean nameUpdate;
+	private String dal;
+	private String eatenCereal;
+	private String egg;
+	private String fish;
+	private String meat;
+	private String milkCurd;
+	private String moreFeedingLessSix;
+	private String nameUpdate;
 	private String newName;
-	private Boolean numberGood;
-	private Boolean oilGhee;
-	private Boolean recentFever;
-	private Boolean treatedLessSix;
-	private Boolean babyDptBooster;
-	private Boolean babyJe;
-	private Boolean babyMeaslesBooster;
-	private Boolean babyOpvBooster;
-	private Boolean babyVita2;
-	private Boolean babyVita3;
+	private String numberGood;
+	private String oilGhee;
+	private String recentFever;
+	private String treatedLessSix;
+	private String babyDptBooster;
+	private String babyJe;
+	private String babyMeaslesBooster;
+	private String babyOpvBooster;
+	private String babyVita2;
+	private String babyVita3;
 	private Date dateJe;
 	private Date dateMeaslesBooster;
 	private Date dptBoosterDate;
@@ -148,146 +148,146 @@ public class CfChildForm extends Form {
 	}
 
 	@Column(name = "add_vaccinations")
-	public Boolean getAddVaccinations() {
+	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
 
-	public void setAddVaccinations(Boolean addVaccinations) {
+	public void setAddVaccinations(String addVaccinations) {
 		this.addVaccinations = addVaccinations;
 	}
 
 	@Column(name = "amount_good")
-	public Boolean getAmountGood() {
+	public String getAmountGood() {
 		return this.amountGood;
 	}
 
-	public void setAmountGood(Boolean amountGood) {
+	public void setAmountGood(String amountGood) {
 		this.amountGood = amountGood;
 	}
 
 	@Column(name = "baby_bcg")
-	public Boolean getBabyBcg() {
+	public String getBabyBcg() {
 		return this.babyBcg;
 	}
 
-	public void setBabyBcg(Boolean babyBcg) {
+	public void setBabyBcg(String babyBcg) {
 		this.babyBcg = babyBcg;
 	}
 
 	@Column(name = "baby_dpt1")
-	public Boolean getBabyDpt1() {
+	public String getBabyDpt1() {
 		return this.babyDpt1;
 	}
 
-	public void setBabyDpt1(Boolean babyDpt1) {
+	public void setBabyDpt1(String babyDpt1) {
 		this.babyDpt1 = babyDpt1;
 	}
 
 	@Column(name = "baby_dpt2")
-	public Boolean getBabyDpt2() {
+	public String getBabyDpt2() {
 		return this.babyDpt2;
 	}
 
-	public void setBabyDpt2(Boolean babyDpt2) {
+	public void setBabyDpt2(String babyDpt2) {
 		this.babyDpt2 = babyDpt2;
 	}
 
 	@Column(name = "baby_dpt3")
-	public Boolean getBabyDpt3() {
+	public String getBabyDpt3() {
 		return this.babyDpt3;
 	}
 
-	public void setBabyDpt3(Boolean babyDpt3) {
+	public void setBabyDpt3(String babyDpt3) {
 		this.babyDpt3 = babyDpt3;
 	}
 
 	@Column(name = "baby_hep_b_0")
-	public Boolean getBabyHepB0() {
+	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
 
-	public void setBabyHepB0(Boolean babyHepB0) {
+	public void setBabyHepB0(String babyHepB0) {
 		this.babyHepB0 = babyHepB0;
 	}
 
 	@Column(name = "baby_hep_b_1")
-	public Boolean getBabyHepB1() {
+	public String getBabyHepB1() {
 		return this.babyHepB1;
 	}
 
-	public void setBabyHepB1(Boolean babyHepB1) {
+	public void setBabyHepB1(String babyHepB1) {
 		this.babyHepB1 = babyHepB1;
 	}
 
 	@Column(name = "baby_hep_b_2")
-	public Boolean getBabyHepB2() {
+	public String getBabyHepB2() {
 		return this.babyHepB2;
 	}
 
-	public void setBabyHepB2(Boolean babyHepB2) {
+	public void setBabyHepB2(String babyHepB2) {
 		this.babyHepB2 = babyHepB2;
 	}
 
 	@Column(name = "baby_hep_b_3")
-	public Boolean getBabyHepB3() {
+	public String getBabyHepB3() {
 		return this.babyHepB3;
 	}
 
-	public void setBabyHepB3(Boolean babyHepB3) {
+	public void setBabyHepB3(String babyHepB3) {
 		this.babyHepB3 = babyHepB3;
 	}
 
 	@Column(name = "baby_measles")
-	public Boolean getBabyMeasles() {
+	public String getBabyMeasles() {
 		return this.babyMeasles;
 	}
 
-	public void setBabyMeasles(Boolean babyMeasles) {
+	public void setBabyMeasles(String babyMeasles) {
 		this.babyMeasles = babyMeasles;
 	}
 
 	@Column(name = "baby_opv0")
-	public Boolean getBabyOpv0() {
+	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
 
-	public void setBabyOpv0(Boolean babyOpv0) {
+	public void setBabyOpv0(String babyOpv0) {
 		this.babyOpv0 = babyOpv0;
 	}
 
 	@Column(name = "baby_opv1")
-	public Boolean getBabyOpv1() {
+	public String getBabyOpv1() {
 		return this.babyOpv1;
 	}
 
-	public void setBabyOpv1(Boolean babyOpv1) {
+	public void setBabyOpv1(String babyOpv1) {
 		this.babyOpv1 = babyOpv1;
 	}
 
 	@Column(name = "baby_opv2")
-	public Boolean getBabyOpv2() {
+	public String getBabyOpv2() {
 		return this.babyOpv2;
 	}
 
-	public void setBabyOpv2(Boolean babyOpv2) {
+	public void setBabyOpv2(String babyOpv2) {
 		this.babyOpv2 = babyOpv2;
 	}
 
 	@Column(name = "baby_opv3")
-	public Boolean getBabyOpv3() {
+	public String getBabyOpv3() {
 		return this.babyOpv3;
 	}
 
-	public void setBabyOpv3(Boolean babyOpv3) {
+	public void setBabyOpv3(String babyOpv3) {
 		this.babyOpv3 = babyOpv3;
 	}
 
 	@Column(name = "baby_vita1")
-	public Boolean getBabyVita1() {
+	public String getBabyVita1() {
 		return this.babyVita1;
 	}
 
-	public void setBabyVita1(Boolean babyVita1) {
+	public void setBabyVita1(String babyVita1) {
 		this.babyVita1 = babyVita1;
 	}
 
@@ -441,74 +441,74 @@ public class CfChildForm extends Form {
 	}
 
 	@Column(name = "dal")
-	public Boolean getDal() {
+	public String getDal() {
 		return this.dal;
 	}
 
-	public void setDal(Boolean dal) {
+	public void setDal(String dal) {
 		this.dal = dal;
 	}
 
 	@Column(name = "eaten_cereal")
-	public Boolean getEatenCereal() {
+	public String getEatenCereal() {
 		return this.eatenCereal;
 	}
 
-	public void setEatenCereal(Boolean eatenCereal) {
+	public void setEatenCereal(String eatenCereal) {
 		this.eatenCereal = eatenCereal;
 	}
 
 	@Column(name = "egg")
-	public Boolean getEgg() {
+	public String getEgg() {
 		return this.egg;
 	}
 
-	public void setEgg(Boolean egg) {
+	public void setEgg(String egg) {
 		this.egg = egg;
 	}
 
 	@Column(name = "fish")
-	public Boolean getFish() {
+	public String getFish() {
 		return this.fish;
 	}
 
-	public void setFish(Boolean fish) {
+	public void setFish(String fish) {
 		this.fish = fish;
 	}
 
 	@Column(name = "meat")
-	public Boolean getMeat() {
+	public String getMeat() {
 		return this.meat;
 	}
 
-	public void setMeat(Boolean meat) {
+	public void setMeat(String meat) {
 		this.meat = meat;
 	}
 
 	@Column(name = "milk_curd")
-	public Boolean getMilkCurd() {
+	public String getMilkCurd() {
 		return this.milkCurd;
 	}
 
-	public void setMilkCurd(Boolean milkCurd) {
+	public void setMilkCurd(String milkCurd) {
 		this.milkCurd = milkCurd;
 	}
 
 	@Column(name = "more_feeding_less_six")
-	public Boolean getMoreFeedingLessSix() {
+	public String getMoreFeedingLessSix() {
 		return this.moreFeedingLessSix;
 	}
 
-	public void setMoreFeedingLessSix(Boolean moreFeedingLessSix) {
+	public void setMoreFeedingLessSix(String moreFeedingLessSix) {
 		this.moreFeedingLessSix = moreFeedingLessSix;
 	}
 
 	@Column(name = "name_update")
-	public Boolean getNameUpdate() {
+	public String getNameUpdate() {
 		return this.nameUpdate;
 	}
 
-	public void setNameUpdate(Boolean nameUpdate) {
+	public void setNameUpdate(String nameUpdate) {
 		this.nameUpdate = nameUpdate;
 	}
 
@@ -522,92 +522,92 @@ public class CfChildForm extends Form {
 	}
 
 	@Column(name = "number_good")
-	public Boolean getNumberGood() {
+	public String getNumberGood() {
 		return this.numberGood;
 	}
 
-	public void setNumberGood(Boolean numberGood) {
+	public void setNumberGood(String numberGood) {
 		this.numberGood = numberGood;
 	}
 
 	@Column(name = "oil_ghee")
-	public Boolean getOilGhee() {
+	public String getOilGhee() {
 		return this.oilGhee;
 	}
 
-	public void setOilGhee(Boolean oilGhee) {
+	public void setOilGhee(String oilGhee) {
 		this.oilGhee = oilGhee;
 	}
 
 	@Column(name = "recent_fever")
-	public Boolean getRecentFever() {
+	public String getRecentFever() {
 		return this.recentFever;
 	}
 
-	public void setRecentFever(Boolean recentFever) {
+	public void setRecentFever(String recentFever) {
 		this.recentFever = recentFever;
 	}
 
 	@Column(name = "treated_less_six")
-	public Boolean getTreatedLessSix() {
+	public String getTreatedLessSix() {
 		return this.treatedLessSix;
 	}
 
-	public void setTreatedLessSix(Boolean treatedLessSix) {
+	public void setTreatedLessSix(String treatedLessSix) {
 		this.treatedLessSix = treatedLessSix;
 	}
 
 	@Column(name = "baby_dpt_booster")
-	public Boolean getBabyDptBooster() {
+	public String getBabyDptBooster() {
 		return this.babyDptBooster;
 	}
 
-	public void setBabyDptBooster(Boolean babyDptBooster) {
+	public void setBabyDptBooster(String babyDptBooster) {
 		this.babyDptBooster = babyDptBooster;
 	}
 
 	@Column(name = "baby_je")
-	public Boolean getBabyJe() {
+	public String getBabyJe() {
 		return this.babyJe;
 	}
 
-	public void setBabyJe(Boolean babyJe) {
+	public void setBabyJe(String babyJe) {
 		this.babyJe = babyJe;
 	}
 
 	@Column(name = "baby_measles_booster")
-	public Boolean getBabyMeaslesBooster() {
+	public String getBabyMeaslesBooster() {
 		return this.babyMeaslesBooster;
 	}
 
-	public void setBabyMeaslesBooster(Boolean babyMeaslesBooster) {
+	public void setBabyMeaslesBooster(String babyMeaslesBooster) {
 		this.babyMeaslesBooster = babyMeaslesBooster;
 	}
 
 	@Column(name = "baby_opv_booster")
-	public Boolean getBabyOpvBooster() {
+	public String getBabyOpvBooster() {
 		return this.babyOpvBooster;
 	}
 
-	public void setBabyOpvBooster(Boolean babyOpvBooster) {
+	public void setBabyOpvBooster(String babyOpvBooster) {
 		this.babyOpvBooster = babyOpvBooster;
 	}
 
 	@Column(name = "baby_vita2")
-	public Boolean getBabyVita2() {
+	public String getBabyVita2() {
 		return this.babyVita2;
 	}
 
-	public void setBabyVita2(Boolean babyVita2) {
+	public void setBabyVita2(String babyVita2) {
 		this.babyVita2 = babyVita2;
 	}
 
 	@Column(name = "baby_vita3")
-	public Boolean getBabyVita3() {
+	public String getBabyVita3() {
 		return this.babyVita3;
 	}
 
-	public void setBabyVita3(Boolean babyVita3) {
+	public void setBabyVita3(String babyVita3) {
 		this.babyVita3 = babyVita3;
 	}
 

@@ -19,21 +19,21 @@ public class CloseMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-    private Boolean closeMother;
-    private Boolean confirmClose;
-    private Boolean deathVillage;
+    private String closeMother;
+    private String confirmClose;
+    private String deathVillage;
     private String diedVillage;
     private String placeDeath;
-    private Boolean dupeReg;
-    private Boolean finishedContinuum;
+    private String dupeReg;
+    private String finishedContinuum;
     private Short numChildren;
-    private Boolean motherAlive;
-    private Boolean moved;
-    private Boolean migrated;
+    private String motherAlive;
+    private String moved;
+    private String migrated;
     private Date dateLearned;
     private Date dateLeft;
-    private Boolean migrationNote;
-    private Boolean died;
+    private String migrationNote;
+    private String died;
     private Date dateDeath;
     private String siteDeath;
     private String status;
@@ -109,29 +109,29 @@ public class CloseMotherForm extends Form {
 
 
     @Column(name = "close_mother")
-	public Boolean getCloseMother() {
+	public String getCloseMother() {
 		return this.closeMother;
 	}
 
-	public void setCloseMother(Boolean closeMother) {
+	public void setCloseMother(String closeMother) {
 		this.closeMother = closeMother;
 	}
 
 	@Column(name = "confirm_close")
-	public Boolean getConfirmClose() {
+	public String getConfirmClose() {
 		return this.confirmClose;
 	}
 
-	public void setConfirmClose(Boolean confirmClose) {
+	public void setConfirmClose(String confirmClose) {
 		this.confirmClose = confirmClose;
 	}
 
 	@Column(name = "death_village")
-	public Boolean getDeathVillage() {
+	public String getDeathVillage() {
 		return this.deathVillage;
 	}
 
-	public void setDeathVillage(Boolean deathVillage) {
+	public void setDeathVillage(String deathVillage) {
 		this.deathVillage = deathVillage;
 	}
 
@@ -154,20 +154,20 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Column(name = "dupe_reg")
-	public Boolean getDupeReg() {
+	public String getDupeReg() {
 		return this.dupeReg;
 	}
 
-	public void setDupeReg(Boolean dupeReg) {
+	public void setDupeReg(String dupeReg) {
 		this.dupeReg = dupeReg;
 	}
 
 	@Column(name = "finished_continuum")
-	public Boolean getFinishedContinuum() {
+	public String getFinishedContinuum() {
 		return this.finishedContinuum;
 	}
 
-	public void setFinishedContinuum(Boolean finishedContinuum) {
+	public void setFinishedContinuum(String finishedContinuum) {
 		this.finishedContinuum = finishedContinuum;
 	}
 
@@ -181,29 +181,29 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Column(name = "mother_alive")
-	public Boolean getMotherAlive() {
+	public String getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(Boolean motherAlive) {
+	public void setMotherAlive(String motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 
 	@Column(name = "moved")
-	public Boolean getMoved() {
+	public String getMoved() {
 		return this.moved;
 	}
 
-	public void setMoved(Boolean moved) {
+	public void setMoved(String moved) {
 		this.moved = moved;
 	}
 
 	@Column(name = "migrated")
-	public Boolean getMigrated() {
+	public String getMigrated() {
 		return this.migrated;
 	}
 
-	public void setMigrated(Boolean migrated) {
+	public void setMigrated(String migrated) {
 		this.migrated = migrated;
 	}
 
@@ -228,20 +228,20 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Column(name = "migration_note")
-	public Boolean getMigrationNote() {
+	public String getMigrationNote() {
 		return this.migrationNote;
 	}
 
-	public void setMigrationNote(Boolean migrationNote) {
+	public void setMigrationNote(String migrationNote) {
 		this.migrationNote = migrationNote;
 	}
 
 	@Column(name = "died")
-	public Boolean getDied() {
+	public String getDied() {
 		return this.died;
 	}
 
-	public void setDied(Boolean died) {
+	public void setDied(String died) {
 		this.died = died;
 	}
 

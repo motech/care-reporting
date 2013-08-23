@@ -32,10 +32,10 @@ public class CfMotherForm extends Form {
 	private String lastVisitType;
 	private Short cfVisitNum;
     private Short numChildren;
-	private Boolean playCompFeedingVid;
-	private Boolean lastvisit;
+	private String playCompFeedingVid;
+	private String lastvisit;
 	private Date dateCf7;
-	private Boolean confirmClose;
+	private String confirmClose;
     private Boolean close;
     private Date creationTime = new Date();
 
@@ -213,20 +213,20 @@ public class CfMotherForm extends Form {
 	}
 
 	@Column(name = "play_comp_feeding_vid")
-	public Boolean getPlayCompFeedingVid() {
+	public String getPlayCompFeedingVid() {
 		return this.playCompFeedingVid;
 	}
 
-	public void setPlayCompFeedingVid(Boolean playCompFeedingVid) {
+	public void setPlayCompFeedingVid(String playCompFeedingVid) {
 		this.playCompFeedingVid = playCompFeedingVid;
 	}
 
 	@Column(name = "lastvisit")
-	public Boolean getLastvisit() {
+	public String getLastvisit() {
 		return this.lastvisit;
 	}
 
-	public void setLastvisit(Boolean lastvisit) {
+	public void setLastvisit(String lastvisit) {
 		this.lastvisit = lastvisit;
 	}
 
@@ -241,11 +241,11 @@ public class CfMotherForm extends Form {
 	}
 
 	@Column(name = "confirm_close")
-	public Boolean getConfirmClose() {
+	public String getConfirmClose() {
 		return this.confirmClose;
 	}
 
-	public void setConfirmClose(Boolean confirmClose) {
+	public void setConfirmClose(String confirmClose) {
 		this.confirmClose = confirmClose;
 	}
 

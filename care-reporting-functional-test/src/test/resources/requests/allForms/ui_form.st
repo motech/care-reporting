@@ -19,7 +19,7 @@
             </n1:update>
         </n1:case>
         <up_to_date>OK</up_to_date>
-        <tt_booster>2012-07-09</tt_booster>
+        <tt_booster>yes</tt_booster>
     </mother>
     <num_children>1</num_children>
     <children>$child1caseId$</children>

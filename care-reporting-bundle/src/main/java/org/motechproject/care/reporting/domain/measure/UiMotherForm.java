@@ -19,16 +19,16 @@ public class UiMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean detailsAvailable;
+	private String detailsAvailable;
 	private Date tt1Date;
 	private Date tt2Date;
 	private Date ttBoosterDate;
-	private Boolean receivedTt1;
-	private Boolean receivedTt2;
+	private String receivedTt1;
+	private String receivedTt2;
 	private String upToDate;
 	private Short numChildren;
-	private Boolean updateMother;
-	private Date ttBooster;
+	private String updateMother;
+	private String ttBooster;
     private Date creationTime = new Date();
 
     public UiMotherForm() {
@@ -98,11 +98,11 @@ public class UiMotherForm extends Form {
 	}
 
 	@Column(name = "details_available")
-	public Boolean getDetailsAvailable() {
+	public String getDetailsAvailable() {
 		return this.detailsAvailable;
 	}
 
-	public void setDetailsAvailable(Boolean detailsAvailable) {
+	public void setDetailsAvailable(String detailsAvailable) {
 		this.detailsAvailable = detailsAvailable;
 	}
 
@@ -137,20 +137,20 @@ public class UiMotherForm extends Form {
 	}
 
 	@Column(name = "received_tt1")
-	public Boolean getReceivedTt1() {
+	public String getReceivedTt1() {
 		return this.receivedTt1;
 	}
 
-	public void setReceivedTt1(Boolean receivedTt1) {
+	public void setReceivedTt1(String receivedTt1) {
 		this.receivedTt1 = receivedTt1;
 	}
 
 	@Column(name = "received_tt2")
-	public Boolean getReceivedTt2() {
+	public String getReceivedTt2() {
 		return this.receivedTt2;
 	}
 
-	public void setReceivedTt2(Boolean receivedTt2) {
+	public void setReceivedTt2(String receivedTt2) {
 		this.receivedTt2 = receivedTt2;
 	}
 
@@ -173,21 +173,20 @@ public class UiMotherForm extends Form {
 	}
 
 	@Column(name = "update_mother")
-	public Boolean getUpdateMother() {
+	public String getUpdateMother() {
 		return this.updateMother;
 	}
 
-	public void setUpdateMother(Boolean updateMother) {
+	public void setUpdateMother(String updateMother) {
 		this.updateMother = updateMother;
 	}
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "tt_booster")
-	public Date getTtBooster() {
+	public String getTtBooster() {
 		return this.ttBooster;
 	}
 
-	public void setTtBooster(Date ttBooster) {
+	public void setTtBooster(String ttBooster) {
 		this.ttBooster = ttBooster;
 	}
 

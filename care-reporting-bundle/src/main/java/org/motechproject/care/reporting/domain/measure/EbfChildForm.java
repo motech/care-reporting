@@ -18,49 +18,49 @@ public class EbfChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean addVaccinations;
-	private Boolean atNight;
-	private Boolean babyBcg;
-	private Boolean babyDpt1;
-	private Boolean babyDpt2;
-	private Boolean babyDpt3;
-	private Boolean babyHepB0;
-	private Boolean babyHepB1;
-	private Boolean babyHepB2;
-	private Boolean babyHepB3;
-	private Boolean babyOpv0;
-	private Boolean babyOpv1;
-	private Boolean babyOpv2;
-	private Boolean babyOpv3;
+	private String addVaccinations;
+	private String atNight;
+	private String babyBcg;
+	private String babyDpt1;
+	private String babyDpt2;
+	private String babyDpt3;
+	private String babyHepB0;
+	private String babyHepB1;
+	private String babyHepB2;
+	private String babyHepB3;
+	private String babyOpv0;
+	private String babyOpv1;
+	private String babyOpv2;
+	private String babyOpv3;
 	private Date bcgDate;
-	private Boolean breastfeeding;
+	private String breastfeeding;
 	private String caseName;
 	private String childName;
-	private Boolean counselAdequateBf;
-	private Boolean counselOnlyMilk;
-	private Boolean counselStopBottle;
+	private String counselAdequateBf;
+	private String counselOnlyMilk;
+	private String counselStopBottle;
 	private Date dpt1Date;
 	private Date dpt2Date;
 	private Date dpt3Date;
-	private Boolean eating;
-	private Boolean emptying;
-	private Boolean feedingBottle;
+	private String eating;
+	private String emptying;
+	private String feedingBottle;
 	private Date hepB0Date;
 	private Date hepB1Date;
 	private Date hepB2Date;
 	private Date hepB3Date;
-	private Boolean moreFeedingLessSix;
-	private Boolean nameUpdate;
+	private String moreFeedingLessSix;
+	private String nameUpdate;
 	private String notBreasfeeding;
-	private Boolean onDemand;
+	private String onDemand;
 	private Date opv0Date;
 	private Date opv1Date;
 	private Date opv2Date;
 	private Date opv3Date;
-	private Boolean recentFever;
-	private Boolean teaOther;
-	private Boolean treatedLessSix;
-	private Boolean waterOrMilk;
+	private String recentFever;
+	private String teaOther;
+	private String treatedLessSix;
+	private String waterOrMilk;
     private Date creationTime = new Date();
 
     public EbfChildForm() {
@@ -130,128 +130,128 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "add_vaccinations")
-	public Boolean getAddVaccinations() {
+	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
 
-	public void setAddVaccinations(Boolean addVaccinations) {
+	public void setAddVaccinations(String addVaccinations) {
 		this.addVaccinations = addVaccinations;
 	}
 
 	@Column(name = "at_night")
-	public Boolean getAtNight() {
+	public String getAtNight() {
 		return this.atNight;
 	}
 
-	public void setAtNight(Boolean atNight) {
+	public void setAtNight(String atNight) {
 		this.atNight = atNight;
 	}
 
 	@Column(name = "baby_bcg")
-	public Boolean getBabyBcg() {
+	public String getBabyBcg() {
 		return this.babyBcg;
 	}
 
-	public void setBabyBcg(Boolean babyBcg) {
+	public void setBabyBcg(String babyBcg) {
 		this.babyBcg = babyBcg;
 	}
 
 	@Column(name = "baby_dpt1")
-	public Boolean getBabyDpt1() {
+	public String getBabyDpt1() {
 		return this.babyDpt1;
 	}
 
-	public void setBabyDpt1(Boolean babyDpt1) {
+	public void setBabyDpt1(String babyDpt1) {
 		this.babyDpt1 = babyDpt1;
 	}
 
 	@Column(name = "baby_dpt2")
-	public Boolean getBabyDpt2() {
+	public String getBabyDpt2() {
 		return this.babyDpt2;
 	}
 
-	public void setBabyDpt2(Boolean babyDpt2) {
+	public void setBabyDpt2(String babyDpt2) {
 		this.babyDpt2 = babyDpt2;
 	}
 
 	@Column(name = "baby_dpt3")
-	public Boolean getBabyDpt3() {
+	public String getBabyDpt3() {
 		return this.babyDpt3;
 	}
 
-	public void setBabyDpt3(Boolean babyDpt3) {
+	public void setBabyDpt3(String babyDpt3) {
 		this.babyDpt3 = babyDpt3;
 	}
 
 	@Column(name = "baby_hep_b_0")
-	public Boolean getBabyHepB0() {
+	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
 
-	public void setBabyHepB0(Boolean babyHepB0) {
+	public void setBabyHepB0(String babyHepB0) {
 		this.babyHepB0 = babyHepB0;
 	}
 
 	@Column(name = "baby_hep_b_1")
-	public Boolean getBabyHepB1() {
+	public String getBabyHepB1() {
 		return this.babyHepB1;
 	}
 
-	public void setBabyHepB1(Boolean babyHepB1) {
+	public void setBabyHepB1(String babyHepB1) {
 		this.babyHepB1 = babyHepB1;
 	}
 
 	@Column(name = "baby_hep_b_2")
-	public Boolean getBabyHepB2() {
+	public String getBabyHepB2() {
 		return this.babyHepB2;
 	}
 
-	public void setBabyHepB2(Boolean babyHepB2) {
+	public void setBabyHepB2(String babyHepB2) {
 		this.babyHepB2 = babyHepB2;
 	}
 
 	@Column(name = "baby_hep_b_3")
-	public Boolean getBabyHepB3() {
+	public String getBabyHepB3() {
 		return this.babyHepB3;
 	}
 
-	public void setBabyHepB3(Boolean babyHepB3) {
+	public void setBabyHepB3(String babyHepB3) {
 		this.babyHepB3 = babyHepB3;
 	}
 
 	@Column(name = "baby_opv0")
-	public Boolean getBabyOpv0() {
+	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
 
-	public void setBabyOpv0(Boolean babyOpv0) {
+	public void setBabyOpv0(String babyOpv0) {
 		this.babyOpv0 = babyOpv0;
 	}
 
 	@Column(name = "baby_opv1")
-	public Boolean getBabyOpv1() {
+	public String getBabyOpv1() {
 		return this.babyOpv1;
 	}
 
-	public void setBabyOpv1(Boolean babyOpv1) {
+	public void setBabyOpv1(String babyOpv1) {
 		this.babyOpv1 = babyOpv1;
 	}
 
 	@Column(name = "baby_opv2")
-	public Boolean getBabyOpv2() {
+	public String getBabyOpv2() {
 		return this.babyOpv2;
 	}
 
-	public void setBabyOpv2(Boolean babyOpv2) {
+	public void setBabyOpv2(String babyOpv2) {
 		this.babyOpv2 = babyOpv2;
 	}
 
 	@Column(name = "baby_opv3")
-	public Boolean getBabyOpv3() {
+	public String getBabyOpv3() {
 		return this.babyOpv3;
 	}
 
-	public void setBabyOpv3(Boolean babyOpv3) {
+	public void setBabyOpv3(String babyOpv3) {
 		this.babyOpv3 = babyOpv3;
 	}
 
@@ -266,11 +266,11 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "breastfeeding")
-	public Boolean getBreastfeeding() {
+	public String getBreastfeeding() {
 		return this.breastfeeding;
 	}
 
-	public void setBreastfeeding(Boolean breastfeeding) {
+	public void setBreastfeeding(String breastfeeding) {
 		this.breastfeeding = breastfeeding;
 	}
 
@@ -293,29 +293,29 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "counsel_adequate_bf")
-	public Boolean getCounselAdequateBf() {
+	public String getCounselAdequateBf() {
 		return this.counselAdequateBf;
 	}
 
-	public void setCounselAdequateBf(Boolean counselAdequateBf) {
+	public void setCounselAdequateBf(String counselAdequateBf) {
 		this.counselAdequateBf = counselAdequateBf;
 	}
 
 	@Column(name = "counsel_only_milk")
-	public Boolean getCounselOnlyMilk() {
+	public String getCounselOnlyMilk() {
 		return this.counselOnlyMilk;
 	}
 
-	public void setCounselOnlyMilk(Boolean counselOnlyMilk) {
+	public void setCounselOnlyMilk(String counselOnlyMilk) {
 		this.counselOnlyMilk = counselOnlyMilk;
 	}
 
 	@Column(name = "counsel_stop_bottle")
-	public Boolean getCounselStopBottle() {
+	public String getCounselStopBottle() {
 		return this.counselStopBottle;
 	}
 
-	public void setCounselStopBottle(Boolean counselStopBottle) {
+	public void setCounselStopBottle(String counselStopBottle) {
 		this.counselStopBottle = counselStopBottle;
 	}
 
@@ -350,29 +350,29 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "eating")
-	public Boolean getEating() {
+	public String getEating() {
 		return this.eating;
 	}
 
-	public void setEating(Boolean eating) {
+	public void setEating(String eating) {
 		this.eating = eating;
 	}
 
 	@Column(name = "emptying")
-	public Boolean getEmptying() {
+	public String getEmptying() {
 		return this.emptying;
 	}
 
-	public void setEmptying(Boolean emptying) {
+	public void setEmptying(String emptying) {
 		this.emptying = emptying;
 	}
 
 	@Column(name = "feeding_bottle")
-	public Boolean getFeedingBottle() {
+	public String getFeedingBottle() {
 		return this.feedingBottle;
 	}
 
-	public void setFeedingBottle(Boolean feedingBottle) {
+	public void setFeedingBottle(String feedingBottle) {
 		this.feedingBottle = feedingBottle;
 	}
 
@@ -417,20 +417,20 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "more_feeding_less_six")
-	public Boolean getMoreFeedingLessSix() {
+	public String getMoreFeedingLessSix() {
 		return this.moreFeedingLessSix;
 	}
 
-	public void setMoreFeedingLessSix(Boolean moreFeedingLessSix) {
+	public void setMoreFeedingLessSix(String moreFeedingLessSix) {
 		this.moreFeedingLessSix = moreFeedingLessSix;
 	}
 
 	@Column(name = "name_update")
-	public Boolean getNameUpdate() {
+	public String getNameUpdate() {
 		return this.nameUpdate;
 	}
 
-	public void setNameUpdate(Boolean nameUpdate) {
+	public void setNameUpdate(String nameUpdate) {
 		this.nameUpdate = nameUpdate;
 	}
 
@@ -444,11 +444,11 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "on_demand")
-	public Boolean getOnDemand() {
+	public String getOnDemand() {
 		return this.onDemand;
 	}
 
-	public void setOnDemand(Boolean onDemand) {
+	public void setOnDemand(String onDemand) {
 		this.onDemand = onDemand;
 	}
 
@@ -493,38 +493,38 @@ public class EbfChildForm extends Form {
 	}
 
 	@Column(name = "recent_fever")
-	public Boolean getRecentFever() {
+	public String getRecentFever() {
 		return this.recentFever;
 	}
 
-	public void setRecentFever(Boolean recentFever) {
+	public void setRecentFever(String recentFever) {
 		this.recentFever = recentFever;
 	}
 
 	@Column(name = "tea_other")
-	public Boolean getTeaOther() {
+	public String getTeaOther() {
 		return this.teaOther;
 	}
 
-	public void setTeaOther(Boolean teaOther) {
+	public void setTeaOther(String teaOther) {
 		this.teaOther = teaOther;
 	}
 
 	@Column(name = "treated_less_six")
-	public Boolean getTreatedLessSix() {
+	public String getTreatedLessSix() {
 		return this.treatedLessSix;
 	}
 
-	public void setTreatedLessSix(Boolean treatedLessSix) {
+	public void setTreatedLessSix(String treatedLessSix) {
 		this.treatedLessSix = treatedLessSix;
 	}
 
 	@Column(name = "water_or_milk")
-	public Boolean getWaterOrMilk() {
+	public String getWaterOrMilk() {
 		return this.waterOrMilk;
 	}
 
-	public void setWaterOrMilk(Boolean waterOrMilk) {
+	public void setWaterOrMilk(String waterOrMilk) {
 		this.waterOrMilk = waterOrMilk;
 	}
 

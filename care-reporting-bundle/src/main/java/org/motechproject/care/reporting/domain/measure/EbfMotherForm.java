@@ -20,18 +20,18 @@ public class EbfMotherForm extends Form {
 	private Date timeStart;
 	private Date dateModified;
 	private Date addval;
-	private Boolean adoptImmediately;
-	private Boolean askPpiud;
-	private Boolean awareOfFailure;
-	private Boolean bleeding;
-    private Boolean complications;
-	private Boolean condoms;
-	private Boolean counselFollowUpPpiud;
-	private Boolean counselFollowUpPptl;
-	private Boolean counselMenstrualCycle;
-	private Boolean counselMethods;
-	private Boolean counselPpfp;
-	private Boolean counselTimeIud;
+	private String adoptImmediately;
+	private String askPpiud;
+	private String awareOfFailure;
+	private String bleeding;
+    private String complications;
+	private String condoms;
+	private String counselFollowUpPpiud;
+	private String counselFollowUpPptl;
+	private String counselMenstrualCycle;
+	private String counselMethods;
+	private String counselPpfp;
+	private String counselTimeIud;
 	private Date dateEb1;
 	private Date dateEb2;
 	private Date dateEb3;
@@ -43,64 +43,64 @@ public class EbfMotherForm extends Form {
 	private Date dateLastVisit;
 	private Date dateNextCf;
 	private Date dateNextEb;
-	private Boolean discharge;
-	private Boolean distension;
+	private String discharge;
+	private String distension;
 	private Short ebVisitNum;
 	private String familyPlanningType;
-	private Boolean fever;
-	private Boolean haveCondoms;
-	private Boolean headaches;
-	private Boolean highBp;
-	private Boolean injMenstrualIrregularity;
-	private Boolean injectable;
-	private Boolean intendToContinue;
-	private Boolean intervalPpfpInterest;
-	private Boolean iud;
-	private Boolean iudAdopted;
-	private Boolean iudCounselDuration;
-	private Boolean iudCounselFollowUp;
-	private Boolean iudCounselHospital;
-	private Boolean iudCounselPlacement;
-	private Boolean iudCounselScreening;
-	private Boolean iudCounselSideEffects;
+	private String fever;
+	private String haveCondoms;
+	private String headaches;
+	private String highBp;
+	private String injMenstrualIrregularity;
+	private String injectable;
+	private String intendToContinue;
+	private String intervalPpfpInterest;
+	private String iud;
+	private String iudAdopted;
+	private String iudCounselDuration;
+	private String iudCounselFollowUp;
+	private String iudCounselHospital;
+	private String iudCounselPlacement;
+	private String iudCounselScreening;
+	private String iudCounselSideEffects;
 	private String lastVisitType;
-	private Boolean menstrualIrregularity;
+	private String menstrualIrregularity;
 	private Date nextInjCalc;
 	private String nextvisittype;
 	private Short numChildren;
-	private Boolean ocp;
-	private Boolean ocpContinue;
-	private Boolean ocpCounselRegularity;
-	private Boolean painSwelling;
+	private String ocp;
+	private String ocpContinue;
+	private String ocpCounselRegularity;
+	private String painSwelling;
 	private Boolean ppfpInterest;
-	private Boolean ppiudAbdominalPain;
-	private Boolean ppiudProblems;
-	private Boolean pptlAbdominalPain;
-	private Boolean pptlPainSurgery;
-	private Boolean pptlProblems;
-	private Boolean regularPeriods;
-	private Boolean tabletsReceived;
-	private Boolean takenAsPrescribed;
-	private Boolean tl;
-	private Boolean tlAdopted;
-	private Boolean tlConselIncentives;
-	private Boolean tlCounselFollowUp;
-	private Boolean tlCounselHospital;
-	private Boolean tlCounselIrreversible;
-	private Boolean tlCounselScreening;
-	private Boolean tlCounselSideEffects;
-	private Boolean tlCounselTiming;
-	private Boolean understandTablets;
-	private Boolean usingCorrectly;
-	private Boolean whereReplace;
+	private String ppiudAbdominalPain;
+	private String ppiudProblems;
+	private String pptlAbdominalPain;
+	private String pptlPainSurgery;
+	private String pptlProblems;
+	private String regularPeriods;
+	private String tabletsReceived;
+	private String takenAsPrescribed;
+	private String tl;
+	private String tlAdopted;
+	private String tlConselIncentives;
+	private String tlCounselFollowUp;
+	private String tlCounselHospital;
+	private String tlCounselIrreversible;
+	private String tlCounselScreening;
+	private String tlCounselSideEffects;
+	private String tlCounselTiming;
+	private String understandTablets;
+	private String usingCorrectly;
+	private String whereReplace;
 	private String whyNoPpffp;
-	private Boolean within42;
+	private String within42;
 	private Date dateTlAdopted;
-	private Boolean abdominalPain;
-	private Boolean painUrination;
-	private Boolean ppiudBleeding;
-	private Boolean ppiudDischarge;
-	private Boolean ppiudFever;
+	private String abdominalPain;
+	private String painUrination;
+	private String ppiudBleeding;
+	private String ppiudDischarge;
+	private String ppiudFever;
     private Date creationTime = new Date();
 
     public EbfMotherForm() {
@@ -180,110 +180,110 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "adopt_immediately")
-	public Boolean getAdoptImmediately() {
+	public String getAdoptImmediately() {
 		return this.adoptImmediately;
 	}
 
-	public void setAdoptImmediately(Boolean adoptImmediately) {
+	public void setAdoptImmediately(String adoptImmediately) {
 		this.adoptImmediately = adoptImmediately;
 	}
 
 	@Column(name = "ask_ppiud")
-	public Boolean getAskPpiud() {
+	public String getAskPpiud() {
 		return this.askPpiud;
 	}
 
-	public void setAskPpiud(Boolean askPpiud) {
+	public void setAskPpiud(String askPpiud) {
 		this.askPpiud = askPpiud;
 	}
 
 	@Column(name = "aware_of_failure")
-	public Boolean getAwareOfFailure() {
+	public String getAwareOfFailure() {
 		return this.awareOfFailure;
 	}
 
-	public void setAwareOfFailure(Boolean awareOfFailure) {
+	public void setAwareOfFailure(String awareOfFailure) {
 		this.awareOfFailure = awareOfFailure;
 	}
 
 	@Column(name = "bleeding")
-	public Boolean getBleeding() {
+	public String getBleeding() {
 		return this.bleeding;
 	}
 
-	public void setBleeding(Boolean bleeding) {
+	public void setBleeding(String bleeding) {
 		this.bleeding = bleeding;
 	}
 
     @Column(name = "complications")
-	public Boolean getComplications() {
+	public String getComplications() {
 		return this.complications;
 	}
 
-	public void setComplications(Boolean complications) {
+	public void setComplications(String complications) {
 		this.complications = complications;
 	}
 
 	@Column(name = "condoms")
-	public Boolean getCondoms() {
+	public String getCondoms() {
 		return this.condoms;
 	}
 
-	public void setCondoms(Boolean condoms) {
+	public void setCondoms(String condoms) {
 		this.condoms = condoms;
 	}
 
 	@Column(name = "counsel_follow_up_ppiud")
-	public Boolean getCounselFollowUpPpiud() {
+	public String getCounselFollowUpPpiud() {
 		return this.counselFollowUpPpiud;
 	}
 
-	public void setCounselFollowUpPpiud(Boolean counselFollowUpPpiud) {
+	public void setCounselFollowUpPpiud(String counselFollowUpPpiud) {
 		this.counselFollowUpPpiud = counselFollowUpPpiud;
 	}
 
 	@Column(name = "counsel_follow_up_pptl")
-	public Boolean getCounselFollowUpPptl() {
+	public String getCounselFollowUpPptl() {
 		return this.counselFollowUpPptl;
 	}
 
-	public void setCounselFollowUpPptl(Boolean counselFollowUpPptl) {
+	public void setCounselFollowUpPptl(String counselFollowUpPptl) {
 		this.counselFollowUpPptl = counselFollowUpPptl;
 	}
 
 	@Column(name = "counsel_menstrual_cycle")
-	public Boolean getCounselMenstrualCycle() {
+	public String getCounselMenstrualCycle() {
 		return this.counselMenstrualCycle;
 	}
 
-	public void setCounselMenstrualCycle(Boolean counselMenstrualCycle) {
+	public void setCounselMenstrualCycle(String counselMenstrualCycle) {
 		this.counselMenstrualCycle = counselMenstrualCycle;
 	}
 
 	@Column(name = "counsel_methods")
-	public Boolean getCounselMethods() {
+	public String getCounselMethods() {
 		return this.counselMethods;
 	}
 
-	public void setCounselMethods(Boolean counselMethods) {
+	public void setCounselMethods(String counselMethods) {
 		this.counselMethods = counselMethods;
 	}
 
 	@Column(name = "counsel_ppfp")
-	public Boolean getCounselPpfp() {
+	public String getCounselPpfp() {
 		return this.counselPpfp;
 	}
 
-	public void setCounselPpfp(Boolean counselPpfp) {
+	public void setCounselPpfp(String counselPpfp) {
 		this.counselPpfp = counselPpfp;
 	}
 
 	@Column(name = "counsel_time_iud")
-	public Boolean getCounselTimeIud() {
+	public String getCounselTimeIud() {
 		return this.counselTimeIud;
 	}
 
-	public void setCounselTimeIud(Boolean counselTimeIud) {
+	public void setCounselTimeIud(String counselTimeIud) {
 		this.counselTimeIud = counselTimeIud;
 	}
 
@@ -398,20 +398,20 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "discharge")
-	public Boolean getDischarge() {
+	public String getDischarge() {
 		return this.discharge;
 	}
 
-	public void setDischarge(Boolean discharge) {
+	public void setDischarge(String discharge) {
 		this.discharge = discharge;
 	}
 
 	@Column(name = "distension")
-	public Boolean getDistension() {
+	public String getDistension() {
 		return this.distension;
 	}
 
-	public void setDistension(Boolean distension) {
+	public void setDistension(String distension) {
 		this.distension = distension;
 	}
 
@@ -434,146 +434,146 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "fever")
-	public Boolean getFever() {
+	public String getFever() {
 		return this.fever;
 	}
 
-	public void setFever(Boolean fever) {
+	public void setFever(String fever) {
 		this.fever = fever;
 	}
 
 	@Column(name = "have_condoms")
-	public Boolean getHaveCondoms() {
+	public String getHaveCondoms() {
 		return this.haveCondoms;
 	}
 
-	public void setHaveCondoms(Boolean haveCondoms) {
+	public void setHaveCondoms(String haveCondoms) {
 		this.haveCondoms = haveCondoms;
 	}
 
 	@Column(name = "headaches")
-	public Boolean getHeadaches() {
+	public String getHeadaches() {
 		return this.headaches;
 	}
 
-	public void setHeadaches(Boolean headaches) {
+	public void setHeadaches(String headaches) {
 		this.headaches = headaches;
 	}
 
 	@Column(name = "high_bp")
-	public Boolean getHighBp() {
+	public String getHighBp() {
 		return this.highBp;
 	}
 
-	public void setHighBp(Boolean highBp) {
+	public void setHighBp(String highBp) {
 		this.highBp = highBp;
 	}
 
 	@Column(name = "inj_menstrual_irregularity")
-	public Boolean getInjMenstrualIrregularity() {
+	public String getInjMenstrualIrregularity() {
 		return this.injMenstrualIrregularity;
 	}
 
-	public void setInjMenstrualIrregularity(Boolean injMenstrualIrregularity) {
+	public void setInjMenstrualIrregularity(String injMenstrualIrregularity) {
 		this.injMenstrualIrregularity = injMenstrualIrregularity;
 	}
 
 	@Column(name = "injectable")
-	public Boolean getInjectable() {
+	public String getInjectable() {
 		return this.injectable;
 	}
 
-	public void setInjectable(Boolean injectable) {
+	public void setInjectable(String injectable) {
 		this.injectable = injectable;
 	}
 
 	@Column(name = "intend_to_continue")
-	public Boolean getIntendToContinue() {
+	public String getIntendToContinue() {
 		return this.intendToContinue;
 	}
 
-	public void setIntendToContinue(Boolean intendToContinue) {
+	public void setIntendToContinue(String intendToContinue) {
 		this.intendToContinue = intendToContinue;
 	}
 
 	@Column(name = "interval_ppfp_interest")
-	public Boolean getIntervalPpfpInterest() {
+	public String getIntervalPpfpInterest() {
 		return this.intervalPpfpInterest;
 	}
 
-	public void setIntervalPpfpInterest(Boolean intervalPpfpInterest) {
+	public void setIntervalPpfpInterest(String intervalPpfpInterest) {
 		this.intervalPpfpInterest = intervalPpfpInterest;
 	}
 
 	@Column(name = "iud")
-	public Boolean getIud() {
+	public String getIud() {
 		return this.iud;
 	}
 
-	public void setIud(Boolean iud) {
+	public void setIud(String iud) {
 		this.iud = iud;
 	}
 
 	@Column(name = "iud_adopted")
-	public Boolean getIudAdopted() {
+	public String getIudAdopted() {
 		return this.iudAdopted;
 	}
 
-	public void setIudAdopted(Boolean iudAdopted) {
+	public void setIudAdopted(String iudAdopted) {
 		this.iudAdopted = iudAdopted;
 	}
 
 	@Column(name = "iud_counsel_duration")
-	public Boolean getIudCounselDuration() {
+	public String getIudCounselDuration() {
 		return this.iudCounselDuration;
 	}
 
-	public void setIudCounselDuration(Boolean iudCounselDuration) {
+	public void setIudCounselDuration(String iudCounselDuration) {
 		this.iudCounselDuration = iudCounselDuration;
 	}
 
 	@Column(name = "iud_counsel_follow_up")
-	public Boolean getIudCounselFollowUp() {
+	public String getIudCounselFollowUp() {
 		return this.iudCounselFollowUp;
 	}
 
-	public void setIudCounselFollowUp(Boolean iudCounselFollowUp) {
+	public void setIudCounselFollowUp(String iudCounselFollowUp) {
 		this.iudCounselFollowUp = iudCounselFollowUp;
 	}
 
 	@Column(name = "iud_counsel_hospital")
-	public Boolean getIudCounselHospital() {
+	public String getIudCounselHospital() {
 		return this.iudCounselHospital;
 	}
 
-	public void setIudCounselHospital(Boolean iudCounselHospital) {
+	public void setIudCounselHospital(String iudCounselHospital) {
 		this.iudCounselHospital = iudCounselHospital;
 	}
 
 	@Column(name = "iud_counsel_placement")
-	public Boolean getIudCounselPlacement() {
+	public String getIudCounselPlacement() {
 		return this.iudCounselPlacement;
 	}
 
-	public void setIudCounselPlacement(Boolean iudCounselPlacement) {
+	public void setIudCounselPlacement(String iudCounselPlacement) {
 		this.iudCounselPlacement = iudCounselPlacement;
 	}
 
 	@Column(name = "iud_counsel_screening")
-	public Boolean getIudCounselScreening() {
+	public String getIudCounselScreening() {
 		return this.iudCounselScreening;
 	}
 
-	public void setIudCounselScreening(Boolean iudCounselScreening) {
+	public void setIudCounselScreening(String iudCounselScreening) {
 		this.iudCounselScreening = iudCounselScreening;
 	}
 
 	@Column(name = "iud_counsel_side_effects")
-	public Boolean getIudCounselSideEffects() {
+	public String getIudCounselSideEffects() {
 		return this.iudCounselSideEffects;
 	}
 
-	public void setIudCounselSideEffects(Boolean iudCounselSideEffects) {
+	public void setIudCounselSideEffects(String iudCounselSideEffects) {
 		this.iudCounselSideEffects = iudCounselSideEffects;
 	}
 
@@ -587,11 +587,11 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "menstrual_irregularity")
-	public Boolean getMenstrualIrregularity() {
+	public String getMenstrualIrregularity() {
 		return this.menstrualIrregularity;
 	}
 
-	public void setMenstrualIrregularity(Boolean menstrualIrregularity) {
+	public void setMenstrualIrregularity(String menstrualIrregularity) {
 		this.menstrualIrregularity = menstrualIrregularity;
 	}
 
@@ -624,38 +624,38 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "ocp")
-	public Boolean getOcp() {
+	public String getOcp() {
 		return this.ocp;
 	}
 
-	public void setOcp(Boolean ocp) {
+	public void setOcp(String ocp) {
 		this.ocp = ocp;
 	}
 
 	@Column(name = "ocp_continue")
-	public Boolean getOcpContinue() {
+	public String getOcpContinue() {
 		return this.ocpContinue;
 	}
 
-	public void setOcpContinue(Boolean ocpContinue) {
+	public void setOcpContinue(String ocpContinue) {
 		this.ocpContinue = ocpContinue;
 	}
 
 	@Column(name = "ocp_counsel_regularity")
-	public Boolean getOcpCounselRegularity() {
+	public String getOcpCounselRegularity() {
 		return this.ocpCounselRegularity;
 	}
 
-	public void setOcpCounselRegularity(Boolean ocpCounselRegularity) {
+	public void setOcpCounselRegularity(String ocpCounselRegularity) {
 		this.ocpCounselRegularity = ocpCounselRegularity;
 	}
 
 	@Column(name = "pain_swelling")
-	public Boolean getPainSwelling() {
+	public String getPainSwelling() {
 		return this.painSwelling;
 	}
 
-	public void setPainSwelling(Boolean painSwelling) {
+	public void setPainSwelling(String painSwelling) {
 		this.painSwelling = painSwelling;
 	}
 
@@ -669,182 +669,182 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "ppiud_abdominal_pain")
-	public Boolean getPpiudAbdominalPain() {
+	public String getPpiudAbdominalPain() {
 		return this.ppiudAbdominalPain;
 	}
 
-	public void setPpiudAbdominalPain(Boolean ppiudAbdominalPain) {
+	public void setPpiudAbdominalPain(String ppiudAbdominalPain) {
 		this.ppiudAbdominalPain = ppiudAbdominalPain;
 	}
 
 	@Column(name = "ppiud_problems")
-	public Boolean getPpiudProblems() {
+	public String getPpiudProblems() {
 		return this.ppiudProblems;
 	}
 
-	public void setPpiudProblems(Boolean ppiudProblems) {
+	public void setPpiudProblems(String ppiudProblems) {
 		this.ppiudProblems = ppiudProblems;
 	}
 
 	@Column(name = "pptl_abdominal_pain")
-	public Boolean getPptlAbdominalPain() {
+	public String getPptlAbdominalPain() {
 		return this.pptlAbdominalPain;
 	}
 
-	public void setPptlAbdominalPain(Boolean pptlAbdominalPain) {
+	public void setPptlAbdominalPain(String pptlAbdominalPain) {
 		this.pptlAbdominalPain = pptlAbdominalPain;
 	}
 
 	@Column(name = "pptl_pain_surgery")
-	public Boolean getPptlPainSurgery() {
+	public String getPptlPainSurgery() {
 		return this.pptlPainSurgery;
 	}
 
-	public void setPptlPainSurgery(Boolean pptlPainSurgery) {
+	public void setPptlPainSurgery(String pptlPainSurgery) {
 		this.pptlPainSurgery = pptlPainSurgery;
 	}
 
 	@Column(name = "pptl_problems")
-	public Boolean getPptlProblems() {
+	public String getPptlProblems() {
 		return this.pptlProblems;
 	}
 
-	public void setPptlProblems(Boolean pptlProblems) {
+	public void setPptlProblems(String pptlProblems) {
 		this.pptlProblems = pptlProblems;
 	}
 
 	@Column(name = "regular_periods")
-	public Boolean getRegularPeriods() {
+	public String getRegularPeriods() {
 		return this.regularPeriods;
 	}
 
-	public void setRegularPeriods(Boolean regularPeriods) {
+	public void setRegularPeriods(String regularPeriods) {
 		this.regularPeriods = regularPeriods;
 	}
 
 	@Column(name = "tablets_received")
-	public Boolean getTabletsReceived() {
+	public String getTabletsReceived() {
 		return this.tabletsReceived;
 	}
 
-	public void setTabletsReceived(Boolean tabletsReceived) {
+	public void setTabletsReceived(String tabletsReceived) {
 		this.tabletsReceived = tabletsReceived;
 	}
 
 	@Column(name = "taken_as_prescribed")
-	public Boolean getTakenAsPrescribed() {
+	public String getTakenAsPrescribed() {
 		return this.takenAsPrescribed;
 	}
 
-	public void setTakenAsPrescribed(Boolean takenAsPrescribed) {
+	public void setTakenAsPrescribed(String takenAsPrescribed) {
 		this.takenAsPrescribed = takenAsPrescribed;
 	}
 
 	@Column(name = "tl")
-	public Boolean getTl() {
+	public String getTl() {
 		return this.tl;
 	}
 
-	public void setTl(Boolean tl) {
+	public void setTl(String tl) {
 		this.tl = tl;
 	}
 
 	@Column(name = "tl_adopted")
-	public Boolean getTlAdopted() {
+	public String getTlAdopted() {
 		return this.tlAdopted;
 	}
 
-	public void setTlAdopted(Boolean tlAdopted) {
+	public void setTlAdopted(String tlAdopted) {
 		this.tlAdopted = tlAdopted;
 	}
 
 	@Column(name = "tl_consel_incentives")
-	public Boolean getTlConselIncentives() {
+	public String getTlConselIncentives() {
 		return this.tlConselIncentives;
 	}
 
-	public void setTlConselIncentives(Boolean tlConselIncentives) {
+	public void setTlConselIncentives(String tlConselIncentives) {
 		this.tlConselIncentives = tlConselIncentives;
 	}
 
 	@Column(name = "tl_counsel_follow_up")
-	public Boolean getTlCounselFollowUp() {
+	public String getTlCounselFollowUp() {
 		return this.tlCounselFollowUp;
 	}
 
-	public void setTlCounselFollowUp(Boolean tlCounselFollowUp) {
+	public void setTlCounselFollowUp(String tlCounselFollowUp) {
 		this.tlCounselFollowUp = tlCounselFollowUp;
 	}
 
 	@Column(name = "tl_counsel_hospital")
-	public Boolean getTlCounselHospital() {
+	public String getTlCounselHospital() {
 		return this.tlCounselHospital;
 	}
 
-	public void setTlCounselHospital(Boolean tlCounselHospital) {
+	public void setTlCounselHospital(String tlCounselHospital) {
 		this.tlCounselHospital = tlCounselHospital;
 	}
 
 	@Column(name = "tl_counsel_irreversible")
-	public Boolean getTlCounselIrreversible() {
+	public String getTlCounselIrreversible() {
 		return this.tlCounselIrreversible;
 	}
 
-	public void setTlCounselIrreversible(Boolean tlCounselIrreversible) {
+	public void setTlCounselIrreversible(String tlCounselIrreversible) {
 		this.tlCounselIrreversible = tlCounselIrreversible;
 	}
 
 	@Column(name = "tl_counsel_screening")
-	public Boolean getTlCounselScreening() {
+	public String getTlCounselScreening() {
 		return this.tlCounselScreening;
 	}
 
-	public void setTlCounselScreening(Boolean tlCounselScreening) {
+	public void setTlCounselScreening(String tlCounselScreening) {
 		this.tlCounselScreening = tlCounselScreening;
 	}
 
 	@Column(name = "tl_counsel_side_effects")
-	public Boolean getTlCounselSideEffects() {
+	public String getTlCounselSideEffects() {
 		return this.tlCounselSideEffects;
 	}
 
-	public void setTlCounselSideEffects(Boolean tlCounselSideEffects) {
+	public void setTlCounselSideEffects(String tlCounselSideEffects) {
 		this.tlCounselSideEffects = tlCounselSideEffects;
 	}
 
 	@Column(name = "tl_counsel_timing")
-	public Boolean getTlCounselTiming() {
+	public String getTlCounselTiming() {
 		return this.tlCounselTiming;
 	}
 
-	public void setTlCounselTiming(Boolean tlCounselTiming) {
+	public void setTlCounselTiming(String tlCounselTiming) {
 		this.tlCounselTiming = tlCounselTiming;
 	}
 
 	@Column(name = "understand_tablets")
-	public Boolean getUnderstandTablets() {
+	public String getUnderstandTablets() {
 		return this.understandTablets;
 	}
 
-	public void setUnderstandTablets(Boolean understandTablets) {
+	public void setUnderstandTablets(String understandTablets) {
 		this.understandTablets = understandTablets;
 	}
 
 	@Column(name = "using_correctly")
-	public Boolean getUsingCorrectly() {
+	public String getUsingCorrectly() {
 		return this.usingCorrectly;
 	}
 
-	public void setUsingCorrectly(Boolean usingCorrectly) {
+	public void setUsingCorrectly(String usingCorrectly) {
 		this.usingCorrectly = usingCorrectly;
 	}
 
 	@Column(name = "where_replace")
-	public Boolean getWhereReplace() {
+	public String getWhereReplace() {
 		return this.whereReplace;
 	}
 
-	public void setWhereReplace(Boolean whereReplace) {
+	public void setWhereReplace(String whereReplace) {
 		this.whereReplace = whereReplace;
 	}
 
@@ -858,11 +858,11 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "within_42")
-	public Boolean getWithin42() {
+	public String getWithin42() {
 		return this.within42;
 	}
 
-	public void setWithin42(Boolean within42) {
+	public void setWithin42(String within42) {
 		this.within42 = within42;
 	}
 
@@ -877,47 +877,47 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Column(name = "abdominal_pain")
-	public Boolean getAbdominalPain() {
+	public String getAbdominalPain() {
 		return this.abdominalPain;
 	}
 
-	public void setAbdominalPain(Boolean abdominalPain) {
+	public void setAbdominalPain(String abdominalPain) {
 		this.abdominalPain = abdominalPain;
 	}
 
 	@Column(name = "pain_urination")
-	public Boolean getPainUrination() {
+	public String getPainUrination() {
 		return this.painUrination;
 	}
 
-	public void setPainUrination(Boolean painUrination) {
+	public void setPainUrination(String painUrination) {
 		this.painUrination = painUrination;
 	}
 
 	@Column(name = "ppiud_bleeding")
-	public Boolean getPpiudBleeding() {
+	public String getPpiudBleeding() {
 		return this.ppiudBleeding;
 	}
 
-	public void setPpiudBleeding(Boolean ppiudBleeding) {
+	public void setPpiudBleeding(String ppiudBleeding) {
 		this.ppiudBleeding = ppiudBleeding;
 	}
 
 	@Column(name = "ppiud_discharge")
-	public Boolean getPpiudDischarge() {
+	public String getPpiudDischarge() {
 		return this.ppiudDischarge;
 	}
 
-	public void setPpiudDischarge(Boolean ppiudDischarge) {
+	public void setPpiudDischarge(String ppiudDischarge) {
 		this.ppiudDischarge = ppiudDischarge;
 	}
 
 	@Column(name = "ppiud_fever")
-	public Boolean getPpiudFever() {
+	public String getPpiudFever() {
 		return this.ppiudFever;
 	}
 
-	public void setPpiudFever(Boolean ppiudFever) {
+	public void setPpiudFever(String ppiudFever) {
 		this.ppiudFever = ppiudFever;
 	}
 

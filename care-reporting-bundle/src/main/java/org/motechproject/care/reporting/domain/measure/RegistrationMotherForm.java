@@ -21,9 +21,9 @@ public class RegistrationMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean ppiud;
-	private Boolean pptl;
-	private Boolean abdPain;
+	private String ppiud;
+	private String pptl;
+	private String abdPain;
 	private Short ageCalc;
 	private Short ageCalcAdj;
 	private Short ageEst;
@@ -31,19 +31,19 @@ public class RegistrationMotherForm extends Form {
 	private Date add;
 	private Short age;
 	private String birthPlace;
-	private Boolean complications;
+	private String complications;
 	private Date dateLastVisit;
 	private Date dateNextBp;
 	private Date dateNextCf;
 	private Date dateNextEb;
 	private Date dateNextPnc;
-	private Boolean eatsMeat;
+	private String eatsMeat;
 	private Date edd;
-	private Boolean enrolledInKilkari;
+	private String enrolledInKilkari;
 	private String familyPlanningType;
 	private Short howManyChildren;
-	private Boolean interestInKilkari;
-	private Boolean lastPregTt;
+	private String interestInKilkari;
+	private String lastPregTt;
 	private String lastVisitType;
 	private Date lmp;
 	private String mobileNumber;
@@ -53,54 +53,54 @@ public class RegistrationMotherForm extends Form {
 	private Date childDob;
     private String clientNoRegister;
 	private String clientNotPregnant;
-	private Boolean clinicalExam;
-	private Boolean condoms;
-	private Boolean continuePreg;
+	private String clinicalExam;
+	private String condoms;
+	private String continuePreg;
 	private String deliveryNature;
 	private String dobEst;
 	private Date eddCalc;
-	private Boolean eddKnown;
+	private String eddKnown;
 	private String education;
-	private Boolean fever;
-	private Boolean firstPregnancy;
+	private String fever;
+	private String firstPregnancy;
 	private Short gestAge;
-	private Boolean goodToRegister;
-	private Boolean inDistrict;
-	private Boolean injectible;
-	private Boolean isPregnant;
-	private Boolean iudUsed;
-	private Boolean jsyBeneficiary;
-	private Boolean jsyMoney;
+	private String goodToRegister;
+	private String inDistrict;
+	private String injectible;
+	private String isPregnant;
+	private String iudUsed;
+	private String jsyBeneficiary;
+	private String jsyMoney;
 	private Integer lastPreg;
-	private Boolean lastPregCSection;
-	private Boolean lastPregFullTerm;
+	private String lastPregCSection;
+	private String lastPregFullTerm;
 	private Date lmpCalc;
-	private Boolean lmpKnown;
-	private Boolean missedPeriod;
+	private String lmpKnown;
+	private String missedPeriod;
 	private String mobileNumberWhose;
 	private String nextvisit;
 	private String nextvisitBp;
 	private String nextvisittype;
 	private Short numChildren;
 	private Short numGirls;
-	private Boolean ocpUsed;
+	private String ocpUsed;
 	private String otherConditions;
 	private String otherDistrict;
 	private String otherVillage;
-	private Boolean painUrine;
-	private Boolean postPostpartumFp;
-	private Boolean pregDesired;
-	private Boolean recentlyDelivered;
+	private String painUrine;
+	private String postPostpartumFp;
+	private String pregDesired;
+	private String recentlyDelivered;
 	private String referralPrompt;
 	private String resident;
-	private Boolean urineTest;
-	private Boolean usedFp;
-	private Boolean vaginalDischarge;
-	private Boolean vegetarian;
+	private String urineTest;
+	private String usedFp;
+	private String vaginalDischarge;
+	private String vegetarian;
 	private String whereBorn;
 	private String whichHospital;
 	private String whichVillage;
-	private Boolean children;
+	private String children;
     private Boolean close;
 
     private Date creationTime = new Date();
@@ -172,29 +172,29 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "ppiud")
-	public Boolean getPpiud() {
+	public String getPpiud() {
 		return this.ppiud;
 	}
 
-	public void setPpiud(Boolean ppiud) {
+	public void setPpiud(String ppiud) {
 		this.ppiud = ppiud;
 	}
 
 	@Column(name = "pptl")
-	public Boolean getPptl() {
+	public String getPptl() {
 		return this.pptl;
 	}
 
-	public void setPptl(Boolean pptl) {
+	public void setPptl(String pptl) {
 		this.pptl = pptl;
 	}
 
 	@Column(name = "abd_pain")
-	public Boolean getAbdPain() {
+	public String getAbdPain() {
 		return this.abdPain;
 	}
 
-	public void setAbdPain(Boolean abdPain) {
+	public void setAbdPain(String abdPain) {
 		this.abdPain = abdPain;
 	}
 
@@ -263,11 +263,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "complications")
-	public Boolean getComplications() {
+	public String getComplications() {
 		return this.complications;
 	}
 
-	public void setComplications(Boolean complications) {
+	public void setComplications(String complications) {
 		this.complications = complications;
 	}
 
@@ -322,11 +322,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "eats_meat")
-	public Boolean getEatsMeat() {
+	public String getEatsMeat() {
 		return this.eatsMeat;
 	}
 
-	public void setEatsMeat(Boolean eatsMeat) {
+	public void setEatsMeat(String eatsMeat) {
 		this.eatsMeat = eatsMeat;
 	}
 
@@ -341,11 +341,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "enrolled_in_kilkari")
-	public Boolean getEnrolledInKilkari() {
+	public String getEnrolledInKilkari() {
 		return this.enrolledInKilkari;
 	}
 
-	public void setEnrolledInKilkari(Boolean enrolledInKilkari) {
+	public void setEnrolledInKilkari(String enrolledInKilkari) {
 		this.enrolledInKilkari = enrolledInKilkari;
 	}
 
@@ -368,20 +368,20 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "interest_in_kilkari")
-	public Boolean getInterestInKilkari() {
+	public String getInterestInKilkari() {
 		return this.interestInKilkari;
 	}
 
-	public void setInterestInKilkari(Boolean interestInKilkari) {
+	public void setInterestInKilkari(String interestInKilkari) {
 		this.interestInKilkari = interestInKilkari;
 	}
 
 	@Column(name = "last_preg_tt")
-	public Boolean getLastPregTt() {
+	public String getLastPregTt() {
 		return this.lastPregTt;
 	}
 
-	public void setLastPregTt(Boolean lastPregTt) {
+	public void setLastPregTt(String lastPregTt) {
 		this.lastPregTt = lastPregTt;
 	}
 
@@ -470,29 +470,29 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "clinical_exam")
-	public Boolean getClinicalExam() {
+	public String getClinicalExam() {
 		return this.clinicalExam;
 	}
 
-	public void setClinicalExam(Boolean clinicalExam) {
+	public void setClinicalExam(String clinicalExam) {
 		this.clinicalExam = clinicalExam;
 	}
 
 	@Column(name = "condoms")
-	public Boolean getCondoms() {
+	public String getCondoms() {
 		return this.condoms;
 	}
 
-	public void setCondoms(Boolean condoms) {
+	public void setCondoms(String condoms) {
 		this.condoms = condoms;
 	}
 
 	@Column(name = "continue_preg")
-	public Boolean getContinuePreg() {
+	public String getContinuePreg() {
 		return this.continuePreg;
 	}
 
-	public void setContinuePreg(Boolean continuePreg) {
+	public void setContinuePreg(String continuePreg) {
 		this.continuePreg = continuePreg;
 	}
 
@@ -525,11 +525,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "edd_known")
-	public Boolean getEddKnown() {
+	public String getEddKnown() {
 		return this.eddKnown;
 	}
 
-	public void setEddKnown(Boolean eddKnown) {
+	public void setEddKnown(String eddKnown) {
 		this.eddKnown = eddKnown;
 	}
 
@@ -543,20 +543,20 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "fever")
-	public Boolean getFever() {
+	public String getFever() {
 		return this.fever;
 	}
 
-	public void setFever(Boolean fever) {
+	public void setFever(String fever) {
 		this.fever = fever;
 	}
 
 	@Column(name = "first_pregnancy")
-	public Boolean getFirstPregnancy() {
+	public String getFirstPregnancy() {
 		return this.firstPregnancy;
 	}
 
-	public void setFirstPregnancy(Boolean firstPregnancy) {
+	public void setFirstPregnancy(String firstPregnancy) {
 		this.firstPregnancy = firstPregnancy;
 	}
 
@@ -570,65 +570,65 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "good_to_register")
-	public Boolean getGoodToRegister() {
+	public String getGoodToRegister() {
 		return this.goodToRegister;
 	}
 
-	public void setGoodToRegister(Boolean goodToRegister) {
+	public void setGoodToRegister(String goodToRegister) {
 		this.goodToRegister = goodToRegister;
 	}
 
 	@Column(name = "in_district")
-	public Boolean getInDistrict() {
+	public String getInDistrict() {
 		return this.inDistrict;
 	}
 
-	public void setInDistrict(Boolean inDistrict) {
+	public void setInDistrict(String inDistrict) {
 		this.inDistrict = inDistrict;
 	}
 
 	@Column(name = "injectible")
-	public Boolean getInjectible() {
+	public String getInjectible() {
 		return this.injectible;
 	}
 
-	public void setInjectible(Boolean injectible) {
+	public void setInjectible(String injectible) {
 		this.injectible = injectible;
 	}
 
 	@Column(name = "is_pregnant")
-	public Boolean getIsPregnant() {
+	public String getIsPregnant() {
 		return this.isPregnant;
 	}
 
-	public void setIsPregnant(Boolean isPregnant) {
+	public void setIsPregnant(String isPregnant) {
 		this.isPregnant = isPregnant;
 	}
 
 	@Column(name = "iud_used")
-	public Boolean getIudUsed() {
+	public String getIudUsed() {
 		return this.iudUsed;
 	}
 
-	public void setIudUsed(Boolean iudUsed) {
+	public void setIudUsed(String iudUsed) {
 		this.iudUsed = iudUsed;
 	}
 
 	@Column(name = "jsy_beneficiary")
-	public Boolean getJsyBeneficiary() {
+	public String getJsyBeneficiary() {
 		return this.jsyBeneficiary;
 	}
 
-	public void setJsyBeneficiary(Boolean jsyBeneficiary) {
+	public void setJsyBeneficiary(String jsyBeneficiary) {
 		this.jsyBeneficiary = jsyBeneficiary;
 	}
 
 	@Column(name = "jsy_money")
-	public Boolean getJsyMoney() {
+	public String getJsyMoney() {
 		return this.jsyMoney;
 	}
 
-	public void setJsyMoney(Boolean jsyMoney) {
+	public void setJsyMoney(String jsyMoney) {
 		this.jsyMoney = jsyMoney;
 	}
 
@@ -642,20 +642,20 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "last_preg_c_section")
-	public Boolean getLastPregCSection() {
+	public String getLastPregCSection() {
 		return this.lastPregCSection;
 	}
 
-	public void setLastPregCSection(Boolean lastPregCSection) {
+	public void setLastPregCSection(String lastPregCSection) {
 		this.lastPregCSection = lastPregCSection;
 	}
 
 	@Column(name = "last_preg_full_term")
-	public Boolean getLastPregFullTerm() {
+	public String getLastPregFullTerm() {
 		return this.lastPregFullTerm;
 	}
 
-	public void setLastPregFullTerm(Boolean lastPregFullTerm) {
+	public void setLastPregFullTerm(String lastPregFullTerm) {
 		this.lastPregFullTerm = lastPregFullTerm;
 	}
 
@@ -670,20 +670,20 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "lmp_known")
-	public Boolean getLmpKnown() {
+	public String getLmpKnown() {
 		return this.lmpKnown;
 	}
 
-	public void setLmpKnown(Boolean lmpKnown) {
+	public void setLmpKnown(String lmpKnown) {
 		this.lmpKnown = lmpKnown;
 	}
 
 	@Column(name = "missed_period")
-	public Boolean getMissedPeriod() {
+	public String getMissedPeriod() {
 		return this.missedPeriod;
 	}
 
-	public void setMissedPeriod(Boolean missedPeriod) {
+	public void setMissedPeriod(String missedPeriod) {
 		this.missedPeriod = missedPeriod;
 	}
 
@@ -742,11 +742,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "ocp_used")
-	public Boolean getOcpUsed() {
+	public String getOcpUsed() {
 		return this.ocpUsed;
 	}
 
-	public void setOcpUsed(Boolean ocpUsed) {
+	public void setOcpUsed(String ocpUsed) {
 		this.ocpUsed = ocpUsed;
 	}
 
@@ -778,38 +778,38 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "pain_urine")
-	public Boolean getPainUrine() {
+	public String getPainUrine() {
 		return this.painUrine;
 	}
 
-	public void setPainUrine(Boolean painUrine) {
+	public void setPainUrine(String painUrine) {
 		this.painUrine = painUrine;
 	}
 
 	@Column(name = "post_postpartum_fp")
-	public Boolean getPostPostpartumFp() {
+	public String getPostPostpartumFp() {
 		return this.postPostpartumFp;
 	}
 
-	public void setPostPostpartumFp(Boolean postPostpartumFp) {
+	public void setPostPostpartumFp(String postPostpartumFp) {
 		this.postPostpartumFp = postPostpartumFp;
 	}
 
 	@Column(name = "preg_desired")
-	public Boolean getPregDesired() {
+	public String getPregDesired() {
 		return this.pregDesired;
 	}
 
-	public void setPregDesired(Boolean pregDesired) {
+	public void setPregDesired(String pregDesired) {
 		this.pregDesired = pregDesired;
 	}
 
 	@Column(name = "recently_delivered")
-	public Boolean getRecentlyDelivered() {
+	public String getRecentlyDelivered() {
 		return this.recentlyDelivered;
 	}
 
-	public void setRecentlyDelivered(Boolean recentlyDelivered) {
+	public void setRecentlyDelivered(String recentlyDelivered) {
 		this.recentlyDelivered = recentlyDelivered;
 	}
 
@@ -832,38 +832,38 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Column(name = "urine_test")
-	public Boolean getUrineTest() {
+	public String getUrineTest() {
 		return this.urineTest;
 	}
 
-	public void setUrineTest(Boolean urineTest) {
+	public void setUrineTest(String urineTest) {
 		this.urineTest = urineTest;
 	}
 
 	@Column(name = "used_fp")
-	public Boolean getUsedFp() {
+	public String getUsedFp() {
 		return this.usedFp;
 	}
 
-	public void setUsedFp(Boolean usedFp) {
+	public void setUsedFp(String usedFp) {
 		this.usedFp = usedFp;
 	}
 
 	@Column(name = "vaginal_discharge")
-	public Boolean getVaginalDischarge() {
+	public String getVaginalDischarge() {
 		return this.vaginalDischarge;
 	}
 
-	public void setVaginalDischarge(Boolean vaginalDischarge) {
+	public void setVaginalDischarge(String vaginalDischarge) {
 		this.vaginalDischarge = vaginalDischarge;
 	}
 
 	@Column(name = "vegetarian")
-	public Boolean getVegetarian() {
+	public String getVegetarian() {
 		return this.vegetarian;
 	}
 
-	public void setVegetarian(Boolean vegetarian) {
+	public void setVegetarian(String vegetarian) {
 		this.vegetarian = vegetarian;
 	}
 
@@ -910,11 +910,11 @@ public class RegistrationMotherForm extends Form {
     }
 
     @Column(name = "children")
-    public Boolean getChildren() {
+    public String getChildren() {
         return children;
     }
 
-    public void setChildren(Boolean children) {
+    public void setChildren(String children) {
         this.children = children;
     }
 

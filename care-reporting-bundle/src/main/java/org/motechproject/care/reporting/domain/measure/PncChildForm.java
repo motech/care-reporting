@@ -19,36 +19,36 @@ public class PncChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean ableExpressedMilk;
-	private Boolean adequateSupport;
-	private Boolean appliedToStump;
-	private Boolean babyActive;
-	private Boolean breastfeedingWell;
-	private Boolean childAlive;
-	private Boolean childDiedVillage;
+	private String ableExpressedMilk;
+	private String adequateSupport;
+	private String appliedToStump;
+	private String babyActive;
+	private String breastfeedingWell;
+	private String childAlive;
+	private String childDiedVillage;
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
-	private Boolean cordFallen;
-	private Boolean correctPosition;
-	private Boolean counselCordCare;
-	private Boolean counselExclusiveBf;
-	private Boolean counselExpressMilk;
-	private Boolean counselSkin;
-	private Boolean couselBfCorrect;
-	private Boolean demonstrateExpressed;
-	private Boolean demonstrateSkin;
-	private Boolean easyAwake;
-	private Boolean feedVigour;
-	private Boolean goodLatch;
-	private Boolean improvementsBf;
-	private Boolean observedBf;
-	private Boolean otherMilkToChild;
-	private Boolean secondObservation;
-	private Boolean skinToSkin;
-	private Boolean warmToTouch;
+	private String cordFallen;
+	private String correctPosition;
+	private String counselCordCare;
+	private String counselExclusiveBf;
+	private String counselExpressMilk;
+	private String counselSkin;
+	private String couselBfCorrect;
+	private String demonstrateExpressed;
+	private String demonstrateSkin;
+	private String easyAwake;
+	private String feedVigour;
+	private String goodLatch;
+	private String improvementsBf;
+	private String observedBf;
+	private String otherMilkToChild;
+	private String secondObservation;
+	private String skinToSkin;
+	private String warmToTouch;
 	private String whatApplied;
-	private Boolean wrapped;
+	private String wrapped;
     private Boolean close;
     private Date creationTime = new Date();
 
@@ -119,65 +119,65 @@ public class PncChildForm extends Form {
 	}
 
 	@Column(name = "able_expressed_milk")
-	public Boolean getAbleExpressedMilk() {
+	public String getAbleExpressedMilk() {
 		return this.ableExpressedMilk;
 	}
 
-	public void setAbleExpressedMilk(Boolean ableExpressedMilk) {
+	public void setAbleExpressedMilk(String ableExpressedMilk) {
 		this.ableExpressedMilk = ableExpressedMilk;
 	}
 
 	@Column(name = "adequate_support")
-	public Boolean getAdequateSupport() {
+	public String getAdequateSupport() {
 		return this.adequateSupport;
 	}
 
-	public void setAdequateSupport(Boolean adequateSupport) {
+	public void setAdequateSupport(String adequateSupport) {
 		this.adequateSupport = adequateSupport;
 	}
 
 	@Column(name = "applied_to_stump")
-	public Boolean getAppliedToStump() {
+	public String getAppliedToStump() {
 		return this.appliedToStump;
 	}
 
-	public void setAppliedToStump(Boolean appliedToStump) {
+	public void setAppliedToStump(String appliedToStump) {
 		this.appliedToStump = appliedToStump;
 	}
 
 	@Column(name = "baby_active")
-	public Boolean getBabyActive() {
+	public String getBabyActive() {
 		return this.babyActive;
 	}
 
-	public void setBabyActive(Boolean babyActive) {
+	public void setBabyActive(String babyActive) {
 		this.babyActive = babyActive;
 	}
 
 	@Column(name = "breastfeeding_well")
-	public Boolean getBreastfeedingWell() {
+	public String getBreastfeedingWell() {
 		return this.breastfeedingWell;
 	}
 
-	public void setBreastfeedingWell(Boolean breastfeedingWell) {
+	public void setBreastfeedingWell(String breastfeedingWell) {
 		this.breastfeedingWell = breastfeedingWell;
 	}
 
 	@Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return this.childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 
 	@Column(name = "child_died_village")
-	public Boolean getChildDiedVillage() {
+	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
 
-	public void setChildDiedVillage(Boolean childDiedVillage) {
+	public void setChildDiedVillage(String childDiedVillage) {
 		this.childDiedVillage = childDiedVillage;
 	}
 
@@ -210,164 +210,164 @@ public class PncChildForm extends Form {
 	}
 
 	@Column(name = "cord_fallen")
-	public Boolean getCordFallen() {
+	public String getCordFallen() {
 		return this.cordFallen;
 	}
 
-	public void setCordFallen(Boolean cordFallen) {
+	public void setCordFallen(String cordFallen) {
 		this.cordFallen = cordFallen;
 	}
 
 	@Column(name = "correct_position")
-	public Boolean getCorrectPosition() {
+	public String getCorrectPosition() {
 		return this.correctPosition;
 	}
 
-	public void setCorrectPosition(Boolean correctPosition) {
+	public void setCorrectPosition(String correctPosition) {
 		this.correctPosition = correctPosition;
 	}
 
 	@Column(name = "counsel_cord_care")
-	public Boolean getCounselCordCare() {
+	public String getCounselCordCare() {
 		return this.counselCordCare;
 	}
 
-	public void setCounselCordCare(Boolean counselCordCare) {
+	public void setCounselCordCare(String counselCordCare) {
 		this.counselCordCare = counselCordCare;
 	}
 
 	@Column(name = "counsel_exclusive_bf")
-	public Boolean getCounselExclusiveBf() {
+	public String getCounselExclusiveBf() {
 		return this.counselExclusiveBf;
 	}
 
-	public void setCounselExclusiveBf(Boolean counselExclusiveBf) {
+	public void setCounselExclusiveBf(String counselExclusiveBf) {
 		this.counselExclusiveBf = counselExclusiveBf;
 	}
 
 	@Column(name = "counsel_express_milk")
-	public Boolean getCounselExpressMilk() {
+	public String getCounselExpressMilk() {
 		return this.counselExpressMilk;
 	}
 
-	public void setCounselExpressMilk(Boolean counselExpressMilk) {
+	public void setCounselExpressMilk(String counselExpressMilk) {
 		this.counselExpressMilk = counselExpressMilk;
 	}
 
 	@Column(name = "counsel_skin")
-	public Boolean getCounselSkin() {
+	public String getCounselSkin() {
 		return this.counselSkin;
 	}
 
-	public void setCounselSkin(Boolean counselSkin) {
+	public void setCounselSkin(String counselSkin) {
 		this.counselSkin = counselSkin;
 	}
 
 	@Column(name = "cousel_bf_correct")
-	public Boolean getCouselBfCorrect() {
+	public String getCouselBfCorrect() {
 		return this.couselBfCorrect;
 	}
 
-	public void setCouselBfCorrect(Boolean couselBfCorrect) {
+	public void setCouselBfCorrect(String couselBfCorrect) {
 		this.couselBfCorrect = couselBfCorrect;
 	}
 
 	@Column(name = "demonstrate_expressed")
-	public Boolean getDemonstrateExpressed() {
+	public String getDemonstrateExpressed() {
 		return this.demonstrateExpressed;
 	}
 
-	public void setDemonstrateExpressed(Boolean demonstrateExpressed) {
+	public void setDemonstrateExpressed(String demonstrateExpressed) {
 		this.demonstrateExpressed = demonstrateExpressed;
 	}
 
 	@Column(name = "demonstrate_skin")
-	public Boolean getDemonstrateSkin() {
+	public String getDemonstrateSkin() {
 		return this.demonstrateSkin;
 	}
 
-	public void setDemonstrateSkin(Boolean demonstrateSkin) {
+	public void setDemonstrateSkin(String demonstrateSkin) {
 		this.demonstrateSkin = demonstrateSkin;
 	}
 
 	@Column(name = "easy_awake")
-	public Boolean getEasyAwake() {
+	public String getEasyAwake() {
 		return this.easyAwake;
 	}
 
-	public void setEasyAwake(Boolean easyAwake) {
+	public void setEasyAwake(String easyAwake) {
 		this.easyAwake = easyAwake;
 	}
 
 	@Column(name = "feed_vigour")
-	public Boolean getFeedVigour() {
+	public String getFeedVigour() {
 		return this.feedVigour;
 	}
 
-	public void setFeedVigour(Boolean feedVigour) {
+	public void setFeedVigour(String feedVigour) {
 		this.feedVigour = feedVigour;
 	}
 
 	@Column(name = "good_latch")
-	public Boolean getGoodLatch() {
+	public String getGoodLatch() {
 		return this.goodLatch;
 	}
 
-	public void setGoodLatch(Boolean goodLatch) {
+	public void setGoodLatch(String goodLatch) {
 		this.goodLatch = goodLatch;
 	}
 
 	@Column(name = "improvements_bf")
-	public Boolean getImprovementsBf() {
+	public String getImprovementsBf() {
 		return this.improvementsBf;
 	}
 
-	public void setImprovementsBf(Boolean improvementsBf) {
+	public void setImprovementsBf(String improvementsBf) {
 		this.improvementsBf = improvementsBf;
 	}
 
 	@Column(name = "observed_bf")
-	public Boolean getObservedBf() {
+	public String getObservedBf() {
 		return this.observedBf;
 	}
 
-	public void setObservedBf(Boolean observedBf) {
+	public void setObservedBf(String observedBf) {
 		this.observedBf = observedBf;
 	}
 
 	@Column(name = "other_milk_to_child")
-	public Boolean getOtherMilkToChild() {
+	public String getOtherMilkToChild() {
 		return this.otherMilkToChild;
 	}
 
-	public void setOtherMilkToChild(Boolean otherMilkToChild) {
+	public void setOtherMilkToChild(String otherMilkToChild) {
 		this.otherMilkToChild = otherMilkToChild;
 	}
 
 	@Column(name = "second_observation")
-	public Boolean getSecondObservation() {
+	public String getSecondObservation() {
 		return this.secondObservation;
 	}
 
-	public void setSecondObservation(Boolean secondObservation) {
+	public void setSecondObservation(String secondObservation) {
 		this.secondObservation = secondObservation;
 	}
 
 	@Column(name = "skin_to_skin")
-	public Boolean getSkinToSkin() {
+	public String getSkinToSkin() {
 		return this.skinToSkin;
 	}
 
-	public void setSkinToSkin(Boolean skinToSkin) {
+	public void setSkinToSkin(String skinToSkin) {
 		this.skinToSkin = skinToSkin;
 	}
 
 	@Column(name = "warm_to_touch")
-	public Boolean getWarmToTouch() {
+	public String getWarmToTouch() {
 		return this.warmToTouch;
 	}
 
-	public void setWarmToTouch(Boolean warmToTouch) {
+	public void setWarmToTouch(String warmToTouch) {
 		this.warmToTouch = warmToTouch;
 	}
 
@@ -381,11 +381,11 @@ public class PncChildForm extends Form {
 	}
 
 	@Column(name = "wrapped")
-	public Boolean getWrapped() {
+	public String getWrapped() {
 		return this.wrapped;
 	}
 
-	public void setWrapped(Boolean wrapped) {
+	public void setWrapped(String wrapped) {
 		this.wrapped = wrapped;
 	}
 

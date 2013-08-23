@@ -19,8 +19,8 @@ public class DeathChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean childAlive;
-	private Boolean childDiedVillage;
+	private String childAlive;
+	private String childDiedVillage;
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
@@ -103,20 +103,20 @@ public class DeathChildForm extends Form {
     }
 
     @Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return this.childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 
 	@Column(name = "child_died_village")
-	public Boolean getChildDiedVillage() {
+	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
 
-	public void setChildDiedVillage(Boolean childDiedVillage) {
+	public void setChildDiedVillage(String childDiedVillage) {
 		this.childDiedVillage = childDiedVillage;
 	}
 

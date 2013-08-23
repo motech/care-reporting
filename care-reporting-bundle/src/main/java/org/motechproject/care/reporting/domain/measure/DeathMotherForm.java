@@ -21,11 +21,11 @@ public class DeathMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean motherAlive;
+	private String motherAlive;
 	private String status;
 	private Short castNumChildren;
     private Date dateDeath;
-	private Boolean deathVillage;
+	private String deathVillage;
 	private Short numChildren;
 	private String placeDeath;
 	private String siteDeath;
@@ -99,11 +99,11 @@ public class DeathMotherForm extends Form {
 	}
 
 	@Column(name = "mother_alive")
-	public Boolean getMotherAlive() {
+	public String getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(Boolean motherAlive) {
+	public void setMotherAlive(String motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 
@@ -136,11 +136,11 @@ public class DeathMotherForm extends Form {
 	}
 
 	@Column(name = "death_village")
-	public Boolean getDeathVillage() {
+	public String getDeathVillage() {
 		return this.deathVillage;
 	}
 
-	public void setDeathVillage(Boolean deathVillage) {
+	public void setDeathVillage(String deathVillage) {
 		this.deathVillage = deathVillage;
 	}
 

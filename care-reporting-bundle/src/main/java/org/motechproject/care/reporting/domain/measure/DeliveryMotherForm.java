@@ -21,9 +21,9 @@ public class DeliveryMotherForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean ppiud;
-	private Boolean pptl;
-	private Boolean abdPain;
+	private String ppiud;
+	private String pptl;
+	private String abdPain;
 	private Date add;
 	private String birthPlace;
 	private Date dateDelFu;
@@ -33,31 +33,31 @@ public class DeliveryMotherForm extends Form {
 	private Date dateNextPnc;
 	private String familyPlanningType;
 	private String lastVisitType;
-	private Boolean motherAlive;
+	private String motherAlive;
 	private String term;
 	private Short castNumChildren;
-	private Boolean complications;
+	private String complications;
 	private Date dateDeath;
-	private Boolean deathVillage;
+	private String deathVillage;
 	private String deliveryNature;
-	private Boolean fever;
-	private Boolean hasDelivered;
+	private String fever;
+	private String hasDelivered;
 	private Short howManyChildren;
-	private Boolean ifaTabletsGiven;
-	private Boolean inDistrict;
-	private Boolean jsyMoney;
+	private String ifaTabletsGiven;
+	private String inDistrict;
+	private String jsyMoney;
 	private String nextvisittype;
 	private Date notified;
 	private Short numChildren;
-	private Boolean otherConditions;
+	private String otherConditions;
 	private String otherDistrict;
 	private String otherVillage;
-	private Boolean painUrine;
+	private String painUrine;
 	private String placeDeath;
-	private Boolean postPostpartumFp;
-	private Boolean safe;
+	private String postPostpartumFp;
+	private String safe;
 	private String siteDeath;
-	private Boolean vaginalDischarge;
+	private String vaginalDischarge;
 	private String whereBorn;
 	private String whichHospital;
 	private String whichVillage;
@@ -131,29 +131,29 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "ppiud")
-	public Boolean getPpiud() {
+	public String getPpiud() {
 		return this.ppiud;
 	}
 
-	public void setPpiud(Boolean ppiud) {
+	public void setPpiud(String ppiud) {
 		this.ppiud = ppiud;
 	}
 
 	@Column(name = "pptl")
-	public Boolean getPptl() {
+	public String getPptl() {
 		return this.pptl;
 	}
 
-	public void setPptl(Boolean pptl) {
+	public void setPptl(String pptl) {
 		this.pptl = pptl;
 	}
 
 	@Column(name = "abd_pain")
-	public Boolean getAbdPain() {
+	public String getAbdPain() {
 		return this.abdPain;
 	}
 
-	public void setAbdPain(Boolean abdPain) {
+	public void setAbdPain(String abdPain) {
 		this.abdPain = abdPain;
 	}
 
@@ -245,11 +245,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "mother_alive")
-	public Boolean getMotherAlive() {
+	public String getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(Boolean motherAlive) {
+	public void setMotherAlive(String motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 
@@ -272,11 +272,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "complications")
-	public Boolean getComplications() {
+	public String getComplications() {
 		return this.complications;
 	}
 
-	public void setComplications(Boolean complications) {
+	public void setComplications(String complications) {
 		this.complications = complications;
 	}
 
@@ -291,11 +291,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "death_village")
-	public Boolean getDeathVillage() {
+	public String getDeathVillage() {
 		return this.deathVillage;
 	}
 
-	public void setDeathVillage(Boolean deathVillage) {
+	public void setDeathVillage(String deathVillage) {
 		this.deathVillage = deathVillage;
 	}
 
@@ -309,20 +309,20 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "fever")
-	public Boolean getFever() {
+	public String getFever() {
 		return this.fever;
 	}
 
-	public void setFever(Boolean fever) {
+	public void setFever(String fever) {
 		this.fever = fever;
 	}
 
 	@Column(name = "has_delivered")
-	public Boolean getHasDelivered() {
+	public String getHasDelivered() {
 		return this.hasDelivered;
 	}
 
-	public void setHasDelivered(Boolean hasDelivered) {
+	public void setHasDelivered(String hasDelivered) {
 		this.hasDelivered = hasDelivered;
 	}
 
@@ -336,29 +336,29 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "ifa_tablets_given")
-	public Boolean getIfaTabletsGiven() {
+	public String getIfaTabletsGiven() {
 		return this.ifaTabletsGiven;
 	}
 
-	public void setIfaTabletsGiven(Boolean ifaTabletsGiven) {
+	public void setIfaTabletsGiven(String ifaTabletsGiven) {
 		this.ifaTabletsGiven = ifaTabletsGiven;
 	}
 
 	@Column(name = "in_district")
-	public Boolean getInDistrict() {
+	public String getInDistrict() {
 		return this.inDistrict;
 	}
 
-	public void setInDistrict(Boolean inDistrict) {
+	public void setInDistrict(String inDistrict) {
 		this.inDistrict = inDistrict;
 	}
 
 	@Column(name = "jsy_money")
-	public Boolean getJsyMoney() {
+	public String getJsyMoney() {
 		return this.jsyMoney;
 	}
 
-	public void setJsyMoney(Boolean jsyMoney) {
+	public void setJsyMoney(String jsyMoney) {
 		this.jsyMoney = jsyMoney;
 	}
 
@@ -391,11 +391,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "other_conditions")
-	public Boolean getOtherConditions() {
+	public String getOtherConditions() {
 		return this.otherConditions;
 	}
 
-	public void setOtherConditions(Boolean otherConditions) {
+	public void setOtherConditions(String otherConditions) {
 		this.otherConditions = otherConditions;
 	}
 
@@ -418,11 +418,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "pain_urine")
-	public Boolean getPainUrine() {
+	public String getPainUrine() {
 		return this.painUrine;
 	}
 
-	public void setPainUrine(Boolean painUrine) {
+	public void setPainUrine(String painUrine) {
 		this.painUrine = painUrine;
 	}
 
@@ -436,20 +436,20 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "post_postpartum_fp")
-	public Boolean getPostPostpartumFp() {
+	public String getPostPostpartumFp() {
 		return this.postPostpartumFp;
 	}
 
-	public void setPostPostpartumFp(Boolean postPostpartumFp) {
+	public void setPostPostpartumFp(String postPostpartumFp) {
 		this.postPostpartumFp = postPostpartumFp;
 	}
 
 	@Column(name = "safe")
-	public Boolean getSafe() {
+	public String getSafe() {
 		return this.safe;
 	}
 
-	public void setSafe(Boolean safe) {
+	public void setSafe(String safe) {
 		this.safe = safe;
 	}
 
@@ -463,11 +463,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Column(name = "vaginal_discharge")
-	public Boolean getVaginalDischarge() {
+	public String getVaginalDischarge() {
 		return this.vaginalDischarge;
 	}
 
-	public void setVaginalDischarge(Boolean vaginalDischarge) {
+	public void setVaginalDischarge(String vaginalDischarge) {
 		this.vaginalDischarge = vaginalDischarge;
 	}
 

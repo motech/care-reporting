@@ -18,10 +18,10 @@ public class MoveBeneficiaryForm extends Form{
     private Date timeStart;
     private Date dateModified;
     private Date creationTime = new Date();
-    private Boolean confirmMove;
+    private String confirmMove;
     private Integer newWard;
     private Integer newAwcc;
-    private Boolean confirmAgain;
+    private String confirmAgain;
 
     public MoveBeneficiaryForm() {
     }
@@ -100,11 +100,11 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     @Column(name = "confirm_move")
-    public Boolean getConfirmMove() {
+    public String getConfirmMove() {
         return confirmMove;
     }
 
-    public void setConfirmMove(Boolean confirmMove) {
+    public void setConfirmMove(String confirmMove) {
         this.confirmMove = confirmMove;
     }
 
@@ -127,11 +127,11 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     @Column(name = "confirm_again")
-    public Boolean getConfirmAgain() {
+    public String getConfirmAgain() {
         return confirmAgain;
     }
 
-    public void setConfirmAgain(Boolean confirmAgain) {
+    public void setConfirmAgain(String confirmAgain) {
         this.confirmAgain = confirmAgain;
     }
 

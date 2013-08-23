@@ -83,14 +83,14 @@ public class FormProcessorIT extends SpringIntegrationTest {
         assertEquals("e34707f8-80c8-4198-bf99-c11c90ba5c98", motherEditForm.getInstanceId());
         assertEquals(DateTime.parse("2012-07-21T11:59:31.076+05:30").toDate(), motherEditForm.getTimeStart());
         assertEquals(DateTime.parse("2012-07-21T12:02:59.923+05:30").toDate(), motherEditForm.getTimeEnd());
-        assertTrue(motherEditForm.getUpdateMotherName());
-        assertFalse(motherEditForm.getUpdateHhNumber());
-        assertTrue(motherEditForm.getUpdateFamilyNumber());
-        assertFalse(motherEditForm.getUpdateWardNumber());
-        assertTrue(motherEditForm.getUpdateHusbandName());
-        assertFalse(motherEditForm.getUpdateMotherDob());
-        assertFalse(motherEditForm.getUpdateMobileNumber());
-        assertTrue(motherEditForm.getUpdateMobileNumberWhose());
+        assertEquals("yes", motherEditForm.getUpdateMotherName());
+        assertEquals("no", motherEditForm.getUpdateHhNumber());
+        assertEquals("yes", motherEditForm.getUpdateFamilyNumber());
+        assertEquals("no", motherEditForm.getUpdateWardNumber());
+        assertEquals("yes", motherEditForm.getUpdateHusbandName());
+        assertEquals("no", motherEditForm.getUpdateMotherDob());
+        assertEquals("no", motherEditForm.getUpdateMobileNumber());
+        assertEquals("yes", motherEditForm.getUpdateMobileNumberWhose());
     }
 
     @Test
@@ -135,10 +135,10 @@ public class FormProcessorIT extends SpringIntegrationTest {
         assertEquals(1, forms.size());
         MoveBeneficiaryForm moveForm = forms.get(0);
 
-        assertTrue(moveForm.getConfirmMove());
+        assertEquals("yes", moveForm.getConfirmMove());
         assertEquals(new Integer(123), moveForm.getNewWard());
         assertEquals(new Integer(1000), moveForm.getNewAwcc());
-        assertFalse(moveForm.getConfirmAgain());
+        assertEquals("no", moveForm.getConfirmAgain());
         assertEquals(motherCaseId, moveForm.getMotherCase().getCaseId());
         assertEquals(instanceId, moveForm.getInstanceId());
         assertEquals(flwId, moveForm.getFlw().getFlwId());

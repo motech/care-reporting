@@ -548,7 +548,7 @@ public class CareServiceIT extends SpringIntegrationTest {
         expectedForm.setHusbandName("&#2342;&#2367;&#2344;&#2375;&#2358; &#2350;&#2369;&#2326;&#2367;&#2351;&#2366;");
         expectedForm.setHhNumber(165);
         expectedForm.setFamilyNumber(5);
-        expectedForm.setDobKnown(false);
+        expectedForm.setDobKnown("no");
         expectedForm.setCaste("other");
         expectedForm.setAgeCalc(null);
         expectedForm.setInstanceId("e34707f8-80c8-4198-bf99-c11c90ba5c98");

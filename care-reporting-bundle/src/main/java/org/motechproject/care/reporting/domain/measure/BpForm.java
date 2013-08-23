@@ -22,66 +22,66 @@ public class BpForm extends Form {
 	private Date ancLatestDate;
 	private Integer ancLatestNum;
 	private String anc1_AbdominalExam;
-	private Boolean anc1_Abnormalities;
+	private String anc1_Abnormalities;
 	private String anc1_BloodPressure;
 	private Date anc1_Date;
 	private String anc1_Facility;
-	private Boolean anc1_Details;
+	private String anc1_Details;
 	private String anc2_AbdominalExam;
-	private Boolean anc2_Abnormalities;
+	private String anc2_Abnormalities;
 	private String anc2_BloodPressure;
 	private Date anc2_Date;
 	private String anc2_Facility;
-	private Boolean anc2_Details;
+	private String anc2_Details;
 	private String anc3_AbdominalExam;
-	private Boolean anc3_Abnormalities;
+	private String anc3_Abnormalities;
 	private String anc3_BloodPressure;
 	private Date anc3_Date;
 	private String anc3_Facility;
-	private Boolean anc3_Details;
+	private String anc3_Details;
 	private String anc4_AbdominalExam;
-	private Boolean anc4_Abnormalities;
+	private String anc4_Abnormalities;
 	private String anc4_BloodPressure;
 	private Date anc4_Date;
 	private String anc4_Facility;
-	private Boolean anc4_Details;
-	private Boolean counselIfa;
-	private Boolean counselTt;
-	private Boolean eatingExtra;
+	private String anc4_Details;
+	private String counselIfa;
+	private String counselTt;
+	private String eatingExtra;
 	private Short ifaTabletsIssued;
 	private String reasonNoIfa;
-	private Boolean receivedTt1;
-	private Boolean receivedTt2;
-	private Boolean resting;
+	private String receivedTt1;
+	private String receivedTt2;
+	private String resting;
 	private Date tt1_Date;
 	private Date tt2_Date;
-	private Boolean ttBooster;
+	private String ttBooster;
 	private Date ttBoosterDate;
-	private Boolean usingIfa;
-	private Boolean sba;
-	private Boolean sbaPhone;
-	private Boolean accompany;
-	private Boolean careOfHome;
-	private Boolean cleanCloth;
-	private Boolean cordCare;
-	private Boolean counselHomeDelivery;
-	private Boolean counselInstitutional;
-	private Boolean counselPreparation;
-	private Boolean dangerInstitution;
-	private Boolean dangerNumber;
-	private Boolean hasDangerSigns;
-	private Boolean immediateBreastfeeding;
-	private Boolean informDangerSigns;
-	private Boolean materials;
-	private Boolean maternalDangerSigns;
-	private Boolean nowInstitutional;
-	private Boolean phoneVehicle;
-	private Boolean playBirthPreparednessVid;
-	private Boolean playCordCareVid;
-	private Boolean savingMoney;
-	private Boolean skinToSkin;
-	private Boolean vehicle;
-	private Boolean wrapping;
+	private String usingIfa;
+	private String sba;
+	private String sbaPhone;
+	private String accompany;
+	private String careOfHome;
+	private String cleanCloth;
+	private String cordCare;
+	private String counselHomeDelivery;
+	private String counselInstitutional;
+	private String counselPreparation;
+	private String dangerInstitution;
+	private String dangerNumber;
+	private String hasDangerSigns;
+	private String immediateBreastfeeding;
+	private String informDangerSigns;
+	private String materials;
+	private String maternalDangerSigns;
+	private String nowInstitutional;
+	private String phoneVehicle;
+	private String playBirthPreparednessVid;
+	private String playCordCareVid;
+	private String savingMoney;
+	private String skinToSkin;
+	private String vehicle;
+	private String wrapping;
 	private Short bpVisitNum;
 	private Date anc1Date;
 	private Date anc2Date;
@@ -97,30 +97,30 @@ public class BpForm extends Form {
 	private Short ifaTablets;
 	private Date ifaTablets100;
 	private String lastVisitType;
-	private Boolean maternalEmergency;
-	private Boolean maternalEmergencyNumber;
+	private String maternalEmergency;
+	private String maternalEmergencyNumber;
 	private Date tt1Date;
 	private Date tt2Date;
-	private Boolean conceive;
+	private String conceive;
 	private Date delFup;
-	private Boolean availImmediate;
-	private Boolean counselAccessible;
-	private Boolean counselBenefits;
-	private Boolean counselDisqualification;
-	private Boolean counselInstitution;
-	private Boolean counselMethods;
-	private Boolean counselNearest;
-	private Boolean counselOptions;
-	private Boolean counselStay;
-	private Boolean immediateAppropriate;
-	private Boolean institutionImmediate;
-	private Boolean postponeConception;
-	private Boolean riskOfPreg;
-	private Boolean spacingMethods;
+	private String availImmediate;
+	private String counselAccessible;
+	private String counselBenefits;
+	private String counselDisqualification;
+	private String counselInstitution;
+	private String counselMethods;
+	private String counselNearest;
+	private String counselOptions;
+	private String counselStay;
+	private String immediateAppropriate;
+	private String institutionImmediate;
+	private String postponeConception;
+	private String riskOfPreg;
+	private String spacingMethods;
 	private String stopChildren;
 	private Short ifaTabletsTotal;
 	private String nextvisittype;
-	private Boolean playFamilyPlanningVid;
+	private String playFamilyPlanningVid;
 	private String postponing;
     private String institutional;
     private Date creationTime = new Date();
@@ -220,11 +220,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc1_abnormalities")
-	public Boolean getAnc1_Abnormalities() {
+	public String getAnc1_Abnormalities() {
 		return this.anc1_Abnormalities;
 	}
 
-	public void setAnc1_Abnormalities(Boolean anc1_Abnormalities) {
+	public void setAnc1_Abnormalities(String anc1_Abnormalities) {
 		this.anc1_Abnormalities = anc1_Abnormalities;
 	}
 
@@ -257,11 +257,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc1_details")
-	public Boolean getAnc1_Details() {
+	public String getAnc1_Details() {
 		return this.anc1_Details;
 	}
 
-	public void setAnc1_Details(Boolean anc1_Details) {
+	public void setAnc1_Details(String anc1_Details) {
 		this.anc1_Details = anc1_Details;
 	}
 
@@ -275,11 +275,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc2_abnormalities")
-	public Boolean getAnc2_Abnormalities() {
+	public String getAnc2_Abnormalities() {
 		return this.anc2_Abnormalities;
 	}
 
-	public void setAnc2_Abnormalities(Boolean anc2_Abnormalities) {
+	public void setAnc2_Abnormalities(String anc2_Abnormalities) {
 		this.anc2_Abnormalities = anc2_Abnormalities;
 	}
 
@@ -312,11 +312,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc2_details")
-	public Boolean getAnc2_Details() {
+	public String getAnc2_Details() {
 		return this.anc2_Details;
 	}
 
-	public void setAnc2_Details(Boolean anc2_Details) {
+	public void setAnc2_Details(String anc2_Details) {
 		this.anc2_Details = anc2_Details;
 	}
 
@@ -330,11 +330,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc3_abnormalities")
-	public Boolean getAnc3_Abnormalities() {
+	public String getAnc3_Abnormalities() {
 		return this.anc3_Abnormalities;
 	}
 
-	public void setAnc3_Abnormalities(Boolean anc3_Abnormalities) {
+	public void setAnc3_Abnormalities(String anc3_Abnormalities) {
 		this.anc3_Abnormalities = anc3_Abnormalities;
 	}
 
@@ -367,11 +367,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc3_details")
-	public Boolean getAnc3_Details() {
+	public String getAnc3_Details() {
 		return this.anc3_Details;
 	}
 
-	public void setAnc3_Details(Boolean anc3_Details) {
+	public void setAnc3_Details(String anc3_Details) {
 		this.anc3_Details = anc3_Details;
 	}
 
@@ -385,11 +385,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc4_abnormalities")
-	public Boolean getAnc4_Abnormalities() {
+	public String getAnc4_Abnormalities() {
 		return this.anc4_Abnormalities;
 	}
 
-	public void setAnc4_Abnormalities(Boolean anc4_Abnormalities) {
+	public void setAnc4_Abnormalities(String anc4_Abnormalities) {
 		this.anc4_Abnormalities = anc4_Abnormalities;
 	}
 
@@ -422,38 +422,38 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "anc4_details")
-	public Boolean getAnc4_Details() {
+	public String getAnc4_Details() {
 		return this.anc4_Details;
 	}
 
-	public void setAnc4_Details(Boolean anc4_Details) {
+	public void setAnc4_Details(String anc4_Details) {
 		this.anc4_Details = anc4_Details;
 	}
 
 	@Column(name = "counsel_ifa")
-	public Boolean getCounselIfa() {
+	public String getCounselIfa() {
 		return this.counselIfa;
 	}
 
-	public void setCounselIfa(Boolean counselIfa) {
+	public void setCounselIfa(String counselIfa) {
 		this.counselIfa = counselIfa;
 	}
 
 	@Column(name = "counsel_tt")
-	public Boolean getCounselTt() {
+	public String getCounselTt() {
 		return this.counselTt;
 	}
 
-	public void setCounselTt(Boolean counselTt) {
+	public void setCounselTt(String counselTt) {
 		this.counselTt = counselTt;
 	}
 
 	@Column(name = "eating_extra")
-	public Boolean getEatingExtra() {
+	public String getEatingExtra() {
 		return this.eatingExtra;
 	}
 
-	public void setEatingExtra(Boolean eatingExtra) {
+	public void setEatingExtra(String eatingExtra) {
 		this.eatingExtra = eatingExtra;
 	}
 
@@ -476,29 +476,29 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "received_tt1")
-	public Boolean getReceivedTt1() {
+	public String getReceivedTt1() {
 		return this.receivedTt1;
 	}
 
-	public void setReceivedTt1(Boolean receivedTt1) {
+	public void setReceivedTt1(String receivedTt1) {
 		this.receivedTt1 = receivedTt1;
 	}
 
 	@Column(name = "received_tt2")
-	public Boolean getReceivedTt2() {
+	public String getReceivedTt2() {
 		return this.receivedTt2;
 	}
 
-	public void setReceivedTt2(Boolean receivedTt2) {
+	public void setReceivedTt2(String receivedTt2) {
 		this.receivedTt2 = receivedTt2;
 	}
 
 	@Column(name = "resting")
-	public Boolean getResting() {
+	public String getResting() {
 		return this.resting;
 	}
 
-	public void setResting(Boolean resting) {
+	public void setResting(String resting) {
 		this.resting = resting;
 	}
 
@@ -523,11 +523,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "tt_booster")
-	public Boolean getTtBooster() {
+	public String getTtBooster() {
 		return this.ttBooster;
 	}
 
-	public void setTtBooster(Boolean ttBooster) {
+	public void setTtBooster(String ttBooster) {
 		this.ttBooster = ttBooster;
 	}
 
@@ -542,227 +542,227 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "using_ifa")
-	public Boolean getUsingIfa() {
+	public String getUsingIfa() {
 		return this.usingIfa;
 	}
 
-	public void setUsingIfa(Boolean usingIfa) {
+	public void setUsingIfa(String usingIfa) {
 		this.usingIfa = usingIfa;
 	}
 
 	@Column(name = "sba")
-	public Boolean getSba() {
+	public String getSba() {
 		return this.sba;
 	}
 
-	public void setSba(Boolean sba) {
+	public void setSba(String sba) {
 		this.sba = sba;
 	}
 
 	@Column(name = "sba_phone")
-	public Boolean getSbaPhone() {
+	public String getSbaPhone() {
 		return this.sbaPhone;
 	}
 
-	public void setSbaPhone(Boolean sbaPhone) {
+	public void setSbaPhone(String sbaPhone) {
 		this.sbaPhone = sbaPhone;
 	}
 
 	@Column(name = "accompany")
-	public Boolean getAccompany() {
+	public String getAccompany() {
 		return this.accompany;
 	}
 
-	public void setAccompany(Boolean accompany) {
+	public void setAccompany(String accompany) {
 		this.accompany = accompany;
 	}
 
 	@Column(name = "care_of_home")
-	public Boolean getCareOfHome() {
+	public String getCareOfHome() {
 		return this.careOfHome;
 	}
 
-	public void setCareOfHome(Boolean careOfHome) {
+	public void setCareOfHome(String careOfHome) {
 		this.careOfHome = careOfHome;
 	}
 
 	@Column(name = "clean_cloth")
-	public Boolean getCleanCloth() {
+	public String getCleanCloth() {
 		return this.cleanCloth;
 	}
 
-	public void setCleanCloth(Boolean cleanCloth) {
+	public void setCleanCloth(String cleanCloth) {
 		this.cleanCloth = cleanCloth;
 	}
 
 	@Column(name = "cord_care")
-	public Boolean getCordCare() {
+	public String getCordCare() {
 		return this.cordCare;
 	}
 
-	public void setCordCare(Boolean cordCare) {
+	public void setCordCare(String cordCare) {
 		this.cordCare = cordCare;
 	}
 
 	@Column(name = "counsel_home_delivery")
-	public Boolean getCounselHomeDelivery() {
+	public String getCounselHomeDelivery() {
 		return this.counselHomeDelivery;
 	}
 
-	public void setCounselHomeDelivery(Boolean counselHomeDelivery) {
+	public void setCounselHomeDelivery(String counselHomeDelivery) {
 		this.counselHomeDelivery = counselHomeDelivery;
 	}
 
 	@Column(name = "counsel_institutional")
-	public Boolean getCounselInstitutional() {
+	public String getCounselInstitutional() {
 		return this.counselInstitutional;
 	}
 
-	public void setCounselInstitutional(Boolean counselInstitutional) {
+	public void setCounselInstitutional(String counselInstitutional) {
 		this.counselInstitutional = counselInstitutional;
 	}
 
 	@Column(name = "counsel_preparation")
-	public Boolean getCounselPreparation() {
+	public String getCounselPreparation() {
 		return this.counselPreparation;
 	}
 
-	public void setCounselPreparation(Boolean counselPreparation) {
+	public void setCounselPreparation(String counselPreparation) {
 		this.counselPreparation = counselPreparation;
 	}
 
 	@Column(name = "danger_institution")
-	public Boolean getDangerInstitution() {
+	public String getDangerInstitution() {
 		return this.dangerInstitution;
 	}
 
-	public void setDangerInstitution(Boolean dangerInstitution) {
+	public void setDangerInstitution(String dangerInstitution) {
 		this.dangerInstitution = dangerInstitution;
 	}
 
 	@Column(name = "danger_number")
-	public Boolean getDangerNumber() {
+	public String getDangerNumber() {
 		return this.dangerNumber;
 	}
 
-	public void setDangerNumber(Boolean dangerNumber) {
+	public void setDangerNumber(String dangerNumber) {
 		this.dangerNumber = dangerNumber;
 	}
 
 	@Column(name = "has_danger_signs")
-	public Boolean getHasDangerSigns() {
+	public String getHasDangerSigns() {
 		return this.hasDangerSigns;
 	}
 
-	public void setHasDangerSigns(Boolean hasDangerSigns) {
+	public void setHasDangerSigns(String hasDangerSigns) {
 		this.hasDangerSigns = hasDangerSigns;
 	}
 
 	@Column(name = "immediate_breastfeeding")
-	public Boolean getImmediateBreastfeeding() {
+	public String getImmediateBreastfeeding() {
 		return this.immediateBreastfeeding;
 	}
 
-	public void setImmediateBreastfeeding(Boolean immediateBreastfeeding) {
+	public void setImmediateBreastfeeding(String immediateBreastfeeding) {
 		this.immediateBreastfeeding = immediateBreastfeeding;
 	}
 
 	@Column(name = "inform_danger_signs")
-	public Boolean getInformDangerSigns() {
+	public String getInformDangerSigns() {
 		return this.informDangerSigns;
 	}
 
-	public void setInformDangerSigns(Boolean informDangerSigns) {
+	public void setInformDangerSigns(String informDangerSigns) {
 		this.informDangerSigns = informDangerSigns;
 	}
 
 	@Column(name = "materials")
-	public Boolean getMaterials() {
+	public String getMaterials() {
 		return this.materials;
 	}
 
-	public void setMaterials(Boolean materials) {
+	public void setMaterials(String materials) {
 		this.materials = materials;
 	}
 
 	@Column(name = "maternal_danger_signs")
-	public Boolean getMaternalDangerSigns() {
+	public String getMaternalDangerSigns() {
 		return this.maternalDangerSigns;
 	}
 
-	public void setMaternalDangerSigns(Boolean maternalDangerSigns) {
+	public void setMaternalDangerSigns(String maternalDangerSigns) {
 		this.maternalDangerSigns = maternalDangerSigns;
 	}
 
 	@Column(name = "now_institutional")
-	public Boolean getNowInstitutional() {
+	public String getNowInstitutional() {
 		return this.nowInstitutional;
 	}
 
-	public void setNowInstitutional(Boolean nowInstitutional) {
+	public void setNowInstitutional(String nowInstitutional) {
 		this.nowInstitutional = nowInstitutional;
 	}
 
 	@Column(name = "phone_vehicle")
-	public Boolean getPhoneVehicle() {
+	public String getPhoneVehicle() {
 		return this.phoneVehicle;
 	}
 
-	public void setPhoneVehicle(Boolean phoneVehicle) {
+	public void setPhoneVehicle(String phoneVehicle) {
 		this.phoneVehicle = phoneVehicle;
 	}
 
 	@Column(name = "play_birth_preparedness_vid")
-	public Boolean getPlayBirthPreparednessVid() {
+	public String getPlayBirthPreparednessVid() {
 		return this.playBirthPreparednessVid;
 	}
 
-	public void setPlayBirthPreparednessVid(Boolean playBirthPreparednessVid) {
+	public void setPlayBirthPreparednessVid(String playBirthPreparednessVid) {
 		this.playBirthPreparednessVid = playBirthPreparednessVid;
 	}
 
 	@Column(name = "play_cord_care_vid")
-	public Boolean getPlayCordCareVid() {
+	public String getPlayCordCareVid() {
 		return this.playCordCareVid;
 	}
 
-	public void setPlayCordCareVid(Boolean playCordCareVid) {
+	public void setPlayCordCareVid(String playCordCareVid) {
 		this.playCordCareVid = playCordCareVid;
 	}
 
 	@Column(name = "saving_money")
-	public Boolean getSavingMoney() {
+	public String getSavingMoney() {
 		return this.savingMoney;
 	}
 
-	public void setSavingMoney(Boolean savingMoney) {
+	public void setSavingMoney(String savingMoney) {
 		this.savingMoney = savingMoney;
 	}
 
 	@Column(name = "skin_to_skin")
-	public Boolean getSkinToSkin() {
+	public String getSkinToSkin() {
 		return this.skinToSkin;
 	}
 
-	public void setSkinToSkin(Boolean skinToSkin) {
+	public void setSkinToSkin(String skinToSkin) {
 		this.skinToSkin = skinToSkin;
 	}
 
 	@Column(name = "vehicle")
-	public Boolean getVehicle() {
+	public String getVehicle() {
 		return this.vehicle;
 	}
 
-	public void setVehicle(Boolean vehicle) {
+	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
 	}
 
 	@Column(name = "wrapping")
-	public Boolean getWrapping() {
+	public String getWrapping() {
 		return this.wrapping;
 	}
 
-	public void setWrapping(Boolean wrapping) {
+	public void setWrapping(String wrapping) {
 		this.wrapping = wrapping;
 	}
 
@@ -912,20 +912,20 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "maternal_emergency")
-	public Boolean getMaternalEmergency() {
+	public String getMaternalEmergency() {
 		return this.maternalEmergency;
 	}
 
-	public void setMaternalEmergency(Boolean maternalEmergency) {
+	public void setMaternalEmergency(String maternalEmergency) {
 		this.maternalEmergency = maternalEmergency;
 	}
 
 	@Column(name = "maternal_emergency_number")
-	public Boolean getMaternalEmergencyNumber() {
+	public String getMaternalEmergencyNumber() {
 		return this.maternalEmergencyNumber;
 	}
 
-	public void setMaternalEmergencyNumber(Boolean maternalEmergencyNumber) {
+	public void setMaternalEmergencyNumber(String maternalEmergencyNumber) {
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
 	}
 
@@ -950,11 +950,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "conceive")
-	public Boolean getConceive() {
+	public String getConceive() {
 		return this.conceive;
 	}
 
-	public void setConceive(Boolean conceive) {
+	public void setConceive(String conceive) {
 		this.conceive = conceive;
 	}
 
@@ -968,128 +968,128 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "avail_immediate")
-	public Boolean getAvailImmediate() {
+	public String getAvailImmediate() {
 		return this.availImmediate;
 	}
 
-	public void setAvailImmediate(Boolean availImmediate) {
+	public void setAvailImmediate(String availImmediate) {
 		this.availImmediate = availImmediate;
 	}
 
 	@Column(name = "counsel_accessible")
-	public Boolean getCounselAccessible() {
+	public String getCounselAccessible() {
 		return this.counselAccessible;
 	}
 
-	public void setCounselAccessible(Boolean counselAccessible) {
+	public void setCounselAccessible(String counselAccessible) {
 		this.counselAccessible = counselAccessible;
 	}
 
 	@Column(name = "counsel_benefits")
-	public Boolean getCounselBenefits() {
+	public String getCounselBenefits() {
 		return this.counselBenefits;
 	}
 
-	public void setCounselBenefits(Boolean counselBenefits) {
+	public void setCounselBenefits(String counselBenefits) {
 		this.counselBenefits = counselBenefits;
 	}
 
 	@Column(name = "counsel_disqualification")
-	public Boolean getCounselDisqualification() {
+	public String getCounselDisqualification() {
 		return this.counselDisqualification;
 	}
 
-	public void setCounselDisqualification(Boolean counselDisqualification) {
+	public void setCounselDisqualification(String counselDisqualification) {
 		this.counselDisqualification = counselDisqualification;
 	}
 
 	@Column(name = "counsel_institution")
-	public Boolean getCounselInstitution() {
+	public String getCounselInstitution() {
 		return this.counselInstitution;
 	}
 
-	public void setCounselInstitution(Boolean counselInstitution) {
+	public void setCounselInstitution(String counselInstitution) {
 		this.counselInstitution = counselInstitution;
 	}
 
 	@Column(name = "counsel_methods")
-	public Boolean getCounselMethods() {
+	public String getCounselMethods() {
 		return this.counselMethods;
 	}
 
-	public void setCounselMethods(Boolean counselMethods) {
+	public void setCounselMethods(String counselMethods) {
 		this.counselMethods = counselMethods;
 	}
 
 	@Column(name = "counsel_nearest")
-	public Boolean getCounselNearest() {
+	public String getCounselNearest() {
 		return this.counselNearest;
 	}
 
-	public void setCounselNearest(Boolean counselNearest) {
+	public void setCounselNearest(String counselNearest) {
 		this.counselNearest = counselNearest;
 	}
 
 	@Column(name = "counsel_options")
-	public Boolean getCounselOptions() {
+	public String getCounselOptions() {
 		return this.counselOptions;
 	}
 
-	public void setCounselOptions(Boolean counselOptions) {
+	public void setCounselOptions(String counselOptions) {
 		this.counselOptions = counselOptions;
 	}
 
 	@Column(name = "counsel_stay")
-	public Boolean getCounselStay() {
+	public String getCounselStay() {
 		return this.counselStay;
 	}
 
-	public void setCounselStay(Boolean counselStay) {
+	public void setCounselStay(String counselStay) {
 		this.counselStay = counselStay;
 	}
 
 	@Column(name = "immediate_appropriate")
-	public Boolean getImmediateAppropriate() {
+	public String getImmediateAppropriate() {
 		return this.immediateAppropriate;
 	}
 
-	public void setImmediateAppropriate(Boolean immediateAppropriate) {
+	public void setImmediateAppropriate(String immediateAppropriate) {
 		this.immediateAppropriate = immediateAppropriate;
 	}
 
 	@Column(name = "institution_immediate")
-	public Boolean getInstitutionImmediate() {
+	public String getInstitutionImmediate() {
 		return this.institutionImmediate;
 	}
 
-	public void setInstitutionImmediate(Boolean institutionImmediate) {
+	public void setInstitutionImmediate(String institutionImmediate) {
 		this.institutionImmediate = institutionImmediate;
 	}
 
 	@Column(name = "postpone_conception")
-	public Boolean getPostponeConception() {
+	public String getPostponeConception() {
 		return this.postponeConception;
 	}
 
-	public void setPostponeConception(Boolean postponeConception) {
+	public void setPostponeConception(String postponeConception) {
 		this.postponeConception = postponeConception;
 	}
 
 	@Column(name = "risk_of_preg")
-	public Boolean getRiskOfPreg() {
+	public String getRiskOfPreg() {
 		return this.riskOfPreg;
 	}
 
-	public void setRiskOfPreg(Boolean riskOfPreg) {
+	public void setRiskOfPreg(String riskOfPreg) {
 		this.riskOfPreg = riskOfPreg;
 	}
 
 	@Column(name = "spacing_methods")
-	public Boolean getSpacingMethods() {
+	public String getSpacingMethods() {
 		return this.spacingMethods;
 	}
 
-	public void setSpacingMethods(Boolean spacingMethods) {
+	public void setSpacingMethods(String spacingMethods) {
 		this.spacingMethods = spacingMethods;
 	}
 
@@ -1121,11 +1121,11 @@ public class BpForm extends Form {
 	}
 
 	@Column(name = "play_family_planning_vid")
-	public Boolean getPlayFamilyPlanningVid() {
+	public String getPlayFamilyPlanningVid() {
 		return this.playFamilyPlanningVid;
 	}
 
-	public void setPlayFamilyPlanningVid(Boolean playFamilyPlanningVid) {
+	public void setPlayFamilyPlanningVid(String playFamilyPlanningVid) {
 		this.playFamilyPlanningVid = playFamilyPlanningVid;
 	}
 

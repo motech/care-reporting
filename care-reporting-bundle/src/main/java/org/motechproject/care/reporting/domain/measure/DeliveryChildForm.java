@@ -22,15 +22,15 @@ public class DeliveryChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean abnormalities;
-	private Boolean addVaccinations;
-	private Boolean babyBcg;
-	private Boolean babyHepB0;
-	private Boolean babyOpv0;
-	private Boolean breastfedHour;
+	private String abnormalities;
+	private String addVaccinations;
+	private String babyBcg;
+	private String babyHepB0;
+	private String babyOpv0;
+	private String breastfedHour;
 	private String caseName;
 	private String caseType;
-	private Boolean babyWeight;
+	private String babyWeight;
 	private Date bcgDate;
 	private String birthStatus;
 	private Date dob;
@@ -39,26 +39,26 @@ public class DeliveryChildForm extends Form {
 	private Date opv0Date;
 	private String term;
 	private String timeOfBirth;
-	private Boolean childAlive;
+	private String childAlive;
 	private String childBreathing;
-	private Boolean childCried;
-	private Boolean childDiedVillage;
-	private Boolean childHaveAName;
+	private String childCried;
+	private String childDiedVillage;
+	private String childHaveAName;
 	private String childHeartbeats;
-	private Boolean childMovement;
+	private String childMovement;
 	private String childName;
 	private String childPlaceDeath;
 	private String childSiteDeath;
 	private Date chldDateDeath;
-	private Boolean cordApplied;
-	private Boolean cordCut;
-	private Boolean cordTied;
+	private String cordApplied;
+	private String cordCut;
+	private String cordTied;
 	private Date dateFirstWeight;
 	private Date dateTimeFeed;
 	private BigDecimal firstWeight;
-	private Boolean skinCare;
+	private String skinCare;
 	private String whatApplied;
-	private Boolean wrappedDried;
+	private String wrappedDried;
     private Boolean close;
     private Date creationTime = new Date();
 
@@ -129,56 +129,56 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "abnormalities")
-	public Boolean getAbnormalities() {
+	public String getAbnormalities() {
 		return this.abnormalities;
 	}
 
-	public void setAbnormalities(Boolean abnormalities) {
+	public void setAbnormalities(String abnormalities) {
 		this.abnormalities = abnormalities;
 	}
 
 	@Column(name = "add_vaccinations")
-	public Boolean getAddVaccinations() {
+	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
 
-	public void setAddVaccinations(Boolean addVaccinations) {
+	public void setAddVaccinations(String addVaccinations) {
 		this.addVaccinations = addVaccinations;
 	}
 
 	@Column(name = "baby_bcg")
-	public Boolean getBabyBcg() {
+	public String getBabyBcg() {
 		return this.babyBcg;
 	}
 
-	public void setBabyBcg(Boolean babyBcg) {
+	public void setBabyBcg(String babyBcg) {
 		this.babyBcg = babyBcg;
 	}
 
 	@Column(name = "baby_hep_b_0")
-	public Boolean getBabyHepB0() {
+	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
 
-	public void setBabyHepB0(Boolean babyHepB0) {
+	public void setBabyHepB0(String babyHepB0) {
 		this.babyHepB0 = babyHepB0;
 	}
 
 	@Column(name = "baby_opv0")
-	public Boolean getBabyOpv0() {
+	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
 
-	public void setBabyOpv0(Boolean babyOpv0) {
+	public void setBabyOpv0(String babyOpv0) {
 		this.babyOpv0 = babyOpv0;
 	}
 
 	@Column(name = "breastfed_hour")
-	public Boolean getBreastfedHour() {
+	public String getBreastfedHour() {
 		return this.breastfedHour;
 	}
 
-	public void setBreastfedHour(Boolean breastfedHour) {
+	public void setBreastfedHour(String breastfedHour) {
 		this.breastfedHour = breastfedHour;
 	}
 
@@ -201,11 +201,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "baby_weight")
-	public Boolean getBabyWeight() {
+	public String getBabyWeight() {
 		return this.babyWeight;
 	}
 
-	public void setBabyWeight(Boolean babyWeight) {
+	public void setBabyWeight(String babyWeight) {
 		this.babyWeight = babyWeight;
 	}
 
@@ -286,11 +286,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return this.childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 
@@ -304,29 +304,29 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "child_cried")
-	public Boolean getChildCried() {
+	public String getChildCried() {
 		return this.childCried;
 	}
 
-	public void setChildCried(Boolean childCried) {
+	public void setChildCried(String childCried) {
 		this.childCried = childCried;
 	}
 
 	@Column(name = "child_died_village")
-	public Boolean getChildDiedVillage() {
+	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
 
-	public void setChildDiedVillage(Boolean childDiedVillage) {
+	public void setChildDiedVillage(String childDiedVillage) {
 		this.childDiedVillage = childDiedVillage;
 	}
 
 	@Column(name = "child_have_a_name")
-	public Boolean getChildHaveAName() {
+	public String getChildHaveAName() {
 		return this.childHaveAName;
 	}
 
-	public void setChildHaveAName(Boolean childHaveAName) {
+	public void setChildHaveAName(String childHaveAName) {
 		this.childHaveAName = childHaveAName;
 	}
 
@@ -340,11 +340,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "child_movement")
-	public Boolean getChildMovement() {
+	public String getChildMovement() {
 		return this.childMovement;
 	}
 
-	public void setChildMovement(Boolean childMovement) {
+	public void setChildMovement(String childMovement) {
 		this.childMovement = childMovement;
 	}
 
@@ -386,29 +386,29 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "cord_applied")
-	public Boolean getCordApplied() {
+	public String getCordApplied() {
 		return this.cordApplied;
 	}
 
-	public void setCordApplied(Boolean cordApplied) {
+	public void setCordApplied(String cordApplied) {
 		this.cordApplied = cordApplied;
 	}
 
 	@Column(name = "cord_cut")
-	public Boolean getCordCut() {
+	public String getCordCut() {
 		return this.cordCut;
 	}
 
-	public void setCordCut(Boolean cordCut) {
+	public void setCordCut(String cordCut) {
 		this.cordCut = cordCut;
 	}
 
 	@Column(name = "cord_tied")
-	public Boolean getCordTied() {
+	public String getCordTied() {
 		return this.cordTied;
 	}
 
-	public void setCordTied(Boolean cordTied) {
+	public void setCordTied(String cordTied) {
 		this.cordTied = cordTied;
 	}
 
@@ -442,11 +442,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "skin_care")
-	public Boolean getSkinCare() {
+	public String getSkinCare() {
 		return this.skinCare;
 	}
 
-	public void setSkinCare(Boolean skinCare) {
+	public void setSkinCare(String skinCare) {
 		this.skinCare = skinCare;
 	}
 
@@ -460,11 +460,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Column(name = "wrapped_dried")
-	public Boolean getWrappedDried() {
+	public String getWrappedDried() {
 		return this.wrappedDried;
 	}
 
-	public void setWrappedDried(Boolean wrappedDried) {
+	public void setWrappedDried(String wrappedDried) {
 		this.wrappedDried = wrappedDried;
 	}
 

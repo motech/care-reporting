@@ -28,12 +28,12 @@ public class NewForm extends Form {
 	private Integer hhNumber;
 	private String husbandName;
 	private String lastVisitType;
-	private Boolean motherAlive;
+	private String motherAlive;
 	private Date motherDob;
 	private String motherName;
 	private String caste;
 	private Date dob;
-	private Boolean dobKnown;
+	private String dobKnown;
 	private String fullName;
     private String manualGroup;
     private Date creationTime = new Date();
@@ -197,11 +197,11 @@ public class NewForm extends Form {
 	}
 
 	@Column(name = "mother_alive")
-	public Boolean getMotherAlive() {
+	public String getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(Boolean motherAlive) {
+	public void setMotherAlive(String motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 
@@ -244,11 +244,11 @@ public class NewForm extends Form {
 	}
 
 	@Column(name = "dob_known")
-	public Boolean getDobKnown() {
+	public String getDobKnown() {
 		return this.dobKnown;
 	}
 
-	public void setDobKnown(Boolean dobKnown) {
+	public void setDobKnown(String dobKnown) {
 		this.dobKnown = dobKnown;
 	}
 

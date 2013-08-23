@@ -25,7 +25,7 @@ public class MoForm extends Form {
 	private Date dateLearned;
 	private Date dateLeft;
 	private String name;
-	private Boolean noteGiven;
+	private String noteGiven;
     private Date creationTime = new Date();
 
     public MoForm() {
@@ -152,11 +152,11 @@ public class MoForm extends Form {
 	}
 
 	@Column(name = "note_given")
-	public Boolean getNoteGiven() {
+	public String getNoteGiven() {
 		return this.noteGiven;
 	}
 
-	public void setNoteGiven(Boolean noteGiven) {
+	public void setNoteGiven(String noteGiven) {
 		this.noteGiven = noteGiven;
 	}
 

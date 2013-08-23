@@ -21,21 +21,21 @@ public class MotherEditForm extends Form {
     private Integer age;
     private String caseName;
     private String motherName;
-    private Boolean updateMotherName;
+    private String updateMotherName;
     private Integer hhNumber;
-    private Boolean updateHhNumber;
+    private String updateHhNumber;
     private Date motherDob;
-    private Boolean updateMotherDob;
+    private String updateMotherDob;
     private Integer familyNumber;
-    private Boolean updateFamilyNumber;
+    private String updateFamilyNumber;
     private String mobileNumber;
-    private Boolean updateMobileNumber;
+    private String updateMobileNumber;
     private Integer wardNumber;
-    private Boolean updateWardNumber;
+    private String updateWardNumber;
     private String mobileNumberWhose;
-    private Boolean updateMobileNumberWhose;
+    private String updateMobileNumberWhose;
     private String husbandName;
-    private Boolean updateHusbandName;
+    private String updateHusbandName;
 
 
     public MotherEditForm() {
@@ -116,11 +116,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_husband_name")
-    public Boolean getUpdateHusbandName() {
+    public String getUpdateHusbandName() {
         return updateHusbandName;
     }
 
-    public void setUpdateHusbandName(Boolean updateHusbandName) {
+    public void setUpdateHusbandName(String updateHusbandName) {
         this.updateHusbandName = updateHusbandName;
     }
 
@@ -134,11 +134,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_mobile_number_whose")
-    public Boolean getUpdateMobileNumberWhose() {
+    public String getUpdateMobileNumberWhose() {
         return updateMobileNumberWhose;
     }
 
-    public void setUpdateMobileNumberWhose(Boolean updateMobileNumberWhose) {
+    public void setUpdateMobileNumberWhose(String updateMobileNumberWhose) {
         this.updateMobileNumberWhose = updateMobileNumberWhose;
     }
 
@@ -162,11 +162,11 @@ public class MotherEditForm extends Form {
 
 
     @Column(name = "update_ward_number")
-    public Boolean getUpdateWardNumber() {
+    public String getUpdateWardNumber() {
         return updateWardNumber;
     }
 
-    public void setUpdateWardNumber(Boolean updateWardNumber) {
+    public void setUpdateWardNumber(String updateWardNumber) {
         this.updateWardNumber = updateWardNumber;
     }
 
@@ -180,11 +180,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_mobile_number")
-    public Boolean getUpdateMobileNumber() {
+    public String getUpdateMobileNumber() {
         return updateMobileNumber;
     }
 
-    public void setUpdateMobileNumber(Boolean updateMobileNumber) {
+    public void setUpdateMobileNumber(String updateMobileNumber) {
         this.updateMobileNumber = updateMobileNumber;
     }
 
@@ -198,11 +198,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_family_number")
-    public Boolean getUpdateFamilyNumber() {
+    public String getUpdateFamilyNumber() {
         return updateFamilyNumber;
     }
 
-    public void setUpdateFamilyNumber(Boolean updateFamilyNumber) {
+    public void setUpdateFamilyNumber(String updateFamilyNumber) {
         this.updateFamilyNumber = updateFamilyNumber;
     }
 
@@ -216,11 +216,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_mother_dob")
-    public Boolean getUpdateMotherDob() {
+    public String getUpdateMotherDob() {
         return updateMotherDob;
     }
 
-    public void setUpdateMotherDob(Boolean updateMotherDob) {
+    public void setUpdateMotherDob(String updateMotherDob) {
         this.updateMotherDob = updateMotherDob;
     }
 
@@ -234,11 +234,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_hh_number")
-    public Boolean getUpdateHhNumber() {
+    public String getUpdateHhNumber() {
         return updateHhNumber;
     }
 
-    public void setUpdateHhNumber(Boolean updateHhNumber) {
+    public void setUpdateHhNumber(String updateHhNumber) {
         this.updateHhNumber = updateHhNumber;
     }
 
@@ -252,11 +252,11 @@ public class MotherEditForm extends Form {
     }
 
     @Column(name = "update_mother_name")
-    public Boolean getUpdateMotherName() {
+    public String getUpdateMotherName() {
         return updateMotherName;
     }
 
-    public void setUpdateMotherName(Boolean updateMotherName) {
+    public void setUpdateMotherName(String updateMotherName) {
         this.updateMotherName = updateMotherName;
     }
 

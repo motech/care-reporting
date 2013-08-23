@@ -19,14 +19,14 @@ public class CloseChildForm extends Form {
 	private Date timeEnd;
 	private Date timeStart;
 	private Date dateModified;
-	private Boolean childAlive;
-    private Boolean closeChild;
-    private Boolean confirmClose;
+	private String childAlive;
+    private String closeChild;
+    private String confirmClose;
     private Date dateDeath;
-    private Boolean died;
-    private Boolean diedVillage;
-    private Boolean dupeReg;
-    private Boolean finishedContinuum;
+    private String died;
+    private String diedVillage;
+    private String dupeReg;
+    private String finishedContinuum;
     private String siteDeath;
     private String placeDeath;
     private Date creationTime = new Date();
@@ -110,29 +110,29 @@ public class CloseChildForm extends Form {
 
 
     @Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return this.childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 
 	@Column(name = "close_child")
-	public Boolean getCloseChild() {
+	public String getCloseChild() {
 		return this.closeChild;
 	}
 
-	public void setCloseChild(Boolean closeChild) {
+	public void setCloseChild(String closeChild) {
 		this.closeChild = closeChild;
 	}
 
 	@Column(name = "confirm_close")
-	public Boolean getConfirmClose() {
+	public String getConfirmClose() {
 		return this.confirmClose;
 	}
 
-	public void setConfirmClose(Boolean confirmClose) {
+	public void setConfirmClose(String confirmClose) {
 		this.confirmClose = confirmClose;
 	}
 
@@ -147,38 +147,38 @@ public class CloseChildForm extends Form {
 	}
 
 	@Column(name = "died")
-	public Boolean getDied() {
+	public String getDied() {
 		return this.died;
 	}
 
-	public void setDied(Boolean died) {
+	public void setDied(String died) {
 		this.died = died;
 	}
 
 	@Column(name = "died_village")
-	public Boolean getDiedVillage() {
+	public String getDiedVillage() {
 		return this.diedVillage;
 	}
 
-	public void setDiedVillage(Boolean diedVillage) {
+	public void setDiedVillage(String diedVillage) {
 		this.diedVillage = diedVillage;
 	}
 
 	@Column(name = "dupe_reg")
-	public Boolean getDupeReg() {
+	public String getDupeReg() {
 		return this.dupeReg;
 	}
 
-	public void setDupeReg(Boolean dupeReg) {
+	public void setDupeReg(String dupeReg) {
 		this.dupeReg = dupeReg;
 	}
 
 	@Column(name = "finished_continuum")
-	public Boolean getFinishedContinuum() {
+	public String getFinishedContinuum() {
 		return this.finishedContinuum;
 	}
 
-	public void setFinishedContinuum(Boolean finishedContinuum) {
+	public void setFinishedContinuum(String finishedContinuum) {
 		this.finishedContinuum = finishedContinuum;
 	}
 

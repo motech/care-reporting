@@ -29,25 +29,25 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Integer hhNumber;
 	private String husbandName;
 	private String lastVisitType;
-	private Boolean motherAlive;
+	private String motherAlive;
 	private Date motherDob;
 	private String motherName;
 	private Date closedOn;
 	private Date add;
 	private Short age;
 	private String birthPlace;
-	private Boolean complications;
+	private String complications;
 	private Date dateNextBp;
 	private Date dateNextCf;
 	private Date dateNextEb;
 	private Date dateNextPnc;
-	private Boolean eatsMeat;
+	private String eatsMeat;
 	private Date edd;
-	private Boolean enrolledInKilkari;
+	private String enrolledInKilkari;
 	private String familyPlanningType;
 	private Short howManyChildren;
-	private Boolean interestInKilkari;
-	private Boolean lastPregTt;
+	private String interestInKilkari;
+	private String lastPregTt;
 	private Date lmp;
 	private String mobileNumber;
 	private Short numBoys;
@@ -63,7 +63,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Date dateEb4;
 	private Date dateEb5;
 	private Date dateEb6;
-	private Boolean allPncOnTime;
+	private String allPncOnTime;
 	private Date datePnc1;
 	private Date datePnc2;
 	private Date datePnc3;
@@ -72,14 +72,14 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private Integer pnc2DaysLate;
 	private Integer pnc3DaysLate;
 	private Date ttBoosterDate;
-	private Boolean sba;
-	private Boolean sbaPhone;
-	private Boolean accompany;
+	private String sba;
+	private String sbaPhone;
+	private String accompany;
 	private Date anc1Date;
 	private Date anc2Date;
 	private Date anc3Date;
 	private Date anc4Date;
-	private Boolean cleanCloth;
+	private String cleanCloth;
 	private String coupleInterested;
 	private Date dateBp1;
 	private Date dateBp2;
@@ -88,14 +88,14 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	private String deliveryType;
 	private Short ifaTablets;
 	private Date ifaTablets100;
-	private Boolean materials;
-	private Boolean maternalEmergency;
-	private Boolean maternalEmergencyNumber;
-	private Boolean phoneVehicle;
-	private Boolean savingMoney;
+	private String materials;
+	private String maternalEmergency;
+	private String maternalEmergencyNumber;
+	private String phoneVehicle;
+	private String savingMoney;
 	private Date tt1Date;
 	private Date tt2Date;
-	private Boolean vehicle;
+	private String vehicle;
 	private String birthStatus;
 	private Date migrateOutDate;
 	private String migratedStatus;
@@ -240,11 +240,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     }
 
     @Column(name = "mother_alive")
-	public Boolean getMotherAlive() {
+	public String getMotherAlive() {
 		return this.motherAlive;
 	}
 
-	public void setMotherAlive(Boolean motherAlive) {
+	public void setMotherAlive(String motherAlive) {
 		this.motherAlive = motherAlive;
 	}
 
@@ -306,11 +306,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "complications")
-	public Boolean getComplications() {
+	public String getComplications() {
 		return this.complications;
 	}
 
-	public void setComplications(Boolean complications) {
+	public void setComplications(String complications) {
 		this.complications = complications;
 	}
 
@@ -355,11 +355,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "eats_meat")
-	public Boolean getEatsMeat() {
+	public String getEatsMeat() {
 		return this.eatsMeat;
 	}
 
-	public void setEatsMeat(Boolean eatsMeat) {
+	public void setEatsMeat(String eatsMeat) {
 		this.eatsMeat = eatsMeat;
 	}
 
@@ -374,11 +374,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "enrolled_in_kilkari")
-	public Boolean getEnrolledInKilkari() {
+	public String getEnrolledInKilkari() {
 		return this.enrolledInKilkari;
 	}
 
-	public void setEnrolledInKilkari(Boolean enrolledInKilkari) {
+	public void setEnrolledInKilkari(String enrolledInKilkari) {
 		this.enrolledInKilkari = enrolledInKilkari;
 	}
 
@@ -401,20 +401,20 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "interest_in_kilkari")
-	public Boolean getInterestInKilkari() {
+	public String getInterestInKilkari() {
 		return this.interestInKilkari;
 	}
 
-	public void setInterestInKilkari(Boolean interestInKilkari) {
+	public void setInterestInKilkari(String interestInKilkari) {
 		this.interestInKilkari = interestInKilkari;
 	}
 
 	@Column(name = "last_preg_tt")
-	public Boolean getLastPregTt() {
+	public String getLastPregTt() {
 		return this.lastPregTt;
 	}
 
-	public void setLastPregTt(Boolean lastPregTt) {
+	public void setLastPregTt(String lastPregTt) {
 		this.lastPregTt = lastPregTt;
 	}
 
@@ -567,11 +567,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "all_pnc_on_time")
-	public Boolean getAllPncOnTime() {
+	public String getAllPncOnTime() {
 		return this.allPncOnTime;
 	}
 
-	public void setAllPncOnTime(Boolean allPncOnTime) {
+	public void setAllPncOnTime(String allPncOnTime) {
 		this.allPncOnTime = allPncOnTime;
 	}
 
@@ -652,29 +652,29 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "sba")
-	public Boolean getSba() {
+	public String getSba() {
 		return this.sba;
 	}
 
-	public void setSba(Boolean sba) {
+	public void setSba(String sba) {
 		this.sba = sba;
 	}
 
 	@Column(name = "sba_phone")
-	public Boolean getSbaPhone() {
+	public String getSbaPhone() {
 		return this.sbaPhone;
 	}
 
-	public void setSbaPhone(Boolean sbaPhone) {
+	public void setSbaPhone(String sbaPhone) {
 		this.sbaPhone = sbaPhone;
 	}
 
 	@Column(name = "accompany")
-	public Boolean getAccompany() {
+	public String getAccompany() {
 		return this.accompany;
 	}
 
-	public void setAccompany(Boolean accompany) {
+	public void setAccompany(String accompany) {
 		this.accompany = accompany;
 	}
 
@@ -719,11 +719,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "clean_cloth")
-	public Boolean getCleanCloth() {
+	public String getCleanCloth() {
 		return this.cleanCloth;
 	}
 
-	public void setCleanCloth(Boolean cleanCloth) {
+	public void setCleanCloth(String cleanCloth) {
 		this.cleanCloth = cleanCloth;
 	}
 
@@ -805,47 +805,47 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "materials")
-	public Boolean getMaterials() {
+	public String getMaterials() {
 		return this.materials;
 	}
 
-	public void setMaterials(Boolean materials) {
+	public void setMaterials(String materials) {
 		this.materials = materials;
 	}
 
 	@Column(name = "maternal_emergency")
-	public Boolean getMaternalEmergency() {
+	public String getMaternalEmergency() {
 		return this.maternalEmergency;
 	}
 
-	public void setMaternalEmergency(Boolean maternalEmergency) {
+	public void setMaternalEmergency(String maternalEmergency) {
 		this.maternalEmergency = maternalEmergency;
 	}
 
 	@Column(name = "maternal_emergency_number")
-	public Boolean getMaternalEmergencyNumber() {
+	public String getMaternalEmergencyNumber() {
 		return this.maternalEmergencyNumber;
 	}
 
-	public void setMaternalEmergencyNumber(Boolean maternalEmergencyNumber) {
+	public void setMaternalEmergencyNumber(String maternalEmergencyNumber) {
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
 	}
 
 	@Column(name = "phone_vehicle")
-	public Boolean getPhoneVehicle() {
+	public String getPhoneVehicle() {
 		return this.phoneVehicle;
 	}
 
-	public void setPhoneVehicle(Boolean phoneVehicle) {
+	public void setPhoneVehicle(String phoneVehicle) {
 		this.phoneVehicle = phoneVehicle;
 	}
 
 	@Column(name = "saving_money")
-	public Boolean getSavingMoney() {
+	public String getSavingMoney() {
 		return this.savingMoney;
 	}
 
-	public void setSavingMoney(Boolean savingMoney) {
+	public void setSavingMoney(String savingMoney) {
 		this.savingMoney = savingMoney;
 	}
 
@@ -870,11 +870,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	}
 
 	@Column(name = "vehicle")
-	public Boolean getVehicle() {
+	public String getVehicle() {
 		return this.vehicle;
 	}
 
-	public void setVehicle(Boolean vehicle) {
+	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
 	}
 

@@ -27,7 +27,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private Date dateModified;
 	private Date serverDateModified;
     private String caseType;
-	private Boolean babyMeasles;
+	private String babyMeasles;
 	private Date bcgDate;
 	private String birthStatus;
 	private Date dob;
@@ -45,18 +45,18 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	private Date opv2Date;
 	private Date opv3Date;
 	private Date vitA1Date;
-	private Boolean childAlive;
+	private String childAlive;
 	private Date dptBoosterDate;
 	private Date opvBoosterDate;
 	private Date dateJe;
 	private Date dateMeaslesBooster;
-	private Boolean babyWeight;
+	private String babyWeight;
 	private String name;
 	private String term;
 	private String timeOfBirth;
 	private Date vitA2Date;
 	private Date vitA3Date;
-    private Boolean cordFallen;
+    private String cordFallen;
 	private Boolean closed;
 	private Date closedOn;
     private Flw closedBy;
@@ -161,11 +161,11 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Column(name = "baby_measles")
-	public Boolean getBabyMeasles() {
+	public String getBabyMeasles() {
 		return this.babyMeasles;
 	}
 
-	public void setBabyMeasles(Boolean babyMeasles) {
+	public void setBabyMeasles(String babyMeasles) {
 		this.babyMeasles = babyMeasles;
 	}
 
@@ -338,11 +338,11 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
 	@Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return this.childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 
@@ -387,11 +387,11 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
     @Column(name = "baby_weight")
-    public Boolean getBabyWeight() {
+    public String getBabyWeight() {
         return babyWeight;
     }
 
-    public void setBabyWeight(Boolean babyWeight) {
+    public void setBabyWeight(String babyWeight) {
         this.babyWeight = babyWeight;
     }
 
@@ -443,11 +443,11 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
 	}
 
     @Column(name = "cord_fallen")
-    public Boolean getCordFallen() {
+    public String getCordFallen() {
         return cordFallen;
     }
 
-    public void setCordFallen(Boolean cordFallen) {
+    public void setCordFallen(String cordFallen) {
         this.cordFallen = cordFallen;
     }
 

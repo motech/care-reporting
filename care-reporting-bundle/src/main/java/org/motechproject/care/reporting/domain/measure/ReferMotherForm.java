@@ -20,7 +20,7 @@ public class ReferMotherForm extends Form {
 	private Date timeStart;
 	private Date dateModified;
     private Short numChildren;
-	private Boolean referMother;
+	private String referMother;
     private Date creationTime = new Date();
 
     public ReferMotherForm() {
@@ -99,11 +99,11 @@ public class ReferMotherForm extends Form {
 	}
 
 	@Column(name = "refer_mother")
-	public Boolean getReferMother() {
+	public String getReferMother() {
 		return this.referMother;
 	}
 
-	public void setReferMother(Boolean referMother) {
+	public void setReferMother(String referMother) {
 		this.referMother = referMother;
 	}
 
