@@ -26,8 +26,8 @@ public class MotherCaseUpdateTest extends BaseTestCase {
     private String serverDateModified;
     private String serverDateModifiedIST;
 
-    Map<String, String> placeholderMap = new HashMap<>();
-    Map<String, String> header = new HashMap<>();
+    private Map<String, String> placeholderMap = new HashMap<>();
+    private Map<String, String> header = new HashMap<>();
 
     @Before
     public void setUp() {

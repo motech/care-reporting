@@ -23,8 +23,8 @@ public class MotherLifeCycleTest extends BaseTestCase {
     @Autowired
     private Asserter asserter;
 
-    Map<String, String> placeholderMap = new HashMap<>();
-    Map<String, String> headerMap = new HashMap<>();
+    private Map<String, String> placeholderMap = new HashMap<>();
+    private Map<String, String> headerMap = new HashMap<>();
 
     @Before
     public void setUp() {
