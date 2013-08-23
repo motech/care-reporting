@@ -14,6 +14,9 @@ import org.motechproject.care.reporting.parser.InfoParserImpl;
 import org.motechproject.care.reporting.parser.ProviderParser;
 import org.motechproject.care.reporting.processors.BestMatchProcessor;
 
+import java.util.List;
+
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -30,9 +33,11 @@ public class MapperServiceTest {
     private MapperService mapperService;
     private String namespace = "http://bihar.commcarehq.org/pregnancy/";
 
+    private List<String> expectedExclusionList = asList("alphaVersion", "devVersion");
+
     @Before
     public void setUp() {
-        mapperService = new MapperService(bestMatchProcessor1, bestMatchProcessor2);
+        mapperService = new MapperService(bestMatchProcessor1, bestMatchProcessor2, expectedExclusionList);
     }
 
     @Test
@@ -82,5 +87,11 @@ public class MapperServiceTest {
     public void testGetProviderInfoParser() {
         ProviderParser providerInfoParser = mapperService.getProviderInfoParser();
         assertNotNull(providerInfoParser);
+    }
+
+    @Test
+    public void testGetExclusionList() {
+        List<String> actualExclusions = mapperService.getExclusionAppversionList();
+        assertEquals(expectedExclusionList, actualExclusions);
     }
 }

@@ -48,6 +48,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
                 .addMetadata("username", "username")
                 .addMetadata("userID", flwId)
                 .addMetadata("instanceId", "e34707f8-80c8-4198-bf99-c11c90ba5c98")
+                .addMetadata("appVersion", "validVersion")
                 .addAttribute("uiVersion", "1")
                 .addAttribute("version", "1")
                 .addAttribute("name", "Mother Edit")
@@ -114,6 +115,7 @@ public class FormProcessorIT extends SpringIntegrationTest {
                 .addMetadata("username", "username")
                 .addMetadata("userID", flwId)
                 .addMetadata("instanceId", instanceId)
+                .addMetadata("appVersion", "validVersion")
 
                 .addAttribute("uiVersion", "1")
                 .addAttribute("version", "1")

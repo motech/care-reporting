@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.processors;
 
+import org.apache.commons.lang.StringUtils;
+import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
@@ -18,21 +20,33 @@ public class FormProcessor {
     private MotherFormProcessor motherFormProcessor;
     private ChildFormProcessor childFormProcessor;
     private Service service;
+    private MapperService mapperService;
+
 
     private static final String FORM_NAME_ATTRIBUTE = "name";
     private static final String FORM_XMLNS_ATTRIBUTE = "xmlns";
+    private static final String FORM_VERSION_ATTRIBUTE = "appVersion";
 
     @Autowired
-    public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor, Service service) {
+    public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor, Service service, MapperService mapperService) {
         this.motherFormProcessor = motherFormProcessor;
         this.childFormProcessor = childFormProcessor;
         this.service = service;
+        this.mapperService = mapperService;
     }
 
     public void process(CommcareForm commcareForm) {
-        String formName = commcareForm.getForm().getAttributes().get(FORM_NAME_ATTRIBUTE);
-        String xmlns = commcareForm.getForm().getAttributes().get(FORM_XMLNS_ATTRIBUTE);
+
+        final Map<String, String> formAttributes = commcareForm.getForm().getAttributes();
+        String formName = formAttributes.get(FORM_NAME_ATTRIBUTE);
+        String xmlns = formAttributes.get(FORM_XMLNS_ATTRIBUTE);
         logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s;", commcareForm.getId(), formName, xmlns));
+
+        String appVersion = commcareForm.getMetadata().get(FORM_VERSION_ATTRIBUTE);
+        if(StringUtils.isEmpty(appVersion) || mapperService.getExclusionAppversionList().contains(appVersion)) {
+            logger.info(String.format("Ignoring the form, id: %s with appversion %s", commcareForm.getId(), appVersion));
+            return;
+        }
 
         Map<String, String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
         List<Map<String, String>> childForms = childFormProcessor.parseChildForms(commcareForm);
