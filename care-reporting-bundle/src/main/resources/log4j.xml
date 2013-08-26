@@ -37,6 +37,7 @@
         <level value="ERROR" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FA2" />
+        <appender-ref ref="Email" />
     </root>
 
 </log4j:configuration>
