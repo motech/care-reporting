@@ -17,6 +17,18 @@
         </layout>
     </appender>
 
+    <appender name="Email" class="org.motechproject.care.reporting.logger.EmailAppender">
+        <param name="SMTPHost" value="gmail-smtp-in.l.google.com" />
+        <param name="BufferSize" value="512" />
+        <param name="From" value="ananya_errors@thoughtworks.com" />
+        <param name="To" value="motech_care@thoughtworks.com" />
+        <param name="Subject" value="Ananya Care Reporting Error | DEV | {hostname} | {bodyhash}" />
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
+        </layout>
+        <param name="Threshold" value="ERROR" />
+    </appender>
+
     <logger name="commcare-reporting-mapper">
         <level value="DEBUG" />
     </logger>
