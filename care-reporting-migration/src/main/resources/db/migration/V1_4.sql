@@ -18,7 +18,7 @@ BEGIN
 												     END 
 												     FROM report.child_case cc
 												     INNER JOIN report.mother_case mc ON cc.mother_id = mc.id
-												     INNER JOIN report.job_metadata md ON mc.last_modified_time >= md.last_run
+												     INNER JOIN report.job_metadata md ON ( mc.last_modified_time >= md.last_run  OR cc.last_modified_time >= md.last_run )
 												     WHERE cc.id = v.case_id AND md.job_name = ''populate_delivery_offset_days''';
 	END LOOP;
 
