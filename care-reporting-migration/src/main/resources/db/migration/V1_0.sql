@@ -1273,6 +1273,7 @@ CREATE TABLE report.mi_form(
     ,date_aborted DATE
     ,migrated_status VARCHAR(255)
 	,delivery_offset_days INTEGER
+	,status VARCHAR(255)
     ,creation_time TIMESTAMP WITH TIME ZONE
 );
 

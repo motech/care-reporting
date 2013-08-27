@@ -28,6 +28,7 @@ public class MiForm extends Form {
 	private String abortionType;
 	private Date dateAborted;
 	private String migratedStatus;
+    private String status;
     private Date creationTime = new Date();
 
     public MiForm() {
@@ -180,6 +181,16 @@ public class MiForm extends Form {
 	public void setMigratedStatus(String migratedStatus) {
 		this.migratedStatus = migratedStatus;
 	}
+
+
+    @Column(name = "status")
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_time")
