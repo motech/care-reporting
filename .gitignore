@@ -19,3 +19,4 @@ test-output/
 .DS_Store
 *.log*
 *.wav
+dependency-reduced-pom.xml
