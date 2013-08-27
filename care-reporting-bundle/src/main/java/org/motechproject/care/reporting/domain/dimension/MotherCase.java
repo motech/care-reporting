@@ -1073,7 +1073,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            logger.warn(String.format("Ignoring mother case update with case id: %s since current date modified is %s and given date modified is %s", this.caseId, this.dateModified, updated.dateModified));
+            logger.warn(String.format("Ignoring mother case update with case id: %s since existing server date modified is %s and new server date modified is %s", this.caseId, this.serverDateModified, updated.serverDateModified));
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime", "closedOn", "closedBy", "closed"));
