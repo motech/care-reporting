@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
@@ -99,16 +100,18 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldCloseCaseEvenIfDateModifiedIsLate() {
+    public void shouldCloseCaseEvenIfServerModifiedIsLate() {
         MotherCase motherCase = new MotherCaseBuilder()
                 .caseId("97e56523-5820-414a-83c2-bfcb6dcf4db3")
                 .caseName("devi")
                 .dateModified(JAN_20)
+                .serverDateModified(JAN_20)
                 .build();
         template.save(motherCase);
 
         CaseEvent caseEvent = new CaseEventBuilder("97e56523-5820-414a-83c2-bfcb6dcf4db3")
                 .withAction("CLOSE")
+                .withDateModified("2013-01-01")
                 .withServerModifiedOn("2013-01-01")
                 .withUserId("5ba9a0928dde95d187544babf6c0ad24")
                 .build();
@@ -119,7 +122,8 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
         assertEquals(1, motherCases.size());
         MotherCase actualMother = motherCases.get(0);
         assertTrue(actualMother.getClosed());
-        assertEquals(JAN_20, actualMother.getDateModified());
+        assertEquals(JAN_20, actualMother.getServerDateModified());
+        assertEquals(JAN_01, actualMother.getDateModified());
         assertEquals(JAN_01, actualMother.getClosedOn());
         assertEquals("5ba9a0928dde95d187544babf6c0ad24", actualMother.getClosedBy().getFlwId());
 
