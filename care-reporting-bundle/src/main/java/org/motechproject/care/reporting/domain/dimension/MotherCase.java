@@ -111,11 +111,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     private Date lastModifiedTime;
     private Flw closedBy;
     private String mobileNumberWhose;
-    private int bpVisitNum;
-    private int wardNumber;
-    private int ebVisitNum;
-    private int pncVisitNum;
-    private int cfVisitNum;
+    private Integer bpVisitNum;
+    private Integer wardNumber;
+    private Integer ebVisitNum;
+    private Integer pncVisitNum;
+    private Integer cfVisitNum;
 
     public MotherCase() {
         Date date = new Date();
@@ -992,47 +992,47 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     }
     
     @Column(name = "ward_number")
-    public int getWardNumber() {
+    public Integer getWardNumber() {
         return this.wardNumber;
     }
 
-    public void setWardNumber(int wardNumber) {
+    public void setWardNumber(Integer wardNumber) {
         this.wardNumber = wardNumber;
     }
     
     @Column(name = "bp_visit_num")
-    public int getBpVisitNum() {
+    public Integer getBpVisitNum() {
         return this.bpVisitNum;
     }
 
-    public void setBpVisitNum(int bpVisitNum) {
+    public void setBpVisitNum(Integer bpVisitNum) {
         this.bpVisitNum = bpVisitNum;
     }
     
     @Column(name = "eb_visit_num")
-    public int getEbVisitNum() {
+    public Integer getEbVisitNum() {
         return this.ebVisitNum;
     }
 
-    public void setEbVisitNum(int ebVisitNum) {
+    public void setEbVisitNum(Integer ebVisitNum) {
         this.ebVisitNum = ebVisitNum;
     }
     
     @Column(name = "pnc_visit_num")
-    public int getPncVisitNum() {
+    public Integer getPncVisitNum() {
         return this.pncVisitNum;
     }
 
-    public void setPncVisitNum(int pncVisitNum) {
+    public void setPncVisitNum(Integer pncVisitNum) {
         this.pncVisitNum = pncVisitNum;
     }
 
     @Column(name = "cf_visit_num")
-    public int getCfVisitNum() {
+    public Integer getCfVisitNum() {
         return this.cfVisitNum;
     }
 
-    public void setCfVisitNum(int cfVisitNum) {
+    public void setCfVisitNum(Integer cfVisitNum) {
         this.cfVisitNum = cfVisitNum;
     }
     
