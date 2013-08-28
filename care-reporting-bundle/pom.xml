@@ -107,11 +107,6 @@
             <artifactId>commcare-provider-sync</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>com.springsource.javax.mail</artifactId>
-            <version>1.4.5</version>
-        </dependency>
     </dependencies>
 
     <build>
