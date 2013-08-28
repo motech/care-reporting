@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.migration.common;
 
 public class Constants {
-    public static final String MIGRATION_TYPE = "migrationType";
     public static final String TYPE = "type";
     public static final String FORM_NAMESPACE = "xmlns";
     public static final String CASE_TYPE = "case_type";

@@ -53,7 +53,7 @@ public class CaseMigrationTaskTest {
         optionsMap.put(LIMIT, 100);
         optionsMap.put(OFFSET, 2000);
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
-        when(migratorArguments.getMap()).thenReturn(optionsMap);
+        when(migratorArguments.getOptions()).thenReturn(optionsMap);
 
         Map<String, String> expectedNameValuePairs = new HashMap<>();;
         expectedNameValuePairs.put(CASE_TYPE, "cc_bihar_pregnancy");
@@ -63,10 +63,15 @@ public class CaseMigrationTaskTest {
         expectedNameValuePairs.put(LIMIT, String.valueOf(100));
         expectedNameValuePairs.put(OFFSET, String.valueOf(2000));
 
+        PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), null);
+        when(parser.parse("someresponse")).thenReturn(paginatedResult);
+        when(commcareAPIHttpClient.fetchCases(any(Map.class), any(PaginationOption.class))).thenReturn("someresponse");
+
         caseMigrationTask.migrate(migratorArguments);
 
         ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
         verify(commcareAPIHttpClient).fetchCases(parameterCaptor.capture(), any(PaginationOption.class));
+
         ReflectionAssert.assertLenientEquals(expectedNameValuePairs, parameterCaptor.getValue());
     }
 

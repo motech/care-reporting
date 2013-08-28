@@ -36,17 +36,18 @@ public class CommcareAPIHttpClient {
     public CommcareAPIHttpClient(@Qualifier("commcareHttpClient") HttpClient httpClient, @Qualifier("commcareProperties") Properties commcareProperties) {
         this.httpClient = httpClient;
         this.commcareProperties = commcareProperties;
+        logConfig();
         authenticate();
     }
 
     public String fetchForms(Map<String, String> parameters, PaginationOption option) {
         NameValuePair[] queryParams = populateParams(parameters, option);
-        return getRequest(commcareFormListUrl(), queryParams);
+        return getRequest(getCommcareFormListUrl(), queryParams);
     }
 
     public String fetchCases(Map<String, String> parameters, PaginationOption option) {
         NameValuePair[] queryParams = populateParams(parameters, option);
-        return getRequest(commcareCaseListUrl(), queryParams);
+        return getRequest(getCommcareCaseListUrl(), queryParams);
     }
 
     private NameValuePair[] populateParams(Map<String, String> parameters, PaginationOption option) {
@@ -141,11 +142,11 @@ public class CommcareAPIHttpClient {
                 new UsernamePasswordCredentials(getUsername(), getPassword()));
     }
 
-    private String commcareCaseListUrl() {
+    private String getCommcareCaseListUrl() {
         return String.format("%s/%s/api/%s/case", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
-    private String commcareFormListUrl() {
+    private String getCommcareFormListUrl() {
         return String.format("%s/%s/api/%s/form", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
@@ -178,5 +179,10 @@ public class CommcareAPIHttpClient {
 
     private String getVersion() {
         return commcareProperties.getProperty("apiVersion");
+    }
+
+    private void logConfig() {
+        logger.info(String.format("Commcare case list endpoint: %s", getCommcareCaseListUrl()));
+        logger.info(String.format("Commcare form list endpoint: %s", getCommcareFormListUrl()));
     }
 }

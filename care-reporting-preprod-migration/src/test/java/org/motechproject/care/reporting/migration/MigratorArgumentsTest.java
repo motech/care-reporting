@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.MigrationType;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -12,7 +13,12 @@ import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static org.motechproject.care.reporting.migration.common.Constants.*;
+import static org.motechproject.care.reporting.migration.common.Constants.END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.LIMIT;
+import static org.motechproject.care.reporting.migration.common.Constants.OFFSET;
+import static org.motechproject.care.reporting.migration.common.Constants.START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.VERSION;
 
 
 public class MigratorArgumentsTest {
@@ -39,7 +45,7 @@ public class MigratorArgumentsTest {
         }};
 
         MigratorArguments arguments = new MigratorArguments(args);
-        Map<String, Object> actualMap = arguments.getMap();
+        Map<String, Object> actualMap = arguments.getOptions();
         ReflectionAssert.assertReflectionEquals(expectedMap, actualMap);
         assertEquals(MigrationType.FORM, arguments.getMigrationType());
     }
@@ -52,13 +58,13 @@ public class MigratorArgumentsTest {
     @Test
     public void shouldGetNameSpace() throws Exception {
         MigratorArguments arguments = new MigratorArguments(args);
-        assertEquals("namespace", arguments.getType());
+        assertEquals("namespace", arguments.getOptions().get(Constants.TYPE));
     }
 
     @Test
     public void shouldGetAppVersion() throws Exception {
         MigratorArguments arguments = new MigratorArguments(args);
-        assertEquals("version", arguments.getAppVersion());
+        assertEquals("version", arguments.getOptions().get(Constants.VERSION));
     }
 
     @Test
@@ -70,25 +76,25 @@ public class MigratorArgumentsTest {
     @Test
     public void shouldGetStartDate() throws Exception {
         MigratorArguments arguments = new MigratorArguments(args);
-        assertEquals("2012-10-20", arguments.getStartDate());
+        assertEquals("2012-10-20", arguments.getOptions().get(Constants.START_DATE));
     }
 
     @Test
     public void shouldGetEndDate() throws Exception {
         MigratorArguments arguments = new MigratorArguments(args);
-        assertEquals("2012-10-20", arguments.getEndDate());
+        assertEquals("2012-10-20", arguments.getOptions().get(Constants.END_DATE));
     }
 
     @Test
     public void shouldGetOffset() {
-        MigratorArguments migratorArguments = new MigratorArguments(args);
-        assertEquals("2000", migratorArguments.getOffset());
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("2000", arguments.getOptions().get(Constants.OFFSET));
     }
 
     @Test
     public void shouldGetLimit() {
-        MigratorArguments migratorArguments = new MigratorArguments(args);
-        assertEquals("100", migratorArguments.getLimit());
+        MigratorArguments arguments = new MigratorArguments(args);
+        assertEquals("100", arguments.getOptions().get(Constants.LIMIT));
     }
 
     @Test

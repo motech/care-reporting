@@ -6,13 +6,9 @@ import com.google.gson.JsonObject;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
-import org.motechproject.care.reporting.migration.service.PaginationScheme;
-import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,15 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.motechproject.care.reporting.migration.common.Constants.*;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_VERSION;
+import static org.motechproject.care.reporting.migration.common.Constants.END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.VERSION;
 
 @Component
 public class CaseMigrationTask extends MigrationTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
 
-
-    private final ResponseParser parser;
     private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
         put(VERSION, CASE_VERSION);
         put(TYPE, CASE_TYPE);
@@ -38,9 +38,8 @@ public class CaseMigrationTask extends MigrationTask {
     }};
 
     @Autowired
-    public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser parser) {
-        super(commcareAPIHttpClient, motechAPIHttpClient);
-        this.parser = parser;
+    public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser);
     }
 
 
@@ -50,28 +49,12 @@ public class CaseMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected Paginator getPaginator(Map<String, String> pairs) {
-        PaginationScheme paginationScheme = new PaginationScheme() {
-            @Override
-            public String nextPage(Map<String, String> parameters, PaginationOption paginationOption) {
-                return commcareAPIHttpClient.fetchCases(parameters, paginationOption);
-            }
-        };
-
-        return new Paginator(pairs, paginationScheme, parser);
+    protected void postToMotech(CommcareResponseWrapper commcareResponseWrapper) {
+        motechAPIHttpClient.postCase(commcareResponseWrapper);
     }
 
     @Override
-    protected void postToMotech(JsonArray request) {
-        List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
-        logger.info(String.format("Started posting %d case requests to motech", commcareResponseWrappers.size()));
-        for (CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
-            motechAPIHttpClient.postCase(commcareResponseWrapper);
-        }
-        logger.info(String.format("Started posting %d case requests to motech", commcareResponseWrappers.size()));
-    }
-
-    private List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
+    protected List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
         List<CommcareResponseWrapper> casesWithHeader = new ArrayList<>();
         for (JsonElement aCase : request) {
             List<String> caseXmls = CommcareDataUtil.toCaseXml((JsonObject) aCase);
@@ -82,6 +65,11 @@ public class CaseMigrationTask extends MigrationTask {
             }
         }
         return casesWithHeader;
+    }
+
+    @Override
+    protected String fetchCommcareRecords(Map<String, String> parameters, PaginationOption paginationOption) {
+        return commcareAPIHttpClient.fetchCases(parameters, paginationOption);
     }
 
 }

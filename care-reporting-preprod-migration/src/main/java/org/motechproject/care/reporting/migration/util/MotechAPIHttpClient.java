@@ -30,17 +30,18 @@ public class MotechAPIHttpClient {
     public MotechAPIHttpClient(@Qualifier("motechHttpClient") HttpClient httpClient, @Qualifier("platformProperties") Properties platformProperties) {
         this.httpClient = httpClient;
         this.platformProperties = platformProperties;
+        logConfig();
     }
 
     public void postForm(CommcareResponseWrapper form) {
-        postContet(form, new PostMethod(getFormUpdateUrl()));
+        postContent(form, new PostMethod(getFormUpdateUrl()));
     }
 
     public void postCase(CommcareResponseWrapper aCase) {
-        postContet(aCase, new PostMethod(getCaseUpdateUrl()));
+        postContent(aCase, new PostMethod(getCaseUpdateUrl()));
     }
 
-    void postContet(CommcareResponseWrapper responseWrapper, PostMethod postMethod) {
+    void postContent(CommcareResponseWrapper responseWrapper, PostMethod postMethod) {
         try {
             addHeader(postMethod, responseWrapper.getHeaders());
             postMethod.setRequestEntity(new StringRequestEntity(responseWrapper.getResponseBody(), "text/xml; charset=UTF-8", "UTF-8"));
@@ -86,4 +87,9 @@ public class MotechAPIHttpClient {
         return String.format("%s/%s", platformProperties.getProperty("app.url"), platformProperties.getProperty("app.case.endpoint"));
     }
 
+
+    private void logConfig() {
+        logger.info(String.format("MOTECH case update endpoint: %s", getCaseUpdateUrl()));
+        logger.info(String.format("MOTECH form update Endpoint: %s", getFormUpdateUrl()));
+    }
 }

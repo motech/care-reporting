@@ -6,13 +6,9 @@ import com.google.gson.JsonObject;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.PaginationOption;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
-import org.motechproject.care.reporting.migration.service.PaginationScheme;
-import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +17,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.motechproject.care.reporting.migration.common.Constants.*;
+import static org.motechproject.care.reporting.migration.common.Constants.END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.FORM_END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.FORM_NAMESPACE;
+import static org.motechproject.care.reporting.migration.common.Constants.FORM_START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.FORM_VERSION;
+import static org.motechproject.care.reporting.migration.common.Constants.START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.VERSION;
 
 @Component
 public class FormMigrationTask extends MigrationTask {
 
-    private final ResponseParser parser;
     private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
         put(VERSION, FORM_VERSION);
         put(TYPE, FORM_NAMESPACE);
@@ -34,12 +36,9 @@ public class FormMigrationTask extends MigrationTask {
         put(END_DATE, FORM_END_DATE);
     }};
 
-    private static final Logger logger = LoggerFactory.getLogger(FormMigrationTask.class);
-
     @Autowired
-    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser parser) {
-        super(commcareAPIHttpClient, motechAPIHttpClient);
-        this.parser = parser;
+    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser);
     }
 
     @Override
@@ -47,28 +46,8 @@ public class FormMigrationTask extends MigrationTask {
         return optionsToUrlMapper;
     }
 
-    @Override
-    protected Paginator getPaginator(Map<String, String> pairs) {
-        PaginationScheme paginationScheme = new PaginationScheme() {
-            @Override
-            public String nextPage(Map<String, String> parameters, PaginationOption paginationOption) {
-                return commcareAPIHttpClient.fetchForms(parameters, paginationOption);
-            }
-        };
-        return new Paginator(pairs, paginationScheme, parser);
-    }
 
-    @Override
-    protected void postToMotech(JsonArray request) {
-        List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
-        logger.info(String.format("Started posting %d form requests to motech", commcareResponseWrappers.size()));
-        for (CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
-            motechAPIHttpClient.postForm(commcareResponseWrapper);
-        }
-        logger.info(String.format("Completed posting %d form requests to motech", commcareResponseWrappers.size()));
-    }
-
-    private List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
+    protected List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
         List<CommcareResponseWrapper> formsWithHeader = new ArrayList<>();
 
         for (JsonElement form : request) {
@@ -77,5 +56,15 @@ public class FormMigrationTask extends MigrationTask {
             formsWithHeader.add(new CommcareResponseWrapper(formXml, headers));
         }
         return formsWithHeader;
+    }
+
+    @Override
+    protected void postToMotech(CommcareResponseWrapper commcareResponseWrapper) {
+        motechAPIHttpClient.postForm(commcareResponseWrapper);
+    }
+
+    @Override
+    protected String fetchCommcareRecords(Map<String, String> parameters, PaginationOption paginationOption) {
+        return commcareAPIHttpClient.fetchForms(parameters, paginationOption);
     }
 }

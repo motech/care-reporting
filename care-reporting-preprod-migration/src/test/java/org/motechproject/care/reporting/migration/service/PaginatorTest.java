@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.migration.service;
 
 import com.google.gson.JsonArray;
-import org.apache.commons.httpclient.NameValuePair;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -19,7 +18,10 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PaginatorTest {
@@ -39,6 +41,8 @@ public class PaginatorTest {
         Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
 
+        when(scheme.nextPage(eq(parameters), any(PaginationOption.class))).thenReturn("testresponse");
+        when(parser.parse("testresponse")).thenReturn(new PaginatedResult(null, null));
         paginator.nextPage();
 
         ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
@@ -96,6 +100,10 @@ public class PaginatorTest {
                 put(Constants.LIMIT, "1000");
         }};
         Paginator paginator = new Paginator(parameters, scheme, parser);
+        when(scheme.nextPage(eq(parameters), any(PaginationOption.class))).thenReturn("testresponse");
+        when(parser.parse("testresponse")).thenReturn(new PaginatedResult(null, null));
+        paginator.nextPage();
+
 
         paginator.nextPage();
         ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);

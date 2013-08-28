@@ -49,7 +49,7 @@ public class MotechAPIHttpClientTest {
         expectedException.expect(BadResponseException.class);
         expectedException.expectMessage("Request to url motech/cases failed with status code 500 and response ");
 
-        motechAPIHttpClient.postContet(aCase, postMethod);
+        motechAPIHttpClient.postContent(aCase, postMethod);
 
         verify(httpClient).executeMethod(postMethod);
     }
@@ -66,7 +66,7 @@ public class MotechAPIHttpClientTest {
         when(postMethod.getStatusCode()).thenReturn(200);
         when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
 
-        motechAPIHttpClient.postContet(response, postMethod);
+        motechAPIHttpClient.postContent(response, postMethod);
 
         verify(postMethod).addRequestHeader(headerKey, headerValue);
         ArgumentCaptor<StringRequestEntity> requestEntityCaptor = ArgumentCaptor.forClass(StringRequestEntity.class);

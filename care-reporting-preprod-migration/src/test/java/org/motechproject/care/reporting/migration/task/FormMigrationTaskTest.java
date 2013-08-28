@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.apache.commons.httpclient.NameValuePair;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +55,7 @@ public class FormMigrationTaskTest {
         optionsMap.put(OFFSET, 2000);
 
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
-        when(migratorArguments.getMap()).thenReturn(optionsMap);
+        when(migratorArguments.getOptions()).thenReturn(optionsMap);
 
         Map<String, String> expectedNameValuePairs = new HashMap<>();
         expectedNameValuePairs.put(FORM_NAMESPACE, "namespace");
@@ -65,6 +64,10 @@ public class FormMigrationTaskTest {
         expectedNameValuePairs.put(FORM_END_DATE, now.toDate().toString());
         expectedNameValuePairs.put(LIMIT, String.valueOf(100));
         expectedNameValuePairs.put(OFFSET, String.valueOf(2000));
+
+        PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), null);
+        when(parser.parse("someresponse")).thenReturn(paginatedResult);
+        when(commcareAPIHttpClient.fetchForms(any(Map.class), any(PaginationOption.class))).thenReturn("someresponse");
 
         formMigrationTask.migrate(migratorArguments);
 

@@ -3,26 +3,32 @@ package org.motechproject.care.reporting.migration;
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MigratorArguments {
+    private static final Logger logger = LoggerFactory.getLogger(MigratorArguments.class);
 
     private final String[] arguments;
-    HashMap<String, Object> optionsMap = new HashMap<>();
+    private HashMap<String, Object> optionsMap = new HashMap<>();
     private MigrationType migrationType;
-    private String appVersion;
-    private String startDate;
-    private String endDate;
-    private String type;
-    private String offset;
-    private String limit;
 
     public MigratorArguments(String[] arguments) {
         this.arguments = arguments;
         validateArgumentsLength();
         populateArguments();
+        logArguments();
+    }
+
+    private void logArguments() {
+        logger.info("Arguments:");
+        logger.info(String.format("Migration Type: %s", migrationType));
+        for (Map.Entry<String, Object> optionEntry : optionsMap.entrySet()) {
+            logger.info(String.format("%s: %s", optionEntry.getKey(), optionEntry.getValue()));
+        }
     }
 
     public static String usage() {
@@ -32,99 +38,42 @@ public class MigratorArguments {
                 "Migrator form -t http://bihar.commcarehq.org/pregnancy/new -v \"v2.0.0alpha (2b6e13-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #40 b:2012-Jul-17 r:2012-Jul-25\" -s 2013-07-01 -e 2013-07-31 -o 2000 -l 100";
     }
 
-    public Map<String, Object> getMap() {
+    public Map<String, Object> getOptions() {
         return optionsMap;
-    }
-
-    public String getAppVersion() {
-        return appVersion;
     }
 
     public MigrationType getMigrationType() {
         return this.migrationType;
     }
 
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getOffset() {
-        return offset;
-    }
-
-    public String getLimit() {
-        return limit;
-    }
-
     private void populateArguments() {
         populateMigrationType();
-        populateType();
-        populateAppVersion();
-        populateStartDate();
-        populateEndDate();
-        populateOffset();
-        populateLimit();
+        populateStringOption(NamedArgument.TYPE, Constants.TYPE);
+        populateStringOption(NamedArgument.VERSION, Constants.VERSION);
+        populateStringOption(NamedArgument.LIMIT, Constants.LIMIT);
+        populateStringOption(NamedArgument.OFFSET, Constants.OFFSET);
+        populateDateOption(NamedArgument.START_DATE, Constants.START_DATE);
+        populateDateOption(NamedArgument.END_DATE, Constants.END_DATE);
     }
 
-    private void populateOffset() {
-        this.offset = getOptionValueFor(MigrationOption.OFFSET);
-        if (this.offset != null) {
-            optionsMap.put(Constants.OFFSET, this.offset);
+    private void populateStringOption(NamedArgument namedArgument, String optionName) {
+        String value = getOptionValueFor(namedArgument);
+        if(value != null) {
+            optionsMap.put(optionName, value);
         }
     }
-
-    private void populateLimit() {
-        this.limit = getOptionValueFor(MigrationOption.LIMIT);
-        if (this.limit != null) {
-            optionsMap.put(Constants.LIMIT, this.limit);
+    private void populateDateOption(NamedArgument argumentName, String optionName) {
+        String value = getOptionValueFor(argumentName);
+        if(value != null) {
+            optionsMap.put(optionName, getFormattedDate(value));
         }
-    }
-
-    private void populateType() {
-        this.type = getOptionValueFor(MigrationOption.TYPE);
-        if (this.type != null)
-            optionsMap.put(Constants.TYPE, this.type);
-    }
-
-    private void populateAppVersion() {
-        this.appVersion = getOptionValueFor(MigrationOption.VERSION);
-        if (this.appVersion != null)
-            optionsMap.put(Constants.VERSION, this.appVersion);
-    }
-
-    private void populateStartDate() {
-        String date = getOptionValueFor(MigrationOption.STARTDATE);
-
-        if (date != null) {
-            this.startDate = getFormattedDate(date);
-            optionsMap.put(Constants.START_DATE, this.startDate);
-        }
-    }
-
-    private void populateEndDate() {
-        String date = getOptionValueFor(MigrationOption.ENDDATE);
-
-        if (date != null) {
-            this.endDate = getFormattedDate(date);
-            optionsMap.put(Constants.END_DATE, this.endDate);
-        }
-
     }
 
     private String getFormattedDate(String date) {
         return DateTime.parse(date).toString("yyyy-MM-dd");
     }
 
-    private String getOptionValueFor(MigrationOption parameter) {
+    private String getOptionValueFor(NamedArgument parameter) {
         int foundIndex = -1;
         for (int i = 0; i < arguments.length; i++) {
             if (arguments[i].startsWith(parameter.option)) {
@@ -137,7 +86,7 @@ public class MigratorArguments {
         if (arguments.length > (foundIndex + 1))
             return arguments[foundIndex + 1];
 
-        throw new IllegalArgumentException(String.format("Invalid %s", parameter.name));
+        throw new IllegalArgumentException(String.format("Invalid %s. Provide value as %s option.", parameter.name, parameter.option));
     }
 
     private void populateMigrationType() {
@@ -155,12 +104,12 @@ public class MigratorArguments {
         }
     }
 
-    private enum MigrationOption {
-        TYPE("-t", "type"), VERSION("-v", "version"), STARTDATE("-s", "start date"), ENDDATE("-e", "end date"), OFFSET("-o", "offset"), LIMIT("-l", "limit");
+    private enum NamedArgument {
+        TYPE("-t", "type"), VERSION("-v", "version"), START_DATE("-s", "start date"), END_DATE("-e", "end date"), OFFSET("-o", "offset"), LIMIT("-l", "limit");
         private final String option;
         private final String name;
 
-        MigrationOption(String option, String name) {
+        NamedArgument(String option, String name) {
             this.option = option;
             this.name = name;
         }

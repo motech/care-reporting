@@ -32,9 +32,13 @@
 
     <logger name="org.motechproject.care.reporting.migration" additivity="false">
         <level value="INFO"/>
-        <appender-ref ref="FA3" />
         <appender-ref ref="FA2" />
-        <appender-ref ref="CONSOLE" />
+    </logger>
+
+
+    <logger name="migration-progress-logger" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="FA3" />
     </logger>
 
     <root>
