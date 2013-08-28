@@ -4,7 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
@@ -39,7 +40,7 @@ public class CaseMigrationTask extends MigrationTask {
 
     @Autowired
     public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
-        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser);
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.CASE);
     }
 
 
@@ -68,7 +69,7 @@ public class CaseMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected String fetchCommcareRecords(Map<String, String> parameters, PaginationOption paginationOption) {
+    protected String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption) {
         return commcareAPIHttpClient.fetchCases(parameters, paginationOption);
     }
 

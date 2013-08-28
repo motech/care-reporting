@@ -3,8 +3,9 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import org.motechproject.care.reporting.migration.MigratorArguments;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
-import org.motechproject.care.reporting.migration.common.PaginatedResult;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.motechproject.care.reporting.migration.common.Page;
+import org.motechproject.care.reporting.migration.common.PaginatedResponse;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.service.PaginationScheme;
 import org.motechproject.care.reporting.migration.service.Paginator;
@@ -25,26 +26,34 @@ public abstract class MigrationTask {
     protected final CommcareAPIHttpClient commcareAPIHttpClient;
     protected final MotechAPIHttpClient motechAPIHttpClient;
     private ResponseParser responseParser;
+    private MigrationType migrationType;
 
-    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
+    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser, MigrationType migrationType) {
         this.commcareAPIHttpClient = commcareAPIHttpClient;
         this.motechAPIHttpClient = motechAPIHttpClient;
         this.responseParser = responseParser;
+        this.migrationType = migrationType;
     }
 
     public void migrate(MigratorArguments migratorArguments) {
         Map<String, String> pairs = getNameValuePair(migratorArguments);
         Paginator paginator = getPaginator(pairs);
-        PaginatedResult paginatedResult;
-        while ((paginatedResult = paginator.nextPage()) != null) {
-            postToMotech(paginatedResult.getResponse());
+        PaginatedResponse paginatedResponse;
+        while ((paginatedResponse = paginator.nextPage()) != null) {
+            JsonArray response = paginatedResponse.getRecords();
+
+            logger.info(String.format("Response Meta:: %s", paginatedResponse.getMeta()));
+            logger.info(String.format("Records Count: %s", response.size()));
+
+            postToMotech(response);
+
         }
     }
 
     private void postToMotech(JsonArray request) {
         List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
-        int recordsCount = commcareResponseWrappers.size();
-        String log = String.format("Started posting %d request(s) to motech", recordsCount);
+        int totalCount = commcareResponseWrappers.size();
+        String log = String.format("Started posting %d %s request(s) to motech", totalCount, migrationType);
         logger.info(log);
         progressLogger.info(log);
         int successCount = 0;
@@ -54,12 +63,12 @@ public abstract class MigrationTask {
                 successCount++;
             }
         } finally {
-            if(successCount != recordsCount) {
-                log = String.format("Error posting posting request(s) to motech. Successful: %s, Failed: %s", successCount, recordsCount - successCount);
+            if(successCount != totalCount) {
+                log = String.format("Error posting %s request(s) to motech. Successful: %s, Failed: %s", migrationType, successCount, totalCount - successCount);
                 logger.error(log);
                 progressLogger.error(log);
             } else {
-                log = String.format("Completed successfully posting %d request(s) to motech", recordsCount);
+                log = String.format("Successfully posted %d %s request(s) to motech", totalCount, migrationType);
                 logger.info(log);
                 progressLogger.info(log);
             }
@@ -86,8 +95,8 @@ public abstract class MigrationTask {
     protected Paginator getPaginator(Map<String, String> pairs) {
         PaginationScheme paginationScheme = new PaginationScheme() {
             @Override
-            public String nextPage(Map<String, String> parameters, PaginationOption paginationOption) {
-                String log = String.format("Fetching cases from commcare with offset: %s, limit: %s", paginationOption.getLimit(), paginationOption.getOffset());
+            public String nextPage(Map<String, String> parameters, Page paginationOption) {
+                String log = String.format("Fetching %s records from commcare with offset: %s, limit: %s", migrationType, paginationOption.getOffset(), paginationOption.getLimit());
                 progressLogger.info(log);
                 logger.info(log);
                 return fetchCommcareRecords(parameters, paginationOption);
@@ -103,6 +112,5 @@ public abstract class MigrationTask {
 
     protected abstract void postToMotech(CommcareResponseWrapper commcareResponseWrapper);
 
-    protected abstract String fetchCommcareRecords(Map<String, String> parameters, PaginationOption paginationOption);
-
+    protected abstract String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption);
 }

@@ -14,23 +14,36 @@ public class ResponseParserTest {
 
     @Test
     public void shouldParseResponse() {
-        String response = getMessage("\"?offset=30&case_type=bihar_pregnancy&limit=10\"");
+        String response = getMessage("\"?offset=30&case_type=bihar_pregnancy&limit=10\"", "\"?offset=0&case_type=bihar_pregnancy&limit=10\"");
 
-        PaginatedResult result = new ResponseParser().parse(response);
+        PaginatedResponse result = new ResponseParser().parse(response);
 
-        assertEquals(10, result.getPaginationOption().getLimit());
-        assertEquals(30, result.getPaginationOption().getOffset());
-        assertEquals(1, result.getResponse().size());
+        assertEquals(1, result.getRecords().size());
+
+        PaginatedResponseMeta meta = result.getMeta();
+
+        assertEquals(486839, meta.getTotalCount());
+
+        assertEquals(10, meta.getNextPage().getLimit());
+        assertEquals(30, meta.getNextPage().getOffset());
+
+        assertEquals(10, meta.getPreviousPage().getLimit());
+        assertEquals(0, meta.getPreviousPage().getOffset());
+
+        assertEquals(10, meta.getCurrentPage().getLimit());
+        assertEquals(20, meta.getCurrentPage().getOffset());
     }
 
     @Test
     public void shouldParseResponseWithNullNextField() {
-        String response = getMessage(null);
+        String response = getMessage(null, null);
 
-        PaginatedResult result = new ResponseParser().parse(response);
+        PaginatedResponse result = new ResponseParser().parse(response);
 
-        assertNull(result.getPaginationOption());
-        assertEquals(1, result.getResponse().size());
+        assertNull(result.getMeta().getPreviousPage());
+        assertNull(result.getMeta().getNextPage());
+
+        assertEquals(1, result.getRecords().size());
     }
 
     @Test
@@ -38,18 +51,18 @@ public class ResponseParserTest {
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage("Invalid limit option, li=10&of");
 
-        String response = getMessage("\"li=10&of\"");
+        String response = getMessage("\"li=10&of\"", null);
 
         new ResponseParser().parse(response);
     }
 
-    private String getMessage(String nextValue) {
+    private String getMessage(String nextPageParameters, String previousPageParameters) {
         return "{\n" +
                 "    \"meta\": {\n" +
                 "        \"limit\": 10,\n" +
-                "        \"next\": " + nextValue + ",\n" +
+                "        \"next\": " + nextPageParameters + ",\n" +
+                "        \"previous\": " + previousPageParameters + ",\n" +
                 "        \"offset\": 20,\n" +
-                "        \"previous\": null,\n" +
                 "        \"total_count\": 486839\n" +
                 "    },\n" +
                 "    \"objects\": [\n" +

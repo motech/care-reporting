@@ -13,6 +13,10 @@ public class Constants {
     public static final String END_DATE = "end_date";
     public static final String FORM_END_DATE = "received_on_end";
     public static final String CASE_END_DATE = "server_date_modified_end";
+
     public static final String OFFSET = "offset";
     public static final String LIMIT = "limit";
+
+    public static final int DEFAULT_PAGE_LIMIT = 100;
+    public static final int DEFAULT_INITIAL_PAGE_OFFSET = 0;
 }

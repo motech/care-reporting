@@ -10,8 +10,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.migration.MigratorArguments;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
-import org.motechproject.care.reporting.migration.common.PaginatedResult;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.Page;
+import org.motechproject.care.reporting.migration.common.PaginatedResponse;
+import org.motechproject.care.reporting.migration.common.PaginatedResponseMeta;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
@@ -65,14 +66,14 @@ public class FormMigrationTaskTest {
         expectedNameValuePairs.put(LIMIT, String.valueOf(100));
         expectedNameValuePairs.put(OFFSET, String.valueOf(2000));
 
-        PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), null);
+        PaginatedResponse paginatedResult = new PaginatedResponse(new JsonArray(), new PaginatedResponseMeta(null, null, null, 0));
         when(parser.parse("someresponse")).thenReturn(paginatedResult);
-        when(commcareAPIHttpClient.fetchForms(any(Map.class), any(PaginationOption.class))).thenReturn("someresponse");
+        when(commcareAPIHttpClient.fetchForms(any(Map.class), any(Page.class))).thenReturn("someresponse");
 
         formMigrationTask.migrate(migratorArguments);
 
         ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
-        verify(commcareAPIHttpClient).fetchForms(parameterCaptor.capture(), any(PaginationOption.class));
+        verify(commcareAPIHttpClient).fetchForms(parameterCaptor.capture(), any(Page.class));
         ReflectionAssert.assertLenientEquals(expectedNameValuePairs, parameterCaptor.getValue());
     }
 
@@ -80,23 +81,23 @@ public class FormMigrationTaskTest {
     public void shouldFetchFormsWithParameters() {
         String formResponse1 = "response1";
         JsonArray jsonResponse1 = getJsonFormArray("2013-10-30", 1);
-        when(parser.parse(formResponse1)).thenReturn(new PaginatedResult(jsonResponse1, new PaginationOption(100, 100)));
+        when(parser.parse(formResponse1)).thenReturn(new PaginatedResponse(jsonResponse1, new PaginatedResponseMeta(new Page(0, 100), new Page(100, 100), null, 100)));
         String formResponse2 = "response2";
         JsonArray jsonResponse2 = getJsonFormArray("2013-12-13", 1);
-        when(parser.parse(formResponse2)).thenReturn(new PaginatedResult(jsonResponse2, null));
-        when(commcareAPIHttpClient.fetchForms(anyMap(), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(formResponse2).thenReturn(null);
+        when(parser.parse(formResponse2)).thenReturn(new PaginatedResponse(jsonResponse2, new PaginatedResponseMeta(new Page(0, 100), null, null, 100)));
+        when(commcareAPIHttpClient.fetchForms(anyMap(), any(Page.class))).thenReturn(formResponse1).thenReturn(formResponse2).thenReturn(null);
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
 
         formMigrationTask.migrate(migratorArguments);
 
         ArgumentCaptor<Map> parameterCaptor = ArgumentCaptor.forClass(Map.class);
-        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        ArgumentCaptor<Page> optionCaptor = ArgumentCaptor.forClass(Page.class);
         ArgumentCaptor<CommcareResponseWrapper> formReponseCaptor = ArgumentCaptor.forClass(CommcareResponseWrapper.class);
 
         verify(commcareAPIHttpClient, times(2)).fetchForms(parameterCaptor.capture(), optionCaptor.capture());
-        List<PaginationOption> actualOptions = optionCaptor.getAllValues();
-        ReflectionAssert.assertReflectionEquals(new PaginationOption(100, 0), actualOptions.get(0));
-        ReflectionAssert.assertReflectionEquals(new PaginationOption(100, 100), actualOptions.get(1));
+        List<Page> actualOptions = optionCaptor.getAllValues();
+        ReflectionAssert.assertReflectionEquals(new Page(0, 100), actualOptions.get(0));
+        ReflectionAssert.assertReflectionEquals(new Page(100, 100), actualOptions.get(1));
 
         verify(motechAPIHttpClient, times(2)).postForm(formReponseCaptor.capture());
         List<CommcareResponseWrapper> actualForms = formReponseCaptor.getAllValues();
@@ -109,8 +110,8 @@ public class FormMigrationTaskTest {
     public void shouldPostMultipleTimesForMultipleForms() {
         String formResponse1 = "response1";
         JsonArray jsonResponse1 = getJsonFormArray("2013-10-30", 2);
-        when(parser.parse(formResponse1)).thenReturn(new PaginatedResult(jsonResponse1, null));
-        when(commcareAPIHttpClient.fetchForms(anyMap(), any(PaginationOption.class))).thenReturn(formResponse1).thenReturn(null);
+        when(parser.parse(formResponse1)).thenReturn(new PaginatedResponse(jsonResponse1, new PaginatedResponseMeta(null, null, null, 0)));
+        when(commcareAPIHttpClient.fetchForms(anyMap(), any(Page.class))).thenReturn(formResponse1).thenReturn(null);
         MigrationTask formMigrationTask = new FormMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser);
         formMigrationTask.migrate(migratorArguments);
 

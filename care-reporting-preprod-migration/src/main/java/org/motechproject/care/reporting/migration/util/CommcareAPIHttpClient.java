@@ -1,6 +1,12 @@
 package org.motechproject.care.reporting.migration.util;
 
-import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodRetryHandler;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScheme;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
@@ -8,7 +14,7 @@ import org.apache.commons.httpclient.auth.CredentialsProvider;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +46,19 @@ public class CommcareAPIHttpClient {
         authenticate();
     }
 
-    public String fetchForms(Map<String, String> parameters, PaginationOption option) {
-        NameValuePair[] queryParams = populateParams(parameters, option);
+    public String fetchForms(Map<String, String> parameters, Page paginationOptions) {
+        NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
         return getRequest(getCommcareFormListUrl(), queryParams);
     }
 
-    public String fetchCases(Map<String, String> parameters, PaginationOption option) {
-        NameValuePair[] queryParams = populateParams(parameters, option);
+    public String fetchCases(Map<String, String> parameters, Page paginationOptions) {
+        NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
         return getRequest(getCommcareCaseListUrl(), queryParams);
     }
 
-    private NameValuePair[] populateParams(Map<String, String> parameters, PaginationOption option) {
-        parameters.put(Constants.LIMIT, String.valueOf(option.getLimit()));
-        parameters.put(Constants.OFFSET, String.valueOf(option.getOffset()));
+    private NameValuePair[] populateParams(Map<String, String> parameters, Page paginationOptions) {
+        parameters.put(Constants.OFFSET, String.valueOf(paginationOptions.getOffset()));
+        parameters.put(Constants.LIMIT, String.valueOf(paginationOptions.getLimit()));
         return toArray(parameters);
     }
 
@@ -142,12 +148,12 @@ public class CommcareAPIHttpClient {
                 new UsernamePasswordCredentials(getUsername(), getPassword()));
     }
 
-    private String getCommcareCaseListUrl() {
-        return String.format("%s/%s/api/%s/case", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
+    String getCommcareCaseListUrl() {
+        return String.format("%s/%s/api/%s/case/", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
-    private String getCommcareFormListUrl() {
-        return String.format("%s/%s/api/%s/form", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
+    String getCommcareFormListUrl() {
+        return String.format("%s/%s/api/%s/form/", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
     }
 
     private String getCommcareBaseUrl() {

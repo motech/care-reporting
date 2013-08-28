@@ -12,33 +12,45 @@ import java.util.regex.Pattern;
 @Component
 public class ResponseParser {
 
-    public PaginatedResult parse(String result) {
+    public PaginatedResponse parse(String result) {
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonResponse = (JsonObject) jsonParser.parse(result);
         JsonObject meta = (JsonObject) jsonResponse.get("meta");
-        PaginationOption paginationOption = extractPaginationOption(meta);
+        PaginatedResponseMeta resultMeta = constructMeta(meta);
         JsonElement objects = jsonResponse.get("objects");
         JsonArray responseEntity = objects.getAsJsonArray();
-        return new PaginatedResult(responseEntity, paginationOption);
+        return new PaginatedResponse(responseEntity, resultMeta);
     }
 
-    private PaginationOption extractPaginationOption(JsonObject meta) {
-        JsonElement next = meta.get("next");
-        if (next.isJsonNull())
+    private PaginatedResponseMeta constructMeta(JsonObject meta) {
+        Page nextPage = constructPage(meta.get("next"));
+        Page previousPage= constructPage(meta.get("previous"));
+        Page currentPage = new Page(getChildElementAsInteger(meta, "offset"), getChildElementAsInteger(meta, "limit"));
+        int totalCount = getChildElementAsInteger(meta, "total_count");
+        return new PaginatedResponseMeta(currentPage, nextPage, previousPage, totalCount);
+    }
+
+    private int getChildElementAsInteger(JsonObject parent, String childName) {
+        return Integer.parseInt(parent.get(childName).getAsString());
+    }
+
+    private Page constructPage(JsonElement paginationOption) {
+        if (paginationOption.isJsonNull())
             return null;
 
-        int limit = Integer.parseInt(getOption(next, "limit"));
-        int offset = Integer.parseInt(getOption(next, "offset"));
-        return new PaginationOption(limit, offset);
+        String url = paginationOption.getAsString();
+        int limit = Integer.parseInt(getOptionFromUrl(url, "limit"));
+        int offset = Integer.parseInt(getOptionFromUrl(url, "offset"));
+        return new Page(offset, limit);
     }
 
-    private String getOption(JsonElement next, String option) {
+    private String getOptionFromUrl(String url, String option) {
         String regex = ".*" + option + "=(\\d+).*";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(next.getAsString());
+        Matcher matcher = pattern.matcher(url);
         boolean found = matcher.find();
         if (!found)
-            throw new RuntimeException(String.format("Invalid %s option, %s", option, next.getAsString()));
+            throw new RuntimeException(String.format("Invalid %s option, %s", option, url));
         return matcher.group(1);
     }
 }

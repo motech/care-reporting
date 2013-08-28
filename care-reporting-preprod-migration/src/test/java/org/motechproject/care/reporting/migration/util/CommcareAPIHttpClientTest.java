@@ -16,7 +16,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.Page;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -64,7 +65,7 @@ public class CommcareAPIHttpClientTest {
         String receivedOn = DateTime.now().toString();
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getFormResponseWithHeaderField("received_on", receivedOn)));
 
-        commcareAPIHttpClient.fetchForms(new HashMap<String, String>(), new PaginationOption(10, 0));
+        commcareAPIHttpClient.fetchForms(new HashMap<String, String>(), new Page(0, 10));
 
         ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
         verify(httpClient).executeMethod(methodCaptor.capture());
@@ -80,7 +81,7 @@ public class CommcareAPIHttpClientTest {
         String serverModifiedOn = DateTime.now().toString();
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_modified_on", serverModifiedOn)));
 
-        commcareAPIHttpClient.fetchCases(new HashMap<String, String>(), new PaginationOption(100, 20));
+        commcareAPIHttpClient.fetchCases(new HashMap<String, String>(), new Page(20, 100));
 
         ArgumentCaptor<GetMethod> methodCaptor = ArgumentCaptor.forClass(GetMethod.class);
         verify(httpClient).executeMethod(methodCaptor.capture());
@@ -98,7 +99,7 @@ public class CommcareAPIHttpClientTest {
                 put(Constants.LIMIT, "1000");
                 put(Constants.OFFSET, "2000");
         }};
-        PaginationOption paginationOption = new PaginationOption(200, 4000);
+        Page paginationOption = new Page(4000, 200);
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("server_modified_on", serverModifiedOn)));
         commcareAPIHttpClient.fetchCases(parameters, paginationOption);
 
@@ -118,7 +119,7 @@ public class CommcareAPIHttpClientTest {
             put(Constants.LIMIT, "1000");
             put(Constants.OFFSET, "2000");
         }};
-        PaginationOption paginationOption = new PaginationOption(200, 4000);
+        Page paginationOption = new Page(4000, 200);
         when(httpClient.executeMethod(any(GetMethod.class))).thenAnswer(new CommcareRequestAnswer(getCaseResponseWithHeaderField("received_on", receivedOn)));
         commcareAPIHttpClient.fetchForms(parameters, paginationOption);
 
@@ -210,5 +211,12 @@ public class CommcareAPIHttpClientTest {
                 field +
                 "\"user_id\": \"89fda0284e008d2e0c980fb13f9e0967\"\n" +
                 "}";
+    }
+
+    @Test
+    public void shouldEnsureThatCaseAndFormUrlsEndWithSlash() {
+        //Or else Redirection will result in double encoding of any "/" (slash) in the parameters.
+        assertTrue(commcareAPIHttpClient.getCommcareCaseListUrl().endsWith("/"));
+        assertTrue(commcareAPIHttpClient.getCommcareFormListUrl().endsWith("/"));
     }
 }

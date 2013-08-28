@@ -6,8 +6,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.common.PaginatedResult;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.Page;
+import org.motechproject.care.reporting.migration.common.PaginatedResponse;
+import org.motechproject.care.reporting.migration.common.PaginatedResponseMeta;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 
 import java.util.HashMap;
@@ -41,13 +42,13 @@ public class PaginatorTest {
         Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
 
-        when(scheme.nextPage(eq(parameters), any(PaginationOption.class))).thenReturn("testresponse");
-        when(parser.parse("testresponse")).thenReturn(new PaginatedResult(null, null));
+        when(scheme.nextPage(eq(parameters), any(Page.class))).thenReturn("testresponse");
+        when(parser.parse("testresponse")).thenReturn(new PaginatedResponse(null, new PaginatedResponseMeta(null, null, null, 0)));
         paginator.nextPage();
 
-        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        ArgumentCaptor<Page> optionCaptor = ArgumentCaptor.forClass(Page.class);
         verify(scheme).nextPage(eq(parameters), optionCaptor.capture());
-        PaginationOption paginationOption = optionCaptor.getValue();
+        Page paginationOption = optionCaptor.getValue();
         assertEquals(100, paginationOption.getLimit());
         assertEquals(0, paginationOption.getOffset());
     }
@@ -56,15 +57,15 @@ public class PaginatorTest {
     public void shouldFetchNextPage() {
         Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
-        PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), new PaginationOption(100, 100));
+        PaginatedResponse paginatedResult = new PaginatedResponse(new JsonArray(), new PaginatedResponseMeta(null, new Page(100, 100), null, 0));
         when(parser.parse(anyString())).thenReturn(paginatedResult);
 
         paginator.nextPage();
         paginator.nextPage();
 
-        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        ArgumentCaptor<Page> optionCaptor = ArgumentCaptor.forClass(Page.class);
         verify(scheme, times(2)).nextPage(eq(parameters), optionCaptor.capture());
-        List<PaginationOption> allValues = optionCaptor.getAllValues();
+        List<Page> allValues = optionCaptor.getAllValues();
         assertEquals(2, allValues.size());
         assertEquals(100, allValues.get(0).getLimit());
         assertEquals(0, allValues.get(0).getOffset());
@@ -77,15 +78,15 @@ public class PaginatorTest {
     public void shouldReturnNullIfNoPage() {
         Map<String,String> parameters = new HashMap<>();
         Paginator paginator = new Paginator(parameters, scheme, parser);
-        PaginatedResult paginatedResult = new PaginatedResult(new JsonArray(), null);
+        PaginatedResponse paginatedResult = new PaginatedResponse(new JsonArray(), new PaginatedResponseMeta(new Page(100, 10), null, new Page(90, 10), 10));
         when(parser.parse(anyString())).thenReturn(paginatedResult);
 
         paginator.nextPage();
-        PaginatedResult lastPage = paginator.nextPage();
+        PaginatedResponse lastPage = paginator.nextPage();
 
-        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        ArgumentCaptor<Page> optionCaptor = ArgumentCaptor.forClass(Page.class);
         verify(scheme, times(1)).nextPage(eq(parameters), optionCaptor.capture());
-        PaginationOption paginationOption = optionCaptor.getValue();
+        Page paginationOption = optionCaptor.getValue();
         assertEquals(100, paginationOption.getLimit());
         assertEquals(0, paginationOption.getOffset());
 
@@ -100,13 +101,13 @@ public class PaginatorTest {
                 put(Constants.LIMIT, "1000");
         }};
         Paginator paginator = new Paginator(parameters, scheme, parser);
-        when(scheme.nextPage(eq(parameters), any(PaginationOption.class))).thenReturn("testresponse");
-        when(parser.parse("testresponse")).thenReturn(new PaginatedResult(null, null));
+        when(scheme.nextPage(eq(parameters), any(Page.class))).thenReturn("testresponse");
+        when(parser.parse("testresponse")).thenReturn(new PaginatedResponse(null, new PaginatedResponseMeta(null, null, null, 0)));
         paginator.nextPage();
 
 
         paginator.nextPage();
-        ArgumentCaptor<PaginationOption> optionCaptor = ArgumentCaptor.forClass(PaginationOption.class);
+        ArgumentCaptor<Page> optionCaptor = ArgumentCaptor.forClass(Page.class);
         verify(scheme).nextPage(eq(parameters), optionCaptor.capture());
 
         assertEquals(2000, optionCaptor.getValue().getOffset());

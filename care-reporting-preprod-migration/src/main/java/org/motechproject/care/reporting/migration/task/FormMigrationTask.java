@@ -4,7 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.MigrationType;
+import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
@@ -38,14 +39,13 @@ public class FormMigrationTask extends MigrationTask {
 
     @Autowired
     public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
-        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser);
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.FORM);
     }
 
     @Override
     protected Map<String, String> getOptionsToUrlMapper() {
         return optionsToUrlMapper;
     }
-
 
     protected List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
         List<CommcareResponseWrapper> formsWithHeader = new ArrayList<>();
@@ -64,7 +64,7 @@ public class FormMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected String fetchCommcareRecords(Map<String, String> parameters, PaginationOption paginationOption) {
+    protected String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption) {
         return commcareAPIHttpClient.fetchForms(parameters, paginationOption);
     }
 }

@@ -10,7 +10,7 @@
     </appender>
 
     <appender name="FA2" class="org.apache.log4j.FileAppender">
-        <param name="File" value="careProdMigration.log" />
+        <param name="File" value="${log.dir}careProdMigration.log" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
@@ -18,13 +18,8 @@
     </appender>
 
     <appender name="FA3" class="org.apache.log4j.FileAppender">
-        <param name="File" value="careProdMigration_status.log" />
+        <param name="File" value="${log.dir}careProdMigration_progress.log" />
         <param name="Append" value="true" />
-        <filter class="org.apache.log4j.varia.LevelMatchFilter">
-            <param name="LevelToMatch" value="INFO" />
-            <param name="AcceptOnMatch" value="true" />
-        </filter>
-        <filter class="org.apache.log4j.varia.DenyAllFilter" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
         </layout>

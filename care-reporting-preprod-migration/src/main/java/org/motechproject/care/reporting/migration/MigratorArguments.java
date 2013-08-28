@@ -51,7 +51,7 @@ public class MigratorArguments {
         populateStringOption(NamedArgument.TYPE, Constants.TYPE);
         populateStringOption(NamedArgument.VERSION, Constants.VERSION);
         populateStringOption(NamedArgument.LIMIT, Constants.LIMIT);
-        populateStringOption(NamedArgument.OFFSET, Constants.OFFSET);
+        populateStringOption(NamedArgument.INITIAL_OFFSET, Constants.OFFSET);
         populateDateOption(NamedArgument.START_DATE, Constants.START_DATE);
         populateDateOption(NamedArgument.END_DATE, Constants.END_DATE);
     }
@@ -105,7 +105,7 @@ public class MigratorArguments {
     }
 
     private enum NamedArgument {
-        TYPE("-t", "type"), VERSION("-v", "version"), START_DATE("-s", "start date"), END_DATE("-e", "end date"), OFFSET("-o", "offset"), LIMIT("-l", "limit");
+        TYPE("-t", "type"), VERSION("-v", "version"), START_DATE("-s", "start date"), END_DATE("-e", "end date"), INITIAL_OFFSET("-o", "initial offset"), LIMIT("-l", "limit");
         private final String option;
         private final String name;
 

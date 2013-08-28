@@ -1,10 +1,9 @@
 package org.motechproject.care.reporting.migration.service;
 
-import org.apache.commons.httpclient.NameValuePair;
-import org.motechproject.care.reporting.migration.common.PaginationOption;
+import org.motechproject.care.reporting.migration.common.Page;
 
 import java.util.Map;
 
 public interface PaginationScheme {
-    public String nextPage(Map<String, String> parameters, PaginationOption paginationOption);
+    public String nextPage(Map<String, String> parameters, Page paginationOption);
 }
