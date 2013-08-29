@@ -52,7 +52,7 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     @Override
     public Object execute(final String query) {
         final ResultSet[] resultSet = new ResultSet[1];
-        final Object result = template.execute(new HibernateCallback<Object>() {
+        final Object result = template.executeWithNativeSession(new HibernateCallback<Object>() {
             @Override
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 session.doWork(new Work() {
