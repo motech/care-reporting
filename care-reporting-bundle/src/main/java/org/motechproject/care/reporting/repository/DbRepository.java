@@ -52,18 +52,21 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     @Override
     public Object execute(final String query) {
         final ResultSet[] resultSet = new ResultSet[1];
-        return template.execute(new HibernateCallback<Object>() {
+        final Object result = template.execute(new HibernateCallback<Object>() {
             @Override
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                session.doWork(new Work(){
+                session.doWork(new Work() {
                     @Override
                     public void execute(Connection connection) throws SQLException {
                         resultSet[0] = connection.prepareCall(query).executeQuery();
                     }
                 });
-                return resultSet[0] == null  || !resultSet[0].next() ? null : resultSet[0].getObject(1);
+                return resultSet[0] == null || !resultSet[0].next() ? null : resultSet[0].getObject(1);
             }
         });
+        template.flush();
+        return result;
+
     }
 
     @Override
