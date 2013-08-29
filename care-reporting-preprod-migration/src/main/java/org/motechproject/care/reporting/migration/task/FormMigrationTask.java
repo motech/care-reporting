@@ -7,6 +7,7 @@ import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper
 import org.motechproject.care.reporting.migration.common.MigrationType;
 import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
@@ -38,8 +39,9 @@ public class FormMigrationTask extends MigrationTask {
     }};
 
     @Autowired
-    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser) {
-        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.FORM);
+    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser,
+                             MigrationStatisticsCollector statisticsCollector) {
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.FORM, statisticsCollector);
     }
 
     @Override

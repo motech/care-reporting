@@ -14,6 +14,9 @@ import org.apache.commons.httpclient.auth.CredentialsProvider;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.motechproject.care.reporting.migration.common.Constants;
+import org.motechproject.care.reporting.migration.statistics.RequestTimer;
+import org.motechproject.care.reporting.migration.statistics.EndpointStatisticsCollector;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
 import org.motechproject.care.reporting.migration.common.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,11 +40,15 @@ public class CommcareAPIHttpClient {
 
     private HttpClient httpClient;
     private final Properties commcareProperties;
+    private EndpointStatisticsCollector statisticsCollector;
 
     @Autowired
-    public CommcareAPIHttpClient(@Qualifier("commcareHttpClient") HttpClient httpClient, @Qualifier("commcareProperties") Properties commcareProperties) {
+    public CommcareAPIHttpClient(@Qualifier("commcareHttpClient") HttpClient httpClient,
+                                 @Qualifier("commcareProperties") Properties commcareProperties,
+                                 MigrationStatisticsCollector statisticsCollector) {
         this.httpClient = httpClient;
         this.commcareProperties = commcareProperties;
+        this.statisticsCollector = statisticsCollector.commcareEndpoint();
         logConfig();
         authenticate();
     }
@@ -81,6 +88,8 @@ public class CommcareAPIHttpClient {
     }
 
     private String getRequest(String requestUrl, NameValuePair[] queryParams) {
+        boolean success = false;
+        final RequestTimer requestTimer = statisticsCollector.newRequest();
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
         getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new CredentialsProvider() {
@@ -93,6 +102,7 @@ public class CommcareAPIHttpClient {
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
             @Override
             public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
+                requestTimer.retried();
                 boolean retry = executionCount < getRetryCount();
 
                 logger.error("Exception occurred while pulling data from commcare hq", exception);
@@ -107,6 +117,7 @@ public class CommcareAPIHttpClient {
 
         try {
             logger.info("Fetching from: " + getMethod.getURI().getURI());
+            requestTimer.start();
             int statusCode = httpClient.executeMethod(getMethod);
 
             String response = readResponse(getMethod);
@@ -115,13 +126,19 @@ public class CommcareAPIHttpClient {
                 logger.error(e.getMessage(), e);
                 throw e;
             }
+            success = true;
             logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
             return response;
-
         } catch (IOException e) {
             getMethod.releaseConnection();
             logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
+        } finally {
+            if(success) {
+                requestTimer.successful();
+            } else {
+                requestTimer.failed();
+            }
         }
     }
 

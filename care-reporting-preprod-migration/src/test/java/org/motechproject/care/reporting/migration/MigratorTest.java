@@ -6,9 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.migration.service.MigrationService;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -20,6 +19,8 @@ public class MigratorTest {
     private MigrationService migrationService;
     @Mock
     private MigratorArguments migratorArguments;
+    @Mock
+    private MigrationStatisticsCollector statisticsCollector;
 
     @Before
     public void setUp() throws Exception {
@@ -29,9 +30,10 @@ public class MigratorTest {
     @Test
     public void shouldValidateAndMigrate() {
 
-        new Migrator(migrationService).migrate(migratorArguments);
+        new Migrator(migrationService, statisticsCollector).migrate(migratorArguments);
 
+        verify(statisticsCollector).startTimer();
         verify(migrationService).migrate(migratorArguments);
-    }
 
+    }
 }

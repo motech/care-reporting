@@ -1,14 +1,16 @@
 package org.motechproject.care.reporting.migration.util;
 
-import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.HttpState;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -17,6 +19,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.common.Page;
+import org.motechproject.care.reporting.migration.statistics.EndpointStatisticsCollector;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
+import org.motechproject.care.reporting.migration.statistics.RequestTimer;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -29,6 +34,7 @@ import java.util.regex.Pattern;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,11 +42,14 @@ import static org.mockito.Mockito.when;
 public class CommcareAPIHttpClientTest {
     public static final int LIMIT = 1;
     public static final int OFFSET = 2;
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Mock
     private HttpClient httpClient;
+    @Mock
+    private MigrationStatisticsCollector migrationStatisticsCollector;
+    @Mock
+    private EndpointStatisticsCollector endpointStatisticsCollector;
+    @Mock
+    private RequestTimer requestTimer;
 
     private Properties commcareProperties;
     private CommcareAPIHttpClient commcareAPIHttpClient;
@@ -57,7 +66,10 @@ public class CommcareAPIHttpClientTest {
         }});
         when(httpClient.getParams()).thenReturn(new HttpClientParams());
         when(httpClient.getState()).thenReturn(new HttpState());
-        commcareAPIHttpClient = new CommcareAPIHttpClient(httpClient, commcareProperties);
+
+        when(migrationStatisticsCollector.commcareEndpoint()).thenReturn(endpointStatisticsCollector);
+        when(endpointStatisticsCollector.newRequest()).thenReturn(requestTimer);
+        commcareAPIHttpClient = new CommcareAPIHttpClient(httpClient, commcareProperties, migrationStatisticsCollector);
     }
 
     @Test
@@ -74,6 +86,11 @@ public class CommcareAPIHttpClientTest {
         Matcher matcher = findLimitOffset(getMethod);
         assertEquals("10", matcher.group(LIMIT));
         assertEquals("0", matcher.group(OFFSET));
+
+        verify(requestTimer).start();
+        verify(requestTimer).successful();
+        verify(requestTimer, never()).failed();
+        verify(requestTimer, never()).retried();
     }
 
     @Test
@@ -90,6 +107,11 @@ public class CommcareAPIHttpClientTest {
         Matcher matcher = findLimitOffset(getMethod);
         assertEquals("100", matcher.group(LIMIT));
         assertEquals("20", matcher.group(OFFSET));
+
+        verify(requestTimer).start();
+        verify(requestTimer).successful();
+        verify(requestTimer, never()).failed();
+        verify(requestTimer, never()).retried();
     }
 
     @Test
@@ -110,6 +132,11 @@ public class CommcareAPIHttpClientTest {
         Matcher matcher = findLimitOffset(getMethod);
         assertEquals("200", matcher.group(LIMIT));
         assertEquals("4000", matcher.group(OFFSET));
+
+        verify(requestTimer).start();
+        verify(requestTimer).successful();
+        verify(requestTimer, never()).failed();
+        verify(requestTimer, never()).retried();
     }
 
     @Test
@@ -130,6 +157,11 @@ public class CommcareAPIHttpClientTest {
         Matcher matcher = findLimitOffset(getMethod);
         assertEquals("200", matcher.group(LIMIT));
         assertEquals("4000", matcher.group(OFFSET));
+
+        verify(requestTimer).start();
+        verify(requestTimer).successful();
+        verify(requestTimer, never()).failed();
+        verify(requestTimer, never()).retried();
     }
 
     private Matcher findLimitOffset(GetMethod getMethod) {

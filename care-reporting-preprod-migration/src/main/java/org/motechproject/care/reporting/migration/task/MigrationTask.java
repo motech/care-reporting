@@ -9,6 +9,7 @@ import org.motechproject.care.reporting.migration.common.PaginatedResponse;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.service.PaginationScheme;
 import org.motechproject.care.reporting.migration.service.Paginator;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 import org.slf4j.Logger;
@@ -27,12 +28,16 @@ public abstract class MigrationTask {
     protected final MotechAPIHttpClient motechAPIHttpClient;
     private ResponseParser responseParser;
     private MigrationType migrationType;
+    private MigrationStatisticsCollector statisticsCollector;
 
-    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser, MigrationType migrationType) {
+    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient,
+                         ResponseParser responseParser, MigrationType migrationType,
+                         MigrationStatisticsCollector statisticsCollector) {
         this.commcareAPIHttpClient = commcareAPIHttpClient;
         this.motechAPIHttpClient = motechAPIHttpClient;
         this.responseParser = responseParser;
         this.migrationType = migrationType;
+        this.statisticsCollector = statisticsCollector;
     }
 
     public void migrate(MigratorArguments migratorArguments) {
@@ -41,12 +46,12 @@ public abstract class MigrationTask {
         PaginatedResponse paginatedResponse;
         while ((paginatedResponse = paginator.nextPage()) != null) {
             JsonArray response = paginatedResponse.getRecords();
+            statisticsCollector.addRecordsDownloaded(response.size());
 
             logger.info(String.format("Response Meta:: %s", paginatedResponse.getMeta()));
             logger.info(String.format("Records Count: %s", response.size()));
 
             postToMotech(response);
-
         }
     }
 
@@ -63,6 +68,8 @@ public abstract class MigrationTask {
                 successCount++;
             }
         } finally {
+            statisticsCollector.addRecordsUploaded(successCount);
+
             if(successCount != totalCount) {
                 log = String.format("Error posting %s request(s) to motech. Successful: %s, Failed: %s", migrationType, successCount, totalCount - successCount);
                 logger.error(log);

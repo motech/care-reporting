@@ -14,6 +14,9 @@ import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
+import org.motechproject.care.reporting.migration.statistics.EndpointStatisticsCollector;
+import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
+import org.motechproject.care.reporting.migration.statistics.RequestTimer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,19 +32,29 @@ public class MotechAPIHttpClientTest {
     private HttpClient httpClient;
     @Mock
     private Properties platformProperties;
+    @Mock
+    private MigrationStatisticsCollector migrationStatisticsCollector;
+    @Mock
+    private EndpointStatisticsCollector endpointStatisticsCollector;
+    @Mock
+    private RequestTimer requestTimer;
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    private MotechAPIHttpClient motechAPIHttpClient;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        when(migrationStatisticsCollector.motechEndpoint()).thenReturn(endpointStatisticsCollector);
+        when(endpointStatisticsCollector.newRequest()).thenReturn(requestTimer);
+        motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties, migrationStatisticsCollector);
     }
 
     @Test
     public void shouldThrowExceptionIfStatusIsNotSuccess() throws IOException {
         CommcareResponseWrapper aCase = new CommcareResponseWrapper("aCase", MapUtils.EMPTY_MAP);
         PostMethod postMethod = mock(PostMethod.class);
-        MotechAPIHttpClient motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties);
         when(postMethod.getStatusCode()).thenReturn(500);
         when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
         when(postMethod.getURI()).thenReturn(new URI("motech/cases", true));
@@ -62,7 +75,6 @@ public class MotechAPIHttpClientTest {
         String headerValue = DateTime.now().toString();
         headers.put(headerKey, headerValue);
         CommcareResponseWrapper response = new CommcareResponseWrapper("response", headers);
-        MotechAPIHttpClient motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties);
         when(postMethod.getStatusCode()).thenReturn(200);
         when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
 
@@ -74,6 +86,11 @@ public class MotechAPIHttpClientTest {
         assertEquals(response.getResponseBody(), requestEntityCaptor.getValue().getContent());
 
         verify(httpClient).executeMethod(postMethod);
+
+        verify(requestTimer).start();
+        verify(requestTimer).successful();
+        verify(requestTimer, never()).failed();
+        verify(requestTimer, never()).retried();
     }
 
     @Test
@@ -83,8 +100,16 @@ public class MotechAPIHttpClientTest {
 
         doThrow(new RuntimeException("post failed")).when(httpClient).executeMethod(any(PostMethod.class));
 
-        MotechAPIHttpClient motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties);
+        try {
+            motechAPIHttpClient.postForm(new CommcareResponseWrapper("response", MapUtils.EMPTY_MAP));
+        } catch (Exception e) {
+            verify(requestTimer).start();
+            verify(requestTimer, never()).successful();
+            verify(requestTimer).failed();
+            verify(requestTimer, never()).retried();
 
-        motechAPIHttpClient.postForm(new CommcareResponseWrapper("response", MapUtils.EMPTY_MAP));
+            throw e;
+        }
+
     }
 }
