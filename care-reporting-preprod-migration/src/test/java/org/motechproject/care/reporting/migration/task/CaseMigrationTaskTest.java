@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.migration.task;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -15,7 +16,9 @@ import org.motechproject.care.reporting.migration.common.PaginatedResponse;
 import org.motechproject.care.reporting.migration.common.PaginatedResponseMeta;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
+import org.motechproject.care.reporting.migration.util.CaseXmlPair;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
+import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -25,9 +28,22 @@ import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyMap;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.motechproject.care.reporting.migration.common.Constants.*;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.CASE_VERSION;
+import static org.motechproject.care.reporting.migration.common.Constants.END_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.LIMIT;
+import static org.motechproject.care.reporting.migration.common.Constants.OFFSET;
+import static org.motechproject.care.reporting.migration.common.Constants.START_DATE;
+import static org.motechproject.care.reporting.migration.common.Constants.TYPE;
+import static org.motechproject.care.reporting.migration.common.Constants.VERSION;
 
 public class CaseMigrationTaskTest {
     @Mock
@@ -40,6 +56,8 @@ public class CaseMigrationTaskTest {
     private MigratorArguments migratorArguments;
     @Mock
     private MigrationStatisticsCollector statisticsCollector;
+    @Mock
+    private CommcareDataUtil commcareDataUtil;
 
     @Before
     public void setUp() throws Exception {
@@ -56,7 +74,7 @@ public class CaseMigrationTaskTest {
         optionsMap.put(END_DATE, now.toDate().toString());
         optionsMap.put(LIMIT, 100);
         optionsMap.put(OFFSET, 2000);
-        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector);
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, new CommcareDataUtil());
         when(migratorArguments.getOptions()).thenReturn(optionsMap);
 
         Map<String, String> expectedNameValuePairs = new HashMap<>();;
@@ -91,7 +109,7 @@ public class CaseMigrationTaskTest {
         JsonArray jsonResponse2 = getCaseJson("2013-12-13", 1);
         when(parser.parse(caseResponse2)).thenReturn(new PaginatedResponse(jsonResponse2, new PaginatedResponseMeta(new Page(0, 100), null, null, 100)));
         when(commcareAPIHttpClient.fetchCases(anyMap(), any(Page.class))).thenReturn(caseResponse1).thenReturn(caseResponse2).thenReturn(null);
-        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector);
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, new CommcareDataUtil());
 
         caseMigrationTask.migrate(migratorArguments);
 
@@ -129,7 +147,7 @@ public class CaseMigrationTaskTest {
         JsonArray jsonResponse1 = getCaseJson("2013-10-30", 2);
         when(parser.parse(caseResponse1)).thenReturn(new PaginatedResponse(jsonResponse1, new PaginatedResponseMeta(null, null, null, 0)));
         when(commcareAPIHttpClient.fetchCases(anyMap(), any(Page.class))).thenReturn(caseResponse1).thenReturn(null);
-        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector);
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, new CommcareDataUtil());
 
         caseMigrationTask.migrate(migratorArguments);
 
@@ -152,7 +170,7 @@ public class CaseMigrationTaskTest {
         JsonArray jsonResponse1 = getClosedCase();
         when(parser.parse(caseResponse1)).thenReturn(new PaginatedResponse(jsonResponse1, new PaginatedResponseMeta(null, null, null, 0)));
         when(commcareAPIHttpClient.fetchCases(anyMap(), any(Page.class))).thenReturn(caseResponse1).thenReturn(null);
-        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector);
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, new CommcareDataUtil());
 
         caseMigrationTask.migrate(migratorArguments);
 
@@ -168,6 +186,34 @@ public class CaseMigrationTaskTest {
         verify(statisticsCollector).addRecordsDownloaded(1);
         verify(statisticsCollector).addRecordsUploaded(2);
     }
+
+
+    @Test
+    public void shouldProcessCasesWhichHaveClosedActionFirst() {
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, commcareDataUtil);
+        JsonObject jsonObject1 = mock(JsonObject.class);
+        JsonObject jsonObject2 = mock(JsonObject.class);
+        JsonObject jsonObject3 = mock(JsonObject.class);
+        JsonObject jsonObject4 = mock(JsonObject.class);
+        JsonArray jsonArray = new JsonArray();
+        jsonArray.add(jsonObject1);
+        jsonArray.add(jsonObject2);
+        jsonArray.add(jsonObject3);
+        jsonArray.add(jsonObject4);
+
+        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate1", null));
+        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate2", "close2"));
+        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate3", "close3"));
+        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate4", null));
+        List<CommcareResponseWrapper> commcareResponseWrappers = caseMigrationTask.convertToEntity(jsonArray);
+        assertEquals("createUpdate2", commcareResponseWrappers.get(0).getResponseBody());
+        assertEquals("createUpdate3", commcareResponseWrappers.get(1).getResponseBody());
+        assertEquals("createUpdate1", commcareResponseWrappers.get(2).getResponseBody());
+        assertEquals("createUpdate4", commcareResponseWrappers.get(3).getResponseBody());
+        assertEquals("close2", commcareResponseWrappers.get(4).getResponseBody());
+        assertEquals("close3", commcareResponseWrappers.get(5).getResponseBody());
+    }
+
 
     private JsonArray getCaseJson(String serverModifiedOn, int sizeOfArray) {
         String caseJson = getCaseJson(serverModifiedOn);

@@ -7,6 +7,7 @@ import org.motechproject.care.reporting.migration.statistics.MigrationStatistics
 import org.motechproject.care.reporting.migration.task.CaseMigrationTask;
 import org.motechproject.care.reporting.migration.task.FormMigrationTask;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
+import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 
 import static junit.framework.Assert.assertEquals;
@@ -21,11 +22,12 @@ public class MigrationTaskFactoryTest {
         CommcareAPIHttpClient httpClient = mock(CommcareAPIHttpClient.class);
         MotechAPIHttpClient motechAPIHttpClient = mock(MotechAPIHttpClient.class);
         MigrationStatisticsCollector statisticsCollector = mock(MigrationStatisticsCollector.class);
+        CommcareDataUtil commcareDataUtil = mock(CommcareDataUtil.class);
 
         ResponseParser parser = mock(ResponseParser.class);
 
-        FormMigrationTask formMigrationTask = new FormMigrationTask(httpClient, motechAPIHttpClient, parser, statisticsCollector);
-        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(httpClient, motechAPIHttpClient, parser, statisticsCollector);
+        FormMigrationTask formMigrationTask = new FormMigrationTask(httpClient, motechAPIHttpClient, parser, statisticsCollector, commcareDataUtil);
+        CaseMigrationTask caseMigrationTask = new CaseMigrationTask(httpClient, motechAPIHttpClient, parser, statisticsCollector, commcareDataUtil);
 
         org.motechproject.care.reporting.migration.factory.MigrationTaskFactory migrationTaskFactory = new MigrationTaskFactory(formMigrationTask, caseMigrationTask);
 

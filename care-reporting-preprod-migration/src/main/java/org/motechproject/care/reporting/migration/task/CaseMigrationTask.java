@@ -8,6 +8,7 @@ import org.motechproject.care.reporting.migration.common.MigrationType;
 import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
+import org.motechproject.care.reporting.migration.util.CaseXmlPair;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
@@ -38,11 +39,14 @@ public class CaseMigrationTask extends MigrationTask {
         put(START_DATE, CASE_START_DATE);
         put(END_DATE, CASE_END_DATE);
     }};
+    private CommcareDataUtil commcareDataUtil;
 
     @Autowired
     public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser,
-                             MigrationStatisticsCollector statisticsCollector) {
+                             MigrationStatisticsCollector statisticsCollector,
+                             CommcareDataUtil commcareDataUtil) {
         super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.CASE, statisticsCollector);
+        this.commcareDataUtil = commcareDataUtil;
     }
 
 
@@ -58,16 +62,26 @@ public class CaseMigrationTask extends MigrationTask {
 
     @Override
     protected List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
-        List<CommcareResponseWrapper> casesWithHeader = new ArrayList<>();
+        List<CommcareResponseWrapper> closedActionList = new ArrayList<>();
+        List<CommcareResponseWrapper>  createUpdateActionList = new ArrayList<>();
+        List<CommcareResponseWrapper> temporaryList = new ArrayList<>();
+
         for (JsonElement aCase : request) {
-            List<String> caseXmls = CommcareDataUtil.toCaseXml((JsonObject) aCase);
-            Map<String, String> headers = CommcareDataUtil.extractAsMap((JsonObject) aCase, "server_date_modified", "server-modified-on");
-            for (String caseXml : caseXmls) {
-                CommcareResponseWrapper commcareResponseWrapper = new CommcareResponseWrapper(caseXml, headers);
-                casesWithHeader.add(commcareResponseWrapper);
+            CaseXmlPair caseXmls = commcareDataUtil.toCaseXml((JsonObject) aCase);
+            Map<String, String> headers = commcareDataUtil.extractAsMap((JsonObject) aCase, "server_date_modified", "server-modified-on");
+
+            if(caseXmls.hasClosedAction()) {
+                createUpdateActionList.add(new CommcareResponseWrapper(caseXmls.getCreateUpdateAction(), headers));
+                closedActionList.add(new CommcareResponseWrapper(caseXmls.getCloseAction(), headers));
+            } else {
+                temporaryList.add(new CommcareResponseWrapper(caseXmls.getCreateUpdateAction(), headers));
             }
         }
-        return casesWithHeader;
+
+        createUpdateActionList.addAll(temporaryList);
+        createUpdateActionList.addAll(closedActionList);
+
+        return createUpdateActionList;
     }
 
     @Override

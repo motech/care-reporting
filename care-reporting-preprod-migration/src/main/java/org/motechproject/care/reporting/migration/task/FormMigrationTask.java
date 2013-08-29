@@ -37,11 +37,14 @@ public class FormMigrationTask extends MigrationTask {
         put(START_DATE, FORM_START_DATE);
         put(END_DATE, FORM_END_DATE);
     }};
+    private CommcareDataUtil commcareDataUtil;
 
     @Autowired
     public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser,
-                             MigrationStatisticsCollector statisticsCollector) {
+                             MigrationStatisticsCollector statisticsCollector,
+                             CommcareDataUtil commcareDataUtil) {
         super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.FORM, statisticsCollector);
+        this.commcareDataUtil = commcareDataUtil;
     }
 
     @Override
@@ -53,8 +56,8 @@ public class FormMigrationTask extends MigrationTask {
         List<CommcareResponseWrapper> formsWithHeader = new ArrayList<>();
 
         for (JsonElement form : request) {
-            String formXml = CommcareDataUtil.toFormXml((JsonObject) form);
-            Map<String, String> headers = CommcareDataUtil.extractAsMap((JsonObject) form, "received_on", "received-on");
+            String formXml = commcareDataUtil.toFormXml((JsonObject) form);
+            Map<String, String> headers = commcareDataUtil.extractAsMap((JsonObject) form, "received_on", "received-on");
             formsWithHeader.add(new CommcareResponseWrapper(formXml, headers));
         }
         return formsWithHeader;

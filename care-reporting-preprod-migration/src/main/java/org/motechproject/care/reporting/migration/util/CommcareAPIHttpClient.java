@@ -98,12 +98,12 @@ public class CommcareAPIHttpClient {
                 return new UsernamePasswordCredentials(getUsername(), getPassword());
             }
         });
-
+        final int maxRetries = getMaxRetries();
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
             @Override
             public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
                 requestTimer.retried();
-                boolean retry = executionCount < getRetryCount();
+                boolean retry = executionCount <= maxRetries;
 
                 logger.error("Exception occurred while pulling data from commcare hq", exception);
                 logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
@@ -142,7 +142,7 @@ public class CommcareAPIHttpClient {
         }
     }
 
-    private int getRetryCount() {
+    private int getMaxRetries() {
         return Integer.parseInt(commcareProperties.getProperty("retry.count"));
     }
 

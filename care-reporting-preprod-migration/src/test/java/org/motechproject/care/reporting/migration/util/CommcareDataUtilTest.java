@@ -4,10 +4,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.junit.Test;
 
-import java.util.List;
-
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CommcareDataUtilTest {
 
@@ -47,7 +47,7 @@ public class CommcareDataUtilTest {
                 "<childElement>5</childElement>%n" +
                 "</data>%n";
 
-        String actualXml = CommcareDataUtil.toFormXml((JsonObject) new JsonParser().parse(json));
+        String actualXml = new CommcareDataUtil().toFormXml((JsonObject) new JsonParser().parse(json));
         assertEquals(format(expectedXml), actualXml);
     }
 
@@ -127,9 +127,9 @@ public class CommcareDataUtilTest {
                 "</index>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataUtil.toCaseXml((JsonObject) new JsonParser().parse(json));
-        assertEquals(1, cases.size());
-        assertEquals(format(expectedXml), cases.get(0));
+        CaseXmlPair cases = new CommcareDataUtil().toCaseXml((JsonObject) new JsonParser().parse(json));
+        assertFalse(cases.hasClosedAction());
+        assertEquals(format(expectedXml), cases.getCreateUpdateAction());
     }
 
     @Test
@@ -212,9 +212,9 @@ public class CommcareDataUtilTest {
                 "<close/>%n" +
                 "</case>%n";
 
-        List<String> cases = CommcareDataUtil.toCaseXml((JsonObject) new JsonParser().parse(json));
-        assertEquals(2, cases.size());
-        assertEquals(format(expectedXml), cases.get(0));
-        assertEquals(format(expectedCloseXml), cases.get(1));
+        CaseXmlPair cases = new CommcareDataUtil().toCaseXml((JsonObject) new JsonParser().parse(json));
+        assertTrue(cases.hasClosedAction());
+        assertEquals(format(expectedXml), cases.getCreateUpdateAction());
+        assertEquals(format(expectedCloseXml), cases.getCloseAction());
     }
 }
