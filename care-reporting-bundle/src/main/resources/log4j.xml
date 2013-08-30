@@ -17,14 +17,15 @@
         </layout>
     </appender>
 
-    <logger name="commcare-reporting-mapper">
+    <logger name="commcare-reporting-mapper" additivity="false">
         <level value="DEBUG" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FA2" />
     </logger>
 
     <root>
         <level value="ERROR" />
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FA2" />
     </root>
 
 </log4j:configuration>
