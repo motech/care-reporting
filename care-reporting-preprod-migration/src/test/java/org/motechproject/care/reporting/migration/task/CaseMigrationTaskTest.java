@@ -29,7 +29,6 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.anyMap;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -191,20 +190,28 @@ public class CaseMigrationTaskTest {
     @Test
     public void shouldProcessCasesWhichHaveClosedActionFirst() {
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, commcareDataUtil);
-        JsonObject jsonObject1 = mock(JsonObject.class);
-        JsonObject jsonObject2 = mock(JsonObject.class);
-        JsonObject jsonObject3 = mock(JsonObject.class);
-        JsonObject jsonObject4 = mock(JsonObject.class);
+
+        JsonObject jsonObject1 = new JsonObject();
+        jsonObject1.addProperty("prop", "value1");
+        JsonObject jsonObject2 = new JsonObject();
+        jsonObject2.addProperty("prop", "value2");
+        JsonObject jsonObject3 = new JsonObject();
+        jsonObject3.addProperty("prop", "value3");
+        JsonObject jsonObject4 = new JsonObject();
+        jsonObject4.addProperty("prop", "value4");
+
         JsonArray jsonArray = new JsonArray();
+
         jsonArray.add(jsonObject1);
         jsonArray.add(jsonObject2);
         jsonArray.add(jsonObject3);
         jsonArray.add(jsonObject4);
 
         when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate1", null));
-        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate2", "close2"));
-        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate3", "close3"));
-        when(commcareDataUtil.toCaseXml(jsonObject1)).thenReturn(new CaseXmlPair("createUpdate4", null));
+        when(commcareDataUtil.toCaseXml(jsonObject2)).thenReturn(new CaseXmlPair("createUpdate2", "close2"));
+        when(commcareDataUtil.toCaseXml(jsonObject3)).thenReturn(new CaseXmlPair("createUpdate3", "close3"));
+        when(commcareDataUtil.toCaseXml(jsonObject4)).thenReturn(new CaseXmlPair("createUpdate4", null));
+
         List<CommcareResponseWrapper> commcareResponseWrappers = caseMigrationTask.convertToEntity(jsonArray);
         assertEquals("createUpdate2", commcareResponseWrappers.get(0).getResponseBody());
         assertEquals("createUpdate3", commcareResponseWrappers.get(1).getResponseBody());

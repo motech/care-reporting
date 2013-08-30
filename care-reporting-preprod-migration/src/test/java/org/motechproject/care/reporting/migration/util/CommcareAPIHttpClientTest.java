@@ -63,6 +63,7 @@ public class CommcareAPIHttpClientTest {
             put("username", "");
             put("password", "");
             put("apiVersion", "v0.4");
+            put("retry.count", "5");
         }});
         when(httpClient.getParams()).thenReturn(new HttpClientParams());
         when(httpClient.getState()).thenReturn(new HttpState());
