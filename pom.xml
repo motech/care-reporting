@@ -17,4 +17,31 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>motech-repo</id>
+            <name>MOTECH Maven Repository</name>
+            <url>http://nexus.motechproject.org/content/repositories/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>motech.nexus</id>
+            <name>MOTECH Releases Repository</name>
+            <url>http://nexus.motechproject.org/content/repositories/releases</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>motech.nexus</id>
+            <name>MOTECH Snapshots Repository</name>
+            <url>http://nexus.motechproject.org/content/repositories/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
