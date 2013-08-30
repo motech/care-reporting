@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/web-api")
 public class PingController {
 
-    @RequestMapping(value = "/ping-care-reporting", method = RequestMethod.GET)
+    @RequestMapping(value = "/ping-care-reporting-bundle", method = RequestMethod.GET)
     @ResponseBody
     public String pingPage() {
-        return "CareReporting Ping Page";
+        return "CareReportingBundle Ping Page";
     }
 }

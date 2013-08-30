@@ -24,7 +24,7 @@ public class SchedulerDiagnosticController {
         this.schedulerDiagnosticService = schedulerDiagnosticService;
     }
 
-    @RequestMapping(value = "/diagnostics/scheduler-care-reporting", method = RequestMethod.GET)
+    @RequestMapping(value = "/diagnostics/scheduler-care-reporting-bundle", method = RequestMethod.GET)
     @ResponseBody
     public String careReportingSchedulerStatus() throws SchedulerException {
         DiagnosticsResult diagnosticsResult = schedulerDiagnosticService.diagnoseSchedules(getSchedulesToDiagnose());
