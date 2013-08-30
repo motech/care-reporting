@@ -19,4 +19,4 @@ test-output/
 .DS_Store
 *.log*
 *.wav
-care-reporting-preprod-migration/dependency-reduced-pom.xml
+commcare-migration/dependency-reduced-pom.xml

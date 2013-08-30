@@ -8,7 +8,7 @@
         <module>care-reporting-migration</module>
         <module>care-reporting-bundle</module>
         <module>care-reporting-functional-test</module>
-        <module>care-reporting-preprod-migration</module>
+        <module>commcare-migration</module>
         <module>care-reporting-performance</module>
     </modules>
     <packaging>pom</packaging>
