@@ -11,6 +11,8 @@ import org.motechproject.scheduler.MotechSchedulerService;
 import org.motechproject.scheduler.domain.CronSchedulableJob;
 import org.motechproject.server.config.SettingsFacade;
 
+import java.util.Map;
+
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,7 +41,14 @@ public class ComputeFieldsJobSchedulerTest {
         ArgumentCaptor<CronSchedulableJob> cronJobCaptor = ArgumentCaptor.forClass(CronSchedulableJob.class);
         verify(motechSchedulerService).scheduleJob(cronJobCaptor.capture());
         CronSchedulableJob actualScheduledCronJob = cronJobCaptor.getValue();
+
         assertEquals(cronExpression, actualScheduledCronJob.getCronExpression());
-        assertEquals(new MotechEvent(EventConstants.COMPUTE_FIELDS), actualScheduledCronJob.getMotechEvent());
+
+        MotechEvent actualMotechEvent = actualScheduledCronJob.getMotechEvent();
+
+        Map<String,Object> parameters = actualMotechEvent.getParameters();
+        assertEquals(1, parameters.size());
+        assertEquals(EventConstants.COMPUTE_FIELDS_JOB_ID_KEY, parameters.get(MotechSchedulerService.JOB_ID_KEY));
+        assertEquals(EventConstants.COMPUTE_FIELDS, actualMotechEvent.getSubject());
     }
 }
