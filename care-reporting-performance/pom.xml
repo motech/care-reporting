@@ -45,6 +45,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>couch4ben</groupId>
+                <artifactId>couch4ben</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
                 <groupId>vmnaik.databene</groupId>
                 <artifactId>databene-benerator</artifactId>
                 <version>0.7.6</version>
@@ -64,6 +69,10 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>couch4ben</groupId>
+            <artifactId>couch4ben</artifactId>
+        </dependency>
         <dependency>
             <groupId>vmnaik.databene</groupId>
             <artifactId>databene-benerator</artifactId>
