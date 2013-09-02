@@ -4,7 +4,7 @@ import org.hibernate.annotations.Cascade;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
-
+import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -141,7 +141,7 @@ public class BpForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+   @Cascade({	CascadeType.SAVE_UPDATE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REPLICATE, CascadeType.LOCK, CascadeType.EVICT })
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -152,7 +152,7 @@ public class BpForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+   @Cascade({	CascadeType.SAVE_UPDATE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REPLICATE, CascadeType.LOCK, CascadeType.EVICT })
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}

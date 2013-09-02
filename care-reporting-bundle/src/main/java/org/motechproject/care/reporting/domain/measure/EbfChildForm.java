@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.domain.measure;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.utils.FormToString;
@@ -79,7 +80,7 @@ public class EbfChildForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+   @Cascade({	CascadeType.SAVE_UPDATE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REPLICATE, CascadeType.LOCK, CascadeType.EVICT })
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -90,7 +91,7 @@ public class EbfChildForm extends Form {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+   @Cascade({	CascadeType.SAVE_UPDATE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REPLICATE, CascadeType.LOCK, CascadeType.EVICT })
 	public ChildCase getChildCase() {
 		return this.childCase;
 	}
