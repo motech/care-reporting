@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping(value = "/web-api")
-public class SchedulerDiagnosticController {
+@RequestMapping(value = "/web-api/care-reporting-bundle/diagnostics")
+public class DiagnosticController {
 
     private SchedulerDiagnosticService schedulerDiagnosticService;
 
     @Autowired
-    public SchedulerDiagnosticController(SchedulerDiagnosticService schedulerDiagnosticService) {
+    public DiagnosticController(SchedulerDiagnosticService schedulerDiagnosticService) {
         this.schedulerDiagnosticService = schedulerDiagnosticService;
     }
 
-    @RequestMapping(value = "/diagnostics/scheduler-care-reporting-bundle", method = RequestMethod.GET)
+    @RequestMapping(value = "/scheduler", method = RequestMethod.GET)
     @ResponseBody
-    public String careReportingSchedulerStatus() throws SchedulerException {
+    public String diagnoseScheduler() throws SchedulerException {
         DiagnosticsResult diagnosticsResult = schedulerDiagnosticService.diagnoseSchedules(getSchedulesToDiagnose());
 
         return diagnosticsResult.getStatus().equals(DiagnosticsStatus.PASS)
