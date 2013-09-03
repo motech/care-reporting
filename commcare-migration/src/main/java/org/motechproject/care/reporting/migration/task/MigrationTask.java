@@ -41,7 +41,7 @@ public abstract class MigrationTask {
     }
 
     public void migrate(MigratorArguments migratorArguments) {
-        progressLogger.error("Starting new migration");
+        progressLogger.info("Starting new migration");
         Map<String, String> pairs = getNameValuePair(migratorArguments);
         Paginator paginator = getPaginator(pairs);
         PaginatedResponse paginatedResponse;
