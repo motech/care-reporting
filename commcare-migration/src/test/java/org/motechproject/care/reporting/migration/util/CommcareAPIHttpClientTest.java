@@ -51,12 +51,12 @@ public class CommcareAPIHttpClientTest {
     @Mock
     private RequestTimer requestTimer;
 
-    private Properties commcareProperties;
+
     private CommcareAPIHttpClient commcareAPIHttpClient;
 
     @Before
     public void setUp() {
-        commcareProperties = new Properties();
+        Properties commcareProperties = new Properties();
         commcareProperties.putAll(new HashMap<Object, Object>() {{
             put("commcareBaseUrl", "https://india.commcarehq.org/a");
             put("commcareDomain", "care-bihar");
@@ -64,6 +64,7 @@ public class CommcareAPIHttpClientTest {
             put("password", "");
             put("apiVersion", "v0.4");
             put("retry.count", "5");
+            put("retry.sleep.time.in.ms", "5000");
         }});
         when(httpClient.getParams()).thenReturn(new HttpClientParams());
         when(httpClient.getState()).thenReturn(new HttpState());

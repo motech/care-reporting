@@ -1,9 +1,12 @@
 package org.motechproject.care.reporting.migration.util;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.statistics.EndpointStatisticsCollector;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
@@ -47,12 +50,37 @@ public class MotechAPIHttpClient {
     }
 
     void postContent(CommcareResponseWrapper responseWrapper, PostMethod postMethod) {
-        RequestTimer requestTimer = statisticsCollector.newRequest();
+        final RequestTimer requestTimer = statisticsCollector.newRequest();
         boolean success = false;
         try {
             addHeader(postMethod, responseWrapper.getHeaders());
-            requestTimer.start();
+
             postMethod.setRequestEntity(new StringRequestEntity(responseWrapper.getResponseBody(), "text/xml; charset=UTF-8", "UTF-8"));
+
+            final int maxRetries = getMaxRetries();
+            final int sleepTime = getSleepTimeBeforeRetries();
+            postMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
+                @Override
+                public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
+                    requestTimer.retried();
+                    boolean retry = executionCount <= maxRetries;
+
+                    logger.error("Exception occurred while posting data to motech", exception);
+                    logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
+
+                    if(!retry) {
+                        return false;
+                    }
+
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException ignored) {
+                    }
+                    return true;
+                }
+            });
+
+            requestTimer.start();
             httpClient.executeMethod(postMethod);
 
             int statusCode = postMethod.getStatusCode();
@@ -103,8 +131,17 @@ public class MotechAPIHttpClient {
     }
 
 
+    private int getSleepTimeBeforeRetries() {
+        return Integer.parseInt(platformProperties.getProperty("retry.sleep.time.in.ms"));
+    }
+
+    private int getMaxRetries() {
+        return Integer.parseInt(platformProperties.getProperty("retry.count"));
+    }
+
     private void logConfig() {
-        logger.info(String.format("MOTECH case update endpoint: %s", getCaseUpdateUrl()));
-        logger.info(String.format("MOTECH form update Endpoint: %s", getFormUpdateUrl()));
+        logger.info(String.format("Motech case update endpoint: %s", getCaseUpdateUrl()));
+        logger.info(String.format("Motech form update Endpoint: %s", getFormUpdateUrl()));
+        logger.info(String.format("Motech maximumm retries: %s; with sleep time: %s", getMaxRetries(), getSleepTimeBeforeRetries()));
     }
 }

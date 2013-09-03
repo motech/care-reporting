@@ -2,9 +2,11 @@ package org.motechproject.care.reporting.migration.util;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.URI;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -29,10 +31,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MotechAPIHttpClientTest {
     @Mock
-    private HttpClient httpClient;
-    @Mock
-    private Properties platformProperties;
-    @Mock
+    private HttpClient httpClient;    @Mock
     private MigrationStatisticsCollector migrationStatisticsCollector;
     @Mock
     private EndpointStatisticsCollector endpointStatisticsCollector;
@@ -46,37 +45,53 @@ public class MotechAPIHttpClientTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        Properties platformProperties = new Properties();
+        platformProperties.putAll(new HashMap<Object, Object>() {{
+            put("retry.count", "5");
+            put("retry.sleep.time.in.ms", "5000");
+        }});
         when(migrationStatisticsCollector.motechEndpoint()).thenReturn(endpointStatisticsCollector);
         when(endpointStatisticsCollector.newRequest()).thenReturn(requestTimer);
+
         motechAPIHttpClient = new MotechAPIHttpClient(httpClient, platformProperties, migrationStatisticsCollector);
     }
 
     @Test
     public void shouldThrowExceptionIfStatusIsNotSuccess() throws IOException {
         CommcareResponseWrapper aCase = new CommcareResponseWrapper("aCase", MapUtils.EMPTY_MAP);
+
         PostMethod postMethod = mock(PostMethod.class);
         when(postMethod.getStatusCode()).thenReturn(500);
-        when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
         when(postMethod.getURI()).thenReturn(new URI("motech/cases", true));
+        when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
+
+        HttpMethodParams httpMethodParams = mock(HttpMethodParams.class);
+        when(postMethod.getParams()).thenReturn(httpMethodParams);
 
         expectedException.expect(BadResponseException.class);
         expectedException.expectMessage("Request to url motech/cases failed with status code 500 and response ");
 
         motechAPIHttpClient.postContent(aCase, postMethod);
 
+        verify(httpMethodParams).setParameter(eq(HttpMethodParams.RETRY_HANDLER), any(HttpMethodRetryHandler.class));
+
         verify(httpClient).executeMethod(postMethod);
     }
 
     @Test
     public void shouldPostFormWithHeaders() throws IOException {
-        PostMethod postMethod = mock(PostMethod.class);
         HashMap<String, String> headers = new HashMap<>();
         String headerKey = "received-on";
         String headerValue = DateTime.now().toString();
         headers.put(headerKey, headerValue);
         CommcareResponseWrapper response = new CommcareResponseWrapper("response", headers);
+
+        PostMethod postMethod = mock(PostMethod.class);
         when(postMethod.getStatusCode()).thenReturn(200);
         when(postMethod.getResponseBodyAsStream()).thenReturn(IOUtils.toInputStream(""));
+
+        HttpMethodParams httpMethodParams = mock(HttpMethodParams.class);
+        when(postMethod.getParams()).thenReturn(httpMethodParams);
 
         motechAPIHttpClient.postContent(response, postMethod);
 
@@ -86,6 +101,7 @@ public class MotechAPIHttpClientTest {
         assertEquals(response.getResponseBody(), requestEntityCaptor.getValue().getContent());
 
         verify(httpClient).executeMethod(postMethod);
+        verify(httpMethodParams).setParameter(eq(HttpMethodParams.RETRY_HANDLER), any(HttpMethodRetryHandler.class));
 
         verify(requestTimer).start();
         verify(requestTimer).successful();
@@ -110,6 +126,5 @@ public class MotechAPIHttpClientTest {
 
             throw e;
         }
-
     }
 }

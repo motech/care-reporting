@@ -1,23 +1,20 @@
 package org.motechproject.care.reporting.migration.util;
 
-import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScheme;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
 import org.apache.commons.httpclient.auth.CredentialsProvider;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.statistics.RequestTimer;
+import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.statistics.EndpointStatisticsCollector;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
-import org.motechproject.care.reporting.migration.common.Page;
+import org.motechproject.care.reporting.migration.statistics.RequestTimer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,13 +89,10 @@ public class CommcareAPIHttpClient {
         final RequestTimer requestTimer = statisticsCollector.newRequest();
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
-        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new CredentialsProvider() {
-            @Override
-            public Credentials getCredentials(AuthScheme scheme, String host, int port, boolean proxy) throws CredentialsNotAvailableException {
-                return new UsernamePasswordCredentials(getUsername(), getPassword());
-            }
-        });
+        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new SimpleCredentialsProvider(getUsername(), getPassword()));
+
         final int maxRetries = getMaxRetries();
+        final int sleepTime = getSleepTimeBeforeRetries();
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
             @Override
             public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
@@ -107,11 +101,16 @@ public class CommcareAPIHttpClient {
 
                 logger.error("Exception occurred while pulling data from commcare hq", exception);
                 logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
+
+                if(!retry) {
+                    return false;
+                }
+
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(sleepTime);
                 } catch (InterruptedException ignored) {
                 }
-                return retry;
+                return true;
             }
         });
 
@@ -140,6 +139,10 @@ public class CommcareAPIHttpClient {
                 requestTimer.failed();
             }
         }
+    }
+
+    private int getSleepTimeBeforeRetries() {
+        return Integer.parseInt(commcareProperties.getProperty("retry.sleep.time.in.ms"));
     }
 
     private int getMaxRetries() {
@@ -207,5 +210,6 @@ public class CommcareAPIHttpClient {
     private void logConfig() {
         logger.info(String.format("Commcare case list endpoint: %s", getCommcareCaseListUrl()));
         logger.info(String.format("Commcare form list endpoint: %s", getCommcareFormListUrl()));
+        logger.info(String.format("Commcare maximumm retries: %s; with sleep time: %s", getMaxRetries(), getSleepTimeBeforeRetries()));
     }
 }
