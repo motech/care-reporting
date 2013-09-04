@@ -3,7 +3,7 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <appender name="MIGRATION_CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
         </layout>
@@ -28,7 +28,7 @@
     <logger name="org.motechproject.care.reporting.migration" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="FILE" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="MIGRATION_CONSOLE" />
     </logger>
 
 
@@ -40,12 +40,12 @@
     <logger name="migration-statistics-logger" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="FILE" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="MIGRATION_CONSOLE" />
     </logger>
 
     <root>
         <level value="ERROR" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="MIGRATION_CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
 

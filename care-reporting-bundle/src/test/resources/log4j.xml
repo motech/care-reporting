@@ -3,13 +3,13 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <appender name="REPORT_CONSOLE_TEST" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
         </layout>
     </appender>
 
-    <appender name="FA2" class="org.apache.log4j.FileAppender">
+    <appender name="FA2_TEST" class="org.apache.log4j.FileAppender">
         <param name="File" value="${log.dir}commcareToReportingMapper.log" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
@@ -21,14 +21,14 @@
 
     <logger name="commcare-reporting-mapper" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FA2" />
+        <appender-ref ref="REPORT_CONSOLE_TEST" />
+        <appender-ref ref="FA2_TEST_TEST" />
         <appender-ref ref="TEST-APPENDER" />
     </logger>
 
     <root>
         <level value="ERROR" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="REPORT_CONSOLE_TEST" />
     </root>
 
 </log4j:configuration>
