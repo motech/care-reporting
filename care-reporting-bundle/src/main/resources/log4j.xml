@@ -23,9 +23,4 @@
         <appender-ref ref="FA2" />
     </logger>
 
-    <root>
-        <level value="ERROR" />
-        <appender-ref ref="REPORT_CONSOLE" />
-    </root>
-
 </log4j:configuration>
