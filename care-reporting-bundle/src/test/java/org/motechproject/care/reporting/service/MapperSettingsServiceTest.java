@@ -33,7 +33,7 @@ public class MapperSettingsServiceTest {
     public void setUp() {
         when(settingsFacade.getProperty("form.mapping.file.names")).thenReturn("formFileName1, formFileName2");
         when(settingsFacade.getProperty("case.mapping.file.names")).thenReturn("caseFileName1, caseFileName2");
-        when(settingsFacade.getProperty("exclusion.appversion.file.names")).thenReturn("exclusionFileName");
+        when(settingsFacade.getProperty("appversion.file.names")).thenReturn("exclusionFileName");
         mapperSettingsService = new MapperSettingsService(settingsFacade);
     }
 

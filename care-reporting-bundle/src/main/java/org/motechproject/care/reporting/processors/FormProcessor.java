@@ -43,7 +43,7 @@ public class FormProcessor {
         logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s;", commcareForm.getId(), formName, xmlns));
 
         String appVersion = commcareForm.getMetadata().get(FORM_VERSION_ATTRIBUTE);
-        if(StringUtils.isEmpty(appVersion) || mapperService.getExclusionAppversionList().contains(appVersion)) {
+        if(StringUtils.isEmpty(appVersion) || mapperService.isAppversionExcluded(appVersion)) {
             logger.info(String.format("[Excluded App version] Ignoring the form, id: %s with appversion %s", commcareForm.getId(), appVersion));
             return;
         }
