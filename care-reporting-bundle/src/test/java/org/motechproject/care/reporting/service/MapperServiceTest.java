@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormSegment;
-import org.motechproject.care.reporting.model.AppVersionListEntity;
 import org.motechproject.care.reporting.model.MappingEntity;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -18,7 +17,8 @@ import org.motechproject.care.reporting.processors.BestMatchProcessor;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,8 +33,7 @@ public class MapperServiceTest {
     private MapperService mapperService;
     private String namespace = "http://bihar.commcarehq.org/pregnancy/";
 
-    private List<AppVersionListEntity> expectedExclusionList = asList(new AppVersionListEntity(true, new String[]{"alphaVersion", "devVersion"}));
-    private List<AppVersionListEntity> expectedInclusionList = asList(new AppVersionListEntity(false, new String[]{"releaseVersion1", "releaseVersion2"}));
+    private List<String> expectedExclusionList = asList("alphaVersion", "devVersion");
 
     @Before
     public void setUp() {
@@ -91,15 +90,8 @@ public class MapperServiceTest {
     }
 
     @Test
-    public void testExclusionList() {
-        assertTrue(mapperService.isAppversionExcluded("alphaVersion"));
-        assertFalse(mapperService.isAppversionExcluded("validVersion"));
-    }
-
-    @Test
-    public void testInclusionList() {
-        MapperService mapperService1 = new MapperService(bestMatchProcessor1, bestMatchProcessor2, expectedInclusionList);
-        assertFalse(mapperService1.isAppversionExcluded("releaseVersion1"));
-        assertTrue(mapperService1.isAppversionExcluded("devVersion"));
+    public void testGetExclusionList() {
+        List<String> actualExclusions = mapperService.getExclusionAppversionList();
+        assertEquals(expectedExclusionList, actualExclusions);
     }
 }

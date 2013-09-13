@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
-import org.motechproject.care.reporting.model.AppVersionListEntity;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
@@ -48,7 +47,8 @@ public class FormProcessorTest {
                                     .addMetadata("appVersion", "validVersion")
                                     .build();
 
-        when(mapperService.isAppversionExcluded("validVersion")).thenReturn(false);
+        List<String> excludeVersions = asList("blacklistVersion");
+        when(mapperService.getExclusionAppversionList()).thenReturn(excludeVersions);
         HashMap<String, String> motherFormValues = new HashMap<>();
         when(motherFormProcessor.parseMotherForm(form)).thenReturn(motherFormValues);
         ArrayList<Map<String, String>> childFormValues = new ArrayList<>();
@@ -57,7 +57,7 @@ public class FormProcessorTest {
 
         formProcessor.process(form);
 
-        verify(mapperService).isAppversionExcluded("validVersion");
+        verify(mapperService).getExclusionAppversionList();
         verify(motherFormProcessor).parseMotherForm(form);
         verify(childFormProcessor).parseChildForms(form);
         verify(service).processAndSaveForms(motherFormValues, childFormValues);
@@ -65,7 +65,7 @@ public class FormProcessorTest {
 
 
     @Test
-    public void shouldNotParseMotherAndChildDetailsInFormWhenVersionIsExcluded() {
+    public void shouldNotParseMotherAndChildDetailsInFormWhenVersionIsBlackListed() {
         CommcareForm form = new CommcareFormBuilder()
                 .withId("case id")
                 .addAttribute("name", "form name")
@@ -73,7 +73,8 @@ public class FormProcessorTest {
                 .addMetadata("appVersion", "blacklistVersion")
                 .build();
 
-        when(mapperService.isAppversionExcluded("blacklistVersion")).thenReturn(true);
+        List<String> excludeVersions = asList("blacklistVersion");
+        when(mapperService.getExclusionAppversionList()).thenReturn(excludeVersions);
         HashMap<String, String> motherFormValues = new HashMap<>();
         when(motherFormProcessor.parseMotherForm(form)).thenReturn(motherFormValues);
         ArrayList<Map<String, String>> childFormValues = new ArrayList<>();
@@ -82,7 +83,7 @@ public class FormProcessorTest {
 
         formProcessor.process(form);
 
-        verify(mapperService).isAppversionExcluded("blacklistVersion");
+        verify(mapperService).getExclusionAppversionList();
         verify(motherFormProcessor, never()).parseMotherForm(form);
         verify(childFormProcessor, never()).parseChildForms(form);
         verify(service, never()).processAndSaveForms(motherFormValues, childFormValues);
@@ -96,6 +97,8 @@ public class FormProcessorTest {
                 .addAttribute("xmlns", "namespace")
                 .build();
 
+        List<String> excludeVersions = asList("blacklistVersion");
+        when(mapperService.getExclusionAppversionList()).thenReturn(excludeVersions);
         HashMap<String, String> motherFormValues = new HashMap<>();
         when(motherFormProcessor.parseMotherForm(form)).thenReturn(motherFormValues);
         ArrayList<Map<String, String>> childFormValues = new ArrayList<>();
@@ -104,7 +107,7 @@ public class FormProcessorTest {
 
         formProcessor.process(form);
 
-        verify(mapperService, never()).isAppversionExcluded("");
+        verify(mapperService, never()).getExclusionAppversionList();
         verify(motherFormProcessor, never()).parseMotherForm(form);
         verify(childFormProcessor, never()).parseChildForms(form);
         verify(service, never()).processAndSaveForms(motherFormValues, childFormValues);

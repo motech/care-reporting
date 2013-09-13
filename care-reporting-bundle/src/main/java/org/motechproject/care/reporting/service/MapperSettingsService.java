@@ -15,7 +15,7 @@ import java.util.List;
 public class MapperSettingsService {
     private final String FORM_MAPPING_PROPERTY_KEY = "form.mapping.file.names";
     private final String CASE_MAPPING_PROPERTY_KEY = "case.mapping.file.names";
-    private final String EXCLUSION_APPVERSION_PROPERTY_KEY = "appversion.file.names";
+    private final String EXCLUSION_APPVERSION_PROPERTY_KEY = "exclusion.appversion.file.names";
     private final String FILE_NAME_DELIMITER = ",";
 
     SettingsFacade settings;
