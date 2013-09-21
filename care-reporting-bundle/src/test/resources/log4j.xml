@@ -3,32 +3,27 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="REPORT_CONSOLE_TEST" class="org.apache.log4j.ConsoleAppender">
+    <appender name="CARE_REPORTING_CONSOLE_TEST" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
         </layout>
     </appender>
 
-    <appender name="FA2_TEST" class="org.apache.log4j.FileAppender">
-        <param name="File" value="${log.dir}commcareToReportingMapper.log" />
+    <appender name="CARE_REPORTING_FILE_TEST" class="org.apache.log4j.FileAppender">
+        <param name="File" value="${log.dir}careReporting.log" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />
         </layout>
     </appender>
 
-    <appender name="TEST-APPENDER" class="org.motechproject.care.reporting.utils.TestAppender" />
+    <appender name="TEST_APPENDER" class="org.motechproject.care.reporting.utils.TestAppender" />
 
     <logger name="commcare-reporting-mapper" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="REPORT_CONSOLE_TEST" />
-        <appender-ref ref="FA2_TEST_TEST" />
-        <appender-ref ref="TEST-APPENDER" />
+        <appender-ref ref="CARE_REPORTING_CONSOLE_TEST" />
+        <appender-ref ref="CARE_REPORTING_FILE_TEST" />
+        <appender-ref ref="TEST_APPENDER" />
     </logger>
-
-    <root>
-        <level value="ERROR" />
-        <appender-ref ref="REPORT_CONSOLE_TEST" />
-    </root>
 
 </log4j:configuration>
