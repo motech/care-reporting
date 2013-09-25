@@ -8,10 +8,7 @@ import org.apache.log4j.net.SMTPAppender;
 import org.apache.log4j.spi.LoggingEvent;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Transport;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -21,13 +18,11 @@ public class EmailAppender extends SMTPAppender {
     @Override
     protected void sendBuffer() {
         try {
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
             StringBuffer buffer = new StringBuffer();
             addLayoutHeader(buffer);
             addLogEvent(buffer);
             addLayoutFooter(buffer);
-            mimeBodyPart.setContent(buffer.toString(), layout.getContentType());
-            sendEmail(mimeBodyPart);
+            sendEmail(buffer);
         } catch (Exception e) {
             LogLog.error("Error occurred while sending e-mail notification.", e);
         }
@@ -74,10 +69,8 @@ public class EmailAppender extends SMTPAppender {
         return sb.toString();
     }
 
-    private void sendEmail(MimeBodyPart mimeBodyPart) throws MessagingException {
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        msg.setContent(multipart);
+    private void sendEmail(StringBuffer buffer) throws MessagingException {
+        msg.setText(buffer.toString());
         msg.setSentDate(new Date());
         Transport.send(msg);
     }
