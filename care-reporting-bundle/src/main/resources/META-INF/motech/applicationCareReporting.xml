@@ -7,8 +7,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    <context:property-placeholder location="classpath*:care_report.properties" ignore-unresolvable="true"/>
-    <context:property-placeholder location="classpath*:postgres.properties" ignore-unresolvable="true"/>
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.motechproject.care.reporting"/>
@@ -18,8 +16,9 @@
         <property name="moduleName" value="care-reporting"/>
         <property name="configFiles">
             <list>
-                <value>classpath:care_report.properties</value>
+                <value>classpath:care_reporting.properties</value>
                 <value>classpath:postgres.properties</value>
+                <value>classpath:hibernate.properties</value>
             </list>
         </property>
     </bean>
