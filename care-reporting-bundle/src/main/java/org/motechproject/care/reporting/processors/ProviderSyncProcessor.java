@@ -27,33 +27,47 @@ public class ProviderSyncProcessor {
     private ProviderSyncMapper genericMapper;
 
     @Autowired
-    public ProviderSyncProcessor(Service service, MapperService mapperService) {
-        this(mapperService.getGroupInfoParser(), mapperService.getProviderInfoParser(), service);
+    public ProviderSyncProcessor(Service service, MapperService mapperService, ProviderSyncMapper providerSyncMapper) {
+        this(mapperService.getGroupInfoParser(), mapperService.getProviderInfoParser(), service, providerSyncMapper);
     }
 
-    public ProviderSyncProcessor(GroupParser groupParser, ProviderParser providerParser, Service service) {
+    public ProviderSyncProcessor(GroupParser groupParser, ProviderParser providerParser, Service service, ProviderSyncMapper providerSyncMapper) {
         this.groupParser = groupParser;
         this.service = service;
         this.providerParser = providerParser;
-        this.genericMapper = ProviderSyncMapper.getInstance();
+        this.genericMapper = providerSyncMapper;
     }
 
     public void processGroupSync(List<Group> groups) {
         List<FlwGroup> flwGroups = new ArrayList<>();
         for (Group group : groups) {
-            logger.info(String.format("Creating/Updating group with id: %s", group.getId()));
-            Map<String, Object> parsedGroups = groupParser.parse(group);
-            flwGroups.add(genericMapper.map(FlwGroup.class, parsedGroups));
+            String id = group.getId();
+            logger.info(String.format("Creating/Updating group with id: %s", id));
+            try {
+                FlwGroup flwGroup = processGroup(group);
+                flwGroups.add(flwGroup);
+            } catch (Exception e) {
+                logger.info(String.format("Error occurred while processing group with id: %s", id));
+            }
         }
         service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
+    }
+
+    private FlwGroup processGroup(Group group) {
+        Map<String, Object> parsedGroup = groupParser.parse(group);
+        return genericMapper.map(FlwGroup.class, parsedGroup);
     }
 
     public void processProviderSync(List<Provider> providers) {
         List<Flw> flws = new ArrayList<>();
         Map<String, FlwGroup> flwGroups = new HashMap<>();
         for (Provider provider : providers) {
-            Flw flw = processProvider(flwGroups, provider);
-            flws.add(flw);
+            try {
+                Flw flw = processProvider(flwGroups, provider);
+                flws.add(flw);
+            } catch (Exception e) {
+                logger.info(String.format("Error occurred while processing provider with id: %s", provider.getId()));
+            }
         }
         service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
     }

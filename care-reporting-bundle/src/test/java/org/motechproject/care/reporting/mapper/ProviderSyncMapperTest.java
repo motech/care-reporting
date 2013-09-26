@@ -19,7 +19,7 @@ public class ProviderSyncMapperTest {
 
     @Before
     public void setUp() throws Exception {
-        providerSyncMapper = ProviderSyncMapper.getInstance();
+        providerSyncMapper = new ProviderSyncMapper();
     }
 
     @Test

@@ -1,7 +1,9 @@
 package org.motechproject.care.reporting.mapper;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProviderSyncMapper extends Mapper {
-    private static ProviderSyncMapper _instance;
 
     public ProviderSyncMapper() {
         super(new String[]{
@@ -18,20 +20,5 @@ public class ProviderSyncMapper extends Mapper {
                 "yyyy-MM-dd",
                 "dd/MM/yyyy"
         });
-    }
-
-    public static ProviderSyncMapper getInstance() {
-        if (_instance != null) {
-            return _instance;
-        }
-        return createInstance();
-    }
-
-    private synchronized static ProviderSyncMapper createInstance() {
-        if (_instance != null) {
-            return _instance;
-        }
-        _instance = new ProviderSyncMapper();
-        return _instance;
     }
 }
