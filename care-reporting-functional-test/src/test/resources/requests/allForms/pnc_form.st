@@ -7,7 +7,7 @@
         <n0:username>8969814973</n0:username>
         <n0:userID>$userId$</n0:userID>
         <n0:instanceID>$instanceId$</n0:instanceID>
-        <cc:appVersion>v2.0.0alpha (2b6e13-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #40 b:2012-Jul-17 r:2012-Jul-25</cc:appVersion>
+        <cc:appVersion>v2.0.0alpha (990ba3-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #48 b:2012-Jul-26 r:2012-Jul-28</cc:appVersion>
     </n0:meta>
     <n1:case case_id="$caseId$" date_modified="2012-10-25T15:07:16.844+05:30" user_id="$userId$" xmlns:n1="http://commcarehq.org/case/transaction/v2">
         <n1:update>
