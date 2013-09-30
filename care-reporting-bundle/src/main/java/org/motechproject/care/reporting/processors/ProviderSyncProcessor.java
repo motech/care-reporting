@@ -47,7 +47,7 @@ public class ProviderSyncProcessor {
                 FlwGroup flwGroup = processGroup(group);
                 flwGroups.add(flwGroup);
             } catch (Exception e) {
-                logger.info(String.format("Error occurred while processing group with id: %s", id));
+                logger.error(String.format("Error occurred while processing group with id: %s", id), e);
             }
         }
         service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
@@ -66,7 +66,7 @@ public class ProviderSyncProcessor {
                 Flw flw = processProvider(flwGroups, provider);
                 flws.add(flw);
             } catch (Exception e) {
-                logger.info(String.format("Error occurred while processing provider with id: %s", provider.getId()));
+                logger.error(String.format("Error occurred while processing provider with id: %s", provider.getId()), e);
             }
         }
         service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
