@@ -219,6 +219,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+                            <excludeArtifactIds>org.osgi.core,jstl,servlet-api,org.apache.felix.framework,org.apache.felix.http.proxy</excludeArtifactIds>
                             <includeScope>runtime</includeScope>
                             <overWriteIfNewer>true</overWriteIfNewer>
                             <outputDirectory>
