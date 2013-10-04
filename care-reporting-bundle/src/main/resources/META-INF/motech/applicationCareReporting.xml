@@ -24,4 +24,17 @@
     </bean>
 
     <import resource="classpath:META-INF/motech/applicationCareReportingHibernate.xml"/>
+
+    <bean id="allDiagnosticsProbes" class="org.motechproject.commcare.provider.sync.diagnostics.AllDiagnosticsProbes">
+        <constructor-arg>
+            <list>
+                <bean class="org.motechproject.commcare.provider.sync.diagnostics.scheduler.SchedulerDiagnosticsProbe">
+                    <constructor-arg>
+                        <ref bean="schedulerDiagnosticsServiceOsgi" />
+                    </constructor-arg>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
 </beans>

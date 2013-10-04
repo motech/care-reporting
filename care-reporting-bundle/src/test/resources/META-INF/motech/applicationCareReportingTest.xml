@@ -6,5 +6,5 @@
 
     <import resource="classpath:META-INF/motech/applicationCareReporting.xml"/>
     <bean id="motechSchedulerService" class="org.motechproject.care.reporting.utils.MockSchedulerService"></bean>
-    <bean id="schedulerDiagnosticService" class="org.motechproject.care.reporting.utils.MockSchedulerDiagnosticService"></bean>
+    <bean id="schedulerDiagnosticsServiceOsgi" class="org.motechproject.care.reporting.utils.MockSchedulerDiagnosticsService"></bean>
 </beans>
