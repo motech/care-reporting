@@ -76,7 +76,8 @@ public class CaseMigrationTaskTest {
         MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, new CommcareDataUtil());
         when(migratorArguments.getOptions()).thenReturn(optionsMap);
 
-        Map<String, String> expectedNameValuePairs = new HashMap<>();;
+        Map<String, String> expectedNameValuePairs = new HashMap<>();
+        ;
         expectedNameValuePairs.put(CASE_TYPE, "cc_bihar_pregnancy");
         expectedNameValuePairs.put(CASE_VERSION, "version");
         expectedNameValuePairs.put(CASE_START_DATE, now.toDate().toString());
@@ -221,9 +222,33 @@ public class CaseMigrationTaskTest {
         assertEquals("close3", commcareResponseWrappers.get(5).getResponseBody());
     }
 
+    @Test
+    public void shouldIgnoreTaskCases() {
+        MigrationTask caseMigrationTask = new CaseMigrationTask(commcareAPIHttpClient, motechAPIHttpClient, parser, statisticsCollector, commcareDataUtil);
+        JsonArray casesIncludingTask = getCasesIncludingTask();
+        int lastIndex = casesIncludingTask.size() - 1;
+
+        when(commcareDataUtil.toCaseXml(casesIncludingTask.get(lastIndex).getAsJsonObject())).thenReturn(new CaseXmlPair("createUpdate1", null));
+
+        List<CommcareResponseWrapper> commcareResponseWrappers = caseMigrationTask.convertToEntity(casesIncludingTask);
+
+        assertEquals(1, commcareResponseWrappers.size());
+        assertEquals("createUpdate1", commcareResponseWrappers.get(0).getResponseBody());
+    }
+
+    private JsonArray getCasesIncludingTask() {
+        final JsonArray jsonArray = parseCaseJson(3, getTaskCaseJson());
+        jsonArray.addAll(getClosedCase());
+        return jsonArray;
+    }
+
 
     private JsonArray getCaseJson(String serverModifiedOn, int sizeOfArray) {
         String caseJson = getCaseJson(serverModifiedOn);
+        return parseCaseJson(sizeOfArray, caseJson);
+    }
+
+    private JsonArray parseCaseJson(int sizeOfArray, String caseJson) {
         JsonParser jsonParser = new JsonParser();
         JsonElement aCase = jsonParser.parse(caseJson);
         JsonArray caseJsons = new JsonArray();
@@ -305,6 +330,40 @@ public class CaseMigrationTaskTest {
                 "            \"user_id\": \"demo_user\",\n" +
                 "            \"xform_ids\": [\n" +
                 "                \"beacfceb-ef1e-4f46-a296-3b66e07f667f\"\n" +
+                "            ]\n" +
+                "        }";
+    }
+
+    private String getTaskCaseJson() {
+        return "{\n" +
+                "            \"case_id\": \"763ca815-df9c-4037-9f0e-6edd2af8ba6c5\",\n" +
+                "            \"closed\": true,\n" +
+                "            \"date_closed\": null,\n" +
+                "            \"date_modified\": \"2012-05-28 00:00:00\",\n" +
+                "            \"domain\": \"care-bihar\",\n" +
+                "            \"id\": \"763ca815-df9c-4037-9f0e-6edd2af8ba6c5\",\n" +
+                "            \"indices\": {\n" +
+                "                \"person_id\": {\n" +
+                "                    \"case_id\": \"7554c7f4-fc96-4b1d-aec8-8890e96ffc55\",\n" +
+                "                    \"case_type\": \"cc_bihar_newborn\"\n" +
+                "                }\n" +
+                "            },\n" +
+                "            \"properties\": {\n" +
+                "                \"case_name\": \"Measles\",\n" +
+                "                \"case_type\": \"task\",\n" +
+                "                \"date_eligible\": \"2012-05-28\",\n" +
+                "                \"date_expires\": \"2013-09-19\",\n" +
+                "                \"date_opened\": \"2012-05-28T00:00:00\",\n" +
+                "                \"external_id\": null,\n" +
+                "                \"owner_id\": \"3c5a80e4db53049dfc110c368a0d2e43\",\n" +
+                "                \"task_id\": \"measles\"\n" +
+                "            },\n" +
+                "            \"resource_uri\": \"\",\n" +
+                "            \"server_date_modified\": \"2012-05-31 13:30:24\",\n" +
+                "            \"server_date_opened\": null,\n" +
+                "            \"user_id\": \"67bffa913b38e7901851d863eded6d21\",\n" +
+                "            \"xform_ids\": [\n" +
+                "                \"e9d6bb33-783d-4978-a2e0-762b42e87b9d\"\n" +
                 "            ]\n" +
                 "        }";
     }

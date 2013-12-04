@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.migration.task;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.MigrationType;
 import org.motechproject.care.reporting.migration.common.Page;
@@ -12,6 +13,8 @@ import org.motechproject.care.reporting.migration.util.CaseXmlPair;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.CommcareDataUtil;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +35,7 @@ import static org.motechproject.care.reporting.migration.common.Constants.VERSIO
 @Component
 public class CaseMigrationTask extends MigrationTask {
 
+    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
 
     private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
         put(VERSION, CASE_VERSION);
@@ -67,6 +71,13 @@ public class CaseMigrationTask extends MigrationTask {
         List<CommcareResponseWrapper> temporaryList = new ArrayList<>();
 
         for (JsonElement aCase : request) {
+
+            if(isTask(aCase)) {
+                String caseId = getCaseId(aCase);
+                logger.warn(String.format("Task Case %s Ignored", caseId));
+                continue;
+            }
+
             CaseXmlPair caseXmls = commcareDataUtil.toCaseXml((JsonObject) aCase);
             Map<String, String> headers = commcareDataUtil.extractAsMap((JsonObject) aCase, "server_date_modified", "server-modified-on");
 
@@ -82,6 +93,25 @@ public class CaseMigrationTask extends MigrationTask {
         createUpdateActionList.addAll(closedActionList);
 
         return createUpdateActionList;
+    }
+
+    private boolean isTask(JsonElement aCase) {
+        JsonObject jsonObject = (JsonObject) aCase;
+        if(jsonObject == null)
+            return false;
+        JsonElement properties = jsonObject.get("properties");
+        if(properties == null)
+            return false;
+        final JsonElement caseType = properties.getAsJsonObject().get("case_type");
+        return (caseType != null) && "TASK".equalsIgnoreCase(caseType.getAsString());
+    }
+
+    private String getCaseId(JsonElement aCase) {
+        JsonObject jsonObject = (JsonObject) aCase;
+        if(jsonObject == null)
+            return null;
+        final JsonElement caseId = jsonObject.get("case_id");
+        return caseId == null ? null : caseId.getAsString();
     }
 
     @Override
