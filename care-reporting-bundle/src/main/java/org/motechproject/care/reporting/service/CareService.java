@@ -260,7 +260,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             ChildCase childCase = getChildCase(caseId);
             if (childCase == null) {
                 logger.error(format("[Case Not Found To Close] Cannot find case %s to close.", caseId));
-                throw new CaseNotFoundException(caseId);
+                return;
             }
             Date previouslyClosedOnForChild = childCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForChild)) {
