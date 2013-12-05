@@ -24,6 +24,7 @@ import java.util.UUID;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class CloseCaseProcessorIT extends SpringIntegrationTest {
@@ -98,9 +99,14 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     }
 
-    @Test(expected = CaseNotFoundException.class)
-    public void shouldThrowExceptionWhenTryingToClosedCaseThatDoesNotExists() {
+    @Test
+    public void shouldNotSaveCaseWhenTryingToCloseCaseThatDoesNotExists() {
         closeCaseProcessor.process(new CaseEventBuilder(caseId).withAction("CLOSE").withDateModified("2012-01-01").build());
+
+        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        assertTrue(childCases.isEmpty());
+        assertTrue(motherCases.isEmpty());
     }
 
     @Test
