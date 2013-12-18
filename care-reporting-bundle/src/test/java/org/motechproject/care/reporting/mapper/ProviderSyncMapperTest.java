@@ -1,7 +1,6 @@
 package org.motechproject.care.reporting.mapper;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.junit.rules.ExpectedException;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.TimeZone;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -26,25 +24,15 @@ public class ProviderSyncMapperTest {
 
     @Test
     public void shouldConvertKnownDateFormats() {
-        DateTimeZone dateTimeZone = DateTimeZone.forTimeZone(TimeZone.getTimeZone("IST"));
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+06:30", new DateTime(2012, 7, 21, 11, 2, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+0630", new DateTime(2012, 7, 21, 11, 2, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+05", new DateTime(2012, 7, 21, 12, 32, 59, 923).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923Z", new DateTime(2012, 7, 21, 17, 32, 59, 923).toDate());
 
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+06:30", new DateTime(2012, 7, 21, 11, 2, 59, 923,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+0630", new DateTime(2012, 7, 21, 11, 2, 59, 923,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923+05", new DateTime(2012, 7, 21, 12, 32, 59, 923,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59.923Z", new DateTime(2012, 7, 21, 17, 32, 59, 923,
-                dateTimeZone).toDate());
-
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+06:30", new DateTime(2012, 7, 21, 11, 2, 59,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+0630", new DateTime(2012, 7, 21, 11, 2, 59,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+05", new DateTime(2012, 7, 21, 12, 32, 59,
-                dateTimeZone).toDate());
-        validateIfDateFormatIsAccepted("2012-07-21T12:02:59Z", new DateTime(2012, 7, 21, 17, 32, 59,
-                dateTimeZone).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+06:30", new DateTime(2012, 7, 21, 11, 2, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+0630", new DateTime(2012, 7, 21, 11, 2, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59+05", new DateTime(2012, 7, 21, 12, 32, 59).toDate());
+        validateIfDateFormatIsAccepted("2012-07-21T12:02:59Z", new DateTime(2012, 7, 21, 17, 32, 59).toDate());
 
         validateIfDateFormatIsAccepted("2012-07-21T12:02:59", new DateTime(2012, 7, 21, 12, 2, 59).toDate());
 
