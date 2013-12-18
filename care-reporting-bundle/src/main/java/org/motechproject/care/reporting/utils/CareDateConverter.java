@@ -4,6 +4,7 @@ import org.apache.commons.beanutils.converters.DateTimeConverter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
@@ -31,5 +32,12 @@ public final class CareDateConverter extends CareTypeConverter {
 
     public static String toString(Date date) {
         return new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(date);
+    }
+
+    public static String toString(Date date, TimeZone timeZone) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+        simpleDateFormat.setTimeZone(timeZone);
+
+        return simpleDateFormat.format(date);
     }
 }
