@@ -25,41 +25,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
 
-        <property name="annotatedClasses">
-            <list>
-                <value>org.motechproject.care.reporting.domain.dimension.ChildCase</value>
-                <value>org.motechproject.care.reporting.domain.dimension.Flw</value>
-                <value>org.motechproject.care.reporting.domain.dimension.FlwGroup</value>
-                <value>org.motechproject.care.reporting.domain.dimension.MotherCase</value>
-                <value>org.motechproject.care.reporting.domain.dimension.LocationDimension</value>
-
-                <value>org.motechproject.care.reporting.domain.measure.AbortForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.BpForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.CfChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.CfMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.CloseChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.CloseMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.DeathChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.DeathMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.EbfChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.EbfMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.MiForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.MoForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.NewForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.PncChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.PncMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.ReferChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.ReferMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.RegistrationMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.RegistrationChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.UiChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.UiMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.DeliveryChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.DeliveryMotherForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.MotherEditForm</value>
-            </list>
-        </property>
+        <property name="annotatedClasses" ref="reportingEntities"/>
 
         <property name="hibernateProperties">
             <props>

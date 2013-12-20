@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <context:component-scan base-package="org.motechproject.care.reporting.domain"/>
+
+    <bean id="reportingEntities" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>org.motechproject.care.reporting.domain.dimension.ChildCase</value>
+                <value>org.motechproject.care.reporting.domain.dimension.Flw</value>
+                <value>org.motechproject.care.reporting.domain.dimension.FlwGroup</value>
+                <value>org.motechproject.care.reporting.domain.dimension.MotherCase</value>
+                <value>org.motechproject.care.reporting.domain.dimension.LocationDimension</value>
+
+                <value>org.motechproject.care.reporting.domain.measure.AbortForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.BpForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.CfChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.CfMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.CloseChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.CloseMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeathChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeathMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.EbfChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.EbfMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.MiForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.MoForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.NewForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.PncChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.PncMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.ReferChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.ReferMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.RegistrationMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.RegistrationChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.UiChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.UiMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeliveryChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.DeliveryMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.MotherEditForm</value>
+            </list>
+        </property>
+    </bean>
+</beans>

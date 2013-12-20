@@ -1,11 +1,10 @@
 package org.motechproject.care.reporting.domain;
 
 import org.apache.commons.lang.StringUtils;
+import org.motechproject.care.reporting.utils.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.List;
-
-import static org.motechproject.care.reporting.utils.ReflectionUtils.updateValue;
 
 public abstract class SelfUpdatable<T> {
 
@@ -18,7 +17,7 @@ public abstract class SelfUpdatable<T> {
     protected void updateFields(T source, List<String> ignoredFields) {
         for (Field field : this.getClass().getDeclaredFields()) {
             if (ignoredFields.contains(field.getName())) continue;
-            updateValue(field.getName(), source, this);
+            ReflectionUtils.updateValue(field.getName(), source, this);
         }
         updateLastModifiedTime();
     }

@@ -17,7 +17,6 @@ import java.util.*;
 
 import static junit.framework.Assert.*;
 import static org.motechproject.care.reporting.utils.TestUtils.*;
-import static java.util.Arrays.*;
 
 
 public class DbRepositoryIT extends SpringIntegrationTest {

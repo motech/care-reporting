@@ -10,7 +10,6 @@ import org.motechproject.care.reporting.domain.measure.Form;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
-import org.motechproject.care.reporting.processors.CaseNotFoundException;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.slf4j.Logger;

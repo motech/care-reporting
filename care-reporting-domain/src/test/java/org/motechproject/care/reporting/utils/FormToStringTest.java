@@ -1,6 +1,7 @@
-package org.motechproject.care.reporting.domain.measure;
+package org.motechproject.care.reporting.utils;
 
 import org.junit.Test;
+import org.motechproject.care.reporting.domain.measure.NewForm;
 import org.motechproject.care.reporting.utils.FormToString;
 
 import static junit.framework.Assert.assertEquals;

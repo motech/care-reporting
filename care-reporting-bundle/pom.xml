@@ -107,6 +107,18 @@
             <artifactId>commcare-provider-sync</artifactId>
             <version>0.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>care-reporting-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>care-reporting-domain</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <type>test-jar</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -167,8 +179,10 @@
                             javassist.util.proxy,
                             org.apache.commons.dbcp,
                             org.postgresql,
+                            org.springframework.beans.factory.config,
                             *
                         </Import-Package>
+                        <Embed-Dependency>care-reporting-domain;scope=compile;inline=true</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>

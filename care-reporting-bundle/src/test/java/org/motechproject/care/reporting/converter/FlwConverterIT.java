@@ -1,6 +1,5 @@
 package org.motechproject.care.reporting.converter;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.motechproject.care.reporting.domain.dimension.Flw;
@@ -8,7 +7,6 @@ import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class FlwConverterIT extends SpringIntegrationTest {
     @Autowired
