@@ -101,6 +101,7 @@ public class PncMotherForm extends Form {
 	private String tlCounselTiming;
 	private String whyNoPpffp;
     private Date creationTime = new Date();
+    private String pncComplications;
 
     public PncMotherForm() {
 	}
@@ -894,5 +895,14 @@ public class PncMotherForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "pnc_complications")
+    public String getPncComplications() {
+        return pncComplications;
+    }
+
+    public void setPncComplications(String pncComplications) {
+        this.pncComplications = pncComplications;
     }
 }

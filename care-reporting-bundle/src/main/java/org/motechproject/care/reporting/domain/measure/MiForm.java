@@ -31,6 +31,7 @@ public class MiForm extends Form {
 	private String migratedStatus;
     private String status;
     private Date creationTime = new Date();
+    private Date dateDelFu;
 
     public MiForm() {
 	}
@@ -206,5 +207,14 @@ public class MiForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "date_del_fu")
+    public Date getDateDelFu() {
+        return dateDelFu;
+    }
+
+    public void setDateDelFu(Date dateDelFu) {
+        this.dateDelFu = dateDelFu;
     }
 }

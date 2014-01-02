@@ -9,6 +9,7 @@ import org.motechproject.care.reporting.utils.FormToString;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.sql.Time;
 import java.util.Date;
 
 
@@ -64,6 +65,15 @@ public class DeliveryMotherForm extends Form {
 	private String whichVillage;
     private Boolean close;
     private Date creationTime = new Date();
+    private Date jsyMoneyDate;
+    private String deliveryComplications;
+    private Date dischargeDate;
+    private Date dischargeTime;
+    private String whoAssisted;
+    private String bleeding;
+    private String homeSbaAssist;
+    private Integer ageCurrentWeight;
+    private Integer ageLastWeight;
 
     public DeliveryMotherForm() {
 	}
@@ -521,5 +531,88 @@ public class DeliveryMotherForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "jsy_money_date")
+    public Date getJsyMoneyDate() {
+        return jsyMoneyDate;
+    }
+
+    public void setJsyMoneyDate(Date jsyMoneyDate) {
+        this.jsyMoneyDate = jsyMoneyDate;
+    }
+
+    @Column(name = "delivery_complications")
+    public String getDeliveryComplications() {
+        return deliveryComplications;
+    }
+
+    public void setDeliveryComplications(String deliveryComplications) {
+        this.deliveryComplications = deliveryComplications;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "discharge_date")
+    public Date getDischargeDate() {
+        return dischargeDate;
+    }
+
+    public void setDischargeDate(Date dischargeDate) {
+        this.dischargeDate = dischargeDate;
+    }
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(name = "discharge_time")
+    public Date getDischargeTime() {
+        return dischargeTime;
+    }
+
+    public void setDischargeTime(Date dischargeTime) {
+        this.dischargeTime = dischargeTime;
+    }
+
+    @Column(name = "who_assisted")
+    public String getWhoAssisted() {
+        return whoAssisted;
+    }
+
+    public void setWhoAssisted(String whoAssisted) {
+        this.whoAssisted = whoAssisted;
+    }
+
+    @Column(name = "bleeding")
+    public String getBleeding() {
+        return bleeding;
+    }
+
+    public void setBleeding(String bleeding) {
+        this.bleeding = bleeding;
+    }
+
+    @Column(name = "home_sba_assist")
+    public String getHomeSbaAssist() {
+        return homeSbaAssist;
+    }
+
+    public void setHomeSbaAssist(String homeSbaAssist) {
+        this.homeSbaAssist = homeSbaAssist;
+    }
+
+    @Column(name = "age_current_weight")
+    public Integer getAgeCurrentWeight() {
+        return ageCurrentWeight;
+    }
+
+    public void setAgeCurrentWeight(Integer ageCurrentWeight) {
+        this.ageCurrentWeight = ageCurrentWeight;
+    }
+
+    @Column(name = "age_last_weight")
+    public Integer getAgeLastWeight() {
+        return ageLastWeight;
+    }
+
+    public void setAgeLastWeight(Integer ageLastWeight) {
+        this.ageLastWeight = ageLastWeight;
     }
 }

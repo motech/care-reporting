@@ -6,6 +6,7 @@ import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -124,6 +125,19 @@ public class BpForm extends Form {
 	private String postponing;
     private String institutional;
     private Date creationTime = new Date();
+    private BigDecimal anc1Weight;
+    private Integer anc1Hemoglobin;
+    private BigDecimal anc2Weight;
+    private Integer anc2Hemoglobin;
+    private BigDecimal anc3Weight;
+    private Integer anc3Hemoglobin;
+    private BigDecimal anc4Weight;
+    private Integer anc4Hemoglobin;
+    private String anaemia;
+    private String rtiSti;
+    private String whichHospital;
+    private String bleeding;
+    private String bpComplications;
 
     public BpForm() {
 	}
@@ -1161,5 +1175,122 @@ public class BpForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "anc1_weight")
+    public BigDecimal getAnc1Weight() {
+        return anc1Weight;
+    }
+
+    public void setAnc1Weight(BigDecimal anc1Weight) {
+        this.anc1Weight = anc1Weight;
+    }
+
+    @Column(name = "anc1_hemoglobin")
+    public Integer getAnc1Hemoglobin() {
+        return anc1Hemoglobin;
+    }
+
+    public void setAnc1Hemoglobin(Integer anc1Hemoglobin) {
+        this.anc1Hemoglobin = anc1Hemoglobin;
+    }
+
+    @Column(name = "anc2_weight")
+    public BigDecimal getAnc2Weight() {
+        return anc2Weight;
+    }
+
+    public void setAnc2Weight(BigDecimal anc2Weight) {
+        this.anc2Weight = anc2Weight;
+    }
+
+    @Column(name = "anc2_hemoglobin")
+    public Integer getAnc2Hemoglobin() {
+        return anc2Hemoglobin;
+    }
+
+    public void setAnc2Hemoglobin(Integer anc2Hemoglobin) {
+        this.anc2Hemoglobin = anc2Hemoglobin;
+    }
+
+    @Column(name = "anc3_weight")
+    public BigDecimal getAnc3Weight() {
+        return anc3Weight;
+    }
+
+    public void setAnc3Weight(BigDecimal anc3Weight) {
+        this.anc3Weight = anc3Weight;
+    }
+
+    @Column(name = "anc3_hemoglobin")
+    public Integer getAnc3Hemoglobin() {
+        return anc3Hemoglobin;
+    }
+
+    public void setAnc3Hemoglobin(Integer anc3Hemoglobin) {
+        this.anc3Hemoglobin = anc3Hemoglobin;
+    }
+
+    @Column(name = "anc4_weight")
+    public BigDecimal getAnc4Weight() {
+        return anc4Weight;
+    }
+
+    public void setAnc4Weight(BigDecimal anc4Weight) {
+        this.anc4Weight = anc4Weight;
+    }
+
+    @Column(name = "anc4_hemoglobin")
+    public Integer getAnc4Hemoglobin() {
+        return anc4Hemoglobin;
+    }
+
+    public void setAnc4Hemoglobin(Integer anc4Hemoglobin) {
+        this.anc4Hemoglobin = anc4Hemoglobin;
+    }
+
+    @Column(name = "anaemia")
+    public String getAnaemia() {
+        return anaemia;
+    }
+
+    public void setAnaemia(String anaemia) {
+        this.anaemia = anaemia;
+    }
+
+    @Column(name = "rti_sti")
+    public String getRtiSti() {
+        return rtiSti;
+    }
+
+    public void setRtiSti(String rtiSti) {
+        this.rtiSti = rtiSti;
+    }
+
+    @Column(name = "which_hospital")
+    public String getWhichHospital() {
+        return whichHospital;
+    }
+
+    public void setWhichHospital(String whichHospital) {
+        this.whichHospital = whichHospital;
+    }
+
+    @Column(name = "bleeding")
+    public String getBleeding() {
+        return bleeding;
+    }
+
+    public void setBleeding(String bleeding) {
+        this.bleeding = bleeding;
+    }
+
+    @Column(name = "bp_complications")
+    public String getBpComplications() {
+        return bpComplications;
+    }
+
+    public void setBpComplications(String bpComplications) {
+        this.bpComplications = bpComplications;
     }
 }

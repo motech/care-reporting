@@ -40,7 +40,10 @@ public class CloseMotherForm extends Form {
     private String status;
     private Date creationTime = new Date();
     private Boolean close;
-
+    private String ownerId;
+    private String confirmTransfer;
+    private String invalidTransferGroup;
+    private String newOwner;
 
     public CloseMotherForm() {
 	}
@@ -298,5 +301,39 @@ public class CloseMotherForm extends Form {
         return FormToString.toString(this);
     }
 
+    @Column(name = "owner_id")
+    public String getOwnerId() {
+        return ownerId;
+    }
 
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    @Column(name = "confirm_transfer")
+    public String getConfirmTransfer() {
+        return confirmTransfer;
+    }
+
+    public void setConfirmTransfer(String confirmTransfer) {
+        this.confirmTransfer = confirmTransfer;
+    }
+
+    @Column(name = "invalid_transfer_group")
+    public String getInvalidTransferGroup() {
+        return invalidTransferGroup;
+    }
+
+    public void setInvalidTransferGroup(String invalidTransferGroup) {
+        this.invalidTransferGroup = invalidTransferGroup;
+    }
+
+    @Column(name = "new_owner")
+    public String getNewOwner() {
+        return newOwner;
+    }
+
+    public void setNewOwner(String newOwner) {
+        this.newOwner = newOwner;
+    }
 }
