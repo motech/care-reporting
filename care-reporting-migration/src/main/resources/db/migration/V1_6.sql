@@ -29,7 +29,7 @@ ALTER TABLE report.pnc_mother_form
 
 ALTER TABLE report.cf_mother_form
     ADD COLUMN owner_id TEXT DEFAULT NULL,
-    ADD COLUMN invalid_transfer_group TEXT DEFAULT NULL,
+    ADD COLUMN invalid_groups_transfer TEXT DEFAULT NULL,
     ADD COLUMN new_owner TEXT DEFAULT NULL;
 
 ALTER TABLE report.cf_child_form
@@ -48,7 +48,7 @@ ALTER TABLE report.mi_form
 ALTER TABLE report.close_mother_form
     ADD COLUMN owner_id TEXT DEFAULT NULL,
     ADD COLUMN confirm_transfer TEXT DEFAULT NULL,
-    ADD COLUMN invalid_transfer_group TEXT DEFAULT NULL,
+    ADD COLUMN invalid_groups_transfer TEXT DEFAULT NULL,
     ADD COLUMN new_owner TEXT DEFAULT NULL;
 
 ALTER TABLE report.close_child_form

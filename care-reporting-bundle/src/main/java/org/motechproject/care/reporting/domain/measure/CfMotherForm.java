@@ -40,7 +40,7 @@ public class CfMotherForm extends Form {
     private Boolean close;
     private Date creationTime = new Date();
     private String ownerId;
-    private String invalidTransferGroup;
+    private String invalidGroupsTransfer;
     private String newOwner;
 
     public CfMotherForm() {
@@ -287,12 +287,12 @@ public class CfMotherForm extends Form {
     }
 
     @Column(name = "invalid_transfer_group")
-    public String getInvalidTransferGroup() {
-        return invalidTransferGroup;
+    public String getInvalidGroupsTransfer() {
+        return invalidGroupsTransfer;
     }
 
-    public void setInvalidTransferGroup(String invalidTransferGroup) {
-        this.invalidTransferGroup = invalidTransferGroup;
+    public void setInvalidGroupsTransfer(String invalidGroupsTransfer) {
+        this.invalidGroupsTransfer = invalidGroupsTransfer;
     }
 
     @Column(name = "new_owner")
