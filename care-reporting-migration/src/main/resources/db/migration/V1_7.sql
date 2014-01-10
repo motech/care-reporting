@@ -171,7 +171,7 @@ CREATE TABLE report.aww_close_child (
     close_child_case VARCHAR(20)
 );
 
-CREATE TABLE aww_child_edit(
+CREATE TABLE report.aww_child_edit(
     id SERIAL PRIMARY KEY
     ,instance_id VARCHAR(50)
     ,user_id INTEGER REFERENCES report.flw(id)
@@ -188,4 +188,71 @@ CREATE TABLE aww_child_edit(
     ,update_child_dob VARCHAR (20)
     ,new_child_dob DATE
     ,success VARCHAR(20)
+);
+
+CREATE TABLE report.aww_update_vaccinations_form (
+    id SERIAL PRIMARY KEY,
+    case_id INTEGER REFERENCES report.child_case (id),
+    user_id INTEGER REFERENCES report.flw (id),
+    instance_id VARCHAR(50) UNIQUE,
+    app_version VARCHAR(255),
+    date_modified TIMESTAMP WITH TIME ZONE,
+    server_date_modified TIMESTAMP WITH TIME ZONE,
+    delivery_offset_days INTEGER,
+    time_start TIMESTAMP WITH TIME ZONE,
+    time_end TIMESTAMP WITH TIME ZONE,
+    creation_time TIMESTAMP WITH TIME ZONE,
+    details_available VARCHAR(20),
+    details_needed VARCHAR(20),
+    add_vaccinations VARCHAR(20),
+    bcg_date DATE,
+    opv_0_date DATE,
+    opv_1_date DATE,
+    opv_2_date DATE,
+    opv_3_date DATE,
+    opv_booster_date DATE,
+    dpt_1_date DATE,
+    dpt_2_date DATE,
+    dpt_3_date DATE,
+    dpt_booter_date DATE,
+    hep_b_0_date DATE,
+    hep_b_1_date DATE,
+    hep_b_2_date DATE,
+    hep_b_3_date DATE,
+    measles_date DATE,
+    date_measles_booster DATE,
+    vot_a_1_date DATE,
+    vot_a_2_date DATE,
+    vot_a_3_date DATE,
+    date_je DATE,
+    up_to_date VARCHAR(20),
+    baby_bcg VARCHAR(20),
+    baby_opv_0 VARCHAR(20),
+    baby_opv_1 VARCHAR(20),
+    baby_opv_2 VARCHAR(20),
+    baby_opv_3 VARCHAR(20),
+    baby_opv_booster VARCHAR(20),
+    baby_dpt_1 VARCHAR(20),
+    baby_dpt_2 VARCHAR(20),
+    baby_dpt_3 VARCHAR(20),
+    baby_dpt_booster VARCHAR(20),
+    baby_hep_b_0 VARCHAR(20),
+    baby_hep_b_1 VARCHAR(20),
+    baby_hep_b_2 VARCHAR(20),
+    baby_hep_b_3 VARCHAR(20),
+    baby_measles VARCHAR(20),
+    baby_measles_booster VARCHAR(20),
+    baby_vita_1 VARCHAR(20),
+    baby_vita_2 VARCHAR(20),
+    baby_vita_3 VARCHAR(20),
+    baby_je VARCHAR(20),
+    up_to_date_six_weeks VARCHAR(20),
+    up_to_date_ten_weeks VARCHAR(20),
+    up_to_date_14_weeks VARCHAR(20),
+    up_to_date_one_year VARCHAR(20),
+    up_to_date_two_year VARCHAR(20),
+    success VARCHAR(20),
+    immuns_up_to_date VARCHAR(20),
+    child_name VARCHAR(20),
+    dob DATE
 );

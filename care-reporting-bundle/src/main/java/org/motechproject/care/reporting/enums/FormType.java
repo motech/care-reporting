@@ -22,5 +22,6 @@ public enum FormType {
     AwwGrowthMonitoring2,
     AwwThr,
     AwwClose,
-    AwwEditChild
+    AwwEditChild,
+    AwwUpdateVaccinations
 }

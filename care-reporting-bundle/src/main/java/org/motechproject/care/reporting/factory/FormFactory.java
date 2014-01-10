@@ -55,6 +55,7 @@ public class FormFactory {
         put(new Pair<>(FormType.AwwThr, CaseType.MOTHER), AwwThrMotherForm.class);
         put(new Pair<>(FormType.AwwClose, CaseType.CHILD), AwwCloseChildForm.class);
         put(new Pair<>(FormType.AwwEditChild, CaseType.CHILD), AwwEditChildForm.class);
+        put(new Pair<>(FormType.AwwUpdateVaccinations, CaseType.CHILD), AwwUpdateVaccinationsForm.class);
     }};
 
     public static Class<?> getForm(String namespace, CaseType caseType) {
