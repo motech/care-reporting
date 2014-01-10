@@ -49,13 +49,14 @@ public class FormFactory {
         put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
         put(new Pair<>(FormType.MotherEdit, CaseType.MOTHER), MotherEditForm.class);
 
-        put(new Pair<>(FormType.AwwRegisterChild, CaseType.CHILD), AWWRegisterChildForm.class);
+        put(new Pair<>(FormType.AwwRegisterChild, CaseType.CHILD), AwwRegisterChildForm.class);
         put(new Pair<>(FormType.AwwGrowthMonitoring1, CaseType.CHILD), AwwGrowthMonitoringForm1.class);
         put(new Pair<>(FormType.AwwGrowthMonitoring2, CaseType.CHILD), AwwGrowthMonitoringForm2.class);
-        put(new Pair<>(FormType.AwwThr, CaseType.MOTHER), AwwThrMotherForm.class);
+        put(new Pair<>(FormType.AwwThrMother, CaseType.MOTHER), AwwThrMotherForm.class);
         put(new Pair<>(FormType.AwwClose, CaseType.CHILD), AwwCloseChildForm.class);
         put(new Pair<>(FormType.AwwEditChild, CaseType.CHILD), AwwEditChildForm.class);
         put(new Pair<>(FormType.AwwUpdateVaccinations, CaseType.CHILD), AwwUpdateVaccinationsForm.class);
+        put(new Pair<>(FormType.AwwThrChild, CaseType.CHILD), AwwThrChildForm.class);
     }};
 
     public static Class<?> getForm(String namespace, CaseType caseType) {

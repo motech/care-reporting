@@ -256,3 +256,25 @@ CREATE TABLE report.aww_update_vaccinations_form (
     child_name VARCHAR(20),
     dob DATE
 );
+
+CREATE TABLE report.aww_child_thr(
+    id SERIAL PRIMARY KEY
+    ,instance_id VARCHAR(50)
+    ,user_id INTEGER REFERENCES report.flw(id)
+    ,case_id INTEGER REFERENCES report.child_case(id)
+    ,app_version VARCHAR(255)
+    ,delivery_offset_days INTEGER
+    ,time_start TIMESTAMP WITH TIME ZONE
+    ,time_end TIMESTAMP WITH TIME ZONE
+    ,date_modified TIMESTAMP WITH TIME ZONE
+    ,server_date_modified TIMESTAMP WITH TIME ZONE
+    ,creation_time TIMESTAMP WITH TIME ZONE
+    ,collect_ration VARCHAR(20)
+    ,child_distribute_ration VARCHAR(20)
+    ,child_days_ration_given INTEGER
+    ,child_amount_given VARCHAR(20)
+    ,child_cause_not_given VARCHAR(50)
+    ,success VARCHAR (20)
+    ,child_name VARCHAR(255)
+    ,mother_name VARCHAR(255)
+);

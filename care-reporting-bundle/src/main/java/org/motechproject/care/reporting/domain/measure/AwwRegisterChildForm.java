@@ -21,7 +21,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "aww_child_reg", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class AWWRegisterChildForm extends Form {
+public class AwwRegisterChildForm extends Form {
 
 	private int id;
 	private Flw flw;
