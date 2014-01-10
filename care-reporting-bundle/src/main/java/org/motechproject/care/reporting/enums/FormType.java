@@ -17,5 +17,7 @@ public enum FormType {
     Ui,
     MoveBeneficiary,
     MotherEdit,
-	AwwRegisterChild
+    AwwRegisterChild,
+    AwwGrowthMonitoring1,
+    AwwGrowthMonitoring2
 }

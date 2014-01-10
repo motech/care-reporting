@@ -26,8 +26,10 @@ public class NamespaceMapper {
         put(pregnancyPrefix + "mtp_abort", FormType.Abort);
         put(pregnancyPrefix + "update_vaccinations", FormType.Ui);
         put(pregnancyPrefix + "mother_edit", FormType.MotherEdit);
+        put(pregnancyPrefix + "aww_reg_child", FormType.AwwRegisterChild);
+        put(pregnancyPrefix + "aww_growth_monitoring_1", FormType.AwwGrowthMonitoring1);
+        put(pregnancyPrefix + "aww_growth_monitoring_2", FormType.AwwGrowthMonitoring2);
         put(toolsPrefix + "move_beneficiary", FormType.MoveBeneficiary);
-		put(pregnancyPrefix + "aww_reg_child", FormType.AwwRegisterChild);
     }};
 
     public static FormType getFormType(String namespace) {
