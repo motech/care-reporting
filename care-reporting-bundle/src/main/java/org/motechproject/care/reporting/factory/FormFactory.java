@@ -48,6 +48,8 @@ public class FormFactory {
         put(new Pair<>(FormType.Mo, CaseType.MOTHER), MoForm.class);
         put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
         put(new Pair<>(FormType.MotherEdit, CaseType.MOTHER), MotherEditForm.class);
+
+		put(new Pair<>(FormType.AwwRegisterChild, CaseType.CHILD), AWWRegisterChildForm.class);
     }};
 
     public static Class<?> getForm(String namespace, CaseType caseType) {

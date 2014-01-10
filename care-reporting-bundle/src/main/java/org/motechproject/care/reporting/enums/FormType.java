@@ -16,5 +16,6 @@ public enum FormType {
     Refer,
     Ui,
     MoveBeneficiary,
-    MotherEdit
+    MotherEdit,
+	AwwRegisterChild
 }

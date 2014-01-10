@@ -27,6 +27,7 @@ public class NamespaceMapper {
         put(pregnancyPrefix + "update_vaccinations", FormType.Ui);
         put(pregnancyPrefix + "mother_edit", FormType.MotherEdit);
         put(toolsPrefix + "move_beneficiary", FormType.MoveBeneficiary);
+		put(pregnancyPrefix + "aww_reg_child", FormType.AwwRegisterChild);
     }};
 
     public static FormType getFormType(String namespace) {
