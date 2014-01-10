@@ -170,3 +170,22 @@ CREATE TABLE report.aww_close_child (
     dob DATE,
     close_child_case VARCHAR(20)
 );
+
+CREATE TABLE aww_child_edit(
+    id SERIAL PRIMARY KEY
+    ,instance_id VARCHAR(50)
+    ,user_id INTEGER REFERENCES report.flw(id)
+    ,case_id INTEGER REFERENCES report.child_case(id)
+    ,app_version VARCHAR(255)
+    ,delivery_offset_days INTEGER
+    ,time_start TIMESTAMP WITH TIME ZONE
+    ,time_end TIMESTAMP WITH TIME ZONE
+    ,date_modified TIMESTAMP WITH TIME ZONE
+    ,server_date_modified TIMESTAMP WITH TIME ZONE
+    ,creation_time TIMESTAMP WITH TIME ZONE
+    ,update_child_name VARCHAR(20)
+    ,new_child_name VARCHAR(255)
+    ,update_child_dob VARCHAR (20)
+    ,new_child_dob DATE
+    ,success VARCHAR(20)
+);
