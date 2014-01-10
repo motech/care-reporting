@@ -28,6 +28,8 @@ public class ChildFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
+    private static final String NAMESPACE_ATTRIBUTE_NAME = "xmlns";
+
     private List<ComputedFieldsProcessor> CHILD_FORM_COMPUTED_FIELDS = new ArrayList<>();
 
     private MapperService mapperService;
@@ -41,7 +43,15 @@ public class ChildFormProcessor {
 
     List<Map<String, String>> parseChildForms(CommcareForm commcareForm) {
         InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
-        List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
+        String namespace = commcareForm.getForm().getAttributes().get(NAMESPACE_ATTRIBUTE_NAME);
+        AwwCaseType caseType = AwwFormInfoParser.getCaseTypeFromNamespace(namespace);
+        List<Map<String, String>> childDetails;
+
+        if (caseType == null || caseType.equals(AwwCaseType.MOTHER_ONLY)) {
+            childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
+        } else {
+            childDetails = new AwwChildCaseParser(infoParser).parse(commcareForm);
+        }
 
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);

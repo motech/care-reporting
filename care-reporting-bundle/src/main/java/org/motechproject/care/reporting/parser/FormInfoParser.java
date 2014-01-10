@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FormInfoParser extends BaseInfoParser {
@@ -22,7 +23,11 @@ public class FormInfoParser extends BaseInfoParser {
     }
 
     protected Map<String, String> parse(FormValueElement startElement, CommcareForm commcareForm) {
-        FormValueElement caseElement = infoParser.getCaseElement(startElement);
+        FormValueElement caseElement = startElement;
+        if (!startElement.getElementName().equals("case")) {
+            caseElement = infoParser.getCaseElement(startElement);
+        }
+
         if (caseElement == null) {
             logCaseNotFoundEvent(commcareForm);
             return null;

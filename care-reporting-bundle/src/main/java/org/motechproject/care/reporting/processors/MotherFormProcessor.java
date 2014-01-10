@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.processors;
 
 import org.motechproject.care.reporting.enums.FormSegment;
+import org.motechproject.care.reporting.parser.AwwFormInfoParser;
 import org.motechproject.care.reporting.parser.ClosedFormPostProcessor;
 import org.motechproject.care.reporting.parser.DelFupFixPostProcessor;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -45,10 +46,15 @@ public class MotherFormProcessor {
     }
 
     public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
+        String namespace = commcareForm.getForm().getAttributes().get("xmlns");
+        if (AwwFormInfoParser.getCaseTypeFromNamespace(namespace) != null) {
+            return null;
+        }
+
+        Map<String, String> motherInfo = new HashMap<>();
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
-        Map<String, String> motherInfo = new HashMap<>();
         motherInfo.putAll(metadata);
         InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);
         Map<String, String> formFields = new MotherInfoParser(motherInfoParser).parse(commcareForm);
