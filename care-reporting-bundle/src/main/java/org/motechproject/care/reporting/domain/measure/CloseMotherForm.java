@@ -319,7 +319,7 @@ public class CloseMotherForm extends Form {
         this.confirmTransfer = confirmTransfer;
     }
 
-    @Column(name = "invalid_transfer_group")
+    @Column(name = "invalid_groups_transfer")
     public String getInvalidGroupsTransfer() {
         return invalidGroupsTransfer;
     }

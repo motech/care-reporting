@@ -286,7 +286,7 @@ public class CfMotherForm extends Form {
         this.ownerId = ownerId;
     }
 
-    @Column(name = "invalid_transfer_group")
+    @Column(name = "invalid_groups_transfer")
     public String getInvalidGroupsTransfer() {
         return invalidGroupsTransfer;
     }

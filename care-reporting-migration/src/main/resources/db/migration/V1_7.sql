@@ -1,4 +1,5 @@
-CREATE TABLE report.aww_reg_child (
+
+CREATE TABLE report.aww_child_reg (
 	id SERIAL PRIMARY KEY
 	,instance_id VARCHAR(50)
 	,user_id INTEGER REFERENCES report.flw(id)
@@ -20,13 +21,13 @@ CREATE TABLE report.aww_reg_child (
 	,ward_number VARCHAR(255)
     ,family_number VARCHAR(255)
     ,aadhar_number VARCHAR(255)
-    ,mcts_id INTEGER (20)
-    ,child_mcts_id INTEGER(20)
+    ,mcts_id INTEGER
+    ,child_mcts_id INTEGER
     ,mobile_number INTEGER
     ,mobile_number_whose VARCHAR(20)
     ,eats_meat VARCHAR(20)
     ,invalid_owner VARCHAR (20)
-    ,dob_known VARCHAR (20)
+    ,dob_known VARCHAR(20)
     ,dob_entered DATE
     ,show_age BOOLEAN
     ,age_calc INTEGER

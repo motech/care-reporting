@@ -315,7 +315,7 @@ public class AWWRegisterChildForm extends Form {
 		this.ageCalc = ageCalc;
 	}
 
-	@Column(name = "age_est_moths")
+	@Column(name = "age_est_months")
 	public Integer getAgeEstMonths() {
 		return ageEstMonths;
 	}
