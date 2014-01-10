@@ -22,7 +22,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "aww_close_child", uniqueConstraints = @UniqueConstraint(columnNames = {"instance_id","case_id"}))
+@Table(name = "aww_close_child_form", uniqueConstraints = @UniqueConstraint(columnNames = {"instance_id","case_id"}))
 public class AwwCloseChildForm extends Form {
 
     private int id;

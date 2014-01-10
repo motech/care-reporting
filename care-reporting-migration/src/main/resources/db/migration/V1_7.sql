@@ -1,5 +1,5 @@
 
-CREATE TABLE report.aww_child_reg (
+CREATE TABLE report.aww_child_reg_form (
 	id SERIAL PRIMARY KEY
 	,instance_id VARCHAR(50)
 	,user_id INTEGER REFERENCES report.flw(id)
@@ -45,7 +45,7 @@ CREATE TABLE report.aww_child_reg (
 	,UNIQUE(instance_id, case_id)
 );
 
-CREATE TABLE report.aww_growth_monitoring_1 (
+CREATE TABLE report.aww_growth_monitoring_1_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -82,7 +82,7 @@ CREATE TABLE report.aww_growth_monitoring_1 (
     age_last_weight INTEGER
 );
 
-CREATE TABLE report.aww_growth_monitoring_2 (
+CREATE TABLE report.aww_growth_monitoring_2_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -119,7 +119,7 @@ CREATE TABLE report.aww_growth_monitoring_2 (
     age_last_weight INTEGER
 );
 
-CREATE TABLE report.aww_mother_thr (
+CREATE TABLE report.aww_mother_thr_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.mother_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -141,7 +141,7 @@ CREATE TABLE report.aww_mother_thr (
     mother_name VARCHAR(255)
 );
 
-CREATE TABLE report.aww_close_child (
+CREATE TABLE report.aww_close_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -171,7 +171,7 @@ CREATE TABLE report.aww_close_child (
     close_child_case VARCHAR(20)
 );
 
-CREATE TABLE report.aww_child_edit(
+CREATE TABLE report.aww_child_edit_form (
     id SERIAL PRIMARY KEY
     ,instance_id VARCHAR(50)
     ,user_id INTEGER REFERENCES report.flw(id)
@@ -257,7 +257,7 @@ CREATE TABLE report.aww_update_vaccinations_form (
     dob DATE
 );
 
-CREATE TABLE report.aww_child_thr(
+CREATE TABLE report.aww_child_thr_form (
     id SERIAL PRIMARY KEY
     ,instance_id VARCHAR(50)
     ,user_id INTEGER REFERENCES report.flw(id)

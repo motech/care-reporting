@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "aww_growth_monitoring_1", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
+@Table(name = "aww_growth_monitoring_1_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
 public class AwwGrowthMonitoringForm1 extends Form {
 
     private Integer id;
