@@ -62,6 +62,7 @@
                 <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringForm1</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringForm2</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwThrMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwCloseChildForm</value>
             </list>
         </property>
 

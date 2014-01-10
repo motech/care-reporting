@@ -140,3 +140,33 @@ CREATE TABLE report.aww_mother_thr (
     mother_rations VARCHAR(20),
     mother_name VARCHAR(255)
 );
+
+CREATE TABLE report.aww_close_child (
+    id SERIAL PRIMARY KEY,
+    case_id INTEGER REFERENCES report.child_case (id),
+    user_id INTEGER REFERENCES report.flw (id),
+    instance_id VARCHAR(50) UNIQUE,
+    app_version VARCHAR(255),
+    date_modified TIMESTAMP WITH TIME ZONE,
+    server_date_modified TIMESTAMP WITH TIME ZONE,
+    delivery_offset_days INTEGER,
+    time_start TIMESTAMP WITH TIME ZONE,
+    time_end TIMESTAMP WITH TIME ZONE,
+    creation_time TIMESTAMP WITH TIME ZONE,
+    close_child VARCHAR(20),
+    child_over_six VARCHAR(20),
+    dupe_reg VARCHAR(20),
+    died VARCHAR(20),
+    date_death DATE,
+    site_death VARCHAR(255),
+    died_village VARCHAR(20),
+    place_death VARCHAR(255),
+    confirm_close VARCHAR(20),
+    yes_closed_message VARCHAR(20),
+    no_closed_message VARCHAR(20),
+    child_alive VARCHAR(20),
+    success VARCHAR(20),
+    child_name VARCHAR(255),
+    dob DATE,
+    close_child_case VARCHAR(20)
+);
