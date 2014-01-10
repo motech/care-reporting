@@ -19,5 +19,6 @@ public enum FormType {
     MotherEdit,
     AwwRegisterChild,
     AwwGrowthMonitoring1,
-    AwwGrowthMonitoring2
+    AwwGrowthMonitoring2,
+    AwwThr
 }

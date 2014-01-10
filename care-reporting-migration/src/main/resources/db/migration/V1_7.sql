@@ -118,3 +118,25 @@ CREATE TABLE report.aww_growth_monitoring_2 (
     change_from_suw VARCHAR(20),
     age_last_weight INTEGER
 );
+
+CREATE TABLE report.aww_mother_thr (
+    id SERIAL PRIMARY KEY,
+    case_id INTEGER REFERENCES report.mother_case (id),
+    user_id INTEGER REFERENCES report.flw (id),
+    instance_id VARCHAR(50) UNIQUE,
+    app_version VARCHAR(255),
+    date_modified TIMESTAMP WITH TIME ZONE,
+    server_date_modified TIMESTAMP WITH TIME ZONE,
+    delivery_offset_days INTEGER,
+    time_start TIMESTAMP WITH TIME ZONE,
+    time_end TIMESTAMP WITH TIME ZONE,
+    creation_time TIMESTAMP WITH TIME ZONE,
+    collect_ration VARCHAR(20),
+    distribute_ration VARCHAR(20),
+    days_ration_given INTEGER,
+    cause_not_given VARCHAR(20),
+    success VARCHAR(20),
+    addval VARCHAR(20),
+    mother_rations VARCHAR(20),
+    mother_name VARCHAR(255)
+);
