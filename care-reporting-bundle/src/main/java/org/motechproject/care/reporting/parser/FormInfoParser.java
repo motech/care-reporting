@@ -13,7 +13,26 @@ import java.util.Map;
 
 public class FormInfoParser extends BaseInfoParser {
 
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Map<String, FormCaseType> namespaceToCaseType = new HashMap<String, FormCaseType>() {{
+        // AWW Forms
+        put("http://bihar.commcarehq.org/pregnancy/aww_reg_child", FormCaseType.AWW_MOTHER_AND_CHILD);
+        put("http://bihar.commcarehq.org/pregnancy/aww_child_edit", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_preschool_activities", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_migrate_out", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_migrate_in", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_growth_monitoring_1", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_growth_monitoring_2", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_child_thr", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_update_vaccinations", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_close", FormCaseType.CHILD_ONLY);
+        put("http://bihar.commcarehq.org/pregnancy/aww_mother_thr", FormCaseType.MOTHER_ONLY);
+        // CCS Forms
+        put("http://bihar.commcarehq.org/pregnancy/growth_monitoring", FormCaseType.CHILD_ONLY);
+    }};
+
+    protected static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    protected static final String NAMESPACE_ATTRIBUTE_NAME = "xmlns";
+    protected static final String CASE = "case";
 
     private FormSegment formSegment;
 
@@ -23,10 +42,7 @@ public class FormInfoParser extends BaseInfoParser {
     }
 
     protected Map<String, String> parse(FormValueElement startElement, CommcareForm commcareForm) {
-        FormValueElement caseElement = startElement;
-        if (!startElement.getElementName().equals("case")) {
-            caseElement = infoParser.getCaseElement(startElement);
-        }
+        FormValueElement caseElement = infoParser.getCaseElement(startElement);
 
         if (caseElement == null) {
             logCaseNotFoundEvent(commcareForm);
@@ -68,6 +84,14 @@ public class FormInfoParser extends BaseInfoParser {
         return new HashMap<String,String>(){{
             put("serverDateModified",commcareForm.getReceivedOn());
         }};
+    }
+
+    public static FormCaseType getCaseTypeFromNamespace(String namespace) {
+        if (namespaceToCaseType.containsKey(namespace)) {
+            return namespaceToCaseType.get(namespace);
+        }
+
+        return null;
     }
 }
 

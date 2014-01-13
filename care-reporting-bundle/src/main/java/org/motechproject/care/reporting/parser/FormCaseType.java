@@ -1,18 +1,19 @@
 package org.motechproject.care.reporting.parser;
 
-public enum AwwCaseType {
+public enum FormCaseType {
     CHILD_ONLY("case"),
     MOTHER_ONLY("case"),
-    MOTHER_AND_CHILD("subcase_", "case");
+    AWW_MOTHER_AND_CHILD("subcase_", "case"),
+    CCS_MOTHER_AND_CHILD("child_info", "case");
 
     private String childCaseRootNode;
     private String motherCaseRootNode;
 
-    AwwCaseType(String childCaseRootNode) {
+    FormCaseType(String childCaseRootNode) {
         this.childCaseRootNode = childCaseRootNode;
     }
 
-    AwwCaseType(String childCaseRootNode, String motherCaseRootNode) {
+    FormCaseType(String childCaseRootNode, String motherCaseRootNode) {
         this.childCaseRootNode = childCaseRootNode;
         this.motherCaseRootNode = motherCaseRootNode;
     }

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
@@ -26,13 +27,16 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
-public class ChildInfoParserTest {
+public class ChildCaseParserTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -40,13 +44,26 @@ public class ChildInfoParserTest {
     @Mock
     private InfoParser infoParser;
 
-    private ChildInfoParser childInfoParser;
+    private ChildCaseParser childCaseParser;
 
 
     @Before
     public void setUp(){
         initMocks(this);
-        childInfoParser = new ChildInfoParser(infoParser);
+        childCaseParser = new ChildCaseParser(infoParser);
+    }
+
+    private class ObjectEqualityArgumentMatcher<T> extends ArgumentMatcher<T> {
+        T thisObject;
+
+        public ObjectEqualityArgumentMatcher(T thisObject) {
+            this.thisObject = thisObject;
+        }
+
+        @Override
+        public boolean matches(Object o) {
+            return thisObject.equals(o);
+        }
     }
 
     @Test
@@ -73,6 +90,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -81,7 +99,7 @@ public class ChildInfoParserTest {
         when(infoParser.getCaseElement(childInfoElement1)).thenReturn(childCaseElement1);
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
 
-        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
 
         assertEquals(2, childrenMapList.size());
 
@@ -125,6 +143,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -135,7 +154,7 @@ public class ChildInfoParserTest {
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(true);
 
-        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
 
         assertEquals(1, childrenMapList.size());
 
@@ -181,6 +200,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -191,7 +211,7 @@ public class ChildInfoParserTest {
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(false);
 
-        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
 
         assertEquals(1, childrenMapList.size());
 
@@ -233,6 +253,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement = getFVE("case", childCaseElement);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement)
                 .withReceivedOn(receivedOn)
                 .build();
@@ -254,7 +275,7 @@ public class ChildInfoParserTest {
         }});
         when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
 
-        List<Map<String, String>> childrenList = childInfoParser.parse(commcareForm);
+        List<Map<String, String>> childrenList = childCaseParser.parse(commcareForm);
 
         assertEquals(1, childrenList.size());
 
@@ -279,13 +300,14 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement = getFVE("case", childCaseElement);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement)
                 .build();
         commcareForm.setId(instanceId);
 
         when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
 
-        childInfoParser.parse(commcareForm);
+        childCaseParser.parse(commcareForm);
         verify(infoParser, never()).parse(childCaseElement, true);
         verify(infoParser, never()).parse(childInfoElement, true);
     }

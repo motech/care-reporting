@@ -5,8 +5,6 @@ import org.motechproject.care.reporting.parser.*;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +26,6 @@ public class ChildFormProcessor {
         add(FORM_COPY_USER_ID_AS_FLW);
     }};
 
-    private static final String NAMESPACE_ATTRIBUTE_NAME = "xmlns";
-
     private List<ComputedFieldsProcessor> CHILD_FORM_COMPUTED_FIELDS = new ArrayList<>();
 
     private MapperService mapperService;
@@ -43,24 +39,15 @@ public class ChildFormProcessor {
 
     List<Map<String, String>> parseChildForms(CommcareForm commcareForm) {
         InfoParser infoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
-        String namespace = commcareForm.getForm().getAttributes().get(NAMESPACE_ATTRIBUTE_NAME);
-        AwwCaseType caseType = AwwFormInfoParser.getCaseTypeFromNamespace(namespace);
-        List<Map<String, String>> childDetails;
-
-        if (caseType == null || caseType.equals(AwwCaseType.MOTHER_ONLY)) {
-            childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
-        } else {
-            childDetails = new AwwChildCaseParser(infoParser).parse(commcareForm);
-        }
-
-        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
+        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(
+                namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
+        List<Map<String, String>> childDetails = new ChildCaseParser(infoParser).parse(commcareForm);
         for (final Map<String, String> childDetail : childDetails) {
             childDetail.putAll(metadata);
 
             applyPostProcessors(CHILD_CASE_POST_PROCESSORS, childDetail);
-
             applyComputedFields(CHILD_FORM_COMPUTED_FIELDS, childDetail);
         }
         return childDetails;
