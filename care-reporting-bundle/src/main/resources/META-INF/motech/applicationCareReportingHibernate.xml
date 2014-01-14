@@ -59,15 +59,15 @@
                 <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.MotherEditForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwRegisterChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringForm1</value>
-                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringForm2</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm1</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm2</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwThrMotherForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwCloseChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwEditChildForm</value>
-                <value>org.motechproject.care.reporting.domain.measure.AwwUpdateVaccinationsForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwUpdateVaccinationsChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwThrChildForm</value>
 
-                <value>org.motechproject.care.reporting.domain.measure.CcsGrowthMonitoringForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.CcsGrowthMonitoringChildForm</value>
             </list>
         </property>
 

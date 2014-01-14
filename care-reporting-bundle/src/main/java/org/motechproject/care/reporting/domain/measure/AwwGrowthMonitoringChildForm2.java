@@ -21,8 +21,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "aww_growth_monitoring_1_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class AwwGrowthMonitoringForm1 extends Form {
+@Table(name = "aww_growth_monitoring_2_child_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
+public class AwwGrowthMonitoringChildForm2 extends Form {
 
     private Integer id;
     private ChildCase childCase;
@@ -55,7 +55,7 @@ public class AwwGrowthMonitoringForm1 extends Form {
     private String changeFromSuw;
     private Integer ageLastWeight;
 
-    public AwwGrowthMonitoringForm1() {
+    public AwwGrowthMonitoringChildForm2() {
 
     }
 

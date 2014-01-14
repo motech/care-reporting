@@ -45,7 +45,7 @@ CREATE TABLE report.aww_reg_child_form (
 	,UNIQUE(instance_id, case_id)
 );
 
-CREATE TABLE report.aww_growth_monitoring_1_form (
+CREATE TABLE report.aww_growth_monitoring_1_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -82,7 +82,7 @@ CREATE TABLE report.aww_growth_monitoring_1_form (
     age_last_weight INTEGER
 );
 
-CREATE TABLE report.aww_growth_monitoring_2_form (
+CREATE TABLE report.aww_growth_monitoring_2_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -119,7 +119,7 @@ CREATE TABLE report.aww_growth_monitoring_2_form (
     age_last_weight INTEGER
 );
 
-CREATE TABLE report.aww_mother_thr_form (
+CREATE TABLE report.aww_thr_mother_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.mother_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -171,7 +171,7 @@ CREATE TABLE report.aww_close_child_form (
     close_child_case VARCHAR(20)
 );
 
-CREATE TABLE report.aww_child_edit_form (
+CREATE TABLE report.aww_edit_child_form (
     id SERIAL PRIMARY KEY
     ,instance_id VARCHAR(50)
     ,user_id INTEGER REFERENCES report.flw(id)
@@ -190,7 +190,7 @@ CREATE TABLE report.aww_child_edit_form (
     ,success VARCHAR(20)
 );
 
-CREATE TABLE report.aww_update_vaccinations_form (
+CREATE TABLE report.aww_update_vaccinations_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
@@ -257,7 +257,7 @@ CREATE TABLE report.aww_update_vaccinations_form (
     dob DATE
 );
 
-CREATE TABLE report.aww_child_thr_form (
+CREATE TABLE report.aww_thr_child_form (
     id SERIAL PRIMARY KEY
     ,instance_id VARCHAR(50)
     ,user_id INTEGER REFERENCES report.flw(id)
@@ -279,7 +279,7 @@ CREATE TABLE report.aww_child_thr_form (
     ,mother_name VARCHAR(255)
 );
 
-CREATE TABLE report.ccs_growth_monitoring_form (
+CREATE TABLE report.ccs_growth_monitoring_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),

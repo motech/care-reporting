@@ -21,8 +21,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "aww_growth_monitoring_2_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
-public class AwwGrowthMonitoringForm2 extends Form {
+@Table(name = "ccs_growth_monitoring_child_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
+public class CcsGrowthMonitoringChildForm extends Form {
 
     private Integer id;
     private ChildCase childCase;
@@ -31,14 +31,6 @@ public class AwwGrowthMonitoringForm2 extends Form {
     private Date timeStart;
     private Date timeEnd;
     private Date creationTime;
-    private String currentGrowth;
-    private String lastGrowth1;
-    private String lastGrowth2;
-    private String lastGrowth3;
-    private Date currentWeightDate;
-    private Date lastWeightDate;
-    private BigDecimal currentWeight;
-    private String lastWeight;
     private String takeWeight;
     private String childWeight;
     private String showGrade;
@@ -53,9 +45,8 @@ public class AwwGrowthMonitoringForm2 extends Form {
     private String changeFromNormal;
     private String changeFromMuw;
     private String changeFromSuw;
-    private Integer ageLastWeight;
 
-    public AwwGrowthMonitoringForm2() {
+    public CcsGrowthMonitoringChildForm() {
 
     }
 
@@ -132,80 +123,6 @@ public class AwwGrowthMonitoringForm2 extends Form {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
-    }
-
-    @Column(name = "current_growth")
-    public String getCurrentGrowth() {
-        return currentGrowth;
-    }
-
-    public void setCurrentGrowth(String currentGrowth) {
-        this.currentGrowth = currentGrowth;
-    }
-
-    @Column(name = "last_growth_1")
-    public String getLastGrowth1() {
-        return lastGrowth1;
-    }
-
-    public void setLastGrowth1(String lastGrowth1) {
-        this.lastGrowth1 = lastGrowth1;
-    }
-
-    @Column(name = "last_growth_2")
-    public String getLastGrowth2() {
-        return lastGrowth2;
-    }
-
-    public void setLastGrowth2(String lastGrowth2) {
-        this.lastGrowth2 = lastGrowth2;
-    }
-
-    @Column(name = "last_growth_3")
-    public String getLastGrowth3() {
-        return lastGrowth3;
-    }
-
-    public void setLastGrowth3(String lastGrowth3) {
-        this.lastGrowth3 = lastGrowth3;
-    }
-
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "current_weight_date")
-    public Date getCurrentWeightDate() {
-        return currentWeightDate;
-    }
-
-    public void setCurrentWeightDate(Date currentWeightDate) {
-        this.currentWeightDate = currentWeightDate;
-    }
-
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "last_weight_date")
-    public Date getLastWeightDate() {
-        return lastWeightDate;
-    }
-
-    public void setLastWeightDate(Date lastWeightDate) {
-        this.lastWeightDate = lastWeightDate;
-    }
-
-    @Column(name = "current_weight")
-    public BigDecimal getCurrentWeight() {
-        return currentWeight;
-    }
-
-    public void setCurrentWeight(BigDecimal currentWeight) {
-        this.currentWeight = currentWeight;
-    }
-
-    @Column(name = "last_weight")
-    public String getLastWeight() {
-        return lastWeight;
-    }
-
-    public void setLastWeight(String lastWeight) {
-        this.lastWeight = lastWeight;
     }
 
     @Column(name = "take_weight")
@@ -333,14 +250,5 @@ public class AwwGrowthMonitoringForm2 extends Form {
 
     public void setChangeFromSuw(String changeFromSuw) {
         this.changeFromSuw = changeFromSuw;
-    }
-
-    @Column(name = "age_last_weight")
-    public Integer getAgeLastWeight() {
-        return ageLastWeight;
-    }
-
-    public void setAgeLastWeight(Integer ageLastWeight) {
-        this.ageLastWeight = ageLastWeight;
     }
 }

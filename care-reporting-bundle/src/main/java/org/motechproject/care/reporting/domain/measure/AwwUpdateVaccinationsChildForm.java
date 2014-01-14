@@ -21,8 +21,8 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "aww_update_vaccinations_form", uniqueConstraints = @UniqueConstraint(columnNames = {"instance_id", "case_id"}))
-public class AwwUpdateVaccinationsForm extends Form {
+@Table(name = "aww_update_vaccinations_child_form", uniqueConstraints = @UniqueConstraint(columnNames = {"instance_id", "case_id"}))
+public class AwwUpdateVaccinationsChildForm extends Form {
 
     private int id;
     private ChildCase childCase;
@@ -85,7 +85,7 @@ public class AwwUpdateVaccinationsForm extends Form {
     private String childName;
     private Date dob;
 
-    public AwwUpdateVaccinationsForm() {
+    public AwwUpdateVaccinationsChildForm() {
 
     }
 

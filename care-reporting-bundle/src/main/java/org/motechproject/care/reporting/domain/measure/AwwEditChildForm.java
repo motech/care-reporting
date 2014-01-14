@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import java.util.Date;
 
 @Entity
-@Table(name = "aww_child_edit_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
+@Table(name = "aww_edit_child_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
 public class AwwEditChildForm extends Form {
 
 	private int id;
