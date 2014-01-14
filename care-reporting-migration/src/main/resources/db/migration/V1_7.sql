@@ -279,7 +279,7 @@ CREATE TABLE report.aww_thr_child_form (
     ,mother_name VARCHAR(255)
 );
 
-CREATE TABLE report.ccs_growth_monitoring_child_form (
+CREATE TABLE report.growth_monitoring_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
