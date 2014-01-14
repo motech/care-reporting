@@ -28,7 +28,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -36,7 +35,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.motechproject.care.reporting.builder.FormValueElementBuilder.getFVE;
 
-public class ChildCaseParserTest {
+public class ChildInfoParserTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -44,13 +43,13 @@ public class ChildCaseParserTest {
     @Mock
     private InfoParser infoParser;
 
-    private ChildCaseParser childCaseParser;
+    private ChildInfoParser childInfoParser;
 
 
     @Before
     public void setUp(){
         initMocks(this);
-        childCaseParser = new ChildCaseParser(infoParser);
+        childInfoParser = new ChildInfoParser(infoParser);
     }
 
     private class ObjectEqualityArgumentMatcher<T> extends ArgumentMatcher<T> {
@@ -99,7 +98,7 @@ public class ChildCaseParserTest {
         when(infoParser.getCaseElement(childInfoElement1)).thenReturn(childCaseElement1);
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
 
-        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
 
         assertEquals(2, childrenMapList.size());
 
@@ -154,7 +153,7 @@ public class ChildCaseParserTest {
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(true);
 
-        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
 
         assertEquals(1, childrenMapList.size());
 
@@ -211,7 +210,7 @@ public class ChildCaseParserTest {
         when(infoParser.getCaseElement(childInfoElement2)).thenReturn(childCaseElement2);
         when(infoParser.shouldReportMissingCaseElement()).thenReturn(false);
 
-        List<Map<String, String>> childrenMapList = childCaseParser.parse(commcareForm);
+        List<Map<String, String>> childrenMapList = childInfoParser.parse(commcareForm);
 
         assertEquals(1, childrenMapList.size());
 
@@ -275,7 +274,7 @@ public class ChildCaseParserTest {
         }});
         when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
 
-        List<Map<String, String>> childrenList = childCaseParser.parse(commcareForm);
+        List<Map<String, String>> childrenList = childInfoParser.parse(commcareForm);
 
         assertEquals(1, childrenList.size());
 
@@ -307,7 +306,7 @@ public class ChildCaseParserTest {
 
         when(infoParser.getCaseElement(childInfoElement)).thenReturn(childCaseElement);
 
-        childCaseParser.parse(commcareForm);
+        childInfoParser.parse(commcareForm);
         verify(infoParser, never()).parse(childCaseElement, true);
         verify(infoParser, never()).parse(childInfoElement, true);
     }

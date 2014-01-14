@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.ClosedFormPostProcessor;
 import org.motechproject.care.reporting.parser.DelFupFixPostProcessor;
+import org.motechproject.care.reporting.parser.FormCaseType;
 import org.motechproject.care.reporting.parser.FormInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.MetaInfoParser;
@@ -47,7 +48,7 @@ public class MotherFormProcessor {
 
     public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
         String namespace = this.getNamespace(commcareForm);
-        if (FormInfoParser.getCaseTypeFromNamespace(namespace) != null) {
+        if (FormInfoParser.getCaseTypeFromNamespace(namespace) == FormCaseType.CHILD_ONLY) {
             return null;
         }
 

@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.parser;
 
+import com.google.common.collect.Multimap;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
@@ -10,9 +11,9 @@ import java.util.Map;
 
 import static java.lang.String.format;
 
-public class ChildCaseParser extends FormInfoParser {
+public class ChildInfoParser extends FormInfoParser {
 
-    public ChildCaseParser(InfoParser infoParser) {
+    public ChildInfoParser(InfoParser infoParser) {
         super(infoParser, FormSegment.CHILD);
     }
 
@@ -22,7 +23,7 @@ public class ChildCaseParser extends FormInfoParser {
             return childrenMap;
         }
         String namespace = commcareForm.getForm().getAttributes().get(NAMESPACE_ATTRIBUTE_NAME);
-        FormCaseType caseType = ChildCaseParser.getCaseTypeFromNamespace(namespace);
+        FormCaseType caseType = ChildInfoParser.getCaseTypeFromNamespace(namespace);
         if (caseType == null) {
             caseType = FormCaseType.CCS_MOTHER_AND_CHILD;
         }
@@ -47,22 +48,19 @@ public class ChildCaseParser extends FormInfoParser {
         List<FormValueElement> childCaseElements = new ArrayList<>();
 
         if (caseType.equals(FormCaseType.CHILD_ONLY)) {
-            FormValueElement childCase = infoParser.getCaseElement(commcareForm.getForm());
-            if (childCase != null) {
-                childCaseElements.add(childCase);
-            }
+            childCaseElements.add(commcareForm.getForm());
         } else if (caseType.equals(FormCaseType.AWW_MOTHER_AND_CHILD)
                 || caseType.equals(FormCaseType.CCS_MOTHER_AND_CHILD)) {
             String nodeName = caseType.getChildCaseRootNode();
-            List<FormValueElement> elements = commcareForm.getForm().getAllElements(nodeName);
+            Multimap<String, FormValueElement> elements = commcareForm.getForm().getSubElements();
 
             if (elements == null) {
                 return childCaseElements;
             }
 
-            for (FormValueElement element : elements) {
-                if (element.getElementName().contains(nodeName)) {
-                    childCaseElements.add(element);
+            for (Map.Entry<String, FormValueElement> element : elements.entries()) {
+                if (element.getKey().contains(nodeName)) {
+                    childCaseElements.add(element.getValue());
                 }
             }
         }

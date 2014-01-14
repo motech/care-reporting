@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import java.util.Date;
 
 @Entity
-@Table(name = "aww_child_reg_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
+@Table(name = "aww_reg_child_form", uniqueConstraints = @UniqueConstraint(columnNames = "instance_id"))
 public class AwwRegisterChildForm extends Form {
 
 	private int id;
@@ -31,7 +31,7 @@ public class AwwRegisterChildForm extends Form {
 	private Date dateModified;
 	private Date creationTime;
 	private Date dob;
-	private Boolean childAlive;
+	private String childAlive;
 	private String gender;
 	private String childName;
 	private String husbandName;
@@ -42,13 +42,13 @@ public class AwwRegisterChildForm extends Form {
 	private String aadharNumber;
 	private Integer mctsId;
 	private Integer childMctsId;
-	private Integer mobileNumber;
+	private String mobileNumber;
 	private String mobileNumberWhose;
 	private String eatsMeat;
 	private String invalidOwner;
 	private String dobKnown;
 	private Date dobEntered;
-	private Boolean showAge;
+	private String showAge;
 	private Integer ageCalc;
 	private Integer ageEstMonths;
 	private Integer ageEstYears;
@@ -146,11 +146,11 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	@Column(name = "child_alive")
-	public Boolean getChildAlive() {
+	public String getChildAlive() {
 		return childAlive;
 	}
 
-	public void setChildAlive(Boolean childAlive) {
+	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
 	@Column(name = "gender")
@@ -244,11 +244,11 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	@Column(name = "mobile_number")
-	public Integer getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(Integer mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
@@ -298,11 +298,11 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	@Column(name = "show_age")
-	public Boolean getShowAge() {
+	public String getShowAge() {
 		return showAge;
 	}
 
-	public void setShowAge(Boolean showAge) {
+	public void setShowAge(String showAge) {
 		this.showAge = showAge;
 	}
 

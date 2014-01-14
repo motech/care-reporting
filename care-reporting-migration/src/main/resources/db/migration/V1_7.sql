@@ -1,5 +1,5 @@
 
-CREATE TABLE report.aww_child_reg_form (
+CREATE TABLE report.aww_reg_child_form (
 	id SERIAL PRIMARY KEY
 	,instance_id VARCHAR(50)
 	,user_id INTEGER REFERENCES report.flw(id)
@@ -12,7 +12,7 @@ CREATE TABLE report.aww_child_reg_form (
 	,server_date_modified TIMESTAMP WITH TIME ZONE
 	,creation_time TIMESTAMP WITH TIME ZONE
 	,dob DATE
-	,child_alive BOOLEAN
+	,child_alive VARCHAR(20)
 	,gender	VARCHAR(20)
 	,child_name	VARCHAR(255)
 	,husband_name VARCHAR(255)
@@ -23,13 +23,13 @@ CREATE TABLE report.aww_child_reg_form (
     ,aadhar_number VARCHAR(255)
     ,mcts_id INTEGER
     ,child_mcts_id INTEGER
-    ,mobile_number INTEGER
+    ,mobile_number VARCHAR(20)
     ,mobile_number_whose VARCHAR(20)
     ,eats_meat VARCHAR(20)
     ,invalid_owner VARCHAR (20)
     ,dob_known VARCHAR(20)
     ,dob_entered DATE
-    ,show_age BOOLEAN
+    ,show_age VARCHAR(20)
     ,age_calc INTEGER
     ,age_est_months INTEGER
     ,age_est_years INTEGER

@@ -32,7 +32,6 @@ public class FormInfoParser extends BaseInfoParser {
 
     protected static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
     protected static final String NAMESPACE_ATTRIBUTE_NAME = "xmlns";
-    protected static final String CASE = "case";
 
     private FormSegment formSegment;
 
@@ -42,7 +41,10 @@ public class FormInfoParser extends BaseInfoParser {
     }
 
     protected Map<String, String> parse(FormValueElement startElement, CommcareForm commcareForm) {
-        FormValueElement caseElement = infoParser.getCaseElement(startElement);
+        FormValueElement caseElement = startElement;
+        if (!startElement.getElementName().equals("case")) {
+            caseElement = infoParser.getCaseElement(startElement);
+        }
 
         if (caseElement == null) {
             logCaseNotFoundEvent(commcareForm);

@@ -43,7 +43,7 @@ public class ChildFormProcessor {
                 namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
         final Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
-        List<Map<String, String>> childDetails = new ChildCaseParser(infoParser).parse(commcareForm);
+        List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
         for (final Map<String, String> childDetail : childDetails) {
             childDetail.putAll(metadata);
 
