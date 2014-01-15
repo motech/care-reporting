@@ -17,7 +17,7 @@ ALTER TABLE report.delivery_mother_form
     ADD COLUMN jsy_money_date DATE DEFAULT NULL,
     ADD COLUMN delivery_complications TEXT DEFAULT NULL,
     ADD COLUMN discharge_date DATE DEFAULT NULL,
-    ADD COLUMN discharge_time TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    ADD COLUMN discharge_time VARCHAR(25),
     ADD COLUMN who_assisted TEXT DEFAULT NULL,
     ADD COLUMN bleeding TEXT DEFAULT NULL,
     ADD COLUMN home_sba_assist TEXT DEFAULT NULL,

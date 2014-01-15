@@ -9,7 +9,6 @@ import org.motechproject.care.reporting.utils.FormToString;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.sql.Time;
 import java.util.Date;
 
 
@@ -68,7 +67,7 @@ public class DeliveryMotherForm extends Form {
     private Date jsyMoneyDate;
     private String deliveryComplications;
     private Date dischargeDate;
-    private Date dischargeTime;
+    private String dischargeTime;
     private String whoAssisted;
     private String bleeding;
     private String homeSbaAssist;
@@ -561,13 +560,12 @@ public class DeliveryMotherForm extends Form {
         this.dischargeDate = dischargeDate;
     }
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "discharge_time")
-    public Date getDischargeTime() {
+    public String getDischargeTime() {
         return dischargeTime;
     }
 
-    public void setDischargeTime(Date dischargeTime) {
+    public void setDischargeTime(String dischargeTime) {
         this.dischargeTime = dischargeTime;
     }
 
