@@ -49,7 +49,8 @@ public class FormFactory {
         put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
         put(new Pair<>(FormType.MotherEdit, CaseType.MOTHER), MotherEditForm.class);
 
-        put(new Pair<>(FormType.AwwRegisterChild, CaseType.MOTHER), AwwRegisterChildForm.class);
+        put(new Pair<>(FormType.AwwRegisterChild, CaseType.MOTHER), AwwRegisterMotherForm.class);
+        put(new Pair<>(FormType.AwwRegisterChild, CaseType.CHILD), AwwRegisterChildForm.class);
         put(new Pair<>(FormType.AwwGrowthMonitoring1, CaseType.CHILD), AwwGrowthMonitoringChildForm1.class);
         put(new Pair<>(FormType.AwwGrowthMonitoring2, CaseType.CHILD), AwwGrowthMonitoringChildForm2.class);
         put(new Pair<>(FormType.AwwThrMother, CaseType.MOTHER), AwwThrMotherForm.class);

@@ -1,8 +1,11 @@
 package org.motechproject.care.reporting.processors;
 
 import org.apache.commons.lang.StringUtils;
+import org.motechproject.care.reporting.parser.FormCaseType;
+import org.motechproject.care.reporting.parser.FormInfoParser;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.utils.FormFieldSplitter;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +53,15 @@ public class FormProcessor {
 
         Map<String, String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
         List<Map<String, String>> childForms = childFormProcessor.parseChildForms(commcareForm);
+
+        if (FormFieldSplitter.isNamespaceSupported(xmlns)) {
+            Map<String, List<Map<String, String>>> allFields = FormFieldSplitter.splitMotherAndChildrenFields(
+                    xmlns, motherForm, childForms);
+
+            motherForm = allFields.get("mother").get(0);
+            childForms = allFields.get("child");
+        }
+
         service.processAndSaveForms(motherForm, childForms);
         logger.info(String.format("Finished processing form. id: %s, type: %s;", commcareForm.getId(), formName));
     }

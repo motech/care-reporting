@@ -59,6 +59,7 @@
                 <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.MotherEditForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwRegisterChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwRegisterMotherForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm1</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm2</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwThrMotherForm</value>
