@@ -34,6 +34,8 @@ public class AwwRegisterChildForm extends Form {
 	private String childAlive;
 	private String gender;
 	private String childName;
+	private Integer ageEstMonths;
+	private Integer ageEstYears;
 	private Integer childMctsId;
 	private String invalidOwner;
 	private Integer fullChildMctsId;
@@ -149,6 +151,24 @@ public class AwwRegisterChildForm extends Form {
 
 	public void setChildName(String childName) {
 		this.childName = childName;
+	}
+
+	@Column(name = "age_est_months")
+	public Integer getAgeEstMonths() {
+		return ageEstMonths;
+	}
+
+	public void setAgeEstMonths(Integer ageEstMonths) {
+		this.ageEstMonths = ageEstMonths;
+	}
+
+	@Column(name = "age_est_years")
+	public Integer getAgeEstYears() {
+		return ageEstYears;
+	}
+
+	public void setAgeEstYears(Integer ageEstYears) {
+		this.ageEstYears = ageEstYears;
 	}
 
 	@Column(name = "child_mcts_id")

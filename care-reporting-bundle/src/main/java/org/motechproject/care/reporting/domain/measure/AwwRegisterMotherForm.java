@@ -46,8 +46,6 @@ public class AwwRegisterMotherForm extends Form {
 	private Date dobEntered;
 	private String showAge;
 	private Integer ageCalc;
-	private Integer ageEstMonths;
-	private Integer ageEstYears;
 	private String updateMctsId;
 	private String updateAadharNumber;
 	private Integer fullMctsId;
@@ -274,24 +272,6 @@ public class AwwRegisterMotherForm extends Form {
 
 	public void setAgeCalc(Integer ageCalc) {
 		this.ageCalc = ageCalc;
-	}
-
-	@Column(name = "age_est_months")
-	public Integer getAgeEstMonths() {
-		return ageEstMonths;
-	}
-
-	public void setAgeEstMonths(Integer ageEstMonths) {
-		this.ageEstMonths = ageEstMonths;
-	}
-
-	@Column(name = "age_est_years")
-	public Integer getAgeEstYears() {
-		return ageEstYears;
-	}
-
-	public void setAgeEstYears(Integer ageEstYears) {
-		this.ageEstYears = ageEstYears;
 	}
 
 	@Column(name = "update_mcts_id")

@@ -34,8 +34,6 @@ public final class FormFieldSplitter {
                         add("dobEntered");
                         add("showAge");
                         add("ageCalc");
-                        add("ageEstMonths");
-                        add("ageEstYears");
                         add("updateMctsId");
                         add("updateAadharNumber");
                         add("caste");
@@ -45,6 +43,8 @@ public final class FormFieldSplitter {
 
                     put(CHILD_FORM, new HashSet<String>() {{
                         add("childName");
+                        add("ageEstMonths");
+                        add("ageEstYears");
                         add("gender");
                         add("childMctsId");
                         add("childAlive");

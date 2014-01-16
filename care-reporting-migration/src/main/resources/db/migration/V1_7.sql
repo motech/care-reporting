@@ -15,6 +15,8 @@ CREATE TABLE report.aww_reg_child_form (
     ,child_alive VARCHAR(20)
     ,gender VARCHAR(20)
     ,child_name VARCHAR(255)
+    ,age_est_months INTEGER
+    ,age_est_years INTEGER
     ,child_mcts_id INTEGER
     ,invalid_owner VARCHAR (20)
     ,full_child_mcts_id INTEGER
@@ -51,8 +53,6 @@ CREATE TABLE report.aww_reg_mother_form (
     ,dob_entered DATE
     ,show_age VARCHAR(20)
     ,age_calc INTEGER
-    ,age_est_months INTEGER
-    ,age_est_years INTEGER
     ,update_mcts_id VARCHAR(20)
     ,update_aadhar_number VARCHAR(20)
     ,full_mcts_id INTEGER
