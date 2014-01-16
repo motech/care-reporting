@@ -39,7 +39,6 @@ public class CfMotherForm extends Form {
 	private String confirmClose;
     private Boolean close;
     private Date creationTime = new Date();
-    private String ownerId;
     private String invalidGroupsTransfer;
     private String newOwner;
 
@@ -275,15 +274,6 @@ public class CfMotherForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
-    }
-
-    @Column(name = "owner_id")
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
     }
 
     @Column(name = "invalid_groups_transfer")

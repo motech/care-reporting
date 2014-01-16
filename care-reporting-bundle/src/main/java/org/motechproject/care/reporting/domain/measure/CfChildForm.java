@@ -80,7 +80,6 @@ public class CfChildForm extends Form {
 	private Date vitA2Date;
     private Boolean close;
     private Date creationTime = new Date();
-    private String ownerId;
 
     public CfChildForm() {
 	}
@@ -697,12 +696,4 @@ public class CfChildForm extends Form {
         return FormToString.toString(this);
     }
 
-    @Column(name = "owner_id")
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
 }
