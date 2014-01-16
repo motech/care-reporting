@@ -28,8 +28,12 @@ ALTER TABLE report.pnc_mother_form
     ADD COLUMN pnc_complications TEXT DEFAULT NULL;
 
 ALTER TABLE report.cf_mother_form
+    ADD COLUMN owner_id TEXT DEFAULT NULL,
     ADD COLUMN invalid_groups_transfer TEXT DEFAULT NULL,
     ADD COLUMN new_owner TEXT DEFAULT NULL;
+
+ALTER TABLE report.cf_child_form
+    ADD COLUMN owner_id TEXT DEFAULT NULL;
 
 ALTER TABLE report.mother_edit_form
     ADD COLUMN mcts_id INTEGER DEFAULT NULL,
