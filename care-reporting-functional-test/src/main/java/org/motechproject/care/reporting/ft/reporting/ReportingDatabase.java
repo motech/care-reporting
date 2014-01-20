@@ -50,6 +50,16 @@ public class ReportingDatabase {
     private final Table moveBeneficiaryForm;
     private final Table motherEditForm;
     private final Table moForm;
+    private final Table growthMonitoringChildForm;
+    private final Table awwRegChild;
+    private final Table awwRegMotherForm;
+    private final Table awwGrowthMonitoring1ChildForm;
+    private final Table awwGrowthMonitoring2ChildForm;
+    private final Table awwThrMotherForm;
+    private final Table awwThrChildForm;
+    private final Table awwCloseChildForm;
+    private final Table awwEditChildForm;
+    private final Table awwUpdateVaccinationsChildForm;
 
     private Map<String, Table> tableMapper = new HashMap<>();
 
@@ -83,6 +93,16 @@ public class ReportingDatabase {
         referMotherForm = getFormTable("refer_mother_form");
         uiChildForm = getFormTable("ui_child_form");
         uiMotherForm = getFormTable("ui_mother_form");
+        growthMonitoringChildForm = getFormTable("growth_monitoring_child_form");
+        awwRegChild = getFormTable("aww_reg_child_form");
+        awwRegMotherForm = getFormTable("aww_reg_mother_form");
+        awwGrowthMonitoring1ChildForm = getFormTable("aww_growth_monitoring_1_child_form");
+        awwGrowthMonitoring2ChildForm = getFormTable("aww_growth_monitoring_2_child_form");
+        awwThrMotherForm = getFormTable("aww_thr_mother_form");
+        awwThrChildForm = getFormTable("aww_thr_child_form");
+        awwCloseChildForm = getFormTable("aww_close_child_form");
+        awwEditChildForm = getFormTable("aww_edit_child_form");
+        awwUpdateVaccinationsChildForm = getFormTable("aww_update_vaccinations_child_form");
 
         motherCase = getCaseTable("mother_case");
         childCase = getCaseTable("child_case");
@@ -94,10 +114,14 @@ public class ReportingDatabase {
         motherFormTables = Arrays.asList(newForm, registrationMotherForm, bpForm, abortForm,
                                          cfMotherForm, closeMotherForm, deathMotherForm, deliveryMotherForm,
                                          ebfMotherForm, miForm, moForm, motherEditForm, moveBeneficiaryForm,
-                                         pncMotherForm, referMotherForm, uiMotherForm);
+                                         pncMotherForm, referMotherForm, uiMotherForm, awwRegMotherForm,
+                                         awwThrMotherForm);
 
         childFormTables = Arrays.asList(registrationChildForm, cfChildForm, closeChildForm, deathChildForm, ebfChildForm, pncChildForm,
-                                        referChildForm, deliveryChildForm, uiChildForm);
+                                        referChildForm, deliveryChildForm, uiChildForm, growthMonitoringChildForm,
+                                        awwRegChild, awwGrowthMonitoring1ChildForm, awwGrowthMonitoring2ChildForm,
+                                        awwThrChildForm, awwCloseChildForm, awwEditChildForm,
+                                        awwUpdateVaccinationsChildForm);
     }
 
     private Table getFormTable(String tableName) {

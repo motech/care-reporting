@@ -27,7 +27,7 @@ CREATE TABLE report.aww_reg_child_form (
 
 CREATE TABLE report.aww_reg_mother_form (
     id SERIAL PRIMARY KEY
-    ,instance_id VARCHAR(50)
+    ,instance_id VARCHAR(50) UNIQUE
     ,user_id INTEGER REFERENCES report.flw(id)
     ,case_id INTEGER REFERENCES report.mother_case(id)
     ,app_version VARCHAR(255)
@@ -60,14 +60,13 @@ CREATE TABLE report.aww_reg_mother_form (
     ,resident VARCHAR(20)
     ,success VARCHAR(20)
     ,owner_id_calc VARCHAR(255)
-    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.aww_growth_monitoring_1_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
-    instance_id VARCHAR(50) UNIQUE,
+    instance_id VARCHAR(50),
     app_version VARCHAR(255),
     date_modified TIMESTAMP WITH TIME ZONE,
     server_date_modified TIMESTAMP WITH TIME ZONE,
@@ -97,14 +96,16 @@ CREATE TABLE report.aww_growth_monitoring_1_child_form (
     change_from_normal VARCHAR(20),
     change_from_muw VARCHAR(20),
     change_from_suw VARCHAR(20),
-    age_last_weight INTEGER
+    age_last_weight INTEGER,
+    UNIQUE(instance_id, case_id)
+
 );
 
 CREATE TABLE report.aww_growth_monitoring_2_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
-    instance_id VARCHAR(50) UNIQUE,
+    instance_id VARCHAR(50),
     app_version VARCHAR(255),
     date_modified TIMESTAMP WITH TIME ZONE,
     server_date_modified TIMESTAMP WITH TIME ZONE,
@@ -134,7 +135,8 @@ CREATE TABLE report.aww_growth_monitoring_2_child_form (
     change_from_normal VARCHAR(20),
     change_from_muw VARCHAR(20),
     change_from_suw VARCHAR(20),
-    age_last_weight INTEGER
+    age_last_weight INTEGER,
+    UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.aww_thr_mother_form (
@@ -163,7 +165,7 @@ CREATE TABLE report.aww_close_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
-    instance_id VARCHAR(50) UNIQUE,
+    instance_id VARCHAR(50),
     app_version VARCHAR(255),
     date_modified TIMESTAMP WITH TIME ZONE,
     server_date_modified TIMESTAMP WITH TIME ZONE,
@@ -186,7 +188,8 @@ CREATE TABLE report.aww_close_child_form (
     success VARCHAR(20),
     child_name VARCHAR(255),
     dob DATE,
-    close_child_case VARCHAR(20)
+    close_child_case VARCHAR(20),
+    UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.aww_edit_child_form (
@@ -206,13 +209,14 @@ CREATE TABLE report.aww_edit_child_form (
     ,update_child_dob VARCHAR (20)
     ,new_child_dob DATE
     ,success VARCHAR(20)
+    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.aww_update_vaccinations_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
-    instance_id VARCHAR(50) UNIQUE,
+    instance_id VARCHAR(50),
     app_version VARCHAR(255),
     date_modified TIMESTAMP WITH TIME ZONE,
     server_date_modified TIMESTAMP WITH TIME ZONE,
@@ -272,7 +276,8 @@ CREATE TABLE report.aww_update_vaccinations_child_form (
     success VARCHAR(20),
     immuns_up_to_date VARCHAR(20),
     child_name VARCHAR(20),
-    dob DATE
+    dob DATE,
+    UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.aww_thr_child_form (
@@ -295,13 +300,14 @@ CREATE TABLE report.aww_thr_child_form (
     ,success VARCHAR (20)
     ,child_name VARCHAR(255)
     ,mother_name VARCHAR(255)
+    ,UNIQUE(instance_id, case_id)
 );
 
 CREATE TABLE report.growth_monitoring_child_form (
     id SERIAL PRIMARY KEY,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
-    instance_id VARCHAR(50) UNIQUE,
+    instance_id VARCHAR(50),
     app_version VARCHAR(255),
     date_modified TIMESTAMP WITH TIME ZONE,
     server_date_modified TIMESTAMP WITH TIME ZONE,
@@ -322,5 +328,6 @@ CREATE TABLE report.growth_monitoring_child_form (
     gender VARCHAR(20),
     change_from_normal VARCHAR(20),
     change_from_muw VARCHAR(20),
-    change_from_suw VARCHAR(20)
+    change_from_suw VARCHAR(20),
+    UNIQUE(instance_id, case_id)
 );

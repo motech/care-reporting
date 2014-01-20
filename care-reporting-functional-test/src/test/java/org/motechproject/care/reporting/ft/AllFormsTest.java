@@ -134,6 +134,51 @@ public class AllFormsTest extends BaseTestCase {
         testForm("move_beneficiary");
     }
 
+    @Test
+    public void createGrowthMonitoringChildForm() throws Exception {
+        testFormWithChildOnly("growth_monitoring");
+    }
+
+    @Test
+    public void createAwwRegForm() throws Exception {
+        testFormWithChild("aww_reg");
+    }
+
+    @Test
+    public void createGrowthMonitoring1ChildForm() throws Exception {
+        testFormWithChildOnly("aww_growth_monitoring_1");
+    }
+
+    @Test
+    public void createGrowthMonitoring2ChildForm() throws Exception {
+        testFormWithChildOnly("aww_growth_monitoring_2");
+    }
+
+    @Test
+    public void createAwwThrChildForm() throws Exception {
+        testFormWithChildOnly("aww_thr");
+    }
+
+    @Test
+    public void createAwwThrMotherForm() throws Exception {
+        testForm("aww_thr_mother");
+    }
+
+    @Test
+    public void createAwwCloseChildForm() throws Exception {
+        testFormWithChildOnly("aww_close");
+    }
+
+    @Test
+    public void createAwwEditChildForm() throws Exception {
+        testFormWithChildOnly("aww_edit");
+    }
+
+    @Test
+    public void createAwwUpdateVaccinationsChildForm() throws Exception {
+        testFormWithChildOnly("aww_update_vaccinations");
+    }
+
     private void testFormWithChild(String formName) throws Exception {
         String instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_mother_form", instanceId, formName + "_mother_form");
@@ -143,6 +188,11 @@ public class AllFormsTest extends BaseTestCase {
     private void testForm(String formName) throws Exception {
         String instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_form", instanceId, formName + "_form");
+    }
+
+    private void testFormWithChildOnly(String formName) throws Exception {
+        String instanceId = postForm(formName + "_child_form");
+        assertReportingDatabaseWithChildAndFlw(formName + "_child_form", instanceId, formName + "_child_form");
     }
 
 
@@ -159,6 +209,12 @@ public class AllFormsTest extends BaseTestCase {
     private void assertReportingDatabaseWithMotherAndFlw(String tableName, String instanceId, String expectedFormUrl){
         asserter.verifyTable(tableName, instanceId, constructExpectedUrl("reporting/"+expectedFormUrl));
         asserter.verifyTable(TableName.mother_case, caseId, constructExpectedUrl("reporting/mother_case"));
+        asserter.verifyFlwWithoutGroup(flwId, constructExpectedUrl("reporting/flw"), groupId);
+    }
+
+    private void assertReportingDatabaseWithChildAndFlw(String tableName, String instanceId, String expectedFormUrl){
+        asserter.verifyTable(tableName, instanceId, constructExpectedUrl("reporting/"+expectedFormUrl));
+        asserter.verifyTable(TableName.child_case, child1caseId, constructExpectedUrl("reporting/child_case"));
         asserter.verifyFlwWithoutGroup(flwId, constructExpectedUrl("reporting/flw"), groupId);
     }
 
