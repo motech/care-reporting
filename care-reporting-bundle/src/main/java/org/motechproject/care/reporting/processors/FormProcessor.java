@@ -31,7 +31,8 @@ public class FormProcessor {
     private static final String FORM_VERSION_ATTRIBUTE = "appVersion";
 
     @Autowired
-    public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor, Service service, MapperService mapperService) {
+    public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor,
+                         Service service, MapperService mapperService) {
         this.motherFormProcessor = motherFormProcessor;
         this.childFormProcessor = childFormProcessor;
         this.service = service;
@@ -46,13 +47,14 @@ public class FormProcessor {
         logger.info(String.format("Received form. id: %s, type: %s; xmlns: %s;", commcareForm.getId(), formName, xmlns));
 
         String appVersion = commcareForm.getMetadata().get(FORM_VERSION_ATTRIBUTE);
-        if(StringUtils.isEmpty(appVersion) || mapperService.getExclusionAppversionList().contains(appVersion)) {
+        if (StringUtils.isEmpty(appVersion) || mapperService.getExclusionAppversionList().contains(appVersion)) {
             logger.info(String.format("[Excluded App version] Ignoring the form, id: %s with appversion %s", commcareForm.getId(), appVersion));
             return;
         }
 
+        FormCaseType formCaseType = FormInfoParser.getCaseTypeFromNamespace(xmlns);
         Map<String, String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
-        List<Map<String, String>> childForms = childFormProcessor.parseChildForms(commcareForm);
+        List<Map<String, String>> childForms = parseChildForms(commcareForm, formCaseType);
 
         if (FormFieldSplitter.isNamespaceSupported(xmlns)) {
             Map<String, List<Map<String, String>>> allFields = FormFieldSplitter.splitMotherAndChildrenFields(
@@ -62,7 +64,24 @@ public class FormProcessor {
             childForms = allFields.get("child");
         }
 
-        service.processAndSaveForms(motherForm, childForms);
+        processAndSaveForms(motherForm, childForms, formCaseType);
         logger.info(String.format("Finished processing form. id: %s, type: %s;", commcareForm.getId(), formName));
+    }
+
+    private void processAndSaveForms(Map<String, String> motherForm, List<Map<String, String>> childForms,
+                                     FormCaseType formCaseType) {
+        if (formCaseType == FormCaseType.CHILD_MANY_TO_MANY) {
+            service.processAndSaveManyToManyForm(motherForm, childForms);
+        } else {
+            service.processAndSaveForms(motherForm, childForms);
+        }
+    }
+
+    private List<Map<String, String>> parseChildForms(CommcareForm commcareForm, FormCaseType formCaseType) {
+        if (formCaseType == FormCaseType.CHILD_MANY_TO_MANY) {
+            return childFormProcessor.parseChildManyToManyForms(commcareForm);
+        } else {
+            return childFormProcessor.parseChildForms(commcareForm);
+        }
     }
 }

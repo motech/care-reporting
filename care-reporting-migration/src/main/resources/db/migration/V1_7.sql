@@ -331,3 +331,42 @@ CREATE TABLE report.growth_monitoring_child_form (
     change_from_suw VARCHAR(20),
     UNIQUE(instance_id, case_id)
 );
+
+CREATE TABLE report.aww_preschool_activities_form (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES report.flw (id),
+    instance_id VARCHAR(50) UNIQUE,
+    app_version VARCHAR(255),
+    date_modified TIMESTAMP WITH TIME ZONE,
+    server_date_modified TIMESTAMP WITH TIME ZONE,
+    delivery_offset_days INTEGER,
+    time_start TIMESTAMP WITH TIME ZONE,
+    time_end TIMESTAMP WITH TIME ZONE,
+    creation_time TIMESTAMP WITH TIME ZONE,
+    menu VARCHAR(255),
+    activity VARCHAR(255),
+    success VARCHAR(20),
+    num_children INTEGER,
+    child_ids TEXT
+);
+
+CREATE TABLE report.aww_preschool_activities_child_form (
+    id SERIAL PRIMARY KEY,
+    form_id INTEGER REFERENCES report.aww_preschool_activities_form (id),
+    case_id INTEGER REFERENCES report.child_case (id),
+    user_id INTEGER REFERENCES report.flw (id),
+    instance_id VARCHAR(50),
+    app_version VARCHAR(255),
+    date_modified TIMESTAMP WITH TIME ZONE,
+    server_date_modified TIMESTAMP WITH TIME ZONE,
+    delivery_offset_days INTEGER,
+    time_start TIMESTAMP WITH TIME ZONE,
+    time_end TIMESTAMP WITH TIME ZONE,
+    creation_time TIMESTAMP WITH TIME ZONE,
+    caseid VARCHAR(255),
+    child_attend VARCHAR(20),
+    breakfast VARCHAR(20),
+    participated VARCHAR(20),
+    lunch VARCHAR(20),
+    CONSTRAINT aww_preschool_activities_child_form_uk UNIQUE (instance_id, case_id)
+);

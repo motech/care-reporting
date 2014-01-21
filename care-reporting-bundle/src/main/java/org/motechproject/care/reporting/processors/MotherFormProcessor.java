@@ -35,6 +35,10 @@ public class MotherFormProcessor {
         add(new DelFupFixPostProcessor());
     }};
 
+    private static List<PostProcessor> CHILD_MANY_TO_MANY_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
+        add(FORM_COPY_USER_ID_AS_FLW);
+    }};
+
     private List<ComputedFieldsProcessor> MOTHER_FORM_COMPUTED_FIELDS = new ArrayList<>();
 
     private MapperService mapperService;
@@ -48,7 +52,8 @@ public class MotherFormProcessor {
 
     public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
         String namespace = this.getNamespace(commcareForm);
-        if (FormInfoParser.getCaseTypeFromNamespace(namespace) == FormCaseType.CHILD_ONLY) {
+        FormCaseType caseType = FormInfoParser.getCaseTypeFromNamespace(namespace);
+        if (caseType == FormCaseType.CHILD_ONLY) {
             return null;
         }
 
@@ -66,10 +71,18 @@ public class MotherFormProcessor {
 
         motherInfo.putAll(formFields);
 
-        applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
+        chooseAndApplyPostProcessors(caseType, motherInfo);
         applyComputedFields(MOTHER_FORM_COMPUTED_FIELDS, motherInfo);
 
         return motherInfo;
+    }
+
+    private void chooseAndApplyPostProcessors(FormCaseType caseType, Map<String, String> motherInfo) {
+        if (caseType == FormCaseType.CHILD_MANY_TO_MANY) {
+            applyPostProcessors(CHILD_MANY_TO_MANY_FORM_POST_PROCESSORS, motherInfo);
+        } else {
+            applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
+        }
     }
 
     private String getNamespace(CommcareForm commcareForm) {

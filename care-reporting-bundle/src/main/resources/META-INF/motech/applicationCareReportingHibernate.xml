@@ -67,6 +67,8 @@
                 <value>org.motechproject.care.reporting.domain.measure.AwwEditChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwUpdateVaccinationsChildForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.AwwThrChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesChildForm</value>
 
                 <value>org.motechproject.care.reporting.domain.measure.GrowthMonitoringChildForm</value>
             </list>

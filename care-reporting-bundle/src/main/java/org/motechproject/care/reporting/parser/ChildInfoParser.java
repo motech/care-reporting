@@ -6,6 +6,7 @@ import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,20 +52,42 @@ public class ChildInfoParser extends FormInfoParser {
             childCaseElements.add(commcareForm.getForm());
         } else if (caseType.equals(FormCaseType.AWW_MOTHER_AND_CHILD)
                 || caseType.equals(FormCaseType.CCS_MOTHER_AND_CHILD)) {
-            String nodeName = caseType.getChildCaseRootNode();
-            Multimap<String, FormValueElement> elements = commcareForm.getForm().getSubElements();
+            childCaseElements.addAll(findChildCaseElements(caseType, commcareForm, true));
+        } else if (caseType.equals(FormCaseType.CHILD_MANY_TO_MANY)) {
+            childCaseElements.addAll(findChildCaseElements(caseType, commcareForm, false));
+        }
 
-            if (elements == null) {
-                return childCaseElements;
-            }
+        return childCaseElements;
+    }
 
-            for (Map.Entry<String, FormValueElement> element : elements.entries()) {
-                if (element.getKey().contains(nodeName)) {
-                    childCaseElements.add(element.getValue());
-                }
+    private List<FormValueElement> findChildCaseElements(FormCaseType caseType, CommcareForm commcareForm,
+                                                         boolean useStringContains) {
+        String nodeName = caseType.getChildCaseRootNode();
+        Multimap<String, FormValueElement> elements = commcareForm.getForm().getSubElements();
+        List<FormValueElement> childCaseElements = new ArrayList<>();
+
+        if (elements == null) {
+            return childCaseElements;
+        }
+
+        for (Map.Entry<String, FormValueElement> element : elements.entries()) {
+            if (useStringContains && element.getKey().contains(nodeName)) {
+                childCaseElements.add(element.getValue());
+            } else if (!useStringContains && element.getKey().equals(nodeName)) {
+                childCaseElements.add(element.getValue());
             }
         }
 
         return childCaseElements;
+    }
+
+    @Override
+    protected Map<String, String> parseCaseInfo(FormCaseType caseType, FormValueElement caseElement,
+                                                CommcareForm commcareForm) {
+        if (caseType == null || !caseType.equals(FormCaseType.CHILD_MANY_TO_MANY)) {
+            return super.parseCaseInfo(caseType, caseElement, commcareForm);
+        }
+
+        return new HashMap<>();
     }
 }

@@ -4,7 +4,8 @@ public enum FormCaseType {
     CHILD_ONLY("case"),
     MOTHER_ONLY("case"),
     AWW_MOTHER_AND_CHILD("subcase_", "case"),
-    CCS_MOTHER_AND_CHILD("child_info", "case");
+    CCS_MOTHER_AND_CHILD("child_info", "case"),
+    CHILD_MANY_TO_MANY("child");
 
     private String childCaseRootNode;
     private String motherCaseRootNode;

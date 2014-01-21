@@ -58,6 +58,8 @@ public class FormFactory {
         put(new Pair<>(FormType.AwwEditChild, CaseType.CHILD), AwwEditChildForm.class);
         put(new Pair<>(FormType.AwwUpdateVaccinations, CaseType.CHILD), AwwUpdateVaccinationsChildForm.class);
         put(new Pair<>(FormType.AwwThrChild, CaseType.CHILD), AwwThrChildForm.class);
+        put(new Pair<>(FormType.AwwPreschoolActivities, CaseType.MOTHER), AwwPreschoolActivitiesForm.class);
+        put(new Pair<>(FormType.AwwPreschoolActivities, CaseType.CHILD), AwwPreschoolActivitiesChildForm.class);
 
         put(new Pair<>(FormType.CcsGrowthMonitoring, CaseType.CHILD), GrowthMonitoringChildForm.class);
     }};

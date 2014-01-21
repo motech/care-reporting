@@ -33,6 +33,8 @@ public interface Service {
 
     void processAndSaveForms(Map<String, String> motherForm, List<Map<String,String>> childForms);
 
+    void processAndSaveManyToManyForm(Map<String, String> formValues, List<Map<String,String>> childFormValues);
+
     <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values);
 
     void closeCase(String caseId, Map<String, String> updatedValues);
