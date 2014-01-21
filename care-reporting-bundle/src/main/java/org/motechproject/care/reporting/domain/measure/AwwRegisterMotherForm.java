@@ -29,7 +29,7 @@ public class AwwRegisterMotherForm extends Form {
 	private Date timeStart;
 	private Date timeEnd;
 	private Date dateModified;
-	private Date creationTime;
+	private Date creationTime = new Date();
 	private Date dob;
 	private String fatherName;
 	private String motherName;

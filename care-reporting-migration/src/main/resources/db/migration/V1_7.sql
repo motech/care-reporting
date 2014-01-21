@@ -352,7 +352,7 @@ CREATE TABLE report.aww_preschool_activities_form (
 
 CREATE TABLE report.aww_preschool_activities_child_form (
     id SERIAL PRIMARY KEY,
-    form_id INTEGER REFERENCES report.aww_preschool_activities_form (id),
+    form_id INTEGER REFERENCES report.aww_preschool_activities_form (id) ON DELETE CASCADE,
     case_id INTEGER REFERENCES report.child_case (id),
     user_id INTEGER REFERENCES report.flw (id),
     instance_id VARCHAR(50),

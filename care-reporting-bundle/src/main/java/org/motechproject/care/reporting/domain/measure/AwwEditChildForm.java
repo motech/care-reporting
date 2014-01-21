@@ -29,7 +29,7 @@ public class AwwEditChildForm extends Form {
 	private Date timeStart;
 	private Date timeEnd;
 	private Date dateModified;
-	private Date creationTime;
+	private Date creationTime = new Date();
 	String updateChildName;
 	String newChildName;
 	String updateChildDob;

@@ -30,7 +30,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
     private Date dateModified;
     private Date timeStart;
     private Date timeEnd;
-    private Date creationTime;
+    private Date creationTime = new Date();
     private String detailsAvailable;
     private String detailsNeeded;
     private String addVaccinations;

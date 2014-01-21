@@ -29,7 +29,7 @@ public class AwwRegisterChildForm extends Form {
 	private Date timeStart;
 	private Date timeEnd;
 	private Date dateModified;
-	private Date creationTime;
+	private Date creationTime = new Date();
 	private Date dob;
 	private String childAlive;
 	private String gender;

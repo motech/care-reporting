@@ -41,4 +41,6 @@ public class TableName {
     public static String aww_close_child_form = "aww_close_child_form";
     public static String aww_edit_child_form = "aww_edit_child_form";
     public static String aww_update_vaccinations_child_form = "aww_update_vaccinations_child_form";
+    public static String aww_preschool_activities_form = "aww_preschool_activities_form";
+    public static String aww_preschool_activities_child_form = "aww_preschool_activities_child_form";
 }

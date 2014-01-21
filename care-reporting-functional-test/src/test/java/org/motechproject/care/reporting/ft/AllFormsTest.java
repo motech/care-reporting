@@ -2,6 +2,7 @@ package org.motechproject.care.reporting.ft;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.motechproject.care.reporting.ft.asserters.Asserter;
 import org.motechproject.care.reporting.ft.reporting.TableName;
@@ -16,6 +17,7 @@ public class AllFormsTest extends BaseTestCase {
     private String flwId;
     private String groupId;
     private String caseId;
+    private String instanceId;
     private String child1caseId;
     private String receivedOn, receivedOnIST;
 
@@ -50,6 +52,7 @@ public class AllFormsTest extends BaseTestCase {
     public void tearDown() throws InterruptedException {
         reportingDatabase().deleteMother(caseId);
         reportingDatabase().deleteChild(child1caseId);
+        reportingDatabase().deleteForm(instanceId);
         reportingDatabase().deleteFLW(flwId);
         reportingDatabase().deleteGroup(groupId);
     }
@@ -179,31 +182,49 @@ public class AllFormsTest extends BaseTestCase {
         testFormWithChildOnly("aww_update_vaccinations");
     }
 
+    @Test
+    public void createAwwPreschoolActivitiesForm() throws Exception {
+        testFormWithNoCaseAndMultipleChildren("aww_preschool_activities");
+    }
+
     private void testFormWithChild(String formName) throws Exception {
-        String instanceId = postForm(formName + "_form");
+        instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_mother_form", instanceId, formName + "_mother_form");
         assertReportingDatabaseWithChild(formName + "_child_form", instanceId, formName + "_child_form");
     }
 
     private void testForm(String formName) throws Exception {
-        String instanceId = postForm(formName + "_form");
+        instanceId = postForm(formName + "_form");
         assertReportingDatabaseWithMotherAndFlw(formName + "_form", instanceId, formName + "_form");
     }
 
     private void testFormWithChildOnly(String formName) throws Exception {
-        String instanceId = postForm(formName + "_child_form");
+        instanceId = postForm(formName + "_child_form");
         assertReportingDatabaseWithChildAndFlw(formName + "_child_form", instanceId, formName + "_child_form");
     }
 
+    private void testFormWithNoCaseAndMultipleChildren(String formName) throws Exception {
+        instanceId = postForm(formName + "_form");
+        assertReportingDatabaseWithNoCaseMultipleChildrenAndFlw(formName, instanceId, formName);
+    }
 
     private String postForm(String formName){
         final String formUrl = constructRequestTemplateUrl(formName);
 
-        String instanceId = UUID.randomUUID().toString();
+        instanceId = UUID.randomUUID().toString();
         placeholderMap.put("instanceId", instanceId);
 
         asserter.postForm(formUrl);
         return instanceId;
+    }
+
+    private void assertReportingDatabaseWithNoCaseMultipleChildrenAndFlw(String tableName, String instanceId,
+                                                                         String expectedFormUrl) {
+        asserter.verifyTable(tableName + "_form", instanceId,
+                constructExpectedUrl("reporting/" + expectedFormUrl + "_form"));
+        asserter.verifyTable(tableName + "_child_form", instanceId,
+                constructExpectedUrl("reporting/" + expectedFormUrl + "_child_form"));
+        asserter.verifyFlwWithoutGroup(flwId, constructExpectedUrl("reporting/flw"), groupId);
     }
 
     private void assertReportingDatabaseWithMotherAndFlw(String tableName, String instanceId, String expectedFormUrl){

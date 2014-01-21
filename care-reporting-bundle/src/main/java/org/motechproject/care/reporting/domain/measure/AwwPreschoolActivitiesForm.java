@@ -27,7 +27,7 @@ public class AwwPreschoolActivitiesForm extends Form {
     private Date dateModified;
     private Date timeStart;
     private Date timeEnd;
-    private Date creationTime;
+    private Date creationTime = new Date();
     private String menu;
     private String activity;
     private String success;

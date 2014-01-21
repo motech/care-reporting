@@ -31,7 +31,7 @@ public class AwwCloseChildForm extends Form {
     private Date timeEnd;
     private Date timeStart;
     private Date dateModified;
-    private Date creationTime;
+    private Date creationTime = new Date();
     private String closeChild;
     private String childOverSix;
     private String dupeReg;

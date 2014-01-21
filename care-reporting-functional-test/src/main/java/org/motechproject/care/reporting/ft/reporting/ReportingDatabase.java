@@ -27,6 +27,7 @@ public class ReportingDatabase {
 
     private List<Table> motherFormTables;
     private List<Table> childFormTables;
+    private List<Table> nonCaseFormTables;
     private final Table registrationChildForm;
     private final Table abortForm;
     private final Table bpForm;
@@ -60,6 +61,8 @@ public class ReportingDatabase {
     private final Table awwCloseChildForm;
     private final Table awwEditChildForm;
     private final Table awwUpdateVaccinationsChildForm;
+    private final Table awwPreschoolActivitiesForm;
+    private final Table awwPreschoolActivitiesChildForm;
 
     private Map<String, Table> tableMapper = new HashMap<>();
 
@@ -103,6 +106,8 @@ public class ReportingDatabase {
         awwCloseChildForm = getFormTable("aww_close_child_form");
         awwEditChildForm = getFormTable("aww_edit_child_form");
         awwUpdateVaccinationsChildForm = getFormTable("aww_update_vaccinations_child_form");
+        awwPreschoolActivitiesForm = getFormTable("aww_preschool_activities_form");
+        awwPreschoolActivitiesChildForm = getFormTable("aww_preschool_activities_child_form");
 
         motherCase = getCaseTable("mother_case");
         childCase = getCaseTable("child_case");
@@ -117,11 +122,14 @@ public class ReportingDatabase {
                                          pncMotherForm, referMotherForm, uiMotherForm, awwRegMotherForm,
                                          awwThrMotherForm);
 
-        childFormTables = Arrays.asList(registrationChildForm, cfChildForm, closeChildForm, deathChildForm, ebfChildForm, pncChildForm,
+        childFormTables = Arrays.asList(registrationChildForm, cfChildForm, closeChildForm,
+                                        deathChildForm, ebfChildForm, pncChildForm,
                                         referChildForm, deliveryChildForm, uiChildForm, growthMonitoringChildForm,
                                         awwRegChild, awwGrowthMonitoring1ChildForm, awwGrowthMonitoring2ChildForm,
                                         awwThrChildForm, awwCloseChildForm, awwEditChildForm,
-                                        awwUpdateVaccinationsChildForm);
+                                        awwUpdateVaccinationsChildForm, awwPreschoolActivitiesChildForm);
+
+        nonCaseFormTables = Arrays.asList(awwPreschoolActivitiesForm);
     }
 
     private Table getFormTable(String tableName) {
@@ -175,6 +183,16 @@ public class ReportingDatabase {
         }
 
         caseTable.delete(caseId);
+    }
+
+    public void deleteForm(String instanceId) {
+        deleteForm(nonCaseFormTables, instanceId);
+    }
+
+    private void deleteForm(List<Table> formTables, String instanceId) {
+        for(Table formTable: formTables) {
+            formTable.deleteBy("instance_id", instanceId);
+        }
     }
 
     public void deleteFLW(String flwId) {

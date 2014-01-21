@@ -29,7 +29,7 @@ public class AwwThrChildForm extends Form {
     private Date timeStart;
     private Date timeEnd;
     private Date dateModified;
-    private Date creationTime;
+    private Date creationTime = new Date();
     private String collectRation;
     private String childDistributeRation;
     private Integer childDaysRationGiven;
