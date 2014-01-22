@@ -54,7 +54,7 @@ public class FormProcessor {
 
         FormCaseType formCaseType = FormInfoParser.getCaseTypeFromNamespace(xmlns);
         Map<String, String> motherForm = motherFormProcessor.parseMotherForm(commcareForm);
-        List<Map<String, String>> childForms = parseChildForms(commcareForm, formCaseType);
+        List<Map<String, String>> childForms = childFormProcessor.parseChildForms(commcareForm);
 
         if (FormFieldSplitter.isNamespaceSupported(xmlns)) {
             Map<String, List<Map<String, String>>> allFields = FormFieldSplitter.splitMotherAndChildrenFields(
@@ -74,14 +74,6 @@ public class FormProcessor {
             service.processAndSaveManyToManyForm(motherForm, childForms);
         } else {
             service.processAndSaveForms(motherForm, childForms);
-        }
-    }
-
-    private List<Map<String, String>> parseChildForms(CommcareForm commcareForm, FormCaseType formCaseType) {
-        if (formCaseType == FormCaseType.CHILD_MANY_TO_MANY) {
-            return childFormProcessor.parseChildManyToManyForms(commcareForm);
-        } else {
-            return childFormProcessor.parseChildForms(commcareForm);
         }
     }
 }

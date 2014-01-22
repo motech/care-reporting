@@ -64,33 +64,6 @@ public class ChildFormProcessor {
         return childDetails;
     }
 
-    List<Map<String, String>> parseChildManyToManyForms(CommcareForm commcareForm) {
-        InfoParser infoParser = mapperService.getFormInfoParser(
-                namespace(commcareForm), appVersion(commcareForm), FormSegment.CHILD);
-        final Map<String, String> metadata = getMetadata(commcareForm);
-
-        List<Map<String, String>> childDetails = new ChildInfoParser(infoParser).parse(commcareForm);
-        for (final Map<String, String> childDetail : childDetails) {
-            childDetail.putAll(metadata);
-
-            applyPostProcessors(CHILD_CASE_MANY_TO_MANY_POST_PROCESSORS, childDetail);
-            parseAndAssignChildCaseId(childDetail);
-
-            applyComputedFields(CHILD_FORM_COMPUTED_FIELDS, childDetail);
-        }
-        return childDetails;
-    }
-
-    private void parseAndAssignChildCaseId(Map<String, String> childDetail) {
-        if (childDetail.containsKey("caseid")) {
-            final ChildCase childCase = service.getOrCreateChildCase(childDetail.get("caseid"));
-            service.saveOrUpdateAllByExternalPrimaryKey(
-                    ChildCase.class, new ArrayList<ChildCase>() {{ add(childCase); }});
-            childDetail.put("caseId", childDetail.get("caseid"));
-            childDetail.put("childCase", Integer.toString(childCase.getId()));
-        }
-    }
-
     private Map<String, String> getMetadata(CommcareForm commcareForm) {
         InfoParser metaDataInfoParser = mapperService.getFormInfoParser(
                 namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);

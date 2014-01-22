@@ -247,7 +247,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         final Form currentForm = (Form) careReportingMapper.map(formClass, formValues);
 
         if (parentForm != null) {
-            setParentForm(currentForm, parentForm);
+            updateManyToManyForm(currentForm, parentForm, formValues);
         }
 
         if (existingForm == null) {
@@ -266,10 +266,17 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return null;
     }
 
-    private void setParentForm(Form currentForm, Form parentForm) {
+    private void updateManyToManyForm(Form currentForm, Form parentForm, Map<String, String> formValues) {
         if (AwwPreschoolActivitiesChildForm.class.isAssignableFrom(currentForm.getClass())
                 && AwwPreschoolActivitiesForm.class.isAssignableFrom(parentForm.getClass())) {
             ((AwwPreschoolActivitiesChildForm) currentForm).setForm((AwwPreschoolActivitiesForm) parentForm);
+
+            if (formValues.containsKey("caseid")) {
+                String caseId = formValues.get("caseid");
+                ChildCase childCase = getOrCreateChildCase(caseId);
+                ((AwwPreschoolActivitiesChildForm) currentForm).setChildCase(childCase);
+                ((AwwPreschoolActivitiesChildForm) currentForm).setCaseId(caseId);
+            }
         }
     }
 
