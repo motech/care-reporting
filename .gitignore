@@ -20,3 +20,4 @@ test-output/
 *.log*
 *.wav
 commcare-migration/dependency-reduced-pom.xml
+care-reporting-email-appender/dependency-reduced-pom.xml
