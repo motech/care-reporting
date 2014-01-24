@@ -44,7 +44,7 @@ public class AwwGrowthMonitoringChildForm1 extends Form {
     private String showGrade;
     private String requiresAttention;
     private String success;
-    private Integer calcGrade;
+    private String calcGrade;
     private String calcGrowth;
     private String childGender;
     private Integer childAge;
@@ -254,11 +254,11 @@ public class AwwGrowthMonitoringChildForm1 extends Form {
     }
 
     @Column(name = "calc_grade")
-    public Integer getCalcGrade() {
+    public String getCalcGrade() {
         return calcGrade;
     }
 
-    public void setCalcGrade(Integer calcGrade) {
+    public void setCalcGrade(String calcGrade) {
         this.calcGrade = calcGrade;
     }
 

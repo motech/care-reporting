@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -36,7 +35,7 @@ public class GrowthMonitoringChildForm extends Form {
     private String showGrade;
     private String requiresAttention;
     private String success;
-    private Integer calcGrade;
+    private String calcGrade;
     private String calcGrowth;
     private String childGender;
     private Integer childAge;
@@ -171,11 +170,11 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
     @Column(name = "calc_grade")
-    public Integer getCalcGrade() {
+    public String getCalcGrade() {
         return calcGrade;
     }
 
-    public void setCalcGrade(Integer calcGrade) {
+    public void setCalcGrade(String calcGrade) {
         this.calcGrade = calcGrade;
     }
 
