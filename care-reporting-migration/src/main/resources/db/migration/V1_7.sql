@@ -225,7 +225,7 @@ CREATE TABLE report.aww_update_vaccinations_child_form (
     time_end TIMESTAMP WITH TIME ZONE,
     creation_time TIMESTAMP WITH TIME ZONE,
     details_available VARCHAR(20),
-    details_needed VARCHAR(20),
+    details_needed VARCHAR(50),
     add_vaccinations VARCHAR(20),
     bcg_date DATE,
     opv_0_date DATE,
@@ -275,7 +275,7 @@ CREATE TABLE report.aww_update_vaccinations_child_form (
     up_to_date_two_year VARCHAR(20),
     success VARCHAR(20),
     immuns_up_to_date VARCHAR(20),
-    child_name VARCHAR(20),
+    child_name VARCHAR(255),
     dob DATE,
     UNIQUE(instance_id, case_id)
 );
