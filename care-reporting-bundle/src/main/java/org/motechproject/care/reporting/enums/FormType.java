@@ -16,5 +16,15 @@ public enum FormType {
     Refer,
     Ui,
     MoveBeneficiary,
-    MotherEdit
+    MotherEdit,
+    AwwRegisterChild,
+    AwwGrowthMonitoring1,
+    AwwGrowthMonitoring2,
+    AwwThrMother,
+    AwwClose,
+    AwwEditChild,
+    AwwUpdateVaccinations,
+    AwwThrChild,
+    CcsGrowthMonitoring,
+    AwwPreschoolActivities
 }

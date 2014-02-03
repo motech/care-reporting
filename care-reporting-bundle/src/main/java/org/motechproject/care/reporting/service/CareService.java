@@ -5,12 +5,17 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.domain.SelfUpdatable;
-import org.motechproject.care.reporting.domain.dimension.*;
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
+import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.domain.dimension.LocationDimension;
+import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesChildForm;
+import org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesForm;
 import org.motechproject.care.reporting.domain.measure.Form;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
-import org.motechproject.care.reporting.processors.CaseNotFoundException;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.slf4j.Logger;
@@ -19,7 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
@@ -142,11 +151,11 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public LocationDimension getLocation(String state, String district, String block) {
 
-        if(containsNullOrEmpty(state, district, block)) {
+        if (containsNullOrEmpty(state, district, block)) {
             return getUnknownLocation();
         }
 
-         Map<String, Object> fieldMaps = getLocationMap(state, district, block);
+        Map<String, Object> fieldMaps = getLocationMap(state, district, block);
         LocationDimension locationDimension = dbRepository.get(LocationDimension.class, fieldMaps, null);
 
         return locationDimension == null ? getUnknownLocation() : locationDimension;
@@ -154,12 +163,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     private LocationDimension getUnknownLocation() {
         final String unknownLocation = "UNKNOWN";
-        LocationDimension locationDimension;Map<String, Object> unknownMap = getLocationMap(unknownLocation, unknownLocation, unknownLocation);
+        LocationDimension locationDimension;
+        Map<String, Object> unknownMap = getLocationMap(unknownLocation, unknownLocation, unknownLocation);
         locationDimension = dbRepository.get(LocationDimension.class, unknownMap, null);
         return locationDimension;
     }
 
-    private Map<String, Object> getLocationMap(final String state,final String district,final String block) {
+    private Map<String, Object> getLocationMap(final String state, final String district, final String block) {
         return new HashMap<String, Object>() {{
             put("state", StringUtils.upperCase(state));
             put("district", StringUtils.upperCase(district));
@@ -167,7 +177,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }};
     }
 
-    private boolean containsNullOrEmpty(final String state,final String district,final String block) {
+    private boolean containsNullOrEmpty(final String state, final String district, final String block) {
         return StringUtils.isEmpty(state) || StringUtils.isEmpty(district) || StringUtils.isEmpty(block);
     }
 
@@ -201,36 +211,72 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public void processAndSaveForms(Map<String, String> motherFormValues, List<Map<String, String>> childFormValues) {
-        if (motherFormValues != null)
-            saveForm(CaseType.MOTHER, motherFormValues);
+
+        if (motherFormValues != null) {
+            saveForm(CaseType.MOTHER, motherFormValues, null);
+        }
 
         for (Map<String, String> childFormValue : childFormValues) {
-            saveForm(CaseType.CHILD, childFormValue);
+            saveForm(CaseType.CHILD, childFormValue, null);
         }
     }
 
-    private void saveForm(CaseType caseType, Map<String, String> formValues) {
+    @Override
+    public void processAndSaveManyToManyForm(Map<String, String> formValues,
+                                             List<Map<String, String>> childFormValues) {
+        Form form = null;
+        if (formValues != null) {
+            form = saveForm(CaseType.MOTHER, formValues, null);
+        }
+
+        for (Map<String, String> childFormValue : childFormValues) {
+            saveForm(CaseType.CHILD, childFormValue, form);
+        }
+    }
+
+    private Form saveForm(CaseType caseType, Map<String, String> formValues, Form parentForm) {
         String xmlns = formValues.get("xmlns");
         String instanceId = formValues.get("instanceId");
         Class<?> formClass = FormFactory.getForm(xmlns, caseType);
         if (formClass == null) {
             logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
-            return;
+            return null;
         }
 
         final Form existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
         final Form currentForm = (Form) careReportingMapper.map(formClass, formValues);
-        if(existingForm == null) {
+
+        if (parentForm != null) {
+            updateManyToManyForm(currentForm, parentForm, formValues);
+        }
+
+        if (existingForm == null) {
             dbRepository.save(currentForm);
-        }
-        else if (existingForm.getServerDateModified() != null && (currentForm.getServerDateModified() == null ||
-                 currentForm.getServerDateModified().before(existingForm.getServerDateModified()))) {
+            return currentForm;
+        } else if (existingForm.getServerDateModified() != null && (currentForm.getServerDateModified() == null ||
+                currentForm.getServerDateModified().before(existingForm.getServerDateModified()))) {
             logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
-        }
-        else {
+        } else {
             logger.info(format("Deleting existing %s form with instance id %s and saving a latest form.", formClass.getName(), instanceId));
             dbRepository.delete(existingForm);
             dbRepository.save(currentForm);
+            return currentForm;
+        }
+
+        return null;
+    }
+
+    private void updateManyToManyForm(Form currentForm, Form parentForm, Map<String, String> formValues) {
+        if (AwwPreschoolActivitiesChildForm.class.isAssignableFrom(currentForm.getClass())
+                && AwwPreschoolActivitiesForm.class.isAssignableFrom(parentForm.getClass())) {
+            ((AwwPreschoolActivitiesChildForm) currentForm).setForm((AwwPreschoolActivitiesForm) parentForm);
+
+            if (formValues.containsKey("caseid")) {
+                String caseId = formValues.get("caseid");
+                ChildCase childCase = getOrCreateChildCase(caseId);
+                ((AwwPreschoolActivitiesChildForm) currentForm).setChildCase(childCase);
+                ((AwwPreschoolActivitiesChildForm) currentForm).setCaseId(caseId);
+            }
         }
     }
 

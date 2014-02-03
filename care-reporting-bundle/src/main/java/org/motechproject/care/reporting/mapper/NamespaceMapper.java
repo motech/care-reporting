@@ -26,6 +26,16 @@ public class NamespaceMapper {
         put(pregnancyPrefix + "mtp_abort", FormType.Abort);
         put(pregnancyPrefix + "update_vaccinations", FormType.Ui);
         put(pregnancyPrefix + "mother_edit", FormType.MotherEdit);
+        put(pregnancyPrefix + "aww_reg_child", FormType.AwwRegisterChild);
+        put(pregnancyPrefix + "aww_growth_monitoring_1", FormType.AwwGrowthMonitoring1);
+        put(pregnancyPrefix + "aww_growth_monitoring_2", FormType.AwwGrowthMonitoring2);
+        put(pregnancyPrefix + "aww_mother_thr", FormType.AwwThrMother);
+        put(pregnancyPrefix + "aww_close", FormType.AwwClose);
+        put(pregnancyPrefix + "aww_child_edit", FormType.AwwEditChild);
+        put(pregnancyPrefix + "aww_update_vaccinations", FormType.AwwUpdateVaccinations);
+        put(pregnancyPrefix + "aww_child_thr", FormType.AwwThrChild);
+        put(pregnancyPrefix + "growth_monitoring", FormType.CcsGrowthMonitoring);
+        put(pregnancyPrefix + "aww_preschool_activities", FormType.AwwPreschoolActivities);
         put(toolsPrefix + "move_beneficiary", FormType.MoveBeneficiary);
     }};
 

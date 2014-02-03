@@ -37,7 +37,11 @@ public class MotherEditForm extends Form {
     private String updateMobileNumberWhose;
     private String husbandName;
     private String updateHusbandName;
-
+    private Integer mctsId;
+    private String updateMctsId;
+    private String updateAadharNumber;
+    private String aadharNumber;
+    private String fullMctsId;
 
     public MotherEditForm() {
 
@@ -277,5 +281,50 @@ public class MotherEditForm extends Form {
 
     public void setCaseName(String caseName) {
         this.caseName = caseName;
+    }
+
+    @Column(name = "mcts_id")
+    public Integer getMctsId() {
+        return mctsId;
+    }
+
+    public void setMctsId(Integer mctsId) {
+        this.mctsId = mctsId;
+    }
+
+    @Column(name = "update_mcts_id")
+    public String getUpdateMctsId() {
+        return updateMctsId;
+    }
+
+    public void setUpdateMctsId(String updateMctsId) {
+        this.updateMctsId = updateMctsId;
+    }
+
+    @Column(name = "update_aadhar_number")
+    public String getUpdateAadharNumber() {
+        return updateAadharNumber;
+    }
+
+    public void setUpdateAadharNumber(String updateAadharNumber) {
+        this.updateAadharNumber = updateAadharNumber;
+    }
+
+    @Column(name = "aadhar_number")
+    public String getAadharNumber() {
+        return aadharNumber;
+    }
+
+    public void setAadharNumber(String aadharNumber) {
+        this.aadharNumber = aadharNumber;
+    }
+
+    @Column(name = "full_mcts_id")
+    public String getFullMctsId() {
+        return fullMctsId;
+    }
+
+    public void setFullMctsId(String fullMctsId) {
+        this.fullMctsId = fullMctsId;
     }
 }
