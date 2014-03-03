@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.motechproject</groupId>
     <artifactId>care-reporting</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <modules>
         <module>care-reporting-migration</module>
         <module>care-reporting-bundle</module>
