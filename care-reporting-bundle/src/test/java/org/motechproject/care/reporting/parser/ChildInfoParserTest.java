@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
@@ -26,6 +27,8 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,6 +50,19 @@ public class ChildInfoParserTest {
     public void setUp(){
         initMocks(this);
         childInfoParser = new ChildInfoParser(infoParser);
+    }
+
+    private class ObjectEqualityArgumentMatcher<T> extends ArgumentMatcher<T> {
+        T thisObject;
+
+        public ObjectEqualityArgumentMatcher(T thisObject) {
+            this.thisObject = thisObject;
+        }
+
+        @Override
+        public boolean matches(Object o) {
+            return thisObject.equals(o);
+        }
     }
 
     @Test
@@ -73,6 +89,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -125,6 +142,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -181,6 +199,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement2 = getFVE("case", childCaseElement2);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement1)
                 .addSubElement("child_info", childInfoElement2)
                 .withReceivedOn(receivedOn)
@@ -233,6 +252,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement = getFVE("case", childCaseElement);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement)
                 .withReceivedOn(receivedOn)
                 .build();
@@ -279,6 +299,7 @@ public class ChildInfoParserTest {
         FormValueElement childInfoElement = getFVE("case", childCaseElement);
 
         CommcareForm commcareForm = new CommcareFormBuilder()
+                .addAttribute("xmlns", "")
                 .addSubElement("child_info", childInfoElement)
                 .build();
         commcareForm.setId(instanceId);

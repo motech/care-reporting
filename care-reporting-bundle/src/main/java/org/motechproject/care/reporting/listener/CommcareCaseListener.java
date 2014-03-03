@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static java.lang.String.format;
 
 @Component
@@ -39,6 +41,10 @@ public class CommcareCaseListener {
         String caseId = caseEvent.getCaseId();
         String action = caseEvent.getAction();
         String caseName = caseEvent.getCaseName();
+
+        if (caseEvent.getCaseDataXmlns() != null && caseEvent.getCaseDataXmlns().endsWith("/task")) {
+            return;
+        }
 
         logger.info(format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
 

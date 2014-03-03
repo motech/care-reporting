@@ -48,6 +48,20 @@ public class FormFactory {
         put(new Pair<>(FormType.Mo, CaseType.MOTHER), MoForm.class);
         put(new Pair<>(FormType.MoveBeneficiary, CaseType.MOTHER), MoveBeneficiaryForm.class);
         put(new Pair<>(FormType.MotherEdit, CaseType.MOTHER), MotherEditForm.class);
+
+        put(new Pair<>(FormType.AwwRegisterChild, CaseType.MOTHER), AwwRegisterMotherForm.class);
+        put(new Pair<>(FormType.AwwRegisterChild, CaseType.CHILD), AwwRegisterChildForm.class);
+        put(new Pair<>(FormType.AwwGrowthMonitoring1, CaseType.CHILD), AwwGrowthMonitoringChildForm1.class);
+        put(new Pair<>(FormType.AwwGrowthMonitoring2, CaseType.CHILD), AwwGrowthMonitoringChildForm2.class);
+        put(new Pair<>(FormType.AwwThrMother, CaseType.MOTHER), AwwThrMotherForm.class);
+        put(new Pair<>(FormType.AwwClose, CaseType.CHILD), AwwCloseChildForm.class);
+        put(new Pair<>(FormType.AwwEditChild, CaseType.CHILD), AwwEditChildForm.class);
+        put(new Pair<>(FormType.AwwUpdateVaccinations, CaseType.CHILD), AwwUpdateVaccinationsChildForm.class);
+        put(new Pair<>(FormType.AwwThrChild, CaseType.CHILD), AwwThrChildForm.class);
+        put(new Pair<>(FormType.AwwPreschoolActivities, CaseType.MOTHER), AwwPreschoolActivitiesForm.class);
+        put(new Pair<>(FormType.AwwPreschoolActivities, CaseType.CHILD), AwwPreschoolActivitiesChildForm.class);
+
+        put(new Pair<>(FormType.CcsGrowthMonitoring, CaseType.CHILD), GrowthMonitoringChildForm.class);
     }};
 
     public static Class<?> getForm(String namespace, CaseType caseType) {

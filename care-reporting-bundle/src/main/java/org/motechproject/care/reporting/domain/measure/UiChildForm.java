@@ -62,6 +62,11 @@ public class UiChildForm extends Form {
 	private Date vitA2Date;
 	private Date vitA3Date;
     private Date creationTime = new Date();
+    private String upToDateSixWeeks;
+    private String upToDateTenWeeks;
+    private String upToDate14Weeks;
+    private String upToDateTwoYear;
+    private String immunsUpToDate;
 
     public UiChildForm() {
 	}
@@ -531,5 +536,50 @@ public class UiChildForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "up_to_date_six_weeks")
+    public String getUpToDateSixWeeks() {
+        return upToDateSixWeeks;
+    }
+
+    public void setUpToDateSixWeeks(String upToDateSixWeeks) {
+        this.upToDateSixWeeks = upToDateSixWeeks;
+    }
+
+    @Column(name = "up_to_date_ten_weeks")
+    public String getUpToDateTenWeeks() {
+        return upToDateTenWeeks;
+    }
+
+    public void setUpToDateTenWeeks(String upToDateTenWeeks) {
+        this.upToDateTenWeeks = upToDateTenWeeks;
+    }
+
+    @Column(name = "up_to_date_14_weeks")
+    public String getUpToDate14Weeks() {
+        return upToDate14Weeks;
+    }
+
+    public void setUpToDate14Weeks(String upToDate14Weeks) {
+        this.upToDate14Weeks = upToDate14Weeks;
+    }
+
+    @Column(name = "up_to_date_two_year")
+    public String getUpToDateTwoYear() {
+        return upToDateTwoYear;
+    }
+
+    public void setUpToDateTwoYear(String upToDateTwoYear) {
+        this.upToDateTwoYear = upToDateTwoYear;
+    }
+
+    @Column(name = "immuns_up_to_date")
+    public String getImmunsUpToDate() {
+        return immunsUpToDate;
+    }
+
+    public void setImmunsUpToDate(String immunsUpToDate) {
+        this.immunsUpToDate = immunsUpToDate;
     }
 }

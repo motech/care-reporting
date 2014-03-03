@@ -31,4 +31,16 @@ public class TableName {
     public static String schema_version = "schema_version";
     public static String ui_child_form = "ui_child_form";
     public static String ui_mother_form = "ui_mother_form";
+    public static String growth_monitoring_child_form = "growth_monitoring_child_form";
+    public static String aww_reg_child_form = "aww_reg_child_form";
+    public static String aww_reg_mother_form = "aww_reg_mother_form";
+    public static String aww_growth_monitoring_1_child_form = "aww_growth_monitoring_1_child_form";
+    public static String aww_growth_monitoring_2_child_form = "aww_growth_monitoring_2_child_form";
+    public static String aww_thr_mother_form = "aww_thr_mother_form";
+    public static String aww_thr_child_form = "aww_thr_child_form";
+    public static String aww_close_child_form = "aww_close_child_form";
+    public static String aww_edit_child_form = "aww_edit_child_form";
+    public static String aww_update_vaccinations_child_form = "aww_update_vaccinations_child_form";
+    public static String aww_preschool_activities_form = "aww_preschool_activities_form";
+    public static String aww_preschool_activities_child_form = "aww_preschool_activities_child_form";
 }

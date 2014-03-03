@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>care-reporting-bundle</artifactId>
     <groupId>org.motechproject</groupId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <properties>
-        <motech.version>0.21</motech.version>
+        <motech.version>0.21.1</motech.version>
     </properties>
 
     <dependencies>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>commcare-provider-sync</artifactId>
-            <version>0.1</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -160,6 +160,10 @@
                             org.springframework.orm.hibernate3.annotation,
                             org.springframework.aop,
                             org.springframework.aop.framework,
+                            org.springframework.beans.factory,
+                            net.sf.cglib.core,
+                            net.sf.cglib.proxy,
+                            net.sf.cglib.reflect,
                             org.aopalliance.aop,
                             org.hibernate,
                             org.hibernate.jdbc,

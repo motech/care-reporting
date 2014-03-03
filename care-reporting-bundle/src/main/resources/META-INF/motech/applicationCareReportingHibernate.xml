@@ -15,13 +15,6 @@
 
     <context:property-placeholder properties-ref="careReportingConfigs"/>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean>
-
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
 
@@ -58,6 +51,19 @@
                 <value>org.motechproject.care.reporting.domain.measure.DeliveryMotherForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm</value>
                 <value>org.motechproject.care.reporting.domain.measure.MotherEditForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwRegisterChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwRegisterMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm1</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwGrowthMonitoringChildForm2</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwThrMotherForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwCloseChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwEditChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwUpdateVaccinationsChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwThrChildForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesForm</value>
+                <value>org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesChildForm</value>
+
+                <value>org.motechproject.care.reporting.domain.measure.GrowthMonitoringChildForm</value>
             </list>
         </property>
 

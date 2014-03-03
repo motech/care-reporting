@@ -32,7 +32,7 @@ public class CloseChildForm extends Form {
     private String placeDeath;
     private Date creationTime = new Date();
     private Boolean close;
-
+    private String ownerId;
 
     public CloseChildForm() {
 	}
@@ -214,5 +214,14 @@ public class CloseChildForm extends Form {
     @Override
     public String toString() {
         return FormToString.toString(this);
+    }
+
+    @Column(name = "owner_id")
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

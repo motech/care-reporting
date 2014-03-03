@@ -3,6 +3,8 @@ package org.motechproject.care.reporting.processors;
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.ClosedFormPostProcessor;
 import org.motechproject.care.reporting.parser.DelFupFixPostProcessor;
+import org.motechproject.care.reporting.parser.FormCaseType;
+import org.motechproject.care.reporting.parser.FormInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.MetaInfoParser;
 import org.motechproject.care.reporting.parser.MotherInfoParser;
@@ -33,6 +35,10 @@ public class MotherFormProcessor {
         add(new DelFupFixPostProcessor());
     }};
 
+    private static List<PostProcessor> CHILD_MANY_TO_MANY_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{
+        add(FORM_COPY_USER_ID_AS_FLW);
+    }};
+
     private List<ComputedFieldsProcessor> MOTHER_FORM_COMPUTED_FIELDS = new ArrayList<>();
 
     private MapperService mapperService;
@@ -45,12 +51,19 @@ public class MotherFormProcessor {
     }
 
     public Map<String, String> parseMotherForm(CommcareForm commcareForm) {
-        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.METADATA);
+        String namespace = this.getNamespace(commcareForm);
+        FormCaseType caseType = FormInfoParser.getCaseTypeFromNamespace(namespace);
+        if (caseType == FormCaseType.CHILD_ONLY) {
+            return null;
+        }
+
+        String appVersion = this.getAppVersion(commcareForm);
+        Map<String, String> motherInfo = new HashMap<>();
+        InfoParser metaDataInfoParser = mapperService.getFormInfoParser(namespace, appVersion, FormSegment.METADATA);
         Map<String, String> metadata = new MetaInfoParser(metaDataInfoParser).parse(commcareForm);
 
-        Map<String, String> motherInfo = new HashMap<>();
         motherInfo.putAll(metadata);
-        InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace(commcareForm), appVersion(commcareForm), FormSegment.MOTHER);
+        InfoParser motherInfoParser = mapperService.getFormInfoParser(namespace, appVersion, FormSegment.MOTHER);
         Map<String, String> formFields = new MotherInfoParser(motherInfoParser).parse(commcareForm);
         if (formFields == null) {
             return null;
@@ -58,22 +71,29 @@ public class MotherFormProcessor {
 
         motherInfo.putAll(formFields);
 
-        applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
-
+        chooseAndApplyPostProcessors(caseType, motherInfo);
         applyComputedFields(MOTHER_FORM_COMPUTED_FIELDS, motherInfo);
 
         return motherInfo;
     }
 
-    private String namespace(CommcareForm commcareForm) {
-        return attribute(commcareForm, "xmlns");
+    private void chooseAndApplyPostProcessors(FormCaseType caseType, Map<String, String> motherInfo) {
+        if (caseType == FormCaseType.CHILD_MANY_TO_MANY) {
+            applyPostProcessors(CHILD_MANY_TO_MANY_FORM_POST_PROCESSORS, motherInfo);
+        } else {
+            applyPostProcessors(MOTHER_FORM_POST_PROCESSORS, motherInfo);
+        }
     }
 
-    private String appVersion(CommcareForm commcareForm) {
+    private String getNamespace(CommcareForm commcareForm) {
+        return this.getAttribute(commcareForm, "xmlns");
+    }
+
+    private String getAppVersion(CommcareForm commcareForm) {
         return commcareForm.getMetadata().get("appVersion");
     }
 
-    private String attribute(CommcareForm commcareForm, String name) {
+    private String getAttribute(CommcareForm commcareForm, String name) {
         return commcareForm.getForm().getAttributes().get(name);
     }
 }
