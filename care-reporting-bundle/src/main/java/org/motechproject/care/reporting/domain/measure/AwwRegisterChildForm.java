@@ -38,7 +38,7 @@ public class AwwRegisterChildForm extends Form {
 	private Integer ageEstYears;
 	private Integer childMctsId;
 	private String invalidOwner;
-	private Integer fullChildMctsId;
+	private String fullChildMctsId;
 	private String success;
 	private String ownerIdCalc;
 
@@ -190,11 +190,11 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	@Column(name = "full_child_mcts_id")
-	public Integer getFullChildMctsId() {
+	public String getFullChildMctsId() {
 		return fullChildMctsId;
 	}
 
-	public void setFullChildMctsId(Integer fullChildMctsId) {
+	public void setFullChildMctsId(String fullChildMctsId) {
 		this.fullChildMctsId = fullChildMctsId;
 	}
 
