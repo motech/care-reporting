@@ -65,9 +65,9 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         List<Flw> flwsFromDb = template.loadAll(Flw.class);
         assertEquals(3, flwsFromDb.size());
 
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471", location), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null, location), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
-        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472", location), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed57c", "8294168471", "8294168471", "918294168471", location, "1092830192"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed374", "8294168471", "8294168471", null, location, "1092830192"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
+        assertReflectionContains(flw("b0645df855266f29849eb2515b5ed176", "8294168471", "8294168471", "8294168472", location, "1092830192"), flwsFromDb, new String[]{"id", "flwGroups", "creationTime", "lastModifiedTime"});
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(3, flwGroupsFromDb.size());
@@ -83,10 +83,10 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
         return flwGroup;
     }
 
-    private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2, LocationDimension locationDimension) {
+    private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2, LocationDimension locationDimension, String locationCode) {
         return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2,
                 "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null,
-                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, DEFAULT_DOB, null, null, locationDimension);
+                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, DEFAULT_DOB, null, null, locationDimension,locationCode);
     }
 
     private FlwGroup flwGroup(String groupId) {

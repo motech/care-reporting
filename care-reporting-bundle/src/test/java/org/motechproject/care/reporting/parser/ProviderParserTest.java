@@ -48,6 +48,7 @@ public class ProviderParserTest {
         final HashMap<String, String> userDataKeyConversionMap = new HashMap<String, String>() {{
             put("asset-id", "assetId");
             put("awc-code", "awcCode");
+            put("location-code", "locationCode");
         }};
 
         final HashMap<String, Object> providerParsedMap = new HashMap<String, Object>() {{

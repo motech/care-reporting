@@ -22,7 +22,10 @@ public class ProviderParser extends BaseInfoParser {
         Map<String, Object> userData = parseProviderInfo(provider.getUserData(), new HashMap<String, String>() {{
             put("asset-id", "assetId");
             put("awc-code", "awcCode");
+            put("location-code", "locationCode");
         }});
+        
+     
         parsedProviderMap.putAll(providerData);
         parsedProviderMap.putAll(userData);
 

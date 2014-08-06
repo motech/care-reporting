@@ -41,6 +41,7 @@ public class ProviderBuilder {
             put("village", "Kopargoan");
             put("ward", "Thiruppalai");
             put("dob", "1980-01-01");
+            put("location-code", "1092830192");
         }});
         setField("username", "8294168471@care-bihar.commcarehq.org");
         return this;

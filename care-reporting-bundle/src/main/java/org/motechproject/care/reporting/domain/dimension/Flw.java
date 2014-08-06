@@ -6,6 +6,7 @@ import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 
 import javax.persistence.*;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -47,6 +48,16 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     private Date lastModifiedTime;
     private Set<FlwGroup> flwGroups;
     private LocationDimension locationDimension;
+    private String locationCode;
+
+    @Column(name = "location_code")
+	public String getLocationCode() {
+        return locationCode;
+    }
+
+    public void setLocationCode(String locationCode) {
+        this.locationCode = locationCode;
+    }
 
 	public Flw() {
         Date date = new Date();
@@ -61,7 +72,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String state, String district, String block, String panchayat, String village,
-               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension) {
+               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension, String locationCode) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -90,8 +101,10 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
         this.locationDimension = locationDimension;
+        this.locationCode = locationCode;
     }
 
+    
     @Id
 	@Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
